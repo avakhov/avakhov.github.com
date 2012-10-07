@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Опасная иллюзия - Алексей Вахов </title>
+  <meta name="author" content="Alexey Vakhov">
+
+  
+  <meta name="description" content="Я часто рассказываю в своей интерпретации
+историю, которую прочитал в одной из классических книг по программированию, не могу вспомнить в какой. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://avakhov.github.com/blog/2012/07/10/death-illisuion/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Alexey Vakhov" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10590669-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Alexey Vakhov</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:avakhov.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Опасная иллюзия</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-10T08:43:00+04:00" pubdate data-updated="true">Jul 10<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="right" src="/images/12-illusion/ch.jpg"></p>
+
+<p>Я часто рассказываю в своей интерпретации
+историю, которую прочитал в одной из классических книг по программированию, не могу вспомнить в какой.</p>
+
+<p>Основная идея истории заключается в том, что у любого программного обеспечения есть 3 стадии: любительская, когда что-то
+работает у программиста на компьютере, профессиональная, когда программное обеспечение
+можно установить и люди его будут использовать в повседневной работе, и коробочная, которую
+можно устанавливать на многих компьютерах, многих людей. Трудозатраты этих 3-х версий находятся в примерном
+отношении 1:10:100, где коэффициент 10 очень сильно зависит от типа проекта. Очень вероятно встретить проект в котором
+данное соотношение будет 1:100:10000, но не существует проектов где бы это соотношение было 1:3:9 или еще лучше.</p>
+
+<!--more-->
+
+
+<p>В мире руби он рейлс программирования, в данной терминологии, любительская версия - это прототип, который почти работает,
+профессиональная версия - это живой продакшн, коробочная версия - это гем. На примере первых двух версий я хочу вам рассказать
+о самой страшной, по моему мнению, иллюзии, которая, я уверен, погубила очень много проектов. Это иллюзия приводит к главному
+бичу программистов - чудовищному срыву сроков.</p>
+
+<p><img src="/images/12-illusion/schema.png"></p>
+
+<p>Посмотрите, что происходит в реальной жизни. Отрезок AС соответствует полному времени, необходимому для создания живого продакшена
+(исправление всех дефектов, доработок, сглаживание шероховатостей и т.д.). Отрезок AB - это время создания прототипа (любительской
+версии). Соотношение длин отрезков как раз соответствует отношению 1:10, которое мы обсуждали в начале рассказа. Точка L - это
+состояние проекта, когда у программиста на компьютере &#8220;что-то работает&#8221;. Данная версия деплоится на бету, клиент
+нажимает несколько кнопок, и у него создается впечатление что проект &#8220;почти работает&#8221;,
+то есть находится как минимум в точке K. Самое страшное, что часто сам программист думает так же. В данном, простом случае, получается
+ошибка оценки на порядок (кажется что проект выполнен по крайней мере на 70%, а на самом деле готовность проекта не больше 7%).</p>
+
+<p>Типовой проект обычно проходит по следующей схеме. Программист, наслаждаясь собой и жизнью,
+быстро проходит отрезок AL и даже AB, клиент радостно
+потирает руки. Оставшийся отрезок BC (90% времени!) проходят в стрессе, конфликтах и постоянных срывов сроков и обещаний. У вас
+возникает вопрос: &#8220;Как же избежать такой схемы и не ошибаться в своих оценках?&#8221; С удовольствием отвечаю: &#8220;Я не знаю.&#8221;</p>
+
+<p>Данная проблема очень волнует меня, но cеребрянной пули, которая помогла
+бы адекватно оценивать отрезки AB и AC не существует. Тем не менее существует набор методов, которые помогают ошибаться с оценкой не в
+двадцать раз, а всего лишь в пять :-)</p>
+
+<p><strong>Контроль времени:</strong> на все возможные &#8220;тёмные&#8221; активности уходит неприлично много времени, гораздо больше, чем кажется.
+Написать письмо на три абзаца - 1 час рабочего времени, пост в блог - 3 часа рабочего времени, встреча с клиентом - 5 часов рабочего
+времени, разочарование в профессии - бесценно. Когда работаешь на энтузиазме над прототипом, то тёмных активностей гораздо меньше.</p>
+
+<p><strong>Договориться с клиентом об Agile:</strong> то есть брать оплату за фактическое время. На самом деле это полумера, так как клиент все равно
+будет требовать каких то оценок и обязательств. И ему будет сложно объяснить, что 20 часов, потраченных на рефакторинг,
+и 30 часов на твиттер - это для пользы дела.</p>
+
+<p><strong>Максимальное упрощение и стандартизация кодовой базы:</strong> &#8220;Будь проще и люди потянутся к тебе&#8221; - всегда говорит мой дядя.
+Усложненный, запутанный код сильно увеличивает вероятность заниженной оценки.</p>
+
+<p><strong>Автоматизация всего, чего возможно:</strong> если, для того чтобы выкатить проект необходимо зайти на сервер, git pull, выполнить пару рейк
+задач, перезапустить демона и обновить базу, то в какой-то момент вы обязательно забудете какой-нибудь шаг. Чтобы из дома открыть
+ноутбук, разобраться с паролями, с ошибкой, написать письмо, туда-сюда уходит 2 часа.
+Не забывайте, что в неделю у нас максимум 20-40 часов и так легко
+бесполезно потратить из них 10%.</p>
+
+<p><strong>Оптимизм:</strong> просто верить, что все будет хорошо.</p>
+
+<p>Надеюсь данные методики, особенно последняя, помогут вам выполнять все проекты в срок и даже немножко раньше :-)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Alexey Vakhov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-10T08:43:00+04:00" pubdate data-updated="true">Jul 10<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://avakhov.github.com/blog/2012/07/10/death-illisuion/" data-via="" data-counturl="http://avakhov.github.com/blog/2012/07/10/death-illisuion/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/02/advices/" title="Previous Post: Разные мелочи">&laquo; Разные мелочи</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/17/the-history-of-a-comma/" title="Next Post: История одной запятой">История одной запятой &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <style>
+  section#about p {margin-bottom: 5px;}
+  section#about p img {vertical-align: middle;}
+  section#about img.logo {margin-left: 5px;}
+</style>
+
+<section id="about">
+  <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+  <p><img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a></p>
+  <p><img src="/images/gmail.ico"> - vakhov@gmail.com</p>
+  <p><img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a></p>
+  <p><img src="/images/skype.ico"> - avakhov</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/17/the-history-of-a-comma/">История одной запятой</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/10/death-illisuion/">Опасная иллюзия</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/05/rules-and-comfort/">Правила и комфорт</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Alexey Vakhov -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'vakhov-me';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://avakhov.github.com/blog/2012/07/10/death-illisuion/';
+        var disqus_url = 'http://avakhov.github.com/blog/2012/07/10/death-illisuion/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,865 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title> Алексей Вахов - Технический Блог </title>
+  <meta name="author" content="Alexey Vakhov">
+
+  
+  <meta name="description" content="To extract several pages from a big pdf document use utility pdfnup (in Ubuntu fire a command sudo apt-get install pdfjam): 1
+pdfnup big.pdf --nup &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://avakhov.github.com/blog/page/5/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Alexey Vakhov" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10590669-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Alexey Vakhov</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:avakhov.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/14/extract-pdf-pages/">Extract Some Pages From Pdf Document</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-14T15:27:00+04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/14/extract-pdf-pages/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To extract several pages from a big pdf document use utility <tt>pdfnup</tt> (in Ubuntu fire a command <tt>sudo apt-get install pdfjam</tt>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>pdfnup big.pdf --nup 1x1 --pages 12-15 --outfile out.pdf
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/11/gitignore-exclude/">Gitignore Negation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-11T10:10:00+04:00" pubdate data-updated="true">Oct 11<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/11/gitignore-exclude/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>File ignoring negation:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>~/ideas/proj<span class="o">[</span>master<span class="o">]</span><span class="nv">$ </span>cat .gitignore
+</span><span class='line'><span class="c"># ignore all txt files except b.txt</span>
+</span><span class='line'>*.txt
+</span><span class='line'>!b.txt
+</span><span class='line'>
+</span><span class='line'>~/ideas/proj<span class="o">[</span>master<span class="o">]</span><span class="nv">$ </span>touch a.txt b.txt c.txt
+</span><span class='line'>
+</span><span class='line'>~/ideas/proj<span class="o">[</span>master<span class="o">]</span><span class="nv">$ </span>git status
+</span><span class='line'><span class="c"># On branch master</span>
+</span><span class='line'><span class="c"># Untracked files:</span>
+</span><span class='line'><span class="c">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># b.txt</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/06/rack/">Who Are You, Mr. Rack?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-06T12:54:00+04:00" pubdate data-updated="true">Oct 6<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/06/rack/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For a long time I didn&#8217;t understand what is it <a href="http://rack.rubyforge.org/">Rack</a>.
+From <a href="http://chneukirchen.org/blog/archive/2007/02/introducing-rack.html">here</a> I found that it&#8217;s very simple.</p>
+
+<p>Create file:</p>
+
+<figure class='code'><figcaption><span>config.ru</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">HelloWorld</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">},</span> <span class="o">[</span><span class="s2">&quot;Hello world!&quot;</span><span class="o">]]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">run</span> <span class="no">HelloWorld</span><span class="o">.</span><span class="n">new</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And execute command <tt>rackup</tt>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>~/sandbox/rack-server<span class="nv">$ </span>rackup
+</span><span class='line'><span class="o">[</span>2011-10-06 16:03:30<span class="o">]</span> INFO  WEBrick 1.3.1
+</span><span class='line'><span class="o">[</span>2011-10-06 16:03:30<span class="o">]</span> INFO  ruby 1.8.7 <span class="o">(</span>2011-06-30<span class="o">)</span> <span class="o">[</span>i686-linux<span class="o">]</span>
+</span><span class='line'><span class="o">[</span>2011-10-06 16:03:35<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>30598 <span class="nv">port</span><span class="o">=</span>9292
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Congratulations! It&#8217;s your the first simple rack server. It availables by http://localhost:9292</p>
+
+<p>Also we can cleate one line server:</p>
+
+<figure class='code'><figcaption><span>config.ru</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">run</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{</span><span class="o">|</span><span class="n">env</span><span class="o">|</span> <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">},</span> <span class="o">[</span><span class="s2">&quot;Hello world!&quot;</span><span class="o">]]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/06/split-and-join/">Split and Join</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-06T09:58:00+04:00" pubdate data-updated="true">Oct 6<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/06/split-and-join/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The task to split string, process each part and join string back is very common. Supporse we want
+to capitalize each work in a centence.</p>
+
+<p>The simplest solution is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;hello world!&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># =&gt; &quot;Hello World!&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But if you want to process string more precise:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;Hello,world!and peace&quot;</span><span class="o">.</span><span class="n">some_method</span> <span class="c1"># =&gt; &quot;Hello,World!And Peace&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yon need more advanced method.  I did&#8217;t found right &#8220;some_method&#8221; in rails or ruby API.
+Usual I use <tt>split_and_join</tt> approach:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">String</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">split_and_join</span><span class="p">(</span><span class="n">regexp</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">ins</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">dup</span>
+</span><span class='line'>    <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span class='line'>    <span class="c1"># the loop below in one line only for fun</span>
+</span><span class='line'>    <span class="n">out</span><span class="p">,</span> <span class="n">ins</span> <span class="o">=</span> <span class="n">out</span> <span class="o">+</span> <span class="k">yield</span><span class="p">(</span><span class="vg">$`</span><span class="p">)</span> <span class="o">+</span> <span class="vg">$&amp;</span><span class="p">,</span> <span class="vg">$&#39;</span> <span class="k">while</span> <span class="n">ins</span> <span class="o">=~</span> <span class="n">regexp</span>
+</span><span class='line'>    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="k">yield</span><span class="p">(</span><span class="n">ins</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">out</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And demos:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;hello,world!and peace&quot;</span><span class="o">.</span><span class="n">split_and_join</span><span class="p">(</span><span class="sr">/[,! ]+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span> <span class="c1"># =&gt; &quot;Hello,World!And Peace&quot;</span>
+</span><span class='line'><span class="s2">&quot;hello&quot;</span><span class="o">.</span><span class="n">split_and_join</span><span class="p">(</span><span class="sr">/[,! ]+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span>                 <span class="c1"># =&gt; &quot;Hello&quot;</span>
+</span><span class='line'><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">split_and_join</span><span class="p">(</span><span class="sr">/[,! ]+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span>                      <span class="c1"># =&gt; &quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/03/git-tips/">Git Tips</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-03T08:31:00+04:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/03/git-tips/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are three things that can be doing infinitely: reading vim documentation,
+reading rails documentation and reading git documentation.</p>
+
+<p>I have read <a href="http://progit.org/book/">Pro Git</a> book and found a couple of commands that I have been never used but they can be very useful.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git commit -v</span></code></pre></td></tr></table></div></figure>
+
+
+<p>opens your favorite editor with full diff of changes. It helps to write smarter commit message.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git log -p</span></code></pre></td></tr></table></div></figure>
+
+
+<p>shows history of changes with full diffs.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git describe   # =&gt; v0.0.3-15-gf14657b</span></code></pre></td></tr></table></div></figure>
+
+
+<p>helps to create version string for any snapshot from repository (use <tt>git describe &#8211;tags</tt> if you have only lightweight tags).</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git shorlog</span></code></pre></td></tr></table></div></figure>
+
+
+<p>helps to write changlog after another release.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add --interactive</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fires sophisticated staging shell.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git bisect run &lt;cmd&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>executes <tt>cmd</tt> for each <tt>bisect</tt> iteration.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/28/git-reviews/">Git Commits Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-28T20:04:00+04:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/09/28/git-reviews/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the post <a href="/blog/2011/09/22/git-format-patch/">Git Format Patch</a> I described a simple way to inspect
+last commits in git repository. Today I found better solution in the most cases.
+Use command <tt>git log</tt> with switch <tt>-p</tt>.</p>
+
+<p>To review last 3 commits fire the command below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git log -p HEAD^^^..
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It output pointed commits with full info:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>commit 85a0e4087b8439c0aa6b1f4f9e08c26052ab7e87
+</span><span class='line'>Author: Mike Donaghy &lt;mike@mikedonaghy.org&gt;
+</span><span class='line'>Date:   Tue Jul 15 19:24:39 2008 -0400
+</span><span class='line'>
+</span><span class='line'>    added Befunge
+</span><span class='line'>
+</span><span class='line'>diff --git a/befunge.be b/befunge.be
+</span><span class='line'>new file mode 100644
+</span><span class='line'>index 0000000..0aa8571
+</span><span class='line'>--- /dev/null
+</span><span class='line'>+++ b/befunge.be
+</span><span class='line'>@@ -0,0 +1 @@
+</span><span class='line'>+&gt;<span class="s2">&quot;dlroW olleH&quot;</span>,,,,,,,,,,,@
+</span><span class='line'>
+</span><span class='line'>-------------------- output cutted -----------------------
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/26/activerecord-named-attributes/">Intersection Two Time Interval Using ActiveRecord Placeholder Conditions</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-26T23:11:00+04:00" pubdate data-updated="true">Sep 26<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/09/26/activerecord-named-attributes/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In one project I had a model <tt>Event</tt> with start and end dates and times.
+I needed an instance method which founds all events whese dates intersected with current event.</p>
+
+<p>Mathematically intersection of two segments is simple:
+<em>any spot of one segment should be between spots of another.</em></p>
+
+<p>For implementation I used powerfull ActiveRecord <a href="http://guides.rubyonrails.org/active_record_querying.html#array-conditions">placeholder conditions</a>:</p>
+
+<figure class='code'><figcaption><span>event.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># +Event+ hash start and finish fields (we are sure that </span>
+</span><span class='line'><span class="c1"># start and finish are not nil and start &lt; finish).</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Event</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">find_all_intersected</span>
+</span><span class='line'>    <span class="no">Event</span><span class="o">.</span>
+</span><span class='line'>      <span class="n">where</span><span class="p">(</span><span class="s1">&#39;id &lt;&gt; ?&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span><span class="o">.</span> <span class="c1"># ignore himself</span>
+</span><span class='line'>      <span class="n">where</span><span class="p">(</span>
+</span><span class='line'>        <span class="s2">&quot;(start &lt;= :start AND :start &lt;= finish) OR &quot;</span> <span class="o">+</span>
+</span><span class='line'>        <span class="s2">&quot;(start &lt;= :finish AND :finish &lt;= finish) OR &quot;</span> <span class="o">+</span>
+</span><span class='line'>        <span class="s2">&quot;(:start &lt;= start AND start &lt;= :finish) OR &quot;</span> <span class="o">+</span>
+</span><span class='line'>        <span class="s2">&quot;(:start &lt;= finish AND finish &lt;= :finish)&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:start</span> <span class="o">=&gt;</span> <span class="n">start</span><span class="o">.</span><span class="n">beginning_of_day</span><span class="p">,</span> <span class="ss">:finish</span> <span class="o">=&gt;</span> <span class="n">finish</span><span class="o">.</span><span class="n">end_of_day</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/26/proc-arity-method/">Proc Arity Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-26T21:20:00+04:00" pubdate data-updated="true">Sep 26<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/09/26/proc-arity-method/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of exotic ruby methods is <tt>arity</tt>. It returns &#8220;amount&#8221; of block parameters.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span><span class="o">||</span><span class="p">}</span><span class="o">.</span><span class="n">arity</span>    <span class="c1">#=&gt;  0</span>
+</span><span class='line'><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="o">|</span><span class="p">}</span><span class="o">.</span><span class="n">arity</span>   <span class="c1">#=&gt;  1</span>
+</span><span class='line'><span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span><span class="o">|*</span><span class="n">a</span><span class="o">|</span><span class="p">}</span><span class="o">.</span><span class="n">arity</span>  <span class="c1">#=&gt; -1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>See more in <a href="http://www.ruby-doc.org/core/classes/Proc.html#M000553">core documentation</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/22/git-format-patch/">Git Format Patch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-22T23:50:00+04:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2011</time>
+        
+         | <a href="/blog/2011/09/22/git-format-patch/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Usually I see git repository using <tt>gitk</tt> command. But some times I want to inspect every commit with more precise tool. Git <tt>format-path</tt> commands helps me very match in this case. The orginal purpose of this command is preparing patches for e-mail submission. It creates one patch file for each commit. But I use this command to inspect commits in my favourite gvim.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git format-patch HEAD^^^
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>outputs</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>0001-add-new-post-draft.patch
+</span><span class='line'>0002-remove-post.patch
+</span><span class='line'>0003-new-post.patch
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which can be inspected with</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>gvim *.patch
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/22/favicon-icon/">Favicon Icon</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-22T23:18:00+04:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2011</time>
+        
+         | <a href="/blog/2011/09/22/favicon-icon/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Rails has a lot of not widely known methods. Let see for example <tt><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-favicon_link_tag">favicon_link_tag</a></tt>. This simple but profound helper method applies assets ID logic to favicons. The example from official documentation:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">favicon_link_tag</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>generates</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;/favicon.ico?4649789979&quot;</span> <span class="na">rel=</span><span class="s">&quot;shortcut icon&quot;</span> <span class="na">type=</span><span class="s">&quot;image/vnd.microsoft.icon&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/6/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <style>
+  section#about p {margin-bottom: 5px;}
+  section#about p img {vertical-align: middle;}
+  section#about img.logo {margin-left: 5px;}
+</style>
+
+<section id="about">
+  <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+  <p><img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a></p>
+  <p><img src="/images/gmail.ico"> - vakhov@gmail.com</p>
+  <p><img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a></p>
+  <p><img src="/images/skype.ico"> - avakhov</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/17/the-history-of-a-comma/">История одной запятой</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/10/death-illisuion/">Опасная иллюзия</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/05/rules-and-comfort/">Правила и комфорт</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Alexey Vakhov -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'vakhov-me';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

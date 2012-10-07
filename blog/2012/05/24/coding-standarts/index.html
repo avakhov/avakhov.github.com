@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Разработка стандарта кодирования - Алексей Вахов </title>
+  <meta name="author" content="Alexey Vakhov">
+
+  
+  <meta name="description" content="Если вам необходимо разработать стандарт кодирования обязательно прислушайтесь к совету Герба Саттера и
+Андрея Александреску. Этот совет я нашел в &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://avakhov.github.com/blog/2012/05/24/coding-standarts/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Alexey Vakhov" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10590669-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Alexey Vakhov</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:avakhov.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Разработка стандарта кодирования</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-24T10:42:00+04:00" pubdate data-updated="true">May 24<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="right" src="/images/9-face/alex.png"></p>
+
+<p>Если вам необходимо разработать стандарт кодирования обязательно прислушайтесь к совету Герба Саттера и
+Андрея Александреску. Этот совет я нашел в книге по C++, но его можно применять к любому языку программированию
+и к жизни вообще:</p>
+
+<!--more-->
+
+
+<blockquote>
+<p>
+Скажем кратко: не мелочитесь.
+</p>
+<footer>
+<strong>Герб Саттер, Андрей Александреску</strong>
+<cite>Стандарты программирования на&nbsp;C++ (Глава 0. Что не следует стандартизировать)</cite>
+</footer>
+</blockquote>
+
+
+<p>Чтобы стало более понятно приведу еще несколько выдержек:</p>
+
+<blockquote>
+<ul>
+<li>Не следует определять конкретный размер отступа, но следует использовать отступы для подчеркивания структуры программы. Для отступа используйте то количество символов, которое вам нравится, но это количество должно быть одинаково, как минимум, в пределах файла.</li>
+<li>Не определяйте конкретную длину строки, но она должна оставлять текст удобочитаемым. Используйте ту длину строки, которая вам по душе, но не злоупотребляйте ею. Исследования показали, что легче всего воспринимается текст, в строке которого находится до десяти слов.</li>
+<li>Следует использовать непротиворечивые соглашения об именовании, не слишком мелочно регламентируя его.</li>
+</ul>
+</blockquote>
+
+
+<p>По правде говоря Герб и Андрей очень сильно рискуют, говоря, что количество пробелов в отступе не важно.
+Это острая тема и нужно обладать сильным духом, чтобы затронуть ее
+на вечеринке с коктелями.
+В C++ существует 3 фундаментальные школы: 8 пробелов &mdash; кернел си хакеры,
+такой огромный отступ удерживает от вложенности больше трех, 4 пробела &mdash; классика С++, 2 пробела &mdash;
+неофиты. На прошлой работе проблему размера стандартного отступа разрешили с изяществом
+Александра Македонского &mdash; отступ был 3 пробела. Для крупных проектов, где большая вложенность все же
+встречается &mdash; это на удивление удобно.</p>
+
+<p>И еще одна цитата, моя любимая (жирным выделил я):</p>
+
+<blockquote>
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="c++"><span class="line"><span class="c1">// Размещение фигурных скобок</span>
+</span><span class="line"><span class="kt">void</span> <span class="n">using_k_and_r_style</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line"><span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="kt">void</span> <span class="n">putting_each_brace_on_its_own_line</span><span class="p">()</span>
+</span><span class="line"><span class="p">{</span>
+</span><span class="line"><span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="kt">void</span> <span class="n">or_putting_each_brace_on_its_own_line_indented</span><span class="p">()</span>
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line"><span class="c1">// ...</span>
+</span><span class="line">    <span class="p">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+<p><strong>Все профессиональные программисты могут легко читать и писать в каждом из этих стилей без каких-либо сложностей.</strong> Но следует быть последовательным. Не размещайте скобки как придется или так, что их размещение будет скрывать вложенность областей видимости, и пытайтесь следовать стилю, принятому в том или ином файле.</p>
+</blockquote>
+
+
+<p>Итак, не мелочитесь!</p>
+
+<center><img src="/images/9-face/face.png"></center>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Alexey Vakhov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-24T10:42:00+04:00" pubdate data-updated="true">May 24<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://avakhov.github.com/blog/2012/05/24/coding-standarts/" data-via="" data-counturl="http://avakhov.github.com/blog/2012/05/24/coding-standarts/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/22/create-edge-application/" title="Previous Post: Создание Edge Rails приложения">&laquo; Создание Edge Rails приложения</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/28/100-commits/" title="Next Post: 100 комитов в Rails">100 комитов в Rails &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <style>
+  section#about p {margin-bottom: 5px;}
+  section#about p img {vertical-align: middle;}
+  section#about img.logo {margin-left: 5px;}
+</style>
+
+<section id="about">
+  <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+  <p><img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a></p>
+  <p><img src="/images/gmail.ico"> - vakhov@gmail.com</p>
+  <p><img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a></p>
+  <p><img src="/images/skype.ico"> - avakhov</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/17/the-history-of-a-comma/">История одной запятой</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/10/death-illisuion/">Опасная иллюзия</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/05/rules-and-comfort/">Правила и комфорт</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Alexey Vakhov -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'vakhov-me';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://avakhov.github.com/blog/2012/05/24/coding-standarts/';
+        var disqus_url = 'http://avakhov.github.com/blog/2012/05/24/coding-standarts/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
