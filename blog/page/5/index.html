@@ -9,8 +9,8 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="To extract several pages from a big pdf document use utility pdfnup (in Ubuntu fire a command sudo apt-get install pdfjam): 1
-pdfnup big.pdf --nup &hellip;">
+  <meta name="description" content="Supporse you want to show somebody development version of your site and you don&#8217;t have external IP.
+You can use any server to which you have &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,53 @@ pdfnup big.pdf --nup &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/14/port-forwarding/">Port Forwarding</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-14T15:35:00+04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/14/port-forwarding/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Supporse you want to show somebody development version of your site and you don&#8217;t have external IP.
+You can use any server to which you have ssh access and forward your port (3000 for Rails application
+by defaut) to outside:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>ssh -R 3000:localhost:3000 server
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Send link http://server:3000 to your mate and enjoy.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -708,56 +755,6 @@ I needed an instance method which founds all events whese dates intersected with
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/22/favicon-icon/">Favicon Icon</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-22T23:18:00+04:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2011</time>
-        
-         | <a href="/blog/2011/09/22/favicon-icon/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails has a lot of not widely known methods. Let see for example <tt><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-favicon_link_tag">favicon_link_tag</a></tt>. This simple but profound helper method applies assets ID logic to favicons. The example from official documentation:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">favicon_link_tag</span> <span class="cp">%&gt;</span><span class="x"></span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>generates</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;/favicon.ico?4649789979&quot;</span> <span class="na">rel=</span><span class="s">&quot;shortcut icon&quot;</span> <span class="na">type=</span><span class="s">&quot;image/vnd.microsoft.icon&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -788,6 +785,10 @@ I needed an instance method which founds all events whese dates intersected with
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
       </li>
     
@@ -801,10 +802,6 @@ I needed an instance method which founds all events whese dates intersected with
     
       <li class="post">
         <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/05/rules-and-comfort/">Правила и комфорт</a>
       </li>
     
   </ul>

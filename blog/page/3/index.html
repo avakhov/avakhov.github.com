@@ -9,8 +9,8 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="Когда я делал свой первый интернет-магазин из Agile Web Development with Rails, мне
-понравилось, что программа выглядит как английский текст. После C &hellip;">
+  <meta name="description" content="Иван Евтухович пригласил меня принять
+участие в Ruby NoName подкасте. Я с радостью и волнением это предложение принял. У меня небольшой опыт &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/29/rubynoname-podcast/">Ruby NoName подкаст</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-29T16:52:00+04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/03/29/rubynoname-podcast/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.evtuhovich.ru">Иван Евтухович</a> пригласил меня принять
+участие в <a href="http://ruby.rpod.ru/">Ruby NoName подкасте</a>. Я с радостью и волнением это предложение принял.</p>
+
+<p>У меня небольшой опыт публичных выступлений, поэтому сам вид микрофона бросает в дрожь,
+особенно в начале. Беседа, которая гладко текла на кухне, сразу же превратилась в невнятное
+бормотание, как только пошла запись. Когда попадаешь в непревычное окружение, мозг начинает
+лихорадочно придумывать новые, адекватные шаблоны поведения и выглядит это не очень.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/29/rubynoname-podcast/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -572,70 +621,6 @@ c небольшими модификациями.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/12/shell-current-git-branch/">Show Current Git Branch in Shell Prompt</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-12T11:07:00+04:00" pubdate data-updated="true">Nov 12<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/11/12/shell-current-git-branch/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>It&#8217;s very usefull to always see current gin branch in shell prompt. I founded this secrect <a href="http://railstips.org/blog/archives/2009/02/02/bedazzle-your-bash-prompt-with-git-info/">here</a>.</p>
-
-<p>Just add these lines to your .bashrc file:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="k">function </span>parse_git_branch <span class="o">{</span>
-</span><span class='line'>  <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span>
-</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;[&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;]&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\w\$(parse_git_branch)\$ &quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Your shell will look like me:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>~/m/ideas/vakhov.me<span class="o">[</span>master<span class="o">]</span><span class="nv">$ </span>ls
-</span><span class='line'>CHANGELOG.markdown  config.rb  _config.yml  Gemfile.lock  public    README.markdown  <span class="nb">source</span>
-</span><span class='line'>_code_cache         config.ru  Gemfile      plugins       Rakefile  sass
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -666,6 +651,10 @@ c небольшими модификациями.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
       </li>
     
@@ -679,10 +668,6 @@ c небольшими модификациями.</p>
     
       <li class="post">
         <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/05/rules-and-comfort/">Правила и комфорт</a>
       </li>
     
   </ul>

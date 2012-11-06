@@ -9,12 +9,8 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="It possible to join an array very odd manner: 1
-2
-3
-4
-[&#39;a&#39;, &#39;b&#39;, 3].join(&#39; &#39;) # =&gt; &quot;a b 3&quot; # the same
-[&#39;a&# &hellip;">
+  <meta name="description" content="It&#8217;s very usefull to always see current gin branch in shell prompt. I founded this secrect here. Just add these lines to your .bashrc file: 1
+2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +77,70 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/12/shell-current-git-branch/">Show Current Git Branch in Shell Prompt</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-12T11:07:00+04:00" pubdate data-updated="true">Nov 12<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/12/shell-current-git-branch/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It&#8217;s very usefull to always see current gin branch in shell prompt. I founded this secrect <a href="http://railstips.org/blog/archives/2009/02/02/bedazzle-your-bash-prompt-with-git-info/">here</a>.</p>
+
+<p>Just add these lines to your .bashrc file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="k">function </span>parse_git_branch <span class="o">{</span>
+</span><span class='line'>  <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="k">return</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;[&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;]&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\w\$(parse_git_branch)\$ &quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Your shell will look like me:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>~/m/ideas/vakhov.me<span class="o">[</span>master<span class="o">]</span><span class="nv">$ </span>ls
+</span><span class='line'>CHANGELOG.markdown  config.rb  _config.yml  Gemfile.lock  public    README.markdown  <span class="nb">source</span>
+</span><span class='line'>_code_cache         config.ru  Gemfile      plugins       Rakefile  sass
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -621,53 +681,6 @@ with IPs 8.8.8.8 and 8.8.4.4. The first server I use to check network availabili
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/14/port-forwarding/">Port Forwarding</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-14T15:35:00+04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/14/port-forwarding/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Supporse you want to show somebody development version of your site and you don&#8217;t have external IP.
-You can use any server to which you have ssh access and forward your port (3000 for Rails application
-by defaut) to outside:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>ssh -R 3000:localhost:3000 server
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Send link http://server:3000 to your mate and enjoy.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -698,6 +711,10 @@ by defaut) to outside:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
       </li>
     
@@ -711,10 +728,6 @@ by defaut) to outside:</p>
     
       <li class="post">
         <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/05/rules-and-comfort/">Правила и комфорт</a>
       </li>
     
   </ul>
