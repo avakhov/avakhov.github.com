@@ -4,7 +4,7 @@
   <title><![CDATA[Alexey Vakhov]]></title>
   <link href="http://vakhov.me/atom.xml" rel="self"/>
   <link href="http://vakhov.me/"/>
-  <updated>2012-11-06T18:00:21+04:00</updated>
+  <updated>2012-11-06T18:02:19+04:00</updated>
   <id>http://vakhov.me/</id>
   <author>
     <name><![CDATA[Alexey Vakhov]]></name>
@@ -19,7 +19,7 @@
     <updated>2012-11-06T13:28:00+04:00</updated>
     <id>http://vakhov.me/blog/2012/11/06/javascript-testing</id>
     <content type="html"><![CDATA[<p>С++ я уважал за мощь и строгость, Руби обожаю за работу с строками, массивами и хэшами, но к Javascript всегда относился и продолжаю
-относится холодно. Мне не нравятся как осуществляется работа с <code>this</code>, обилие операторов и зарезервированных
+относится холодно. Мне не нравится как осуществляется работа с <code>this</code>, обилие операторов и зарезервированных
 слов <code>undefined</code>, <code>null</code>, <code>Infinite</code>, <code>Nan</code>, <code>==</code>, <code>===</code>, а также я плохо ориентируются в колбеках. Более того я не прочитал
 ни одной книги по Javascript, что конечно же не способствует установлению приятельских отношений с этим языком.</p>
 
