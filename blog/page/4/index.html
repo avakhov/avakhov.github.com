@@ -9,8 +9,9 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="It&#8217;s very usefull to always see current gin branch in shell prompt. I founded this secrect here. Just add these lines to your .bashrc file: 1
-2 &hellip;">
+  <meta name="description" content="1
+git remote prune origin To remove local branches deleted on the remote repo.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/29/git-remote-prune-origin/">Git Remote Prune Origin</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-29T10:01:00+04:00" pubdate data-updated="true">Nov 29<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/29/git-remote-prune-origin/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git remote prune origin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To remove local branches deleted on the remote repo.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -630,57 +674,6 @@ element to the same array (<a href="http://www.ruby-doc.org/core-1.9.2/Array.htm
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/14/google-public-dns/">Google Public Dns</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-14T15:43:00+04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/14/google-public-dns/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Google has usefull free <a href="http://code.google.com/speed/public-dns/">public DNS servers</a>
-with IPs 8.8.8.8 and 8.8.4.4. The first server I use to check network availability:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ping 8.8.8.8
-</span><span class='line'>PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-</span><span class='line'>64 bytes from 8.8.8.8: icmp_seq=1 ttl=55 time=177 ms
-</span><span class='line'>64 bytes from 8.8.8.8: icmp_seq=2 ttl=55 time=151 ms</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It&#8217;s very simple to remember this IP.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -711,6 +704,10 @@ with IPs 8.8.8.8 and 8.8.4.4. The first server I use to check network availabili
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
       </li>
     
@@ -724,10 +721,6 @@ with IPs 8.8.8.8 and 8.8.4.4. The first server I use to check network availabili
     
       <li class="post">
         <a href="/blog/2012/07/10/death-illisuion/">Опасная иллюзия</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
       </li>
     
   </ul>

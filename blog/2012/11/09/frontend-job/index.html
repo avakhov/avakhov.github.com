@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Лайоут анонимного контроллера - Алексей Вахов </title>
+  <title>Ищем Javascript-разработчика - Алексей Вахов </title>
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
-будет поддерживать классическую цепочку поиска подходящего &hellip;">
+  <meta name="description" content="У нас открылась вакансия Javascript-разработчика. Требования: Javascript (jQuery, Coffee)
+CSS3 (SCSS), IE8+, Mobile
+Git, знакомство с рейлс
+Опыт &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://vakhov.me/blog/2012/03/01/anonymous-controller-layout-lookup/">
+  <link rel="canonical" href="http://vakhov.me/blog/2012/11/09/frontend-job/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -80,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">Лайоут анонимного контроллера</h1>
+      <h1 class="entry-title">Ищем Javascript-разработчика</h1>
     
     
       <p class="meta">
@@ -96,7 +98,7 @@
   
 
 
-<time datetime="2012-03-01T12:19:00+04:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
+<time datetime="2012-11-09T12:48:00+04:00" pubdate data-updated="true">Nov 9<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -105,51 +107,23 @@
   </header>
 
 
-<div class="entry-content"><p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
-будет поддерживать классическую цепочку поиска подходящего лайоута согласно <a href="http://api.rubyonrails.org/classes/AbstractController/Layouts.html#label-Inheritance+Examples">документации</a>.</p>
+<div class="entry-content"><p>У нас открылась вакансия Javascript-разработчика.</p>
 
-<p>Например так:</p>
+<p>Требования:</p>
 
-<figure class='code'><figcaption><span>config/routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">WeirdRailsApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">controller</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ApplicationController</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">text</span>
-</span><span class='line'>      <span class="n">render</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;demo&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="p">:</span> <span class="kp">true</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">root</span> <span class="n">to</span><span class="p">:</span> <span class="n">controller</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="ss">:text</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>Javascript (jQuery, Coffee)</li>
+<li>CSS3 (SCSS), IE8+, Mobile</li>
+<li>Git, знакомство с рейлс</li>
+<li>Опыт работы от 2-х лет</li>
+</ul>
 
 
+<p>Офис находится в 5 минутах от метро Арбатская. Проект интересный.</p>
 
-
-<!-- more -->
-
-
-<p>Я не знаю зачем вам может понадобиться написать такой код, но никогда же нельзя
-за себя ручаться, мало ли что.</p>
-
-<p>Вынужден огорчить, но в сегодняшних версиях рейлс вы получите ексепшн:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>There was no default layout <span class="k">for</span> <span class="c">#&lt;Class:0xa1e6cd4&gt; in #&lt;ActionView::PathSet:...</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Это происходит из-за ошибки в рейлс при поиске лайоута. К счастью я нашел этот дефект и <a href="https://github.com/rails/rails/commit/b27c29ef4a26755b8de04686241694ce5ee33724">исправил</a>.</p>
-
-<p>В рейлс 4.0 вы сможете пользоваться привычным наследованием лайоутов и для анонимных
-контроллеров тоже. Код, предложенный вверху поста, будет выполняться правильно.</p>
+<p>Контакты:<br>
+Коломоец Иван, <a href="mailto:kolomoetz@gmail.com">kolomoetz@gmail.com</a>, +7 (915) 012-03-04 <br>
+Вахов Алексей, <a href="mailto:vakhov@gmail.com">vakhov@gmail.com</a>, +7 (926) 589-45-37</p>
 </div>
 
 
@@ -172,7 +146,7 @@
   
 
 
-<time datetime="2012-03-01T12:19:00+04:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
+<time datetime="2012-11-09T12:48:00+04:00" pubdate data-updated="true">Nov 9<span>th</span>, 2012</time>
       
 
 
@@ -180,7 +154,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vakhov.me/blog/2012/03/01/anonymous-controller-layout-lookup/" data-via="" data-counturl="http://vakhov.me/blog/2012/03/01/anonymous-controller-layout-lookup/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vakhov.me/blog/2012/11/09/frontend-job/" data-via="" data-counturl="http://vakhov.me/blog/2012/11/09/frontend-job/" >Tweet</a>
   
   
   
@@ -189,10 +163,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/02/28/render-text-layout/" title="Previous Post: Лайоут для текста">&laquo; Лайоут для текста</a>
+        <a class="basic-alignment left" href="/blog/2012/11/06/javascript-testing/" title="Previous Post: 3 способа автоматического тестирования Javascript">&laquo; 3 способа автоматического тестирования Javascript</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/03/09/rails-footnotes/" title="Next Post: Rails Footnotes">Rails Footnotes &raquo;</a>
       
     </p>
   </footer>
@@ -272,8 +244,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://vakhov.me/blog/2012/03/01/anonymous-controller-layout-lookup/';
-        var disqus_url = 'http://vakhov.me/blog/2012/03/01/anonymous-controller-layout-lookup/';
+        var disqus_identifier = 'http://vakhov.me/blog/2012/11/09/frontend-job/';
+        var disqus_url = 'http://vakhov.me/blog/2012/11/09/frontend-job/';
         var disqus_script = 'embed.js';
       
     (function () {

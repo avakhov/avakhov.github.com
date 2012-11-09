@@ -9,8 +9,12 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="Supporse you want to show somebody development version of your site and you don&#8217;t have external IP.
-You can use any server to which you have &hellip;">
+  <meta name="description" content="Google has usefull free public DNS servers
+with IPs 8.8.8.8 and 8.8.4.4. The first server I use to check network availability: 1
+2
+3
+4
+$ ping 8.8.8.8 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +81,57 @@ You can use any server to which you have &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/14/google-public-dns/">Google Public Dns</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-14T15:43:00+04:00" pubdate data-updated="true">Oct 14<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/14/google-public-dns/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google has usefull free <a href="http://code.google.com/speed/public-dns/">public DNS servers</a>
+with IPs 8.8.8.8 and 8.8.4.4. The first server I use to check network availability:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ping 8.8.8.8
+</span><span class='line'>PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+</span><span class='line'>64 bytes from 8.8.8.8: icmp_seq=1 ttl=55 time=177 ms
+</span><span class='line'>64 bytes from 8.8.8.8: icmp_seq=2 ttl=55 time=151 ms</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s very simple to remember this IP.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -694,67 +749,6 @@ I needed an instance method which founds all events whese dates intersected with
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/22/git-format-patch/">Git Format Patch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-22T23:50:00+04:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2011</time>
-        
-         | <a href="/blog/2011/09/22/git-format-patch/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Usually I see git repository using <tt>gitk</tt> command. But some times I want to inspect every commit with more precise tool. Git <tt>format-path</tt> commands helps me very match in this case. The orginal purpose of this command is preparing patches for e-mail submission. It creates one patch file for each commit. But I use this command to inspect commits in my favourite gvim.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git format-patch HEAD^^^
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>outputs</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>0001-add-new-post-draft.patch
-</span><span class='line'>0002-remove-post.patch
-</span><span class='line'>0003-new-post.patch
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>which can be inspected with</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>gvim *.patch
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -785,6 +779,10 @@ I needed an instance method which founds all events whese dates intersected with
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
       </li>
     
@@ -798,10 +796,6 @@ I needed an instance method which founds all events whese dates intersected with
     
       <li class="post">
         <a href="/blog/2012/07/10/death-illisuion/">Опасная иллюзия</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
       </li>
     
   </ul>

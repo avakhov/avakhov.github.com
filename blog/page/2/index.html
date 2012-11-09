@@ -9,8 +9,8 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="После таких длинных праздников тяжело снова браться за работу, все эти буквы, цифры, кнопки.
-Однажды, после отпуска, я забыл пароль на рабочий &hellip;">
+  <meta name="description" content="Идеалогически мне очень нравится технология css-спрайтов, когда мелкие картинки рисуются в одном файле и отображаются
+с помощью свойства background- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/15/css-sprites/">CSS-спрайты на компасе</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-15T09:53:00+04:00" pubdate data-updated="true">May 15<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/05/15/css-sprites/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="right" src="/images/8-red/nuke2.jpg"></p>
+
+<p>Идеалогически мне очень нравится технология css-спрайтов, когда мелкие картинки рисуются в одном файле и отображаются
+с помощью свойства background-position, экономя коннекты к серверу. Спрайты напоминают мне
+первую работу, где я работал с 3D-графикой и дизайнеры размазывали трехмерные модели по текстурам. А также
+раньше были спрайтовые монстры. Эх.</p>
+
+<p>Кроме оптимизации отрисовки сайта в браузере (для маленьких и средних проектов это не так уж и важно) спрайты
+следует применять для кнопок с картинкой, которая меняется при наведении указатели мыши. Если :hover-состояние
+кнопки сделать через отдельный рисунок, то она противно моргнет при первой отрисовке. Я слышал про библиотеку компас,
+но обычно просил дизайнера или верстальщика подготовить файл с двумя состояниями. Наконец, недавно,
+попробовал использовать спрайты с компасом и хочу рассказать про несколько нюансов, с которыми столкнулся.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/05/15/css-sprites/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -518,53 +572,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/04/require/">Require, Load и Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-04T15:32:00+04:00" pubdate data-updated="true">Apr 4<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/04/04/require/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>Мы в ответе за тех, кого подключили с помощью load и require.</p><footer><strong>Давид Хейнемейер де Сент-Экзюпери</strong> <cite>Prince on Rails</cite></footer></blockquote>
-
-
-<p>В геме автомиграций я столкнулся с интересной проблемой, для решения которой пришлось глубже
-изучить <code>require</code>, <code>load</code> и также то, как работает Rails с зависимостями.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/04/04/require/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -595,6 +602,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
       </li>
     
@@ -608,10 +619,6 @@
     
       <li class="post">
         <a href="/blog/2012/07/10/death-illisuion/">Опасная иллюзия</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/02/advices/">Разные мелочи</a>
       </li>
     
   </ul>
