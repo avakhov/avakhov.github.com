@@ -4,7 +4,7 @@
   <title><![CDATA[Alexey Vakhov]]></title>
   <link href="http://vakhov.me/atom.xml" rel="self"/>
   <link href="http://vakhov.me/"/>
-  <updated>2012-11-16T14:14:26+04:00</updated>
+  <updated>2012-11-16T14:15:21+04:00</updated>
   <id>http://vakhov.me/</id>
   <author>
     <name><![CDATA[Alexey Vakhov]]></name>
@@ -18,7 +18,7 @@
     <link href="http://vakhov.me/blog/2012/11/16/show-me-your-monkey-patch-file/"/>
     <updated>2012-11-16T12:55:00+04:00</updated>
     <id>http://vakhov.me/blog/2012/11/16/show-me-your-monkey-patch-file</id>
-    <content type="html"><![CDATA[<p>У меня всегда есть файл <code>config/initializers/_monkey_patching.rb</code>, где я добавляю
+    <content type="html"><![CDATA[<p>У меня всегда есть файл <code>config/initializers/_monkey_patching.rb</code>, в который я добавляю
 необходимую низкоуровневую функциональность в рейлс и руби. Когда я плохо знал
 возможности языка и фреймворка, этот файл был большой. Теперь я его регулярно
 пересматриваю и по возможности переписываю код на стандартные механизмы.</p>
