@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Перегрузка операторов в руби и простая визуализация - Алексей Вахов </title>
+  <meta name="author" content="Alexey Vakhov">
+
+  
+  <meta name="description" content="Срочно в номер, срочно в номер. Ребята, оказывает в руби есть перегрузка операторов! Я работаю с руби
+уже несколько лет, а перегрузка есть! И у меня &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://vakhov.me/blog/2012/11/20/ruby-overload-operators/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Alexey Vakhov" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10590669-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Alexey Vakhov</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:vakhov.me" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Перегрузка операторов в руби и простая визуализация</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-20T11:41:00+04:00" pubdate data-updated="true">Nov 20<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img class="right" src="/images/14-fractal/rupor.jpg"></p>
+
+<p>Срочно в номер, срочно в номер. Ребята, оказывает в руби есть перегрузка операторов! Я работаю с руби
+уже несколько лет, а перегрузка есть! И у меня возникает ощущение, что она была все это время.
+Маловероятно, что ее добавили только вчера, когда я первый раз про нее узнал.</p>
+
+<p>Сегодня я
+покажу как можно использовать перегрузку операторов для облегчения программирования
+при отрисовке простой математической визуализации фрактального типа. Также расскажу
+про удобные трансформации SVG, с которыми я также познакомился недавно.</p>
+
+<!-- more -->
+
+
+<p>Подготовим шаблон для генерации HTML-файла:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">HTML_LAYOUT</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">HTML</span>
+</span><span class='line'><span class="sh">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="sh">&lt;html&gt;</span>
+</span><span class='line'><span class="sh">  &lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Title&lt;/title&gt;&lt;/head&gt;</span>
+</span><span class='line'><span class="sh">  &lt;style&gt;body {text-align: center;}&lt;/style&gt;</span>
+</span><span class='line'><span class="sh">  &lt;body&gt;%body%&lt;/body&gt;</span>
+</span><span class='line'><span class="sh">&lt;/html&gt;</span>
+</span><span class='line'><span class="no">HTML</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В html-шаблон мы вставим SVG-картинку:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">SIZE</span> <span class="o">=</span> <span class="mi">600</span><span class="o">.</span><span class="mi">0</span> <span class="c1"># размер SVG-картинки в пикселях</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Шаблон для генерации svg</span>
+</span><span class='line'><span class="no">SVG_TEMPLATE</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">SVG</span>
+</span><span class='line'><span class="sh">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;#{SIZE.to_i}&quot; height=&quot;#{SIZE.to_i}&quot;&gt;</span>
+</span><span class='line'><span class="sh">  &lt;!--</span>
+</span><span class='line'><span class="sh">    Подписи к координатным осям. Делаем здесь, так как иначе</span>
+</span><span class='line'><span class="sh">    трансформации их перевернут.</span>
+</span><span class='line'><span class="sh">  --&gt;</span>
+</span><span class='line'><span class="sh">  &lt;text x=&quot;#{SIZE - 20}&quot; y=&quot;#{SIZE/2 + 23}&quot; font-family=&quot;Verdana&quot; font-size=&quot;16&quot; fill=&quot;black&quot;&gt;X&lt;/text&gt;</span>
+</span><span class='line'><span class="sh">  &lt;text x=&quot;#{SIZE/2 - 20}&quot; y=&quot;#{20}&quot; font-family=&quot;Verdana&quot; font-size=&quot;16&quot; fill=&quot;black&quot;&gt;Y&lt;/text&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="sh">  &lt;!--</span>
+</span><span class='line'><span class="sh">    Транcформации приводят систему координат к привычной математической. Не нужно</span>
+</span><span class='line'><span class="sh">    для отрисовки каждой точки выполнять преобразования координат (и ловить ошибки</span>
+</span><span class='line'><span class="sh">    на этих преобразованиях).</span>
+</span><span class='line'><span class="sh">  --&gt;</span>
+</span><span class='line'><span class="sh">  &lt;g transform=&quot;translate(#{SIZE/2},#{SIZE/2})&quot;&gt;</span>
+</span><span class='line'><span class="sh">    &lt;g transform=&quot;scale(-#{SIZE/3}, #{SIZE/3})&quot;&gt;</span>
+</span><span class='line'><span class="sh">      &lt;g transform=&quot;rotate(180)&quot;&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sh">        &lt;!--</span>
+</span><span class='line'><span class="sh">          Координатные оси. Они уже рисуются в привычном математическом масштабе от 0 до 1.</span>
+</span><span class='line'><span class="sh">        --&gt;</span>
+</span><span class='line'><span class="sh">        &lt;line x1=&quot;-1.5&quot; y1=&quot;0&quot; x2=&quot;1.5&quot; y2=&quot;0&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.005&quot; /&gt;</span>
+</span><span class='line'><span class="sh">        &lt;line x1=&quot;0&quot; y1=&quot;-1.5&quot; x2=&quot;0&quot; y2=&quot;1.5&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.005&quot; /&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sh">        &lt;!--</span>
+</span><span class='line'><span class="sh">          Отметки на осях [0, 1], [0, -1], [1, 0] и [-1, 0].</span>
+</span><span class='line'><span class="sh">        --&gt;</span>
+</span><span class='line'><span class="sh">        &lt;circle cx=&quot;0&quot; cy=&quot;1&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+</span><span class='line'><span class="sh">        &lt;circle cx=&quot;0&quot; cy=&quot;-1&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+</span><span class='line'><span class="sh">        &lt;circle cx=&quot;1&quot; cy=&quot;0&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+</span><span class='line'><span class="sh">        &lt;circle cx=&quot;-1&quot; cy=&quot;0&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sh">        &lt;!-- Сам контент --&gt;</span>
+</span><span class='line'><span class="sh">        %content%</span>
+</span><span class='line'><span class="sh">      &lt;/g&gt;</span>
+</span><span class='line'><span class="sh">    &lt;/g&gt;</span>
+</span><span class='line'><span class="sh">  &lt;/g&gt;</span>
+</span><span class='line'><span class="sh">&lt;/svg&gt;</span>
+</span><span class='line'><span class="no">SVG</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>C помощью 3-х трансформаций мы подготовили себе привычную систему координат от -1.5 до 1.5,
+в которой удобно рисовать всякие математические и вероятностные вещи.</p>
+
+<p><img src="/images/14-fractal/1.png"></p>
+
+<p>Далее создаем класс Vector (вот она перегрузка пошла):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Вектор</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Vector</span> <span class="o">&lt;</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:x</span><span class="p">,</span> <span class="ss">:y</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">+</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">*</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">factor</span><span class="p">,</span> <span class="n">y</span><span class="o">*</span><span class="n">factor</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+</span><span class='line'>      <span class="n">x</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">),</span>
+</span><span class='line'>      <span class="n">x</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">abs</span>
+</span><span class='line'>    <span class="no">Math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>И рисуем три красных тентакля, используя новоиспеченную векторную математику по полной:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;out.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">f</span><span class="o">.</span><span class="n">puts</span> <span class="no">HTML_LAYOUT</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;%body%&#39;</span><span class="p">){</span>
+</span><span class='line'>    <span class="no">SVG_TEMPLATE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;%content%&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span class='line'>      <span class="n">point</span> <span class="o">=</span> <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">scale</span> <span class="o">=</span> <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mo">07</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      <span class="mi">150</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+</span><span class='line'>        <span class="n">point2</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="no">Math</span><span class="o">::</span><span class="no">PI</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">point3</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="no">Math</span><span class="o">::</span><span class="no">PI</span><span class="o">*</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">out</span> <span class="o">+=</span> <span class="sx">%(&lt;circle cx=&quot;</span><span class="si">#{</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="sx">&quot; cy=&quot;</span><span class="si">#{</span><span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="sx">&quot; r=&quot;0.02&quot; fill=&quot;red&quot; /&gt;)</span>
+</span><span class='line'>        <span class="n">out</span> <span class="o">+=</span> <span class="sx">%(&lt;circle cx=&quot;</span><span class="si">#{</span><span class="n">point2</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="sx">&quot; cy=&quot;</span><span class="si">#{</span><span class="n">point2</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="sx">&quot; r=&quot;0.02&quot; fill=&quot;red&quot; /&gt;)</span>
+</span><span class='line'>        <span class="n">out</span> <span class="o">+=</span> <span class="sx">%(&lt;circle cx=&quot;</span><span class="si">#{</span><span class="n">point3</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="sx">&quot; cy=&quot;</span><span class="si">#{</span><span class="n">point3</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="sx">&quot; r=&quot;0.02&quot; fill=&quot;red&quot; /&gt;)</span>
+</span><span class='line'>        <span class="n">point</span> <span class="o">+=</span> <span class="n">scale</span>                    <span class="c1"># &lt;-- Вот она перегрузка</span>
+</span><span class='line'>        <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="mi">0</span><span class="o">.</span><span class="mi">98</span><span class="p">)</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># &lt;-- и здесь</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">out</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Красиво и просто (математические объекты - это самое красивое, что могут сделать программисты
+без дизайнеров):</p>
+
+<p><img src="/images/14-fractal/2.png"></p>
+
+<p>Счастливой визуализации! На последок еще картинка, которую я нарисовал, используя данную технологию,
+решая одну задачку из теории вероятности:</p>
+
+<p><img src="/images/14-fractal/3.png"></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Alexey Vakhov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-20T11:41:00+04:00" pubdate data-updated="true">Nov 20<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vakhov.me/blog/2012/11/20/ruby-overload-operators/" data-via="" data-counturl="http://vakhov.me/blog/2012/11/20/ruby-overload-operators/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/16/show-me-your-monkey-patch-file/" title="Previous Post: Покажи свой Monkey Patch">&laquo; Покажи свой Monkey Patch</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <style>
+  section#about p {margin-bottom: 5px;}
+  section#about p img {vertical-align: middle;}
+  section#about img.logo {margin-left: 5px;}
+</style>
+
+<section id="about">
+  <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+  <p><img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a></p>
+  <p><img src="/images/gmail.ico"> - vakhov@gmail.com</p>
+  <p><img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a></p>
+  <p><img src="/images/skype.ico"> - avakhov</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/ruby-overload-operators/">Перегрузка операторов в руби и простая визуализация</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/16/show-me-your-monkey-patch-file/">Покажи свой Monkey Patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Alexey Vakhov -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'vakhov-me';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://vakhov.me/blog/2012/11/20/ruby-overload-operators/';
+        var disqus_url = 'http://vakhov.me/blog/2012/11/20/ruby-overload-operators/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
