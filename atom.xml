@@ -4,7 +4,7 @@
   <title><![CDATA[Alexey Vakhov]]></title>
   <link href="http://vakhov.me/atom.xml" rel="self"/>
   <link href="http://vakhov.me/"/>
-  <updated>2012-11-20T13:56:59+04:00</updated>
+  <updated>2012-11-20T13:57:44+04:00</updated>
   <id>http://vakhov.me/</id>
   <author>
     <name><![CDATA[Alexey Vakhov]]></name>
@@ -144,7 +144,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>C помощью 3-х трансформаций мы подготовили себе привычную систему координат от -1.5 до 1.5,
+<p>C помощью 3-х трансформаций мы подготавливаем себе привычную систему координат от -1.5 до 1.5,
 в которой удобно рисовать всякие математические и вероятностные вещи.</p>
 
 <p><img src="http://vakhov.me/images/14-fractal/1.png"></p>
