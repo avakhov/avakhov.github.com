@@ -4,7 +4,7 @@
   <title><![CDATA[Alexey Vakhov]]></title>
   <link href="http://vakhov.me/atom.xml" rel="self"/>
   <link href="http://vakhov.me/"/>
-  <updated>2012-11-20T13:55:07+04:00</updated>
+  <updated>2012-11-20T13:55:37+04:00</updated>
   <id>http://vakhov.me/</id>
   <author>
     <name><![CDATA[Alexey Vakhov]]></name>
@@ -196,7 +196,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>И рисуем три красных тентакля, используя новоиспеченную векторную математику по полной:</p>
+<p>И рисуем три красных тентакля, используя новоиспеченную векторную математику в полном объеме:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
