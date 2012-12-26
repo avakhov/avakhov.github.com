@@ -9,8 +9,11 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
-необходимо сначала определить метод, а потом &hellip;">
+  <meta name="description" content="По умолчанию при рендеринге простого текста в контроллере он отрисовывается как есть: 1
+2
+3
+def action render text: &quot;some&quot; # =&gt; some
+end &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +80,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/28/render-text-layout/">Лайоут для текста</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T09:14:00+04:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/02/28/render-text-layout/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>По умолчанию при рендеринге простого текста в контроллере он отрисовывается как есть:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">action</span>
+</span><span class='line'>  <span class="n">render</span> <span class="n">text</span><span class="p">:</span> <span class="s2">&quot;some&quot;</span> <span class="c1"># =&gt; some</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Но если вы занимаетесь мета-программирования и создаете цмс или динамический скаффолд,
+то пригодится рендеринг текста с лайоутом.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/28/render-text-layout/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -609,64 +667,6 @@ make missing translations noticeable:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/17/vaio-laptops/">Ubuntu 10.04 on VAIO Laptops</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-17T20:26:00+04:00" pubdate data-updated="true">Oct 17<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/17/vaio-laptops/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I have small problems using ubuntu 10.04 on old Sony VAIO laptops.</p>
-
-<p><strong>Sony VAIO VGN-N11SR Microphone Is Not Working In Skype:</strong></p>
-
-<figure class='code'><figcaption><span>/etc/modprobe.d/alsa-base.conf</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># Add this line to the end of file</span>
-</span><span class='line'>options snd-hda-intel <span class="nv">model</span><span class="o">=</span>sony-assamd
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>Sony VAIO VGN-NR31ZR Brightness Is Not Changeable:</strong></p>
-
-<p>Use program nvclock (sudo apt-get install nvclock):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>nvclock -S 100 <span class="c"># maximum brightness</span>
-</span><span class='line'><span class="nv">$ </span>nvclock -S 90  <span class="c"># only 90%</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -697,6 +697,10 @@ make missing translations noticeable:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/25/say-hello-4-times/">4 способа сказать миру привет</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/20/ruby-overload-operators/">Перегрузка операторов в руби и простая визуализация</a>
       </li>
     
@@ -710,10 +714,6 @@ make missing translations noticeable:</p>
     
       <li class="post">
         <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
       </li>
     
   </ul>

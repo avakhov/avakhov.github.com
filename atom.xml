@@ -4,7 +4,7 @@
   <title><![CDATA[Alexey Vakhov]]></title>
   <link href="http://vakhov.me/atom.xml" rel="self"/>
   <link href="http://vakhov.me/"/>
-  <updated>2012-11-20T14:06:12+04:00</updated>
+  <updated>2012-12-26T12:19:47+04:00</updated>
   <id>http://vakhov.me/</id>
   <author>
     <name><![CDATA[Alexey Vakhov]]></name>
@@ -12,6 +12,179 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[4 способа сказать миру привет]]></title>
+    <link href="http://vakhov.me/blog/2012/12/25/say-hello-4-times/"/>
+    <updated>2012-12-25T17:54:00+04:00</updated>
+    <id>http://vakhov.me/blog/2012/12/25/say-hello-4-times</id>
+    <content type="html"><![CDATA[<p>Сегодня я расскажу как сделать несколько простых http-серверов на руби, каждый из которых я использовал для решения тех или иных задач.</p>
+
+<!-- more -->
+
+
+<h2>Hello Sinatra</h2>
+
+<p>Самый высокоуровневый вариант. Sinatra-приложения идеально подходят для написания небольших API, простое приложение пишется
+очень быстро:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="mi">8000</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="s1">&#39;Hello&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Hallo Rack</h2>
+
+<p>Подавляющее большинство современных руби-фреймворков (в том числе синатра и рейлс) используют гем <code>rack</code>,
+который реализует низкоуровневые http-интерфейсы.
+Простой веб-сервер можно написать и на чистом rack:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;rack&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Rack</span><span class="o">::</span><span class="no">Server</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
+</span><span class='line'>  <span class="n">app</span><span class="p">:</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span>
+</span><span class='line'>    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s1">&#39;Hello&#39;</span><span class="o">]]</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="no">Port</span><span class="p">:</span> <span class="mi">8000</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Salut Webrick</h2>
+
+<p>Слово вебрик я знаю еще со времен рейлс 1, когда я первый раз узнал про фреймворк, но для меня стало открытием,
+что вебрик оказывается включен в стандартные библиотеки руби. Вот он, родной:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;webrick&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">WEBrick</span><span class="o">::</span><span class="no">HTTPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:Port</span> <span class="o">=&gt;</span> <span class="mi">8000</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">server</span><span class="o">.</span><span class="n">mount_proc</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">req</span><span class="p">,</span> <span class="n">res</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">res</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="nb">trap</span><span class="p">(</span><span class="s1">&#39;INT&#39;</span><span class="p">){</span> <span class="n">server</span><span class="o">.</span><span class="n">shutdown</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">server</span><span class="o">.</span><span class="n">start</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кстати, лог, который выдает данный скрипт, до боли знакомый:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>~/proj/avakhov.github.com(1.9.3-p194)[source]$ ruby salut_webrick.rb
+</span><span class='line'>[2012-12-26 10:21:52] INFO  WEBrick 1.3.1
+</span><span class='line'>[2012-12-26 10:21:52] INFO  ruby 1.9.3 (2012-04-20) [x86_64-darwin11.4.2]
+</span><span class='line'>[2012-12-26 10:21:52] INFO  WEBrick::HTTPServer#start: pid=28642 port=8000
+</span><span class='line'>localhost - - [26/Dec/2012:10:21:58 MSK] &quot;GET / HTTP/1.1&quot; 200 5
+</span><span class='line'>- -&gt; /
+</span><span class='line'>^C[2012-12-26 10:22:05] INFO  going to shutdown ...
+</span><span class='line'>[2012-12-26 10:22:05] INFO  WEBrick::HTTPServer#start done.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Привет TCP сервер</h2>
+
+<p>Как то раз я изучал проблему с сайтом, который на каждый 2-3 клик залипал на 30 секунд и отрывался по таймауту.
+В чем была причина я уже не помню, однако в процессе исследований я познакомился с замечательной утилитой <code>tcpdump</code> (ничего
+более похожего на Матрицу я еще пока не видел), а также запускал примитивные веб-серверы на руби. В процессе исследования кода
+руби нашел еще более низкоуровневый веб сервер, чем вебрик, он уже по настоящему прекрасен:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;socket&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">TCPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
+</span><span class='line'>  <span class="kp">loop</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">client</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">client</span><span class="o">.</span><span class="n">addr</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">line</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">gets</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!~</span> <span class="sr">/^\s*$/</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">line</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">resp</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">headers</span> <span class="o">=</span> <span class="o">[</span>
+</span><span class='line'>      <span class="s2">&quot;http/1.1 200 ok&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;date: tue, 14 jan 1984 12:48:00 UTC+3&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;server: Ruby TCPServer&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;content-type: text/html; charset=utf-8&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s2">&quot;content-length: </span><span class="si">#{</span><span class="n">resp</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="o">].</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">]</span>
+</span><span class='line'>    <span class="n">client</span><span class="o">.</span><span class="n">write</span> <span class="n">headers</span>
+</span><span class='line'>    <span class="n">client</span><span class="o">.</span><span class="n">write</span> <span class="n">resp</span>
+</span><span class='line'>    <span class="n">client</span><span class="o">.</span><span class="n">close</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если вам вдруг станет скучно на работе, вы всегда можете написать какой-нибудь простой http-сервер на руби, возможно это
+развеселит. Хороших праздников!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Перегрузка операторов в руби и простая визуализация]]></title>
@@ -3240,102 +3413,6 @@ devise, которому нужен <code>root_path</code>) и зелеными 
 Можно вызвать команду <code>rails g scaffold post title:string &amp;&amp; rake db:migrate</code> и экспериментировать
 с моделями. Scaffold-генератор создает много файлов стоит сказать, если он нам не понравится
 мы удалим его с помощью <code>git checkout . &amp;&amp; git clean -df</code>, а может создадим чистый проект заново, с темплейтами - это просто!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Booter 1.0.0.rc1]]></title>
-    <link href="http://vakhov.me/blog/2012/04/17/booter-rc1/"/>
-    <updated>2012-04-17T18:23:00+04:00</updated>
-    <id>http://vakhov.me/blog/2012/04/17/booter-rc1</id>
-    <content type="html"><![CDATA[<p><img class="left" src="http://vakhov.me/images/5-booter/burger.jpg">
-С радостью сообщаю, что на прошлой неделе зарелизился бутер 1.0.0.rc1, первый релиз-кандидат <a href="https://github.com/boshie/booter">https://github.com/boshie/booter</a>. Он пока еще без кунжута, но уже довольно питательный :-)</p>
-
-<p>Для меня эта библиотека очень важна, так как это мой первый настоящий опер-сорс.</p>
-
-<!-- more -->
-
-
-<p>История появления гема очень простая. Я люблю использовать твиттеровский бутстрап для прототипов и
-бэкендов. Сначала использовал его напрямую, потом написал простой форм-билдер. Затем
-вынес стили и билдер в отдельный гем, чтобы шарить между проектами. Я не стал использовать simple_form или
-любую другую обертку, так как мне были нужны пару простых фич и я не хотел тянуть в проекты
-большие многофункциональные библиотеки.</p>
-
-<p>Долгое время гем состоял из 3-х файлов и находился в версии
-0.2, но пару недель назад <a href="https://github.com/alexesDev">Алексей Юрченко</a> прислал мне пулриквест под
-номером 1. Первый для меня, как мейнтейнера гема, и первый для него, как для контрибьютера опен сорс.
-Я принял изменения, которые он предложил, чтобы использовать библиотеку в своем проекте,
-и решил сделать из бутера
-полноценный гем. Я понимаю, что бутер не завоюет мир, но зато мы
-прошли практически все фазы, принятые у современного программного обеспечения, своего
-рода боевое крещение.</p>
-
-<p>Бутер покрыт спеками, которые запускаются на трависе. Он представляет из себя полноценный енджин:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Booter</span>
-</span><span class='line'>  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="o">::</span><span class="no">Rails</span><span class="o">::</span><span class="no">Engine</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Поддерживается <a href="http://semver.org/">семантическая версионность</a>. Оказывается когда я первый
-раз  читал этот
-документ, то не заметил важныe пункты про версию 1.0.0, после которой API становится публичным:</p>
-
-<blockquote><p>Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.</p></blockquote>
-
-
-
-
-<blockquote><p>Version 1.0.0 defines the public API. The way in which the version number is incremented after this release is dependent on this public API and how it changes.</p></blockquote>
-
-
-<p>Таким образом, если гем стал 1.0 и автор придерживается семантических версий, то API этого гема
-можно считать стабильным.</p>
-
-<p>Для бутера создано на Хероку <a href="http://growing-cloud-6915.heroku.com">демонстрационное приложение</a>
-(работает оно еще не совсем хорошо).
-В <a href="https://github.com/boshie/booter#readme">ридми</a> описаны примеры
-использования библиотеки. Другими словами, полный джентельменский набор.
-Сейчас мы доделываем фичи, которые хотим включить в 1.0, но релиз-кандидат тоже рабочий,
-он работает в нескольких проектах.</p>
-
-<p>Разрабатывать гем довольно интересно. Если в проект нужно добавлять изменения как можно быстрее и
-сразу же выкатывать на продакшн, то гем разрабатывается в более спокойном режиме, так как
-всегда нужно думать об уже существующих проектах, чтобы не потерять совместимость, не
-сделать слишком общее решение или наоборот слишком частное. Более того внести
-маленькое, сиюминутное изменение в гем сильно дороже, чем в обычный проект, так как нужно
-потестировать, присвоить новую версию,
-выложить на rubygems.</p>
-
-<p>Поэтому сам процесс разработки гема настраивает на накопление изменений и временные
-хаки до релиза следующих стабильных версий. Хаки делать очень просто, обычно у всех
-гемов есть константа <code>VERSION</code>, которую можно проверить и бросить эксепшн если появилась
-новая версия и вы обновили свой гем-файл.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">raise</span> <span class="s2">&quot;Remove code below&quot;</span> <span class="k">if</span> <span class="no">Booter</span><span class="o">::</span><span class="no">VERSION</span> <span class="o">!=</span> <span class="s1">&#39;1.0.0.rc1&#39;</span>
-</span><span class='line'><span class="c1"># ...</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Думаю вы помните, что рейлс, по-моему 2.3.13, не получились,
-так как что-то отвалилось в процессе релиза и после этого сразу же вышли 2.3.14. Мне кажется, что
-коре тим постарается больше так не делать, потому-что это слишком большой стресс.
-Cейчас даже есть документ, в котором описано как релизить рельсы правильно: <a href="https://github.com/rails/rails/blob/master/RELEASING_RAILS.rdoc">https://github.com/rails/rails/blob/master/RELEASING_RAILS.rdoc</a>.</p>
-
-<p>Кстати создать скелет нового гема можно двумя способами <code>bundle gem &lt;имя-гема&gt;</code> или
-<code>rails plugin new &lt;имя-гема&gt;</code>.
-Первый вариант годится для низкоуровневых библиотек. <code>rails plugin new</code> же создает помимо прочего dummy-приложение для тестирования
-енджинов, и является современной заменой гема enginex, который создал Жозе Валим для своей
-книги &#8220;Crafting Rails Applications&#8221;.</p>
 ]]></content>
   </entry>
   

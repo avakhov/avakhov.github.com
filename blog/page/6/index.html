@@ -9,8 +9,9 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="In one project I had a model Event with start and end dates and times.
-I needed an instance method which founds all events whese dates intersected &hellip;">
+  <meta name="description" content="In the post Git Format Patch I described a simple way to inspect
+last commits in git repository. Today I found better solution in the most cases.
+Use &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,88 @@ I needed an instance method which founds all events whese dates intersected &hel
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/28/git-reviews/">Git Commits Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-28T20:04:00+04:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/09/28/git-reviews/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the post <a href="/blog/2011/09/22/git-format-patch/">Git Format Patch</a> I described a simple way to inspect
+last commits in git repository. Today I found better solution in the most cases.
+Use command <tt>git log</tt> with switch <tt>-p</tt>.</p>
+
+<p>To review last 3 commits fire the command below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git log -p HEAD^^^..
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It output pointed commits with full info:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>commit 85a0e4087b8439c0aa6b1f4f9e08c26052ab7e87
+</span><span class='line'>Author: Mike Donaghy &lt;mike@mikedonaghy.org&gt;
+</span><span class='line'>Date:   Tue Jul 15 19:24:39 2008 -0400
+</span><span class='line'>
+</span><span class='line'>    added Befunge
+</span><span class='line'>
+</span><span class='line'>diff --git a/befunge.be b/befunge.be
+</span><span class='line'>new file mode 100644
+</span><span class='line'>index 0000000..0aa8571
+</span><span class='line'>--- /dev/null
+</span><span class='line'>+++ b/befunge.be
+</span><span class='line'>@@ -0,0 +1 @@
+</span><span class='line'>+&gt;<span class="s2">&quot;dlroW olleH&quot;</span>,,,,,,,,,,,@
+</span><span class='line'>
+</span><span class='line'>-------------------- output cutted -----------------------
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -647,6 +730,10 @@ I needed an instance method which founds all events whese dates intersected with
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/25/say-hello-4-times/">4 способа сказать миру привет</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/20/ruby-overload-operators/">Перегрузка операторов в руби и простая визуализация</a>
       </li>
     
@@ -660,10 +747,6 @@ I needed an instance method which founds all events whese dates intersected with
     
       <li class="post">
         <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/">Рекурсивные mustache-темплейты и SMTRails</a>
       </li>
     
   </ul>
