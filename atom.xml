@@ -4,7 +4,7 @@
   <title><![CDATA[Alexey Vakhov]]></title>
   <link href="http://vakhov.me/atom.xml" rel="self"/>
   <link href="http://vakhov.me/"/>
-  <updated>2013-01-11T20:17:19+04:00</updated>
+  <updated>2013-04-22T17:26:49+04:00</updated>
   <id>http://vakhov.me/</id>
   <author>
     <name><![CDATA[Alexey Vakhov]]></name>
@@ -12,6 +12,258 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Эксперименты с OpenStruct и JSON-схемами]]></title>
+    <link href="http://vakhov.me/blog/2013/04/22/total-openstruct/"/>
+    <updated>2013-04-22T15:24:00+04:00</updated>
+    <id>http://vakhov.me/blog/2013/04/22/total-openstruct</id>
+    <content type="html"><![CDATA[<p>Недавно мы решили выделить логические компоненты внутри нашего большого рейлс-приложения, чтобы в будущем возможно разделить приложение физически. Для стандартизации общения между частями системы я использовал JSON-совместимые объекты с валидацией при помощи JSON-схем и немного доработанный OpenStruct. Про этот эксперимент я и хочу рассказать в сегодняшней статье.</p>
+
+<!-- more -->
+
+
+<h2>Заменить хэши на OpenStruct</h2>
+
+<p>Мне нравятся <code>OpenStruct</code> структуры, пример использования которых можно посмотреть в <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/ostruct/rdoc/OpenStruct.html">официальной документации</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;ostruct&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">person</span> <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">person</span><span class="o">.</span><span class="n">name</span>    <span class="o">=</span> <span class="s2">&quot;John Smith&quot;</span>
+</span><span class='line'><span class="n">person</span><span class="o">.</span><span class="n">age</span>     <span class="o">=</span> <span class="mi">70</span>
+</span><span class='line'><span class="n">person</span><span class="o">.</span><span class="n">pension</span> <span class="o">=</span> <span class="mi">300</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span>     <span class="c1"># -&gt; &quot;John Smith&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span>      <span class="c1"># -&gt; 70</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">person</span><span class="o">.</span><span class="n">address</span>  <span class="c1"># -&gt; nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Мне кажется гораздо приятнее написать в коде <code>person.address.street</code>, чем <code>person[:address][:street]</code> однако по привычке обычно используют вторую запись. В рамках эксперимента я изменил несколько методов в <code>OpenStruct</code>:</p>
+
+<figure class='code'><figcaption><span>config/initializer/monkey_patching.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">OpenStruct</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">as_json</span>
+</span><span class='line'>    <span class="n">marshal_dump</span><span class="o">.</span><span class="n">as_json</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">to_json</span>
+</span><span class='line'>    <span class="n">marshal_dump</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">to_s</span>
+</span><span class='line'>    <span class="n">marshal_dump</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">inspect</span>
+</span><span class='line'>    <span class="nb">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>сделав тем самым <code>OpenStruct</code> полностью совместимыми с обычными хэшами в рамках наших задач:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># До изменения (в JSON появляется лишняя вложенность элементов структуры,</span>
+</span><span class='line'><span class="c1"># инспект-запись объекта более громоздкая чем в обычном хэше)</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">to_json</span>   <span class="c1"># =&gt; &quot;{\&quot;table\&quot;:{\&quot;a\&quot;:3,\&quot;b\&quot;:[1,2]}}&quot;</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">as_json</span>   <span class="c1"># =&gt; {&quot;table&quot;=&gt;{:a=&gt;3, :b=&gt;[1, 2]}}</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">inspect</span>   <span class="c1"># =&gt; &quot;#&lt;OpenStruct a=3, b=[1, 2]&gt;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># После изменения</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">to_json</span>   <span class="c1"># =&gt; &quot;{\&quot;a\&quot;:3,\&quot;b\&quot;:[1,2]}&quot;</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">as_json</span>   <span class="c1"># =&gt; {&quot;a&quot;=&gt;3, &quot;b&quot;=&gt;[1, 2]}</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">inspect</span>   <span class="c1"># =&gt; &quot;{:a=&gt;3, :b=&gt;[1, 2]}&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Стандартный хэш</span>
+</span><span class='line'><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">}</span><span class="o">.</span><span class="n">to_json</span>      <span class="c1"># =&gt; &quot;{\&quot;a\&quot;:3,\&quot;b\&quot;:[1,2]}&quot;</span>
+</span><span class='line'><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">}</span><span class="o">.</span><span class="n">as_json</span>      <span class="c1"># =&gt; {&quot;a&quot;=&gt;3, &quot;b&quot;=&gt;[1, 2]}</span>
+</span><span class='line'><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">}</span><span class="o">.</span><span class="n">inspect</span>      <span class="c1"># =&gt; &quot;{:a=&gt;3, :b=&gt;[1, 2]}&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>JSON Schema</h2>
+
+<p>Веселый гибкий JSON пришел на смену жуткому XML с DTD таблицами. Однако после глотка свободы обязательно следует затянуть гайки. Поэтому люди придумали <a href="http://json-schema.org/">JSON Schema</a>, который сейчас проходит <a href="http://tools.ietf.org/html/draft-zyp-json-schema-03">третье чтение</a> в органиции IETF. JSON Schema позволяет валидировать корректность JSON-объекта, проверять типы полей и простые граничные условия. В нашем проекте я использовал гем <a href="https://github.com/hoxworth/json-schema">json-schema</a>, который может валидировать руби-объекты по такой же схеме как и Javascript-объекты.</p>
+
+<p>Для работы системы с первым логическим компонентов я создал интерфейсный модуль с стаческими методами, используя шаблон проектирования <a href="http://c2.com/cgi/wiki?PimplIdiom">PIMPL</a>.</p>
+
+<p>Рассмотрим организации валидации значения на примере интерфейсного метода <code>get_users</code>,
+который возвращает массив пользователей, используя указатель на реализацию интерфейса <code>impl</code>.
+Возвращаемое значение проходит проверку на соответствие его JSON-схеме, заданной в модуле.</p>
+
+<p>Обратите внимание на ключ <code>additionalProperties</code>, который я всегда выставляю для объектов в <code>false</code>,
+чтобы запретить использование свойств объекта, не описанных в схеме.
+Также посмотрите на ограничения, наложенные на свойство <code>age</code>.
+Возраст является не обязательным, но если он все-таки указан, то он должно
+быть числом не меньше 5 и не больше 120.</p>
+
+<p>Если возвращаемое значение не совпадает с заявленной схемой, то <code>JSON::Validator.validate!</code> вызовет эксепшн.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">LogicComponent</span>
+</span><span class='line'>  <span class="n">mattr_accessor</span> <span class="ss">:impl</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">USERS_SCHEMA</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">items</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">additionalProperties</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">properties</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">lname</span><span class="p">:</span> <span class="p">{</span> <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="kp">true</span> <span class="p">},</span>
+</span><span class='line'>        <span class="n">fname</span><span class="p">:</span> <span class="p">{</span> <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="kp">true</span> <span class="p">},</span>
+</span><span class='line'>        <span class="n">age</span><span class="p">:</span> <span class="p">{</span> <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span> <span class="n">minimum</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">maximum</span><span class="p">:</span> <span class="mi">120</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="c1"># LogicComponent.init вызывается в инициализаторе рейлс-приложения</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">init</span>
+</span><span class='line'>      <span class="nb">self</span><span class="o">.</span><span class="n">impl</span> <span class="o">=</span> <span class="no">LogicComponent</span><span class="o">::</span><span class="no">Impl</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">get_users</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">impl</span><span class="o">.</span><span class="n">get_users</span><span class="p">(</span><span class="n">country</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">out</span><span class="o">|</span>
+</span><span class='line'>        <span class="no">JSON</span><span class="o">::</span><span class="no">Validator</span><span class="o">.</span><span class="n">validate!</span><span class="p">(</span><span class="no">USERS_SCHEMA</span><span class="o">.</span><span class="n">as_json</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">as_json</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Простая реализация impl-части (удобно вынести функционал в отдельный класс, чтобы было легче
+тестировать и, например, использовать кеширование <code>@member ||= ...</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">LogicComponent</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Impl</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">get_users</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s1">&#39;Russia&#39;</span>
+</span><span class='line'>        <span class="o">[</span>
+</span><span class='line'>          <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">fname</span><span class="p">:</span> <span class="s1">&#39;Alexey&#39;</span><span class="p">,</span> <span class="n">lname</span><span class="p">:</span> <span class="s1">&#39;Vakhov&#39;</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="mi">29</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">]</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="o">[]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>И наконец практическое применение, для работы с результатом используем магию <code>OpenStruct</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">LogicComponent</span><span class="o">.</span><span class="n">init</span>
+</span><span class='line'><span class="no">LogicComponent</span><span class="o">.</span><span class="n">get_users</span><span class="p">(</span><span class="s2">&quot;Russia&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">fname</span>   <span class="c1"># =&gt; &quot;Alexey&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">lname</span>   <span class="c1"># =&gt; &quot;Vakhov&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">age</span>     <span class="c1"># =&gt; 29</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Подобным образом можно реализовать все необходимые методы модуля <code>LogicComponent</code>.</p>
+
+<h2>Итоги</h2>
+
+<p>Во многих случаях структуры <code>OpenStruct</code> являются полноценной и более удобной заменой внутренних хешей.</p>
+
+<p>Использовать стандартизированных JSON-схем в руби для проверки входных параметров и результатов во
+внутреннем API мне очень понравилось. Эта идея перекликается с методологией программирования
+по контракту, которая мне также симпатична. Не знаю как обстоят дела с производительностью гема
+<code>json-schema</code>, однако идеологически решение получается очень приятным.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[4 способа сказать миру привет]]></title>
@@ -3064,356 +3316,6 @@ Rails 3 проект. Дополнительная пикантность сит
 <p>Второй вариант мне нравится сильно больше. Не удивлюсь, если в руби есть еще более
 симметричный способ обойти несколько массивов одновременно,
 ведь API руби - безгранично.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Автоматизация создания нового приложения с помощью рейлс-темплейтов]]></title>
-    <link href="http://vakhov.me/blog/2012/04/22/rails-templates/"/>
-    <updated>2012-04-22T11:28:00+04:00</updated>
-    <id>http://vakhov.me/blog/2012/04/22/rails-templates</id>
-    <content type="html"><![CDATA[<p>Рейлс уже очень давно поддерживает темплейты при создании нового приложения. До недавнего времени я недооценивал мощь этого инструмента.
-Сегодня я хочу расскать, как я использую темплейты сейчас и привести несколько хитростей из личной практики.</p>
-
-<!--more-->
-
-
-<p>Если вы писали генераторы, то вы уже знакомы с темплейтами, так как они построены на том же коде, что и генераторы.
-В любом случае вот этих 3 ссылок достаточно, чтобы узнать всю необходимую информацию:</p>
-
-<ul>
-<li><a href="http://m.onkey.org/rails-templates">http://m.onkey.org/rails-templates</a></li>
-<li><a href="http://guides.rubyonrails.org/generators.html">http://guides.rubyonrails.org/generators.html</a></li>
-<li><a href="http://rdoc.info/github/wycats/thor/master/Thor/Actions.html">http://rdoc.info/github/wycats/thor/master/Thor/Actions.html</a></li>
-</ul>
-
-
-<p>Иван Евтухович удачно заметил на конференции, что нужная степень автоматизации, это когда все автоматизировано до безобразия.
-Я абсолютно согласен с данным утверждением и стараюсь автоматизировать именно до этой степени, а иногда даже чуточку больше.</p>
-
-<p>Любая автоматизация, это маленькая локальная инновация. И кроме уменьшения сроков выполнения и увеличения качества
-конкретной задачи у нее есть неочевидный, но очень важный эффект - <em>автоматизация влияет на повседневные шаблоны
-поведения программиста и на конечный результат</em>. Поясню на примерах. Agile кроме уменьшения сроков и увеличения
-отзывчивости девелопмента помогает создавать
-легкие, изящные приложения, которые не получится разработать обычными методами. Гитхаб и рубиджемс помогли нам получить
-огромное количество интересного кода, который раньше не был бы открытым, даже не из-за желания скрыть свои наработки, а
-из-за сложности публикации и поддержки своего опен-сорса. Гит показал нам, как здорово создавать ветки и делать маленькие комиты.
-Раньше нам казалось, что ветки не нужно создавать часто, но оказывается это было не потому-что сама идея веток - бесполезна, а
-потому-что сложности создания и мержа уничтожали все потенциальные приемущества. Автоматизация (как и выбор правильных
-инструментов) помогает взглянуть на старые подходы к работе под другим углом, выработать и использовать новые навыки, и, в конечном
-итоге, получить принципиально другой результат.</p>
-
-<p>Вернемся к теме сегодняшней беседы.
-В повседневной практике довольно редко приходится создавать новое приложение, обычно это приходится делать
-только в начале нового проекта. Но в любом случае у каждого программиста сформирован
-набор гемов и начальных настроек, которые бы он хотел использовать в любом проекте независимо от размера и назначения.
-У меня тоже есть такой набор, каждый раз я его применял вручную, поэтому гем-файлы всех проектов выглядят чуть-чуть
-по разному. Но вообще я всегда создавал новый проект с неохотой, потому-что нужно было добавить поддержку хамл,
-спеки, удалить index.html, настроить базу и сделать еще много всяких маленьких скучных правок. Кроме того я люблю возиться
-с исходниками рейлс и часто у меня возникает вопрос, как работает та или иная функциональность.
-Было бы удобно иметь всегда рабочий стенд, на котором можно быстро проверять свои гипотезы. Я пробовал использовать
-для этого пустой sandbox-проект, но он очень быстро приходил в негодность, плюс иногда еще хочется посмотреть как это работало
-например в 3.0 или даже в 2.3. Можно конечно еще делать так: создать пустое приложение <code>rails new ...</code>, добавить therubyracer, bundle install, настроить базу, bundle install, фух - не хватает haml, bundle install, опс - хочу автомиграции, я к ним привык - добавить, bundle install - да ну в качель эту идею и рейлс целиком, пусть работают как хотят&#8230;</p>
-
-<p>Сейчас я создаю пустое приложение несколько раз за день. Так как, чтобы проверить как работает тот или иной код в чистых рейлс достаточно 3-х простых команд:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails new demo-app -m &lt;путь-до-темплейта&gt; <span class="c"># у меня есть заготовки для 3.0, 3.1 и 3.2</span>
-</span><span class='line'><span class="nb">cd </span>demo-app
-</span><span class='line'>rails s   <span class="c"># привычное и прекрасное окружение запущено</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># hack, hack, hack</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> rm -fr demo-app
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>В заключение приведу свой основной темплейт-файл, который я обычно использую:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Можно использовать просто команду `file`, но в этом случае</span>
-</span><span class='line'><span class="c1"># при попытке переписать существующий файл, система спросит:</span>
-</span><span class='line'><span class="c1"># &quot;уверенны ли вы?&quot; Конечно уверены! Мы же создаем проект с</span>
-</span><span class='line'><span class="c1"># нуля и не хотим лишний раз нажимать ентер.</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">file_force</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">f</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">f</span><span class="o">.</span><span class="n">puts</span> <span class="n">content</span>
-</span><span class='line'>  <span class="n">f</span><span class="o">.</span><span class="n">close</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file_force</span> <span class="s1">&#39;Gemfile&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">source &#39;https://rubygems.org&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">gem &#39;rails&#39;, &#39;3.2.3&#39;</span>
-</span><span class='line'><span class="sh">gem &#39;pg&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">gem &#39;haml&#39;</span>
-</span><span class='line'><span class="sh">gem &#39;jquery-rails&#39;</span>
-</span><span class='line'><span class="sh">gem &#39;unicorn&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">group :assets do</span>
-</span><span class='line'><span class="sh">  gem &#39;sass-rails&#39;,   &#39;~&gt; 3.2.3&#39;</span>
-</span><span class='line'><span class="sh">  gem &#39;coffee-rails&#39;, &#39;~&gt; 3.2.1&#39;</span>
-</span><span class='line'><span class="sh">  gem &#39;therubyracer&#39;, :platform =&gt; :ruby</span>
-</span><span class='line'><span class="sh">  gem &#39;uglifier&#39;, &#39;&gt;= 1.0.3&#39;</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">group :development do</span>
-</span><span class='line'><span class="sh">  gem &#39;rails-footnotes&#39;, git: &#39;git://github.com/avakhov/rails-footnotes.git&#39;, branch: &#39;custom&#39;</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">group :test do</span>
-</span><span class='line'><span class="sh">  gem &#39;factory_girl_rails&#39;</span>
-</span><span class='line'><span class="sh">  gem &#39;timecop&#39;</span>
-</span><span class='line'><span class="sh">  gem &#39;database_cleaner&#39;</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">group :development, :test do</span>
-</span><span class='line'><span class="sh">  gem &#39;rspec-rails&#39;</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file_force</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">/.bundle</span>
-</span><span class='line'><span class="sh">/log/*.log</span>
-</span><span class='line'><span class="sh">/tmp</span>
-</span><span class='line'><span class="sh">/public/assets</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;README.md&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh"># Project</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">TODO: description</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;.rspec&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">--colour</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;spec/spec_helper.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">ENV[&quot;RAILS_ENV&quot;] ||= &#39;test&#39;</span>
-</span><span class='line'><span class="sh">require File.expand_path(&quot;../../config/environment&quot;, __FILE__)</span>
-</span><span class='line'><span class="sh">require &#39;rspec/rails&#39;</span>
-</span><span class='line'><span class="sh">require &#39;rspec/autorun&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each {|f| require f}</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">RSpec.configure do |config|</span>
-</span><span class='line'><span class="sh">  config.before(:suite) do</span>
-</span><span class='line'><span class="sh">    DatabaseCleaner.strategy = :transaction</span>
-</span><span class='line'><span class="sh">  end</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">  config.before(:each) do</span>
-</span><span class='line'><span class="sh">    DatabaseCleaner.start</span>
-</span><span class='line'><span class="sh">  end</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">  config.after(:each) do</span>
-</span><span class='line'><span class="sh">    DatabaseCleaner.clean</span>
-</span><span class='line'><span class="sh">  end</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">  config.include FactoryGirl::Syntax::Methods</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;spec/factories.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">FactoryGirl.define do</span>
-</span><span class='line'><span class="sh">  # factory :demo do</span>
-</span><span class='line'><span class="sh">  #   name &#39;name&#39;</span>
-</span><span class='line'><span class="sh">  # end</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;app/controllers/home_controller.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">class HomeController &lt; ApplicationController</span>
-</span><span class='line'><span class="sh">  def index</span>
-</span><span class='line'><span class="sh">  end</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;app/views/home/index.html.haml&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">%h1 Home#index</span>
-</span><span class='line'><span class="sh">%p Find me in app/views/home/index.html.haml</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">file</span> <span class="s1">&#39;spec/controllers/home_controller_spec.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">require &#39;spec_helper&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="sh">describe HomeController do</span>
-</span><span class='line'><span class="sh">  it &quot;index&quot; do</span>
-</span><span class='line'><span class="sh">    get &#39;index&#39;</span>
-</span><span class='line'><span class="sh">    response.should be_success</span>
-</span><span class='line'><span class="sh">  end</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Нам не нужны примеры роутов, мы и так все знаем!</span>
-</span><span class='line'><span class="n">head</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">readlines</span><span class="p">(</span><span class="s1">&#39;config/routes.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-</span><span class='line'><span class="n">file_force</span> <span class="s1">&#39;config/routes.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
-</span><span class='line'><span class="sh">#{head.strip}</span>
-</span><span class='line'><span class="sh">  root to: &#39;home#index&#39;</span>
-</span><span class='line'><span class="sh">end</span>
-</span><span class='line'><span class="no">CODE</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Скрипт темплейта запускается в директории</span>
-</span><span class='line'><span class="c1"># созданного проекта:</span>
-</span><span class='line'><span class="no">FileUtils</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="s1">&#39;public/index.html&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="no">FileUtils</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="s1">&#39;README.rdoc&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="no">FileUtils</span><span class="o">.</span><span class="n">rm_rf</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># И мы можем запускать даже шелл-команды</span>
-</span><span class='line'><span class="nb">system</span> <span class="s2">&quot;bundle install&quot;</span>
-</span><span class='line'><span class="nb">system</span> <span class="s2">&quot;rake db:create db:migrate db:test:prepare&quot;</span>
-</span><span class='line'><span class="nb">system</span> <span class="s2">&quot;git init&quot;</span>
-</span><span class='line'><span class="nb">system</span> <span class="s2">&quot;git add .&quot;</span>
-</span><span class='line'><span class="nb">system</span> <span class="s2">&quot;git ci -amInitial&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>После выполения этого темплейта, создается приложение с базой, с главной страницей (можно подключить
-devise, которому нужен <code>root_path</code>) и зелеными спеками.
-Можно вызвать команду <code>rails g scaffold post title:string &amp;&amp; rake db:migrate</code> и экспериментировать
-с моделями. Scaffold-генератор создает много файлов стоит сказать, если он нам не понравится
-мы удалим его с помощью <code>git checkout . &amp;&amp; git clean -df</code>, а может создадим чистый проект заново, с темплейтами - это просто!</p>
 ]]></content>
   </entry>
   

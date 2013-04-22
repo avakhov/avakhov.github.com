@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Automating Bundle Exec - Алексей Вахов </title>
+  <title> Алексей Вахов - Технический Блог </title>
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="I&#8217;m using the recipe http://effectif.com/ruby/automating-bundle-exec to execute bundle exec with each command (thanks Ivan Evtuhovich for &hellip;">
+  <meta name="description" content="To remove all untracked files and discard all changes in working directory fire a command: 1 git checkout . && git clean -df ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://vakhov.me/blog/2011/09/15/automating-bundle-exec/">
+  <link rel="canonical" href="http://vakhov.me/blog/page/7/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,12 +74,15 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      <h1 class="entry-title">Automating Bundle Exec</h1>
+      <h1 class="entry-title"><a href="/blog/2011/09/13/git-clean-folder/">Clean Git Working Directory</a></h1>
     
     
       <p class="meta">
@@ -95,84 +98,35 @@
   
 
 
-<time datetime="2011-09-15T10:45:00+04:00" pubdate data-updated="true">Sep 15<span>th</span>, 2011</time>
+<time datetime="2011-09-13T18:05:00+04:00" pubdate data-updated="true">Sep 13<span>th</span>, 2011</time>
         
-         | <a href="#disqus_thread">Comments</a>
+         | <a href="/blog/2011/09/13/git-clean-folder/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I&#8217;m using the recipe <a href="http://effectif.com/ruby/automating-bundle-exec">http://effectif.com/ruby/automating-bundle-exec</a> to execute bundle exec with each command (thanks <a href="http://blog.evtuhovich.ru/">Ivan Evtuhovich</a> for advice). Prepend command with backslash to execute the command without bundle.</p>
-
-<p>The magic of shell aliases from <a href="https://github.com/gma/bundler-exec/blob/master/bundler-exec.sh">here</a>:</p>
+  <div class="entry-content"><p>To remove all untracked files and discard all changes in working directory fire a command:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  $ rake test # =&gt; executes 'bundle exec rake test'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Just rake test:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  $ \rake test # =&gt; executes 'rake test'</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  git checkout . && git clean -df</span></code></pre></td></tr></table></div></figure>
 
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Alexey Vakhov</span></span>
-
-      
-
-
-
-
-
-
-
-
   
 
 
-<time datetime="2011-09-15T10:45:00+04:00" pubdate data-updated="true">Sep 15<span>th</span>, 2011</time>
-      
-
-
-    </p>
+    </article>
+  
+  <div class="pagination">
     
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vakhov.me/blog/2011/09/15/automating-bundle-exec/" data-via="" data-counturl="http://vakhov.me/blog/2011/09/15/automating-bundle-exec/" >Tweet</a>
-  
-  
-  
-</div>
-
+    <a href="/blog/archives">Blog Archives</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2011/09/15/dir-glob/" title="Previous Post: Search files">&laquo; Search files</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2011/09/15/array-wrap/" title="Next Post: Array wrapping">Array wrapping &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a class="next" href="/blog/page/6/">Newer &rarr;</a>
+    
+  </div>
 </div>
-  </section>
-
-</div>
-
 <aside class="sidebar">
   
     <style>
@@ -223,7 +177,6 @@
   
 </aside>
 
-
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -238,10 +191,7 @@
       var disqus_shortname = 'vakhov-me';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://vakhov.me/blog/2011/09/15/automating-bundle-exec/';
-        var disqus_url = 'http://vakhov.me/blog/2011/09/15/automating-bundle-exec/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

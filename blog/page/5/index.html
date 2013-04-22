@@ -9,7 +9,7 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="I have small problems using ubuntu 10.04 on old Sony VAIO laptops. Sony VAIO VGN-N11SR Microphone Is Not Working In Skype: /etc/modprobe.d/alsa-base. &hellip;">
+  <meta name="description" content="Translate method in view is not the same as I18n.translate method. All differences you can find in official documentation. Today I want to talk about &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,93 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/24/translate-helper-vs-i18n-tranlsate-method/">Translate Helper vs I18n Translate Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-24T23:14:00+04:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/24/translate-helper-vs-i18n-tranlsate-method/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><tt>Translate</tt> method in view is not the same as <tt>I18n.translate</tt> method.</p>
+
+<p>All differences you can find in <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/TranslationHelper.html#method-i-translate">official documentation</a>. Today I want to talk about one important difference <tt>:rescue_format</tt> option.</p>
+
+<p>If translation is not found in your localization files you get warning:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">I18n</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;unk&#39;</span><span class="p">)</span> <span class="c1"># =&gt; &quot;translation missing: en.unk&quot;</span>
+</span><span class='line'><span class="no">I18n</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;unk&#39;</span><span class="p">,</span> <span class="ss">:rescue_format</span> <span class="o">=&gt;</span> <span class="ss">:html</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># =&gt; &quot;&lt;span class=\&quot;translation_missing\&quot; title=\&quot;translation missing: en.unk\&quot;&gt;Unk&lt;/span&gt;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># in view:</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sx">%= t(&#39;unk&#39;) %&gt;</span>
+</span><span class='line'><span class="sx"># =</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;translation_missing&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;translation missing: en.unk&quot;</span><span class="o">&gt;</span><span class="no">Unk</span><span class="o">&lt;</span><span class="sr">/span&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Forcing <tt>:rescue_format</tt> in views is very good. You can set special css style to
+make missing translations noticeable:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">span</span><span class="nc">.translation_missing</span> <span class="p">{</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But you should always use <tt>I18n.translate</tt> method if you want to localize some html attributes in <tt>link_to</tt>, <tt>submit</tt> and other methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">link_to</span><span class="p">(</span><span class="s1">&#39;Destroy&#39;</span><span class="p">,</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">,</span> <span class="ss">:confirm</span> <span class="o">=&gt;</span> <span class="no">I18</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;sure&#39;</span><span class="p">))</span> <span class="c1"># It&#39;s good</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">link_to</span><span class="p">(</span><span class="s1">&#39;Destroy&#39;</span><span class="p">,</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">,</span> <span class="ss">:confirm</span> <span class="o">=&gt;</span> <span class="n">t</span><span class="p">(</span><span class="s1">&#39;sure&#39;</span><span class="p">))</span> <span class="c1"># It&#39;s bad</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Second example in case of missing translation generates wrong HTML:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/posts/1&quot;</span> <span class="na">data-confirm=</span><span class="s">&quot;&lt;span class=&quot;</span><span class="na">translation_missing</span><span class="err">&quot;</span> <span class="na">title=</span><span class="s">&quot;translation missing: en.sure&quot;</span><span class="nt">&gt;</span>Sure<span class="nt">&lt;/span&gt;</span>&quot; data-method=&quot;delete&quot; rel=&quot;nofollow&quot;&gt;Destroy<span class="nt">&lt;/a&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thereby use <tt>translate</tt> method in views and <tt>I18n.translate</tt> method if you want to pass localized string as some HTML tag attribute.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -631,83 +718,6 @@ Usual I use <tt>split_and_join</tt> approach:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/03/git-tips/">Git Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-03T08:31:00+04:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/03/git-tips/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There are three things that can be doing infinitely: reading vim documentation,
-reading rails documentation and reading git documentation.</p>
-
-<p>I have read <a href="http://progit.org/book/">Pro Git</a> book and found a couple of commands that I have been never used but they can be very useful.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git commit -v</span></code></pre></td></tr></table></div></figure>
-
-
-<p>opens your favorite editor with full diff of changes. It helps to write smarter commit message.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git log -p</span></code></pre></td></tr></table></div></figure>
-
-
-<p>shows history of changes with full diffs.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git describe   # =&gt; v0.0.3-15-gf14657b</span></code></pre></td></tr></table></div></figure>
-
-
-<p>helps to create version string for any snapshot from repository (use <tt>git describe &#8211;tags</tt> if you have only lightweight tags).</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git shorlog</span></code></pre></td></tr></table></div></figure>
-
-
-<p>helps to write changlog after another release.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add --interactive</span></code></pre></td></tr></table></div></figure>
-
-
-<p>fires sophisticated staging shell.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git bisect run &lt;cmd&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>executes <tt>cmd</tt> for each <tt>bisect</tt> iteration.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -738,6 +748,10 @@ reading rails documentation and reading git documentation.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/22/total-openstruct/">Эксперименты с OpenStruct и JSON-схемами</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/25/say-hello-4-times/">4 способа сказать миру привет</a>
       </li>
     
@@ -751,10 +765,6 @@ reading rails documentation and reading git documentation.</p>
     
       <li class="post">
         <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
       </li>
     
   </ul>

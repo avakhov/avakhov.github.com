@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Эксперименты с OpenStruct и JSON-схемами - Алексей Вахов </title>
+  <meta name="author" content="Alexey Vakhov">
+
+  
+  <meta name="description" content="Недавно мы решили выделить логические компоненты внутри нашего большого рейлс-приложения, чтобы в будущем возможно разделить приложение физически. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://vakhov.me/blog/2013/04/22/total-openstruct/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Alexey Vakhov" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10590669-8']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Alexey Vakhov</a></h1>
+  
+    <h2>Ruby on Rails Developer</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:vakhov.me" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Эксперименты с OpenStruct и JSON-схемами</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-22T15:24:00+04:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Недавно мы решили выделить логические компоненты внутри нашего большого рейлс-приложения, чтобы в будущем возможно разделить приложение физически. Для стандартизации общения между частями системы я использовал JSON-совместимые объекты с валидацией при помощи JSON-схем и немного доработанный OpenStruct. Про этот эксперимент я и хочу рассказать в сегодняшней статье.</p>
+
+<!-- more -->
+
+
+<h2>Заменить хэши на OpenStruct</h2>
+
+<p>Мне нравятся <code>OpenStruct</code> структуры, пример использования которых можно посмотреть в <a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/ostruct/rdoc/OpenStruct.html">официальной документации</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;ostruct&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">person</span> <span class="o">=</span> <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">person</span><span class="o">.</span><span class="n">name</span>    <span class="o">=</span> <span class="s2">&quot;John Smith&quot;</span>
+</span><span class='line'><span class="n">person</span><span class="o">.</span><span class="n">age</span>     <span class="o">=</span> <span class="mi">70</span>
+</span><span class='line'><span class="n">person</span><span class="o">.</span><span class="n">pension</span> <span class="o">=</span> <span class="mi">300</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">person</span><span class="o">.</span><span class="n">name</span>     <span class="c1"># -&gt; &quot;John Smith&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span>      <span class="c1"># -&gt; 70</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">person</span><span class="o">.</span><span class="n">address</span>  <span class="c1"># -&gt; nil</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Мне кажется гораздо приятнее написать в коде <code>person.address.street</code>, чем <code>person[:address][:street]</code> однако по привычке обычно используют вторую запись. В рамках эксперимента я изменил несколько методов в <code>OpenStruct</code>:</p>
+
+<figure class='code'><figcaption><span>config/initializer/monkey_patching.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">OpenStruct</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">as_json</span>
+</span><span class='line'>    <span class="n">marshal_dump</span><span class="o">.</span><span class="n">as_json</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">to_json</span>
+</span><span class='line'>    <span class="n">marshal_dump</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">to_s</span>
+</span><span class='line'>    <span class="n">marshal_dump</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">inspect</span>
+</span><span class='line'>    <span class="nb">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>сделав тем самым <code>OpenStruct</code> полностью совместимыми с обычными хэшами в рамках наших задач:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># До изменения (в JSON появляется лишняя вложенность элементов структуры,</span>
+</span><span class='line'><span class="c1"># инспект-запись объекта более громоздкая чем в обычном хэше)</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">to_json</span>   <span class="c1"># =&gt; &quot;{\&quot;table\&quot;:{\&quot;a\&quot;:3,\&quot;b\&quot;:[1,2]}}&quot;</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">as_json</span>   <span class="c1"># =&gt; {&quot;table&quot;=&gt;{:a=&gt;3, :b=&gt;[1, 2]}}</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">inspect</span>   <span class="c1"># =&gt; &quot;#&lt;OpenStruct a=3, b=[1, 2]&gt;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># После изменения</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">to_json</span>   <span class="c1"># =&gt; &quot;{\&quot;a\&quot;:3,\&quot;b\&quot;:[1,2]}&quot;</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">as_json</span>   <span class="c1"># =&gt; {&quot;a&quot;=&gt;3, &quot;b&quot;=&gt;[1, 2]}</span>
+</span><span class='line'><span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">inspect</span>   <span class="c1"># =&gt; &quot;{:a=&gt;3, :b=&gt;[1, 2]}&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Стандартный хэш</span>
+</span><span class='line'><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">}</span><span class="o">.</span><span class="n">to_json</span>      <span class="c1"># =&gt; &quot;{\&quot;a\&quot;:3,\&quot;b\&quot;:[1,2]}&quot;</span>
+</span><span class='line'><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">}</span><span class="o">.</span><span class="n">as_json</span>      <span class="c1"># =&gt; {&quot;a&quot;=&gt;3, &quot;b&quot;=&gt;[1, 2]}</span>
+</span><span class='line'><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">}</span><span class="o">.</span><span class="n">inspect</span>      <span class="c1"># =&gt; &quot;{:a=&gt;3, :b=&gt;[1, 2]}&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>JSON Schema</h2>
+
+<p>Веселый гибкий JSON пришел на смену жуткому XML с DTD таблицами. Однако после глотка свободы обязательно следует затянуть гайки. Поэтому люди придумали <a href="http://json-schema.org/">JSON Schema</a>, который сейчас проходит <a href="http://tools.ietf.org/html/draft-zyp-json-schema-03">третье чтение</a> в органиции IETF. JSON Schema позволяет валидировать корректность JSON-объекта, проверять типы полей и простые граничные условия. В нашем проекте я использовал гем <a href="https://github.com/hoxworth/json-schema">json-schema</a>, который может валидировать руби-объекты по такой же схеме как и Javascript-объекты.</p>
+
+<p>Для работы системы с первым логическим компонентов я создал интерфейсный модуль с стаческими методами, используя шаблон проектирования <a href="http://c2.com/cgi/wiki?PimplIdiom">PIMPL</a>.</p>
+
+<p>Рассмотрим организации валидации значения на примере интерфейсного метода <code>get_users</code>,
+который возвращает массив пользователей, используя указатель на реализацию интерфейса <code>impl</code>.
+Возвращаемое значение проходит проверку на соответствие его JSON-схеме, заданной в модуле.</p>
+
+<p>Обратите внимание на ключ <code>additionalProperties</code>, который я всегда выставляю для объектов в <code>false</code>,
+чтобы запретить использование свойств объекта, не описанных в схеме.
+Также посмотрите на ограничения, наложенные на свойство <code>age</code>.
+Возраст является не обязательным, но если он все-таки указан, то он должно
+быть числом не меньше 5 и не больше 120.</p>
+
+<p>Если возвращаемое значение не совпадает с заявленной схемой, то <code>JSON::Validator.validate!</code> вызовет эксепшн.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">LogicComponent</span>
+</span><span class='line'>  <span class="n">mattr_accessor</span> <span class="ss">:impl</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">USERS_SCHEMA</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">items</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">additionalProperties</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">properties</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">lname</span><span class="p">:</span> <span class="p">{</span> <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="kp">true</span> <span class="p">},</span>
+</span><span class='line'>        <span class="n">fname</span><span class="p">:</span> <span class="p">{</span> <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="kp">true</span> <span class="p">},</span>
+</span><span class='line'>        <span class="n">age</span><span class="p">:</span> <span class="p">{</span> <span class="n">type</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span> <span class="n">required</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span> <span class="n">minimum</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">maximum</span><span class="p">:</span> <span class="mi">120</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="c1"># LogicComponent.init вызывается в инициализаторе рейлс-приложения</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">init</span>
+</span><span class='line'>      <span class="nb">self</span><span class="o">.</span><span class="n">impl</span> <span class="o">=</span> <span class="no">LogicComponent</span><span class="o">::</span><span class="no">Impl</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">get_users</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">impl</span><span class="o">.</span><span class="n">get_users</span><span class="p">(</span><span class="n">country</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">out</span><span class="o">|</span>
+</span><span class='line'>        <span class="no">JSON</span><span class="o">::</span><span class="no">Validator</span><span class="o">.</span><span class="n">validate!</span><span class="p">(</span><span class="no">USERS_SCHEMA</span><span class="o">.</span><span class="n">as_json</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">as_json</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Простая реализация impl-части (удобно вынести функционал в отдельный класс, чтобы было легче
+тестировать и, например, использовать кеширование <code>@member ||= ...</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">LogicComponent</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Impl</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">get_users</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s1">&#39;Russia&#39;</span>
+</span><span class='line'>        <span class="o">[</span>
+</span><span class='line'>          <span class="no">OpenStruct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">fname</span><span class="p">:</span> <span class="s1">&#39;Alexey&#39;</span><span class="p">,</span> <span class="n">lname</span><span class="p">:</span> <span class="s1">&#39;Vakhov&#39;</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="mi">29</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">]</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="o">[]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>И наконец практическое применение, для работы с результатом используем магию <code>OpenStruct</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">LogicComponent</span><span class="o">.</span><span class="n">init</span>
+</span><span class='line'><span class="no">LogicComponent</span><span class="o">.</span><span class="n">get_users</span><span class="p">(</span><span class="s2">&quot;Russia&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">fname</span>   <span class="c1"># =&gt; &quot;Alexey&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">lname</span>   <span class="c1"># =&gt; &quot;Vakhov&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">user</span><span class="o">.</span><span class="n">age</span>     <span class="c1"># =&gt; 29</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Подобным образом можно реализовать все необходимые методы модуля <code>LogicComponent</code>.</p>
+
+<h2>Итоги</h2>
+
+<p>Во многих случаях структуры <code>OpenStruct</code> являются полноценной и более удобной заменой внутренних хешей.</p>
+
+<p>Использовать стандартизированных JSON-схем в руби для проверки входных параметров и результатов во
+внутреннем API мне очень понравилось. Эта идея перекликается с методологией программирования
+по контракту, которая мне также симпатична. Не знаю как обстоят дела с производительностью гема
+<code>json-schema</code>, однако идеологически решение получается очень приятным.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Alexey Vakhov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-22T15:24:00+04:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://vakhov.me/blog/2013/04/22/total-openstruct/" data-via="" data-counturl="http://vakhov.me/blog/2013/04/22/total-openstruct/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/25/say-hello-4-times/" title="Previous Post: 4 способа сказать миру привет">&laquo; 4 способа сказать миру привет</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <style>
+  section#about p {margin-bottom: 5px;}
+  section#about p img {vertical-align: middle;}
+  section#about img.logo {margin-left: 5px;}
+</style>
+
+<section id="about">
+  <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+  <p><img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a></p>
+  <p><img src="/images/gmail.ico"> - vakhov@gmail.com</p>
+  <p><img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a></p>
+  <p><img src="/images/skype.ico"> - avakhov</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/22/total-openstruct/">Эксперименты с OpenStruct и JSON-схемами</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/25/say-hello-4-times/">4 способа сказать миру привет</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/20/ruby-overload-operators/">Перегрузка операторов в руби и простая визуализация</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/16/show-me-your-monkey-patch-file/">Покажи свой Monkey Patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Alexey Vakhov -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'vakhov-me';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://vakhov.me/blog/2013/04/22/total-openstruct/';
+        var disqus_url = 'http://vakhov.me/blog/2013/04/22/total-openstruct/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

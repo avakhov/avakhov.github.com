@@ -9,7 +9,8 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="С радостью сообщаю, что на прошлой неделе зарелизился бутер 1.0.0.rc1, первый релиз-кандидат https://github.com/boshie/booter. Он пока еще без &hellip;">
+  <meta name="description" content="Рейлс уже очень давно поддерживает темплейты при создании нового приложения. До недавнего времени я недооценивал мощь этого инструмента.
+Сегодня я &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/22/rails-templates/">Автоматизация создания нового приложения с помощью рейлс-темплейтов</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-22T11:28:00+04:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2012</time>
+        
+         | <a href="/blog/2012/04/22/rails-templates/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Рейлс уже очень давно поддерживает темплейты при создании нового приложения. До недавнего времени я недооценивал мощь этого инструмента.
+Сегодня я хочу расскать, как я использую темплейты сейчас и привести несколько хитростей из личной практики.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/04/22/rails-templates/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -532,75 +577,6 @@ c небольшими модификациями.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/">Лайоут анонимного контроллера</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-01T12:19:00+04:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
-        
-         | <a href="/blog/2012/03/01/anonymous-controller-layout-lookup/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
-будет поддерживать классическую цепочку поиска подходящего лайоута согласно <a href="http://api.rubyonrails.org/classes/AbstractController/Layouts.html#label-Inheritance+Examples">документации</a>.</p>
-
-<p>Например так:</p>
-
-<figure class='code'><figcaption><span>config/routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">WeirdRailsApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">controller</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ApplicationController</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">text</span>
-</span><span class='line'>      <span class="n">render</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;demo&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="p">:</span> <span class="kp">true</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">root</span> <span class="n">to</span><span class="p">:</span> <span class="n">controller</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="ss">:text</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/03/01/anonymous-controller-layout-lookup/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -631,6 +607,10 @@ c небольшими модификациями.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/22/total-openstruct/">Эксперименты с OpenStruct и JSON-схемами</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/25/say-hello-4-times/">4 способа сказать миру привет</a>
       </li>
     
@@ -644,10 +624,6 @@ c небольшими модификациями.</p>
     
       <li class="post">
         <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
       </li>
     
   </ul>

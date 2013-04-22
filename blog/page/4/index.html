@@ -9,11 +9,8 @@
   <meta name="author" content="Alexey Vakhov">
 
   
-  <meta name="description" content="По умолчанию при рендеринге простого текста в контроллере он отрисовывается как есть: 1
-2
-3
-def action render text: &quot;some&quot; # =&gt; some
-end &hellip;">
+  <meta name="description" content="В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
+будет поддерживать классическую цепочку поиска подходящего &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +77,75 @@ end &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/">Лайоут анонимного контроллера</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-01T12:19:00+04:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
+        
+         | <a href="/blog/2012/03/01/anonymous-controller-layout-lookup/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
+будет поддерживать классическую цепочку поиска подходящего лайоута согласно <a href="http://api.rubyonrails.org/classes/AbstractController/Layouts.html#label-Inheritance+Examples">документации</a>.</p>
+
+<p>Например так:</p>
+
+<figure class='code'><figcaption><span>config/routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">WeirdRailsApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">controller</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ApplicationController</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">text</span>
+</span><span class='line'>      <span class="n">render</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;demo&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">root</span> <span class="n">to</span><span class="p">:</span> <span class="n">controller</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="ss">:text</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/01/anonymous-controller-layout-lookup/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -580,93 +646,6 @@ It saves six or seven key pressures and makes your code cleaner!</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/24/translate-helper-vs-i18n-tranlsate-method/">Translate Helper vs I18n Translate Method</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-24T23:14:00+04:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/24/translate-helper-vs-i18n-tranlsate-method/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><tt>Translate</tt> method in view is not the same as <tt>I18n.translate</tt> method.</p>
-
-<p>All differences you can find in <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/TranslationHelper.html#method-i-translate">official documentation</a>. Today I want to talk about one important difference <tt>:rescue_format</tt> option.</p>
-
-<p>If translation is not found in your localization files you get warning:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">I18n</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;unk&#39;</span><span class="p">)</span> <span class="c1"># =&gt; &quot;translation missing: en.unk&quot;</span>
-</span><span class='line'><span class="no">I18n</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;unk&#39;</span><span class="p">,</span> <span class="ss">:rescue_format</span> <span class="o">=&gt;</span> <span class="ss">:html</span><span class="p">)</span>
-</span><span class='line'><span class="c1"># =&gt; &quot;&lt;span class=\&quot;translation_missing\&quot; title=\&quot;translation missing: en.unk\&quot;&gt;Unk&lt;/span&gt;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># in view:</span>
-</span><span class='line'><span class="o">&lt;</span><span class="sx">%= t(&#39;unk&#39;) %&gt;</span>
-</span><span class='line'><span class="sx"># =</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;translation_missing&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;translation missing: en.unk&quot;</span><span class="o">&gt;</span><span class="no">Unk</span><span class="o">&lt;</span><span class="sr">/span&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Forcing <tt>:rescue_format</tt> in views is very good. You can set special css style to
-make missing translations noticeable:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">span</span><span class="nc">.translation_missing</span> <span class="p">{</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But you should always use <tt>I18n.translate</tt> method if you want to localize some html attributes in <tt>link_to</tt>, <tt>submit</tt> and other methods:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">link_to</span><span class="p">(</span><span class="s1">&#39;Destroy&#39;</span><span class="p">,</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">,</span> <span class="ss">:confirm</span> <span class="o">=&gt;</span> <span class="no">I18</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;sure&#39;</span><span class="p">))</span> <span class="c1"># It&#39;s good</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">link_to</span><span class="p">(</span><span class="s1">&#39;Destroy&#39;</span><span class="p">,</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">,</span> <span class="ss">:confirm</span> <span class="o">=&gt;</span> <span class="n">t</span><span class="p">(</span><span class="s1">&#39;sure&#39;</span><span class="p">))</span> <span class="c1"># It&#39;s bad</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Second example in case of missing translation generates wrong HTML:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/posts/1&quot;</span> <span class="na">data-confirm=</span><span class="s">&quot;&lt;span class=&quot;</span><span class="na">translation_missing</span><span class="err">&quot;</span> <span class="na">title=</span><span class="s">&quot;translation missing: en.sure&quot;</span><span class="nt">&gt;</span>Sure<span class="nt">&lt;/span&gt;</span>&quot; data-method=&quot;delete&quot; rel=&quot;nofollow&quot;&gt;Destroy<span class="nt">&lt;/a&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Thereby use <tt>translate</tt> method in views and <tt>I18n.translate</tt> method if you want to pass localized string as some HTML tag attribute.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -697,6 +676,10 @@ make missing translations noticeable:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/22/total-openstruct/">Эксперименты с OpenStruct и JSON-схемами</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/25/say-hello-4-times/">4 способа сказать миру привет</a>
       </li>
     
@@ -710,10 +693,6 @@ make missing translations noticeable:</p>
     
       <li class="post">
         <a href="/blog/2012/11/09/frontend-job/">Ищем Javascript-разработчика</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/06/javascript-testing/">3 способа автоматического тестирования Javascript</a>
       </li>
     
   </ul>
