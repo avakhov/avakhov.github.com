@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>100 комитов в Rails</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="/fonts/all.css" rel="stylesheet">
+    <style>* { font-family: 'PT Sans' !important; }</style>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/blog.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="site">
+        <div class="header">
+  <h1 class="title"><a href="/">Blog</a></h1>
+</div>
+<h1>100 комитов в Rails</h1>
+<p class="meta">28 May 2012</p>
+
+<div class="post">
+<p><img src="/assets/10-100/tort.jpg" alt=""></p>
+
+<p>В сентябре 2011, убедив клиента, что мы работаем исключительно на последних версиях рейлс, я начал свой первый
+Rails 3 проект. Дополнительная пикантность ситуации была в том, что версию 3.0 зарелизили в августе 2010, однако
+мне казалось, что там не могло появиться ничего хорошего, рейлс 2.3 мне казались самодостаточными.</p>
+
+<p>Случайно, исследуя создание нового приложения, я нашел, что метод <code>environment</code> в генераторах ставит неправильный отступ
+в <code>config/appliction.rb</code>. Так я сделал свой
+<a href="https://github.com/rails/rails/commit/e61d6afbab24163d37a73b25262ef73119b99a78">первый комит</a> в рейлс. Потом еще. И еще.
+Ощущение причастности к большому сложному открытому проекту оказалось настолько приятным, что в феврале 2012 я добавил
+в годовой план цель - достичь к концу года 100 комитов. С радостью сообщаю, что на днях я этой
+<a href="http://contributors.rubyonrails.org/contributors/alexey-vakhov/commits">цели достиг</a>.
+Вообще 2012 - очень ответственный год, так как непонятно сохранится ли спрос на программистов после конца света. Поэтому желательно
+освободиться от всех обязательств как можно раньше, чтобы успеть сделать действительно важные дела.</p>
+
+<p>Возвращаюсь к рейлс, хочу поделиться с вами тем, что я нашел и узнал в процессе работы. Самое главное, что цель
+&quot;N комитов&quot; - довольно плохая. Она провоцирует на мелкие подтасовки и, выполняя ее,
+слишком нервничаешь,
+когда комит не принимают или игнорируют. Если гнаться просто за количеством комитов, то можно использовать много мелких хитростей,
+например делать док-фиксы, комментируя каждый метод (док-фиксы проходят прямым комитом в <a href="https://github.com/lifo/docrails">lifo/docrails</a>), можно, решая одну проблему, разбивать ее на несколько частей, или найти направление, которое принесет много комитов. По мелочам, можно
+забыть сделать <code>git pull --rebase</code> перед комитом опять же док-фиксов. Если вы наблюдаете за мастером, думаю, что не раз видели
+подобные штуки.</p>
+
+<p>Но у цели &quot;N комитов&quot; есть очень важный нюанс, который делает ее на самом деле хорошей. Не зависимо от того, исправляете ли вы
+маленькую опечатку в комментарии, рефакторите метод, исправляете дефект или предлагаете новую функциональность, приходится проделывать
+довольно серьезную работу. Необходимо пройтись по истории, запустить тесты, исследовать граничные случаи, провести анализ и так далее.
+Вольно или невольно вы изучаете систему очень глубоко и такого рода рутина приучает к методичности. Когда я всерьез увлекся рейлс,
+то долгое время вставал в 8 утра и 2-3 часа изучал код, файл за файлом. Сейчас в эти утренние часы я подключил ведение блога,
+работу над персональными опен-сорс проектами, изучение новых технологий и подходов.</p>
+
+<p><a href="https://github.com/rails/rails/commit/b4167d3f3e4d25be16e06e71afd1c64a47ca54d7">Один из моих крайних комитов, самый любимый,</a> исправляет
+метод <code>Range#sum</code>. Посмотрите, пожалуйста, какую работу пришлось проделать, чтобы найти и исправить 2 ошибки в данном методе. Увидел
+этот дефект совершенно случайно, я хотел написать в твиттер про этот метод, что люблю, когда люди продумывают такие нюансы, но что-то
+в этом коде мне не понравилось, и я стал разбираться. </p>
+
+<p>Поэтому цель &quot;N комитов&quot; вполне хорошая, и если вы сделали 10, 20, 50, 100 или 10000 :) комитов, то независимо ни от чего, это по
+настоящему здорово. Вы помогли комьюнити и помогли себе, получая еще большее удовольствие от профессии. Мне кажется, что последнее
+время количество русскоязычных контрибьютеров сильно возросло, и это очень хорошо. <a href="http://blog.evtuhovich.ru/">Евтухович Иван</a>
+говорил, что гуру рейлс не очень охотно едут в Россию на конференции, из-за недостаточной активности нашего комьюнити. Возможно,
+это не единственная причина, но все-таки. Поэтому хочу особо отметить активных русскоязычных коллег: <a href="https://github.com/lest">Сергея Нартымова</a> (Сергей возглавляет русскоязычный <a href="http://contributors.rubyonrails.org/">топ</a>), <a href="https://github.com/bogdan">Богдана Гусева</a>,
+<a href="https://github.com/nashby">Василия Ермоловича</a>,
+<a href="https://github.com/brainopia">Равиля Байрамгалина</a> и <a href="https://github.com/gazay">Алексея Газиева</a>. Отдельно следует упомянуть 
+<a href="https://github.com/rails/rails/commit/b83965785db1eec019edf1fc272b1aa393e6dc57">Егора Хомякова</a>, который получил доступ в основной
+репозитарий не самым прямолинейным способом.</p>
+
+<p>Некоторое время назад я очень сильно застрял на 80-ти комитах и более 2-х недель ни мог найти ни одной шероховатости 
+(кстати раскрываю рыбные места - ActionPack и ActiveSupport, но ни в коем случае не ActiveRecord. Я нашел 3 ошибки в AR, но пока не знаю
+как их исправить, потому-что код там - гребанный ад, как однажды сказал <a href="https://twitter.com/#!/prepor">Андрей Руденко</a> про бандлер).
+К счастью потом дело пошло лучше и я успел поразить цель перед самым отпуском, завтра поеду отдыхать от компьютеров и от рейлс.
+Всем удачного программирования!</p>
+
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        <div class="footer">
+          <div class="contact">
+            <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+          </div>
+          <div class="contact">
+            <p>
+              Alexey Vakhov<br>
+              <a href=mailto:vakhov@gmail.com>vakhov@gmail.com</a>
+            </p>
+          </div>
+          <div class="contact">
+            <p>
+              <img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a><br>
+              <img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a><br>
+              <img src="/images/skype.ico"> - avakhov
+            </p>
+          </div>
+          <div class="contact">
+            <p>
+              <img src="/images/instagram.ico"> - <a href="http://instagram.com/avakhov">instagram</a><br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>

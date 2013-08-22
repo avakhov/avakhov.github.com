@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>История одной запятой</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="/fonts/all.css" rel="stylesheet">
+    <style>* { font-family: 'PT Sans' !important; }</style>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/blog.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="site">
+        <div class="header">
+  <h1 class="title"><a href="/">Blog</a></h1>
+</div>
+<h1>История одной запятой</h1>
+<p class="meta">17 Jul 2012</p>
+
+<div class="post">
+<p>Программисты в повседневной практике часто работают с различными перечислениями. Это могут быть элементы массива,
+пары ключ-значения или, например, параметры метода. Существует одна хитрость при определении таких перечислений, которую я
+использую уже очень давно и сегодня хочу поделиться с вами.</p>
+
+<!--more-->
+
+<p>В C++ мы использовали следующую запись конструкторов:</p>
+<div class="highlight"><pre><code class="cpp language-cpp" data-lang="cpp"><span class="n">SomeClass</span><span class="o">::</span><span class="n">SomeClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">i_value</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">i_string</span><span class="p">)</span>
+  <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">i_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_value</span><span class="p">(</span><span class="n">i_value</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_string</span><span class="p">(</span><span class="n">i_string</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_float</span><span class="p">()</span>
+  <span class="p">,</span> <span class="n">m_storage</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Мы использовали явные вызовы конструкторов каждого члена класса, даже там где это можно было опустить, чтобы лучше контролировать
+деятельность классов. Часто приходится жертвовать теоретическим изяществом ради достижения практических целей. Однако главное
+не в этом. Обратите внимание на оформление запятых. Такая конструкция позволяет легко менять инициализаторы
+местами и добавлять новые, не боясь получить синтаксическую ошибку. Это экономит немного времени и чуть-чуть нервных клетов.</p>
+
+<p>В мире рейлс дела с перечислениями обстоят еще лучше, так как интерпретатор руби не такой строгий, как компилятор C++.
+Можно объявлять массивы:</p>
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="s1">&#39;value1&#39;</span><span class="p">,</span>
+  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- внимание, запятая!</span>
+<span class="o">]</span>
+</code></pre></div>
+<p>хэши:</p>
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">key</span><span class="p">:</span> <span class="ss">:value</span><span class="p">,</span>
+  <span class="ss">anohter</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="c1"># &lt;-- опять запятая!  </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>и вызывать методы:</p>
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="n">some</span><span class="p">(</span>
+  <span class="s1">&#39;abc&#39;</span><span class="p">,</span>
+  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- и снова она!</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>добавляя запятую в конце последнего члена перечисления. Возможно это синтаксически не совсем изящно, но работает
+как ожидается и экономит время на длинных конструкциях.</p>
+
+<p>В кофе-скрипт дела идут настолько замечательно, что запятых не нужно вообще:</p>
+<div class="highlight"><pre><code class="coffeescript language-coffeescript" data-lang="coffeescript"><span class="nx">some_method</span><span class="p">(</span>
+  <span class="mi">1</span>
+  <span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="nv">array = </span><span class="p">[</span>
+  <span class="mi">4</span>
+  <span class="mi">5</span>
+  <span class="mi">6</span>
+<span class="p">]</span>
+
+<span class="nv">hash = </span><span class="p">{</span>
+  <span class="nv">a: </span><span class="mi">1</span>
+  <span class="nv">b: </span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Джаваскрипт-интерпретатор в Хроме и Файерфоксе работает достойно:</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">array</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="mi">4</span><span class="p">,</span>
+  <span class="mi">5</span><span class="p">,</span>
+  <span class="mi">6</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nx">hash</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>И наконец джаваскрипт в интернет-эксплорере выдает ошибку:</p>
+
+<p><img src="/assets/13-comma/ie.png" alt=""></p>
+
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        <div class="footer">
+          <div class="contact">
+            <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+          </div>
+          <div class="contact">
+            <p>
+              Alexey Vakhov<br>
+              <a href=mailto:vakhov@gmail.com>vakhov@gmail.com</a>
+            </p>
+          </div>
+          <div class="contact">
+            <p>
+              <img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a><br>
+              <img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a><br>
+              <img src="/images/skype.ico"> - avakhov
+            </p>
+          </div>
+          <div class="contact">
+            <p>
+              <img src="/images/instagram.ico"> - <a href="http://instagram.com/avakhov">instagram</a><br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>

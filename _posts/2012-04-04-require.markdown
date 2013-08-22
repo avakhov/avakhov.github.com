@@ -1,0 +1,82 @@
+---
+layout: post
+title: "Require, Load и Rails"
+date: 2012-04-04 15:32
+comments: true
+categories: 
+---
+<blockquote>
+Мы в ответе за тех, кого подключили с помощью load и require.
+<i>Давид Хейнемейер де Сент-Экзюпери, Prince On Rails<i>
+</blockquote>
+
+В геме автомиграций я столкнулся с интересной проблемой, для решения которой пришлось глубже
+изучить `require`, `load` и также то, как работает Rails с зависимостями.
+
+При выполнении задачи `rake db:migrate` гему необходимо пробежатся по всем моделям и обновить
+схему базы данных в соответствие с тем, что в модели записано. Я сделал это с помощью примерно
+такого кода:
+
+``` ruby
+Dir["app/models/**/*.rb"].each do |file|
+  require file
+end
+
+ActiveRecord::Base.descendants.each do |model|
+  # ...
+end
+```
+
+Кстати обратите внимание на [ActiveSupport::DescendantsTracker](http://api.rubyonrails.org/classes/ActiveSupport/DescendantsTracker.html),
+по умолчанию он включается в `ActiveRecord::Model`, но его также удобно использовать при написании какого-нибудь модульного
+расширяемого API.
+
+Схема, описанная выше, работала хорошо, пока я не подключил девайс для авторизации. Автомиграции стали ломались на пользователе
+`User`. Складывалось ощущение, что модель `User` загружалась 2 раза и пыталась создать уже созданные колонки повторно.
+
+Это оказалось действительно так, но сначала давайте более внимательно посмотрим на методы `require` и `load` из самого руби.
+Если кратко, то load загружает файл всегда, а require только один раз. Причем, код загруженный с помощью `load` будет
+загружен с помощью `require` еще один раз. Простой пример для иллюстрации:
+
+``` ruby
+### header.rb
+puts 'bang!'
+
+### demo.rb
+load 'header.rb'     # print 'bang!'
+p $"                 # => []
+require 'header.rb'  # print 'bang!'
+p $"                 # => ['header.rb']
+require 'header.rb'  # print nothing
+p $"                 # => ['header.rb']
+```
+
+Таким образом, если мы один и тоже файл сначала подключим с помощью `load` а потом с помощью `require`, то он подключится два раза.
+
+Когда я подключил devise, то `devise_for :users` который прописывает рауты, обращается к модели юзер через дебри кода с помощью 
+`ActiveSupport::Dependencies.constantize`
+[lib/devise.rb#L294](https://github.com/plataformatec/devise/blob/45aca40f6ce6eb1006f239328f273c3496ba3a64/lib/devise.rb#L294)
+Через другие дебри кода, `ActiveSupport::Dependencies`, который хачит `Оbject`,
+[вызывает](https://github.com/rails/rails/blob/02b9c22df8053d71782ae11900d0194f217afc3c/activesupport/lib/active_support/dependencies.rb#L32)
+`load` в девелопменте (чтобы нам было комфортно работать без перезагрузки сервера) и `require` в продакшене. Поэтому мой гем работал 
+корректно в продакшене `RAILS_ENV=production rake db:migrate` и не работал в девелопменте.
+
+Исправил я просто, используя тот же трюк с `constantize`, что и девайс:
+
+``` ruby
+Dir["app/models/**/*.rb"].each do |file|
+  name = file.sub('app/models/', '').sub(Regexp.new(File.extname(file) + '$'), '')
+  ActiveSupport::Dependencies.constantize(name.classify)
+end
+
+ActiveRecord::Base.descendants.each do |model|
+  # ...
+end
+```
+
+Новая версия гема 1.0.1 работает с девайсом и без, в продакшене и в девелопменте.
+
+_Пока я разбирался в require и load начал понимать, что может быть автомиграции чуть-чуть текут по памяти в девелопменте. Но видимо
+они это делают в очень щадящем режиме, что я ни разу этого не заметил. Вообще тема сложная, я только один раз сталкивался
+с тем, что globalize2 сильно тек в девелопменте, где-то я уже об этом писал. Ошибки такого класса тяжело поймать и тяжело исправить,
+но мне кажется, что в девелопмент режиме небольшие утечки - не редкость. Поразмышляю об этом на досуге._

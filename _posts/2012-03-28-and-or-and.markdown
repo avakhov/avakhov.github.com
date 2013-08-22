@@ -1,0 +1,38 @@
+---
+layout: post
+title: "And или &&"
+date: 2012-03-28 12:50
+comments: true
+categories: 
+---
+Когда я делал свой первый интернет-магазин из Agile Web Development with Rails, мне
+понравилось, что программа выглядит как английский текст. После C++ это было так здорово. Я везде
+использовал and. Потом я где-то прочитал, что это неправильно и нужно в логических условиях
+использовать && и ||, а в render('help me') and die нужно использовать английские варианты. Я переключился
+на новый стиль.
+
+Недавно я снова вернулся к данному вопросу, но не смог найти других отличий между and и && (or и ||)
+кроме [приоритетов](http://www.ruby-doc.org/docs/ProgrammingRuby/language.html#operatorexpressions).
+Поэтому приведу несколько примеров, когда отличия будут существенные:
+
+``` ruby
+true and puts 'help' # => print 'help' to output
+true && puts 'help'  # => SyntaxError: compile error ...
+
+true or false and false # => false
+true || false && false  # => true
+
+redirect_to @post and return # OK
+redirect_to @post && return  # Опасно, redirect_to не будет вызван
+``` 
+
+Разница незначительная, поэтому можно использовать любые варианты, однако мне больше нравится
+классический вариант:
+
+``` ruby
+if cond1 && cond2
+# ...
+end
+
+redirect_to @post and return
+```

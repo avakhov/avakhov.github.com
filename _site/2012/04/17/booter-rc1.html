@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Booter 1.0.0.rc1</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="/fonts/all.css" rel="stylesheet">
+    <style>* { font-family: 'PT Sans' !important; }</style>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/blog.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="site">
+        <div class="header">
+  <h1 class="title"><a href="/">Blog</a></h1>
+</div>
+<h1>Booter 1.0.0.rc1</h1>
+<p class="meta">17 Apr 2012</p>
+
+<div class="post">
+<p><img src="/assets/5-booter/burger.jpg" alt=""></p>
+
+<p>С радостью сообщаю, что на прошлой неделе зарелизился бутер 1.0.0.rc1, первый релиз-кандидат <a href="https://github.com/boshie/booter">https://github.com/boshie/booter</a>. Он пока еще без кунжута, но уже довольно питательный :-)</p>
+
+<p>Для меня эта библиотека очень важна, так как это мой первый настоящий опер-сорс.</p>
+
+<p>История появления гема очень простая. Я люблю использовать твиттеровский бутстрап для прототипов и
+бэкендов. Сначала использовал его напрямую, потом написал простой форм-билдер. Затем
+вынес стили и билдер в отдельный гем, чтобы шарить между проектами. Я не стал использовать simple_form или
+любую другую обертку, так как мне были нужны пару простых фич и я не хотел тянуть в проекты
+большие многофункциональные библиотеки.</p>
+
+<p>Долгое время гем состоял из 3-х файлов и находился в версии
+0.2, но пару недель назад <a href="https://github.com/alexesDev">Алексей Юрченко</a> прислал мне пулриквест под
+номером 1. Первый для меня, как мейнтейнера гема, и первый для него, как для контрибьютера опен сорс.
+Я принял изменения, которые он предложил, чтобы использовать библиотеку в своем проекте,
+и решил сделать из бутера
+полноценный гем. Я понимаю, что бутер не завоюет мир, но зато мы 
+прошли практически все фазы, принятые у современного программного обеспечения, своего
+рода боевое крещение.</p>
+
+<p>Бутер покрыт спеками, которые запускаются на трависе. Он представляет из себя полноценный енджин:</p>
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Booter</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="o">::</span><span class="ss">Rails</span><span class="p">:</span><span class="ss">:Engine</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Поддерживается <a href="http://semver.org/">семантическая версионность</a>. Оказывается когда я первый
+раз  читал этот
+документ, то не заметил важныe пункты про версию 1.0.0, после которой API становится публичным:</p>
+
+<blockquote>
+Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
+</blockquote>
+
+<blockquote>
+Version 1.0.0 defines the public API. The way in which the version number is incremented after this release is dependent on this public API and how it changes.
+</blockquote>
+
+<p>Таким образом, если гем стал 1.0 и автор придерживается семантических версий, то API этого гема
+можно считать стабильным.</p>
+
+<p>Для бутера создано на Хероку <a href="http://growing-cloud-6915.heroku.com">демонстрационное приложение</a>
+(работает оно еще не совсем хорошо).
+В <a href="https://github.com/boshie/booter#readme">ридми</a> описаны примеры
+использования библиотеки. Другими словами, полный джентельменский набор.
+Сейчас мы доделываем фичи, которые хотим включить в 1.0, но релиз-кандидат тоже рабочий,
+он работает в нескольких проектах.</p>
+
+<p>Разрабатывать гем довольно интересно. Если в проект нужно добавлять изменения как можно быстрее и
+сразу же выкатывать на продакшн, то гем разрабатывается в более спокойном режиме, так как
+всегда нужно думать об уже существующих проектах, чтобы не потерять совместимость, не 
+сделать слишком общее решение или наоборот слишком частное. Более того внести
+маленькое, сиюминутное изменение в гем сильно дороже, чем в обычный проект, так как нужно
+потестировать, присвоить новую версию, 
+выложить на rubygems.</p>
+
+<p>Поэтому сам процесс разработки гема настраивает на накопление изменений и временные
+хаки до релиза следующих стабильных версий. Хаки делать очень просто, обычно у всех
+гемов есть константа <code>VERSION</code>, которую можно проверить и бросить эксепшн если появилась
+новая версия и вы обновили свой гем-файл.</p>
+<div class="highlight"><pre><code class="ruby language-ruby" data-lang="ruby"><span class="k">raise</span> <span class="s2">&quot;Remove code below&quot;</span> <span class="k">if</span> <span class="ss">Booter</span><span class="p">:</span><span class="ss">:VERSION</span> <span class="o">!=</span> <span class="s1">&#39;1.0.0.rc1&#39;</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p>Думаю вы помните, что рейлс, по-моему 2.3.13, не получились,
+так как что-то отвалилось в процессе релиза и после этого сразу же вышли 2.3.14. Мне кажется, что
+коре тим постарается больше так не делать, потому-что это слишком большой стресс.
+Cейчас даже есть документ, в котором описано как релизить рельсы правильно: <a href="https://github.com/rails/rails/blob/master/RELEASING_RAILS.rdoc">https://github.com/rails/rails/blob/master/RELEASING_RAILS.rdoc</a>.</p>
+
+<p>Кстати создать скелет нового гема можно двумя способами <code>bundle gem &lt;имя-гема&gt;</code> или
+<code>rails plugin new &lt;имя-гема&gt;</code>.
+Первый вариант годится для низкоуровневых библиотек. <code>rails plugin new</code> же создает помимо прочего dummy-приложение для тестирования
+енджинов, и является современной заменой гема enginex, который создал Жозе Валим для своей
+книги &quot;Crafting Rails Applications&quot;.</p>
+
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        <div class="footer">
+          <div class="contact">
+            <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
+          </div>
+          <div class="contact">
+            <p>
+              Alexey Vakhov<br>
+              <a href=mailto:vakhov@gmail.com>vakhov@gmail.com</a>
+            </p>
+          </div>
+          <div class="contact">
+            <p>
+              <img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a><br>
+              <img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a><br>
+              <img src="/images/skype.ico"> - avakhov
+            </p>
+          </div>
+          <div class="contact">
+            <p>
+              <img src="/images/instagram.ico"> - <a href="http://instagram.com/avakhov">instagram</a><br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>
