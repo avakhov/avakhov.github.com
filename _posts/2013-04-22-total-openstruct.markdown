@@ -3,7 +3,6 @@ layout: post
 title: "Эксперименты с OpenStruct и JSON-схемами"
 date: 2013-04-22 15:24
 comments: true
-categories: 
 ---
 Недавно мы решили выделить логические компоненты внутри нашего большого рейлс-приложения, чтобы в будущем возможно разделить приложение физически. Для стандартизации общения между частями системы я использовал JSON-совместимые объекты с валидацией при помощи JSON-схем и немного доработанный OpenStruct. Про этот эксперимент я и хочу рассказать в сегодняшней статье.
 
@@ -26,7 +25,8 @@ puts person.address  # -> nil
 
 Мне кажется гораздо приятнее написать в коде `person.address.street`, чем `person[:address][:street]` однако по привычке обычно используют вторую запись. В рамках эксперимента я изменил несколько методов в `OpenStruct`:
 
-``` ruby config/initializer/monkey_patching.rb
+``` ruby
+# config/initializer/monkey_patching.rb
 class OpenStruct
   def as_json
     marshal_dump.as_json
