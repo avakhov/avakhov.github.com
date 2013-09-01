@@ -6,6 +6,7 @@
 ul.posts {
   list-style-type: none;
   margin-bottom: 2em;
+  margin-left: 0;
 }
 
 ul.posts li {
@@ -37,17 +38,27 @@ ul.posts span {
   text-decoration: none;
 }
 
-.site .header h1.title {
-  display: inline-block;
-  margin-bottom: 0.5em;
-  font-size: 30px;
+.site .header .title {
+  color: #aaa;
 }
 
-.site .header h1.title a {
+.site .header div.title {
+  display: inline-block;
+  /* margin-bottom: 0.5em; */
+  font-size: 20px;
+  font-weight: bold;
+  margin: 22px 0 17px;
+}
+
+.site .header div.title a {
   color: #a00;
 }
 
-.site .header h1.title a:hover {
+.site .header div.title span {
+  color: #310;
+}
+
+.site .header div.title a:hover {
   color: #000;
 }
 

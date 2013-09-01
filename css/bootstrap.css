@@ -332,6 +332,7 @@ h2,
 h3 {
   line-height: 44px;
 }
+/*
 h1 {
   font-size: 46.75px;
 }
@@ -350,16 +351,17 @@ h5 {
 h6 {
   font-size: 14.45px;
 }
-h1 small {
+*/
+h1 {
   font-size: 29.75px;
 }
-h2 small {
+h2 {
   font-size: 21.25px;
 }
-h3 small {
+h3 {
   font-size: 17px;
 }
-h4 small {
+h4 {
   font-size: 17px;
 }
 .page-header {
