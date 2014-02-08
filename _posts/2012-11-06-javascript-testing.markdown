@@ -23,7 +23,7 @@ categories:
 
 Предположим, что нам нужно протестировать функцию, которая удаляет все элементы массива, совпадающие с заданным:
 
-``` javascript app/assets/javascript/array.js
+``` javascript
 // Удаляет все элементы e из массива
 Array.prototype.remove = function(e) {
   for (var i = 0; i < this.length; i++) {
@@ -43,7 +43,7 @@ Array.prototype.remove = function(e) {
 
 Добавляем `execjs` в секцию `test`:
 
-``` ruby Gemfile
+``` ruby
 group :test do
   gem 'execjs'
 end
@@ -51,7 +51,7 @@ end
 
 Создаем спек для тестирования:
 
-``` ruby spec/javascripts/array_spec.rb
+``` ruby
 require 'spec_helper'
 
 describe "array.js" do
@@ -90,7 +90,7 @@ Finished in 0.32502 seconds
 Если файл, который нужно протестировать, написан на coffee-скрипте, то его можно скомпилировать с помощью гема `coffee-script`,
 который также подключен к каждому рейлс-приложению:
 
-``` ruby Gemfile
+``` ruby
 group :test do
   gem 'execjs'
   gem 'coffee-script'
@@ -122,7 +122,7 @@ end
 Создаем файл, который будет запускать js-спеки. Он выглядит немного сложно, но так всегда происходит, когда мы начинаем
 решать нестандартную задачу на стыке языков.
 
-``` ruby spec/js_spec.rb
+``` ruby
 # encoding: utf-8
 require 'spec_helper'
 
@@ -182,7 +182,7 @@ end
 
 Пишем наш первый спек с помощью жасмина:
 
-``` coffeescript spec/javascripts/array_spec.js.coffee
+``` coffeescript
 describe 'Array', ->
   it "#remove", ->
     expect([1, 2, 2, 3].remove(2)).toEqual([1, 3])

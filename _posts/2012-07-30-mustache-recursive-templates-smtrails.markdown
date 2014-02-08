@@ -89,7 +89,7 @@ gem 'smt_rails', '>= 0.2.3'
 Отрисовка комментариев через javascript (код полностью совпадает, только для отрисовки используется вызов 
 функции `SMT['имя шаблона']()` с параметрами):
 
-``` javascript app/assets/javascripts/application.js
+``` javascript
 // ...
 //
 // SMT Rails

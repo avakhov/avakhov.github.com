@@ -5,7 +5,7 @@ date: 2012-03-13 22:16
 comments: true
 categories: 
 ---
-В ActiveSupport есть метод [alias_method_chain](http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain), который позволяет удобно расширять функциональность методов.
+В ActiveSupport есть метод [`alias_method_chain`](http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain), который позволяет удобно расширять функциональность методов.
 
 ``` ruby
 class A
@@ -47,10 +47,10 @@ end
 ```
 
 Конструкция в первом случае будет интерпретирована как локальная переменная
-value_without_feature, которой присваивается значение v.
+`value_without_feature`, которой присваивается значение `v`.
 
-## 2. Блоковая версия alias_method_chain
+## 2. Блоковая версия `alias_method_chain`
 
-alias_method_chain может принимать блок в качество параметра. Это недокументированная возможность
-используется в ActiveSupport::Deprecation 
-[active_support/deprecation/method_wrappers.rb#L13](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/deprecation/method_wrappers.rb#L13). Для того и была [создана](https://github.com/rails/rails/commit/643571ca25bc2fcc701e6def0975f56fe10a732f).
+`alias_method_chain` может принимать блок в качество параметра. Это недокументированная возможность
+используется в `ActiveSupport::Deprecation`
+[`active_support/deprecation/method_wrappers.rb#L13`](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/deprecation/method_wrappers.rb#L13). Для того и была [создана](https://github.com/rails/rails/commit/643571ca25bc2fcc701e6def0975f56fe10a732f).

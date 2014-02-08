@@ -23,7 +23,7 @@ true or false and false # => false
 true || false && false  # => true
 
 redirect_to @post and return # OK
-redirect_to @post && return  # Опасно, redirect_to не будет вызван
+redirect_to @post && return  # Опасно, return не будет вызван
 ``` 
 
 Разница незначительная, поэтому можно использовать любые варианты, однако мне больше нравится
