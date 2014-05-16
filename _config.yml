@@ -1,4 +1,7 @@
-name: Alexey Vakhov
+author:
+  name: Alexey Vakhov
+  email: vakhov@gmail.com
+title: Alexey Vakhov Blog
 markdown: redcarpet
 pygments: true
 permalink: /blog/:year/:month/:day/:title/index.html
