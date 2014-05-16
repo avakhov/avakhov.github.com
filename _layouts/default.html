@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
     <title>{{ page.title }}</title>
-    <link href="/fonts/all.css" rel="stylesheet">
-    <style>* { font-family: 'PT Sans' !important; }</style>
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/syntax.css">
-    <link rel="stylesheet" href="/css/blog.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ site.baseurl }}public/css/poole.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}public/css/syntax.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}public/css/custom.css">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.baseurl }}public/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="{{ site.baseurl }}public/favicon.ico">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ site.baseurl }}atom.xml">
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -17,37 +27,28 @@
 
       ga('create', 'UA-47889589-1', 'vakhov.me');
       ga('send', 'pageview');
-  </script>
+    </script>
   </head>
+
   <body>
-    <div class="container">
-      <div class="site">
-        {{ content }}
-        <div class="footer">
-          <div class="contact">
-            <img src="https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18" class="logo">
-          </div>
-          <div class="contact">
-            <p>
-              Alexey Vakhov<br>
-              <a href=mailto:vakhov@gmail.com>vakhov@gmail.com</a>
-            </p>
-          </div>
-          <div class="contact">
-            <p>
-              <img src="/images/twitter.ico"> - <a href="https://twitter.com/#!/avakhov">twitter</a><br>
-              <img src="/images/github.ico"> - <a href="https://github.com/avakhov">github</a><br>
-              <img src="/images/skype.ico"> - avakhov
-            </p>
-          </div>
-          <div class="contact">
-            <p>
-              <img src="/images/instagram.ico"> - <a href="http://instagram.com/avakhov">instagram</a><br>
-              work at <a href="http://uchi.ru">uchi.ru</a>
-            </p>
-          </div>
-        </div>
+    <div class="container content">
+      <div class="masthead">
+        <h3 class="masthead-title">
+          {% if page.title == "Home" %}
+            Alexey Vakhov <small>Blog</small>
+          {% else %}
+            <a href="{{ site.baseurl }}" title="Home">
+              <span>Alexey Vakhov Blog</span>
+            </a> /
+          {% endif %}
+        </h3>
       </div>
-    </div> <!-- /container -->
+
+      {{ content }}
+
+      {% if page.title == "Home" %}
+        {% include about.html %}
+      {% endif %}
+    </div>
   </body>
 </html>

@@ -1,15 +1,16 @@
 ---
 layout: default
-title: Alexey Vakhov Blog
+title: Home
 ---
 
-<div class="header">
-  <div class="title"><span>{{ site.name }}</span> Blog</div>
-</div>
-<div id="home">
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url | replace: 'index.html' '' }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
+<ul class="index">
+  {% for post in site.posts %}
+    <li>
+      <span>{{ post.date | date_to_string }}</span>
+      &raquo;
+      <a href="{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
