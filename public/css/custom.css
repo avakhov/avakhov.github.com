@@ -17,6 +17,10 @@
   }
 }
 
+.post {
+  overflow: hidden;
+}
+
 .about {
   font-size: 95%;
   padding-bottom: 2em;
