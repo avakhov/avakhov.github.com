@@ -16,6 +16,12 @@
 }
  
 code {
+  background-color: rgba(0,0,0,0.04);
+  font-family: 'Courier', monospace;
+  font-size: 16px;
+}
+
+.highlight code {
   font-family: 'Courier', monospace;
   font-size: 16px;
   color: #999
