@@ -2,17 +2,11 @@ name: Alexey Vakhov
 description: Tech addicted
 avatar: https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18
 footer-links:
-  dribbble: 
   email: vakhov@gmail.com
-  facebook: 
-  flickr: 
   github: avakhov
   instagram: avakhov
-  linkedin: 
-  pinterest: 
   rss: rss
   twitter: avakhov
-# markdown: kramdown
 markdown: redcarpet
 highlighter: pygments
 permalink: /blog/:year/:month/:day/:title/index.html
