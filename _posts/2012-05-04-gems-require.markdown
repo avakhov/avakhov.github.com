@@ -1,11 +1,7 @@
 ---
-layout: post
-title: "Гемы - require и bundler"
-date: 2012-05-04 08:43
-comments: true
-categories: 
+title: Гемы - require и bundler
+old_image: /assets/7-gem/gem2.jpg
 ---
-![](/assets/7-gem/gem2.jpg)
 
 Мне не хватит духу написать подробное руководство как создать гем, к тому же я сам не эксперт в этом вопросе, лучше
 расскажу сегодня про еще одну ошибку, на которую я потратил пару часов, дойдя даже до отладки. Она

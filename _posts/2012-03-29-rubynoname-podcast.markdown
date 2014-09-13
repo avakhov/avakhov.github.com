@@ -1,10 +1,7 @@
 ---
-layout: post
-title: "Ruby NoName подкаст"
-date: 2012-03-29 16:52
-comments: true
-categories: 
+title: Ruby NoName подкаст
 ---
+
 [Иван Евтухович](http://evtuhovich.ru) пригласил меня принять
 участие в [Ruby NoName подкасте](http://ruby.rpod.ru/). Я с радостью и волнением это предложение принял.
 

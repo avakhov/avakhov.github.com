@@ -1,10 +1,7 @@
 ---
-layout: post
-title: "Alias Method Chain"
-date: 2012-03-13 22:16
-comments: true
-categories: 
+title: Alias Method Chain
 ---
+
 В ActiveSupport есть метод [`alias_method_chain`](http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain), который позволяет удобно расширять функциональность методов.
 
 ``` ruby

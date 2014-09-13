@@ -1,10 +1,7 @@
 ---
-layout: post
-title: "Action Controller Helper Method"
-date: 2012-02-23 11:47
-comments: true
-categories: 
+title: Action Controller Helper Method
 ---
+
 Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
 необходимо сначала определить метод, а потом передать его имя в helper_method:
 

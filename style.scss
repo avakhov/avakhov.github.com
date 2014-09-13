@@ -286,8 +286,9 @@ footer {
 h1.main {
   margin-bottom: 0px;
 }
-
-
+.date {
+  text-align: right;
+}
 @media screen and (min-width: 640px) {
   .post {
     .img {

@@ -22,4 +22,11 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-paginate: 2
+paginate: 10
+defaults:
+  -
+    scope:
+      path: ""
+      type: "post"
+    values:
+      layout: "post"
