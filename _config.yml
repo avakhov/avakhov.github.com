@@ -1,8 +1,32 @@
-author:
-  name: Alexey Vakhov
+name: Alexey Vakhov
+description: Tech addicted
+avatar: https://secure.gravatar.com/avatar/54e74983d81fa2fbe4c28e8392532f18
+footer-links:
   email: vakhov@gmail.com
-title: Alexey Vakhov Blog
+  github: avakhov
+  instagram: avakhov
+  rss: rss
+  twitter: avakhov
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 permalink: /blog/:year/:month/:day/:title/index.html
-excerpt_separator: "<!-- more -->"
+sass:
+  sass_dir: _scss
+  style: :expanded # You might prefer to minify using :compressed
+gems:
+  - jemoji # Emoji please!
+  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - CNAME
+paginate: 10
+defaults:
+  -
+    scope:
+      path: ""
+      type: "post"
+    values:
+      layout: "post"

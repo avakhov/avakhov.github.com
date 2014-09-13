@@ -1,10 +1,7 @@
 ---
-layout: post
-title: "Require, Load и Rails"
-date: 2012-04-04 15:32
-comments: true
-categories: 
+title: Require, Load и Rails
 ---
+
 <blockquote>
 Мы в ответе за тех, кого подключили с помощью load и require.
 <br>
