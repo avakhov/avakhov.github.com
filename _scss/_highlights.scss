@@ -10,14 +10,14 @@
 }
 
 .highlight pre {
-  /* overflow: scroll; Prefer no word wrap? Uncomment this line and comment out the 2 lines below. */
-  word-break: break-all;
-  word-wrap: break-word;
+  //word-break: break-all;
+  //word-wrap: break-word;
+  overflow: scroll;
 }
  
 code {
   font-family: 'Courier', monospace;
-  font-size: 14px;
+  font-size: 16px;
   color: #999
 }
  
