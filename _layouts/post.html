@@ -6,6 +6,7 @@ layout: default
   <h1>{{ page.title }}</h1>
 
   <div class="entry">
+    {% if page.img %}<div class="img"><img src="{{page.img}}" /></div>{% endif %}
     {{ content }}
   </div>
 
