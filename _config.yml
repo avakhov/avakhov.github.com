@@ -22,6 +22,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - run.sh
+  - push_test.sh
 paginate: 10
 defaults:
   -
