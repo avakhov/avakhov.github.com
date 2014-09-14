@@ -6,8 +6,8 @@ layout: default
   <h1 class="main">{{ page.title }}</h1>
   <div class="date">{{ page.date | date: "%B %e, %Y" }}</div>
 
-  {% if page.image %}<div class="img"><img src="{{page.image}}" /></div>{% endif %}
-  {% if page.old_image %}<div class="img"><img src="{{page.old_image}}" /></div>{% endif %}
+  {% if page.image %}<div class="img"><img src="{{site.baseurl}}{{page.image}}" /></div>{% endif %}
+  {% if page.old_image %}<div class="img"><img src="{{site.baseurl}}{{page.old_image}}" /></div>{% endif %}
   <div class="entry">{{ content }}</div>
 
   {% include disqus.html disqus_identifier=page.disqus_identifier %}

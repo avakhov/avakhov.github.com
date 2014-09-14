@@ -32,3 +32,4 @@ defaults:
       type: "post"
     values:
       layout: "post"
+url: http://vakhov.me

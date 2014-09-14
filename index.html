@@ -9,7 +9,7 @@ layout: default
       <h1 class="main"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
       <div class="date">{{ post.date | date: "%B %e, %Y" }}</div>
 
-      {% if post.image %}<div class="img"><img src="{{post.image}}" /></div>{% endif %}
+      {% if post.image %}<div class="img"><img src="{{ site.baseurl }}{{post.image}}" /></div>{% endif %}
       <div class="entry">{{ post.excerpt }}</div>
       
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>

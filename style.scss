@@ -296,6 +296,9 @@ h1.main {
     overflow: hidden;
   }
 }
+#disqus_thread {
+  padding: 0 10px;
+}
 @media screen and (min-width: 640px) {
   .post .img {
     padding: 0 10px;
