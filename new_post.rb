@@ -6,10 +6,14 @@ if ARGV.empty?
 end
 
 title = ARGV.join(" ")
+filename = "_posts/2020-01-01-#{title.gsub(/\s+/, "-").downcase}.markdown"
 
-File.write("_posts/2020-01-01-#{title.gsub(/\s+/, "-").downcase}.markdown", <<-FILE
+File.write(filename, <<-FILE
 ---
 title: #{title}
+image: /assets/#{Time.now.year}/
 ---
 FILE
 )
+
+`git add #{filename}`
