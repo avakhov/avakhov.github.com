@@ -1,6 +1,6 @@
 ---
 title: CSS-спрайты на компасе
-old_image: /assets/8-red/nuke2.jpg
+old_image: /assets/old/8-red/nuke2.jpg
 ---
 
 Идеалогически мне очень нравится технология css-спрайтов, когда мелкие картинки рисуются в одном файле и отображаются
@@ -22,7 +22,7 @@ old_image: /assets/8-red/nuke2.jpg
 
 Я создал [простую демку](http://blog-1-css-sprite.herokuapp.com/) на хероку, итоговый спрайт получился такой:
 
-![](/assets/8-red/sprite.png)
+![](/assets/old/8-red/sprite.png)
 
 Минимальный код, необходимый для работы:
 

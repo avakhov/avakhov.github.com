@@ -58,5 +58,5 @@ title: Ruby NoName подкаст
 <br>
 <em>Я, кошка и микрофон</em>
 <br>
-<img src="/assets/3-podcast/ya.jpg">
+<img src="/assets/old/3-podcast/ya.jpg">
 </p>

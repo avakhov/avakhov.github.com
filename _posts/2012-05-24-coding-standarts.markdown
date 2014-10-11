@@ -1,6 +1,6 @@
 ---
 title: Разработка стандарта кодирования
-image_old: /assets/9-face/alex.png
+image_old: /assets/old/9-face/alex.png
 ---
 
 Если вам необходимо разработать стандарт кодирования обязательно прислушайтесь к совету Герба Саттера и
@@ -67,4 +67,4 @@ image_old: /assets/9-face/alex.png
 
 Итак, не мелочитесь!
 
-<center><img src="/assets/9-face/face.png"></center>
+<center><img src="/assets/old/9-face/face.png"></center>

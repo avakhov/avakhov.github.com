@@ -1,6 +1,6 @@
 ---
 title: Гемы - require и bundler
-old_image: /assets/7-gem/gem2.jpg
+old_image: /assets/old/7-gem/gem2.jpg
 ---
 
 Мне не хватит духу написать подробное руководство как создать гем, к тому же я сам не эксперт в этом вопросе, лучше

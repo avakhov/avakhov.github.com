@@ -1,6 +1,6 @@
 ---
 title: Подарки
-old_image: /assets/6-perfo/perf.jpg
+old_image: /assets/old/6-perfo/perf.jpg
 ---
 
 
