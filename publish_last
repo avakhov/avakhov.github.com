@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ "$1" == "-h" ]; then
+  echo Set current date for last draft and commit it.
+  echo
+  echo Usage:
+  echo ./publish_last
+  exit
+fi
+
 last=`ls -1 _posts/2020-01-01* | head -1`
 now=`date "+%Y-%m-%d"`
 publish=${last//2020-01-01/$now}

@@ -22,9 +22,9 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-  - run.sh
-  - new_post.sh
-  - publish_last.sh
+  - run
+  - new_post
+  - publish_last
 paginate: 10
 defaults:
   -

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ "$1" == "" ]; then
+if [ "$1" == "" ] || [ "$1" == "-h" ]; then
   echo The script creates a branch, pushes the branch to origin and
-  echo prepare markdown file for new post. 
+  echo prepare markdown file for draft of new post. 
   echo
   echo Usage:
-  echo ./new_post.sh the-post-permalink
+  echo ./new_post the-post-permalink
   exit
 fi
 
