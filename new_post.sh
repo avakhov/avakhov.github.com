@@ -1,6 +1,9 @@
 #!/bin/bash
 
 if [ "$1" == "" ]; then
+  echo The script creates a branch, pushes the branch to origin and
+  echo prepare markdown file for new post. 
+  echo
   echo Usage:
   echo ./new_post.sh the-post-permalink
   exit
