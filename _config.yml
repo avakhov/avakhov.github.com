@@ -23,7 +23,7 @@ exclude:
   - README.md
   - CNAME
   - run.sh
-  - new_post.rb
+  - new_post.sh
   - publish_last.sh
 paginate: 10
 defaults:
