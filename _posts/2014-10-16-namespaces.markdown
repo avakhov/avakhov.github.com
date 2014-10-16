@@ -4,7 +4,7 @@ image: /assets/namespaces.jpg
 ---
 В Рейлс очень удобно организовывать код по неймспейсам.
 
-Например создадим файл `app/components/api/command.rb`, со следующим содержанием:
+Допустим есть файл `app/components/api/command.rb`, со следующим содержанием:
 
 ``` ruby
 # app/components/api/command.rb
@@ -43,7 +43,7 @@ module Rails
 # ...
 ```
 
-Строчка `paths.add "app", ..., glob: "*"` ищет все папки, которые есть в `app` (в нашем
+Строчка `paths.add "app", ..., glob: "*"` ищет все папки из `app` (в нашем
 случае это `app/components`).
 
 Далее пути добавляются в `ActiveSupport::Dependencies` [<i class="fa fa-external-link"></i>](https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine.rb#L559):
