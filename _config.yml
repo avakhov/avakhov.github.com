@@ -23,8 +23,6 @@ exclude:
   - README.md
   - CNAME
   - run
-  - new_post
-  - publish_last
 paginate: 10
 defaults:
   -
