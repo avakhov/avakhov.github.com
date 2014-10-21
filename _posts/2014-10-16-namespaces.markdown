@@ -27,7 +27,7 @@ end
 
 Каждое Рейлс приложение - это `Rails::Engine`, который при инициализации вызывает
 серию хуков, один из которых устанавливает пути автозагрузки
-<sup>[<i class="fa fa-external-link"></i>](https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine/configuration.rb#L37):
+[<i class="fa fa-external-link"></i>](https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine/configuration.rb#L37):
 
 ``` ruby
 module Rails
