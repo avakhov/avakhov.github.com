@@ -20,8 +20,10 @@ trap 'timer_start' DEBUG
 PROMPT_COMMAND=${PROMPT_COMMAND}timer_stop;
 
 ## http://railstips.org/blog/archives/2009/02/02/bedazzle-your-bash-prompt-with-git-info/
-ref=$(git symbolic-ref HEAD 2> /dev/null) || exit
-echo "["${ref#refs/heads/}"]"
+function parse_git_branch {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || exit
+  echo "["${ref#refs/heads/}"]"
+}
 
 PS1="\[\e[0;33m\]\w\[\e[0m\]{\${timer_show}}(\$(ruby -v | cut -d' ' -f2))\$(parse_git_branch)$ "
 ```
