@@ -1,12 +1,12 @@
 ---
-title: Почему я не меняю схему базы данных и данные в одной миграции
+title: Почему я не меняю схему и данные в одной миграции
 image: /assets/long-death-migtations.jpg
 ---
 В Рейлс есть метод `#reset_column_information`, который я больше никогда не использую.
 
 ## История
 
-Допустим мы добавили колонку в таблицу `users` и тут же решили ее заполнить данными.
+Допустим мы добавили колонку в таблицу `users` и тут же решили ее посчитать.
 А пользователей у нас много, и расчеты сложны (миграция написана как предлагается в документации
 [<i class="fa fa-external-link"></i>](http://api.rubyonrails.org/classes/ActiveRecord/ModelSchema/ClassMethods.html#method-i-reset_column_information)):
 
@@ -49,7 +49,7 @@ SQL: ALTER TABLE "users" ADD COLUMN "surname" character varying(255)
 Теперь на наш свежеперезапущенные юникорны приходят пользователи, у которых мы проверяем
 авторизацию `User.find...`. Чтобы работала магия ActiveRecord при первом обращении
 к модели запрашивается схема таблицы `users`.
-В Postgresql этот выглядит следующим образом [<i class="fa fa-external-link"></i>](https://github.com/rails/rails/blob/v4.1.6/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L975):
+В Postgresql используется следующий запрос [<i class="fa fa-external-link"></i>](https://github.com/rails/rails/blob/v4.1.6/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L975):
 
 ``` sql
 SELECT a.attname, format_type(a.atttypid, a.atttypmod),
@@ -70,6 +70,4 @@ WHERE a.attrelid = '"users"'::regclass
 ## Выводы
 
 Метод `#reset_column_information` сам по себе хороший, но шаблон использования, который он
-предлагает, может испортить выкатку на Хероку.
-
-Поэтому я больше не меняю схему и данные в одной транзакции.
+предлагает, может испортить выкатку на Хероку. Поэтому я больше не меняю схему и данные в одной транзакции.
