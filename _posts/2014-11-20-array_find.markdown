@@ -3,7 +3,7 @@ title: Неведомый Array#find
 image: /assets/array_find.jpg
 ---
 Полагаясь на интуицию, как делаю в 90% случаев, программируя на Руби, я написал проверку
-наличия элемента в массиве `array.find(5) ? 'success' : 'fail'` и с удивлением
+наличия элемента в массиве `array.find(4) ? 'success' : 'fail'` и с удивлением
 узнал, что это не работает.
 
 Документация нам подсказывает [<i class="fa fa-external-link"></i>](http://ruby-doc.org/core-2.1.3/Enumerable.html#method-i-find), что `find` вернет `Enumerator` если блок не задан.
