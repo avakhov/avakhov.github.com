@@ -25,7 +25,7 @@ image: /assets/hub.jpg
 вы случайно не отправите код, даже если у вас есть права на запись в репозитарий `awesome/awesome`)
 
 ```
-git clone git://github.com:awesome/awesome.git
+git clone git://github.com/awesome/awesome.git
 ```
 
 2 - Подцепляем наш форк через дополнительный ремоут (вот здесь пригодиться `hub`)
