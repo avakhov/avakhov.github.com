@@ -1,0 +1,70 @@
+---
+title: Hub и Git
+image: /assets/hub.jpg
+---
+
+Привет! Легкая посленовогодняя разминка для лица:
+
+:expressionless:
+:open_mouth:
+:expressionless:
+:flushed:
+:expressionless:
+:stuck_out_tongue_closed_eyes:
+:expressionless:
+:yum: Yo!
+Теперь хорошо, можно работать дальше.
+
+25 декабря прошлого года я описал свой процесс отправки пул реквестов [<i class="fa fa-external-link"></i>](http://vakhov.me/blog/2014/12/25/contribute/index.html)
+и буквально на следующий день наткнулся на утилиту hub [<i class="fa fa-external-link"></i>](https://hub.github.com/) - makes git better with GitHub. С ее помощью (и кстати и без ее помощи) можно сделать процесс
+контрибьюторства совсем приятным.
+
+### Более правильный процесс
+
+1 - Клонируем оригинальный репозитарий (лучше через протокол `git://` - Гитхаб не разрешает пушить через него и поэтому
+вы случайно не отправите код, даже если у вас есть права на запись в репозитарий `awesome/awesome`)
+
+```
+git clone git://github.com:awesome/awesome.git
+```
+
+2 - Подцепляем наш форк через дополнительный ремоут (вот здесь пригодиться `hub`)
+
+```
+hub fork
+```
+
+3 - Пушим ветки в ориджин `username`
+
+```
+git checkout -b new-feature
+...
+git push avakhov new-feature -u
+```
+
+То есть вместо клонирования форка забираем оригинальный репозитарий, подцепляя все что нужно
+через ремоуты. Так работать гораздо проще и естественнее, удивительно, что я об этом не знал.
+
+### На работе мы отправляем пул реквесты через ветки, без форков
+
+В это случае полезны три алиаса, которыми я пользуюсь регулярно:
+
+```
+# ~/.gitconfig
+[user]
+  name = Alexey Vakhov
+  email = vakhov@gmail.com
+[alias]
+  o = !hub browse # раньше здесь был замысловатый код,
+                  # пока я не знал про hub
+  pushup = !git push origin `git symbolic-ref HEAD --short` -u
+  cleanup = !git checkout master && git pull --rebase && \
+    git remote prune origin && git branch --merged | \
+    grep -v "\\*" | xargs -n 1 git branch -d
+```
+
+`git o` - открыть страницу репозитария.
+
+`git pushup` - отправить текущую, свежесозданную ветку в `origin`.
+
+`git cleanup` - почистить локальный репозитарий от разных старых, уже смерженных в мастер веток.
