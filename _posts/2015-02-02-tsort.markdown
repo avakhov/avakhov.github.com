@@ -1,0 +1,63 @@
+---
+title: Tsort
+image: /assets/tsort.jpg
+---
+В исходниках Рейлс я как-то увидел ссылку на модуль `tsort` [<i class="fa fa-external-link"></i>](https://github.com/rails/rails/blob/v4.2.0/railties/lib/rails/initializable.rb#L40-L45).
+"Tsort, WTF?" - подумал я (в переводе с английского это означает -
+что за неведомый, удивительный метод `tsort` есть в нашем любимом руби).
+
+Документация говорит [<i class="fa fa-external-link"></i>](http://www.ruby-doc.org/stdlib-2.1.2/libdoc/tsort/rdoc/TSort.html):
+"TSort implements topological sorting using Tarjan's algorithm for strongly connected components".
+Википедия поддерживает [<i class="fa fa-external-link"></i>](http://en.wikipedia.org/wiki/Strongly_connected_component):
+"In the mathematical theory of directed graphs, a graph is said to be strongly connected if every vertex is reachable from every other vertex".
+
+Обычно такие объяснения выглядят для меня примерно так: "麺類 緑茶 algorithm 車青出", но в этот
+раз я даже
+разобрался. Эта штука помогает найти циклические зависимости в графе, что очень хорошо,
+например, для подсчета зависимостей:
+
+``` ruby
+require 'tsort'
+
+class BuildSystem < Hash
+  include TSort
+  alias tsort_each_node each_key
+  def tsort_each_child(node, &block)
+    self[node].each(&block)
+  end
+
+  def set(component, dependencies = [])
+    self[component] = dependencies
+  end
+
+  alias build_order tsort
+
+  def valid?
+    strongly_connected_components.each do |component|
+      if component.length > 1
+        puts "Cyclic deps: #{component.inspect}"
+        return false
+      end
+    end
+    true
+  end
+end
+
+sys = BuildSystem.new
+sys.set("rack", %w[])
+sys.set("rails", %w[activerecord activesupport actionmailer])
+sys.set("actionmailer", %w[rack])
+sys.set("activesupport", %w[rack])
+sys.set("activerecord")
+
+p sys.valid?      # => true
+p sys.build_order
+# => ["rack", "activerecord", "activesupport", "actionmailer", "rails"]
+
+sys.set("rack", %w[rails])
+p sys.valid?
+# Cyclic deps: ["rack", "rails", "activesupport", "actionmailer"]
+# => false
+```
+
+Вот такой вот дивный компонент.
