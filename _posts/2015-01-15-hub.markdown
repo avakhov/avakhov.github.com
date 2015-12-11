@@ -15,7 +15,7 @@ image: /assets/hub.jpg
 :yum: Yo!
 Теперь хорошо, можно работать дальше.
 
-25 декабря прошлого года я описал свой процесс отправки пул реквестов [<i class="fa fa-external-link"></i>](http://vakhov.me/blog/2014/12/25/contribute/index.html)
+25 декабря прошлого года я описал свой процесс отправки пул реквестов [<i class="fa fa-external-link"></i>](/blog/2014/12/25/contribute/index.html)
 и буквально на следующий день наткнулся на утилиту hub [<i class="fa fa-external-link"></i>](https://hub.github.com/) - makes git better with GitHub. С ее помощью (и кстати и без ее помощи) можно сделать процесс
 контрибьюторства совсем приятным.
 
