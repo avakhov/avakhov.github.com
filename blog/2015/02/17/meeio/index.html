@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Tech addicted</title>
+    <title>Ember - 3. REST</title>
 
     <meta name="author" content="Alexey Vakhov" />
     <meta name="description" content="Tech addicted">
@@ -51,154 +51,93 @@
     </div>
 
     <div id="main" role="main" class="container">
-      <div class="posts">
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/17/meeio/index.html">Ember - 3. REST</a></h1>
-      <div class="date">February 17, 2015</div>
+      <article class="post">
+  <h1 class="main">Ember - 3. REST</h1>
+  <div class="date">February 17, 2015</div>
 
-      <div class="img"><img src="/assets/meeio.jpg" /></div>
-      <div class="entry"><p>Давно не брал я в руки вима, вот беру и снова беру. Недавно узнал, что есть устойчивая аббревиатура MEAN
+  <div class="img"><img src="/assets/meeio.jpg" /></div>
+  
+  <div class="entry">
+    <p>Давно не брал я в руки вима, вот беру и снова беру. Недавно узнал, что есть устойчивая аббревиатура MEAN
 для стека из монго, експресса, ангуляра и ноды.
 У нас ембер вместо ангуляра, меняем ноду на iojs, работаем в стеке MEEIO. </p>
-</div>
-      
-      <a href="/blog/2015/02/17/meeio/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/02/tsort/index.html">Tsort</a></h1>
-      <div class="date">February  2, 2015</div>
 
-      <div class="img"><img src="/assets/tsort.jpg" /></div>
-      <div class="entry"><p>В исходниках Рейлс я как-то увидел ссылку на модуль <code>tsort</code> <a href="https://github.com/rails/rails/blob/v4.2.0/railties/lib/rails/initializable.rb#L40-L45"><i class="fa fa-external-link"></i></a>.
-&quot;Tsort, WTF?&quot; - подумал я (в переводе с английского это означает -
-что за неведомый, удивительный метод <code>tsort</code> есть в нашем любимом руби).</p>
-</div>
-      
-      <a href="/blog/2015/02/02/tsort/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/29/ember-2-fire/index.html">Ember.js - 2. Index & Show</a></h1>
-      <div class="date">January 29, 2015</div>
+<p>В прошлом выпуске <a href="/blog/2015/01/29/ember-2-fire/index.html"><i class="fa fa-external-link"></i></a>
+мы сделали буковку R из CRUD для постов, сегодня доделаем все остальные буквы. Обновляем рауты:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Router</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/index&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/new&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/new&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/show&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/:id&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/edit&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/:id/edit&#39;</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>На главной странице добавляем ссылку на создание нового поста (<code>app/templates/posts/index.hbs</code>):</p>
+<div class="highlight"><pre><code class="language-handlebars" data-lang="handlebars"><span class="x">&lt;p&gt;</span><span class="cp">{{</span><span class="nf">#link</span><span class="err">-</span><span class="nv">to</span> <span class="s2">&quot;posts/new&quot;</span><span class="cp">}}</span><span class="x">New Post</span><span class="cp">{{</span><span class="nf">/link</span><span class="err">-</span><span class="nv">to</span><span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</code></pre></div>
+<p>Делаем раут для <code>new</code> (<code>app/routes/posts/new.js</code>):</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">createRecord</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">);</span>
+  <span class="p">},</span>
 
-      <div class="img"><img src="/assets/ember-2-fire.jpg" /></div>
-      <div class="entry"><p>Сколько раз в жизни вам нужно было сделать одностраничное приложение, которое хранит данные
-в локал сторадже наподобие TodoMVC из официального гайда Эмбера
-<a href="http://emberjs.com/guides/"><i class="fa fa-external-link"></i></a>?
-Мне ни разу. Поэтому, как только я начинал делать что-то полезное,
-то сразу же возникало сотни практических вопросов, на которые гайды не отвечали.</p>
-</div>
-      
-      <a href="/blog/2015/01/29/ember-2-fire/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/26/flat_map/index.html">Enumerable#flat_map</a></h1>
-      <div class="date">January 26, 2015</div>
+  <span class="nx">deactivate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;model.isNew&quot;</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">).</span><span class="nx">rollback</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Обратите внимание на метод <code>deactivate</code>. Я не знаю насколько это стандартный прием, придумал его из
+головы. В прошлом выпуске мы обсуждали, что ембер-store - это некоторая сущность, которая должна
+синхронизироваться с сервером. <code>createRecord</code> не синхронизирует запись с сервером, однако создает его в
+сторе. И если вы откажитесь от сохранения записи и выйдите через меню на главную страницу, то пустая
+запись будет в вашем списке. Чтобы этого не произошло и добавил ролбек на не сохрненную модель.</p>
 
-      <div class="img"><img src="/assets/flat_map.jpg" /></div>
-      <div class="entry"><p>В Руби 1.9.2 появился класный метод <code>flat_map</code> <a href="http://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-flat_map"><i class="fa fa-external-link"></i></a>,
-который я незаслуженно обходил стороной.</p>
-</div>
-      
-      <a href="/blog/2015/01/26/flat_map/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/23/ember-1-intro/index.html">Ember.js - 1. Введение</a></h1>
-      <div class="date">January 23, 2015</div>
+<p>В форме вешаем на кнопку экшен (<code>app/templates/posts/_form.hbs</code>):</p>
+<div class="highlight"><pre><code class="language-handlebars" data-lang="handlebars"><span class="x">  &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot; </span><span class="cp">{{</span><span class="nv">action</span> <span class="s2">&quot;save&quot;</span><span class="cp">}}</span><span class="x">&gt;Save&lt;/button&gt;</span>
+</code></pre></div>
+<p>Который обрабатываем в контроллере (<code>app/controllers/posts/new.js</code>):</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">Ember</span> <span class="nx">from</span> <span class="s1">&#39;ember&#39;</span><span class="p">;</span>
 
-      <div class="img"><img src="/assets/ember-1-intro.jpg" /></div>
-      <div class="entry"><p>Говорят, что у Ember.js кривая обучения крутовата. Категорически с этим не соглашусь.</p>
-</div>
-      
-      <a href="/blog/2015/01/23/ember-1-intro/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/15/hub/index.html">Hub и Git</a></h1>
-      <div class="date">January 15, 2015</div>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">ObjectController</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">actions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">save</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">;</span>
+      <span class="nx">model</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">me</span><span class="p">.</span><span class="nx">transitionToRoute</span><span class="p">(</span><span class="s2">&quot;posts/show&quot;</span><span class="p">,</span> <span class="nx">model</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Таким образом реализовали C. Остальные буквы легко сделать по аналогии.</p>
 
-      <div class="img"><img src="/assets/hub.jpg" /></div>
-      <div class="entry"><p>Привет! Легкая посленовогодняя разминка для лица:</p>
-</div>
-      
-      <a href="/blog/2015/01/15/hub/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/29/new-year/index.html">Year += 1</a></h1>
-      <div class="date">December 29, 2014</div>
+<ul>
+<li>Изменения - <a href="https://github.com/avakhov/ember-demo/compare/52b5925aa6a72726998bfd5d7600f49ce83e2ff2...2212d524f6b41407e468830fe8114260e117f4cc">https://github.com/avakhov/ember-demo/compare</a></li>
+<li>Приложение на хероку - <a href="http://ember-demo.herokuapp.com">http://ember-demo.herokuapp.com</a></li>
+</ul>
 
-      <div class="img"><img src="/assets/new-year.jpg" /></div>
-      <div class="entry"><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="nb">puts</span> <span class="s2">&quot;Happy new </span><span class="si">#{</span><span class="n">year</span><span class="si">}</span><span class="s2"> year!&quot;</span>
-</code></pre></div></div>
-      
-      <a href="/blog/2014/12/29/new-year/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/25/contribute/index.html">Пул реквесты в опен сорс</a></h1>
-      <div class="date">December 25, 2014</div>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+</article>
 
-      <div class="img"><img src="/assets/contribute.jpg" /></div>
-      <div class="entry"><p>Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
-из пяти пунктов:</p>
-</div>
-      
-      <a href="/blog/2014/12/25/contribute/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/22/gnu-screen/index.html">Добротный мультиплексор</a></h1>
-      <div class="date">December 22, 2014</div>
 
-      <div class="img"><img src="/assets/gnu-screen.jpg" /></div>
-      <div class="entry"><p>Думаю большинство знает и использует замечательную &quot;свободную консольную утилиту-мультиплексор&quot;,
-как дружелюбно описывает GNU Screen википедия <a href="https://ru.wikipedia.org/wiki/GNU_Screen"><i class="fa fa-external-link"></i></a>,
-но я все же скажу пару слов.</p>
-</div>
-      
-      <a href="/blog/2014/12/22/gnu-screen/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/18/remove_a_lot_records/index.html">Удаляем записи из базы данных</a></h1>
-      <div class="date">December 18, 2014</div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
 
-      <div class="img"><img src="/assets/remove_a_lot_records.jpg" /></div>
-      <div class="entry"><p>Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
-Active Record запросы. Когда записей уже миллионы, начинаются разные интересные задачи.</p>
-</div>
-      
-      <a href="/blog/2014/12/18/remove_a_lot_records/index.html" class="read-more">Read More</a>
-    </article>
-  
-</div>
-
-<!-- Pagination links -->
-<div class="pagination">
-  
-    <span class="previous">Previous</span>
-  
-  <span class="page_number ">Page: 1 of 6</span>
-  
-    <a href="/page2" class="next">Next</a>
-  
-</div>
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     </div>
 

@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Tech addicted</title>
+    <title>Разные мелочи</title>
 
     <meta name="author" content="Alexey Vakhov" />
     <meta name="description" content="Tech addicted">
@@ -51,154 +51,118 @@
     </div>
 
     <div id="main" role="main" class="container">
-      <div class="posts">
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/17/meeio/index.html">Ember - 3. REST</a></h1>
-      <div class="date">February 17, 2015</div>
+      <article class="post">
+  <h1 class="main">Разные мелочи</h1>
+  <div class="date">July  2, 2012</div>
 
-      <div class="img"><img src="/assets/meeio.jpg" /></div>
-      <div class="entry"><p>Давно не брал я в руки вима, вот беру и снова беру. Недавно узнал, что есть устойчивая аббревиатура MEAN
-для стека из монго, експресса, ангуляра и ноды.
-У нас ембер вместо ангуляра, меняем ноду на iojs, работаем в стеке MEEIO. </p>
-</div>
-      
-      <a href="/blog/2015/02/17/meeio/index.html" class="read-more">Read More</a>
-    </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/02/tsort/index.html">Tsort</a></h1>
-      <div class="date">February  2, 2015</div>
+  
+  <div class="entry">
+    <p>3 недели в блог не писал и уже тяжело снова начинать. Так однажды я 2 года спортом не позанимался и тоже лень было возвращаться.
+Есть правда хорошое решение - нужно себя заставлять. И вот сегодня я хочу рассказать про разные мелочи,
+с которыми столкнулся в свое время.</p>
 
-      <div class="img"><img src="/assets/tsort.jpg" /></div>
-      <div class="entry"><p>В исходниках Рейлс я как-то увидел ссылку на модуль <code>tsort</code> <a href="https://github.com/rails/rails/blob/v4.2.0/railties/lib/rails/initializable.rb#L40-L45"><i class="fa fa-external-link"></i></a>.
-&quot;Tsort, WTF?&quot; - подумал я (в переводе с английского это означает -
-что за неведомый, удивительный метод <code>tsort</code> есть в нашем любимом руби).</p>
-</div>
-      
-      <a href="/blog/2015/02/02/tsort/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/29/ember-2-fire/index.html">Ember.js - 2. Index & Show</a></h1>
-      <div class="date">January 29, 2015</div>
+<h2>Kernel.caller</h2>
 
-      <div class="img"><img src="/assets/ember-2-fire.jpg" /></div>
-      <div class="entry"><p>Сколько раз в жизни вам нужно было сделать одностраничное приложение, которое хранит данные
-в локал сторадже наподобие TodoMVC из официального гайда Эмбера
-<a href="http://emberjs.com/guides/"><i class="fa fa-external-link"></i></a>?
-Мне ни разу. Поэтому, как только я начинал делать что-то полезное,
-то сразу же возникало сотни практических вопросов, на которые гайды не отвечали.</p>
-</div>
-      
-      <a href="/blog/2015/01/29/ember-2-fire/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/26/flat_map/index.html">Enumerable#flat_map</a></h1>
-      <div class="date">January 26, 2015</div>
+<p>Вы будете смеятся, но раньше, чтобы вывести стек вызова методов приложения я использовал конструкцию:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
+  <span class="k">begin</span>
+    <span class="k">raise</span> 
+  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+    <span class="nb">p</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span> <span class="c1"># =&gt; [&quot;demo.rb:3:in `some&#39;&quot;, &quot;demo.rb:9:in `&lt;main&gt;&#39;&quot;]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-      <div class="img"><img src="/assets/flat_map.jpg" /></div>
-      <div class="entry"><p>В Руби 1.9.2 появился класный метод <code>flat_map</code> <a href="http://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-flat_map"><i class="fa fa-external-link"></i></a>,
-который я незаслуженно обходил стороной.</p>
-</div>
-      
-      <a href="/blog/2015/01/26/flat_map/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/23/ember-1-intro/index.html">Ember.js - 1. Введение</a></h1>
-      <div class="date">January 23, 2015</div>
+<span class="n">some</span>
+</code></pre></div>
+<p>После C++ мне казалось, что это вполне нормально (в C++ попробуйте вывести стек приложения в лог, там не побалуешь). Но это же руби,
+здесь можно все, причем очень просто! Случайно в интернете обратил внимание на системный вызов <code>Kernel.caller</code>.
+Напечатать цепочку вызовов можно так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
+  <span class="nb">p</span> <span class="nb">caller</span> <span class="c1"># =&gt; [&quot;demo.rb:5:in `&lt;main&gt;&#39;&quot;]</span>
+<span class="k">end</span>
 
-      <div class="img"><img src="/assets/ember-1-intro.jpg" /></div>
-      <div class="entry"><p>Говорят, что у Ember.js кривая обучения крутовата. Категорически с этим не соглашусь.</p>
-</div>
-      
-      <a href="/blog/2015/01/23/ember-1-intro/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/15/hub/index.html">Hub и Git</a></h1>
-      <div class="date">January 15, 2015</div>
+<span class="n">some</span>
+</code></pre></div>
+<h2>Добавление ошибки валидации на :base</h2>
 
-      <div class="img"><img src="/assets/hub.jpg" /></div>
-      <div class="entry"><p>Привет! Легкая посленовогодняя разминка для лица:</p>
-</div>
-      
-      <a href="/blog/2015/01/15/hub/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/29/new-year/index.html">Year += 1</a></h1>
-      <div class="date">December 29, 2014</div>
+<p>Отображая ошибки валидации с помощью стандартного <code>object.errors.full_messages</code>, мы иногда получаем такие сообщения:
+&quot;Password Укажите пожалуйста пароль&quot;. Чтобы быстро избавиться от обязательно названия атрибута в начале сообщения, можно добавлять
+ошибки валидации следующим образом: <code>object.errros.add(:base, &#39;Укажите пожалуйста пароль&#39;)</code>. <code>full_message</code> не будет
+добавлять название атрибута в этом случае - <a href="https://github.com/rails/rails/blob/91f8cf22647e2e102c0897e88faec049f606843f/activemodel/lib/active_model/errors.rb#L287">activemodel/lib/active_model/errors.rb#L287</a>.</p>
 
-      <div class="img"><img src="/assets/new-year.jpg" /></div>
-      <div class="entry"><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="nb">puts</span> <span class="s2">&quot;Happy new </span><span class="si">#{</span><span class="n">year</span><span class="si">}</span><span class="s2"> year!&quot;</span>
-</code></pre></div></div>
-      
-      <a href="/blog/2014/12/29/new-year/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/25/contribute/index.html">Пул реквесты в опен сорс</a></h1>
-      <div class="date">December 25, 2014</div>
+<h2>Rescue в одну строку</h2>
 
-      <div class="img"><img src="/assets/contribute.jpg" /></div>
-      <div class="entry"><p>Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
-из пяти пунктов:</p>
-</div>
-      
-      <a href="/blog/2014/12/25/contribute/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/22/gnu-screen/index.html">Добротный мультиплексор</a></h1>
-      <div class="date">December 22, 2014</div>
+<p>Этим шаблоном я еще не воспользовался, но он интригует. Все мы используем конструкции для установки значений по умолчанию:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">some</span> <span class="o">||</span> <span class="s2">&quot;default&quot;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">presence</span> <span class="o">||</span> <span class="s2">&quot;start&quot;</span> <span class="c1"># Rails only, обрабатывает nil? и blank?</span>
+</code></pre></div>
+<p>Оказывается можно так же легко установить дефалтовое значение, если метод вызывает исключение:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">another</span> <span class="k">rescue</span> <span class="s2">&quot;after exception&quot;</span>
+</code></pre></div>
+<p>Я обычно не вызываю эксепшенов в своем коде, которые где-то нужно обрабатывать. Но с внешними вызовами возможно пригодится.</p>
 
-      <div class="img"><img src="/assets/gnu-screen.jpg" /></div>
-      <div class="entry"><p>Думаю большинство знает и использует замечательную &quot;свободную консольную утилиту-мультиплексор&quot;,
-как дружелюбно описывает GNU Screen википедия <a href="https://ru.wikipedia.org/wiki/GNU_Screen"><i class="fa fa-external-link"></i></a>,
-но я все же скажу пару слов.</p>
-</div>
-      
-      <a href="/blog/2014/12/22/gnu-screen/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/18/remove_a_lot_records/index.html">Удаляем записи из базы данных</a></h1>
-      <div class="date">December 18, 2014</div>
+<h2>IndexBy</h2>
 
-      <div class="img"><img src="/assets/remove_a_lot_records.jpg" /></div>
-      <div class="entry"><p>Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
-Active Record запросы. Когда записей уже миллионы, начинаются разные интересные задачи.</p>
-</div>
-      
-      <a href="/blog/2014/12/18/remove_a_lot_records/index.html" class="read-more">Read More</a>
-    </article>
-  
-</div>
+<p>Чего только не придумают руби-программисты, чтобы писать меньше кода. Недавно наткнулся на удивительный метод <a href="http://api.rubyonrails.org/classes/Enumerable.html#method-i-index_by">index_by</a> в рейлс:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Выдержка из документации:</span>
 
-<!-- Pagination links -->
-<div class="pagination">
-  
-    <span class="previous">Previous</span>
-  
-  <span class="page_number ">Page: 1 of 6</span>
-  
-    <a href="/page2" class="next">Next</a>
-  
-</div>
+<span class="c1"># Convert an enumerable to a hash:</span>
+<span class="n">people</span><span class="o">.</span><span class="n">index_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:login</span><span class="p">)</span>
+  <span class="c1"># =&gt; { &quot;nextangle&quot; =&gt; &lt;Person ...&gt;, &quot;chade-&quot; =&gt; &lt;Person ...&gt;, ...}</span>
+</code></pre></div>
+<h2>Ассерты</h2>
+
+<p>В С++ очень активно используются ассерты для проверки входных параметров, при выполнении каких-то подозрительных действий, для проверки
+возвращаемых значений и т.д. Это является частным случаем программирования по контракту. В рейлс, для собственного спокойствия,
+я тоже часто вставляю такого рода проверки. Приведу несколько типовых случаев:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 1.</span>
+<span class="c1"># не обращайте внимание на цепочку if-elseif, не могу себя</span>
+<span class="c1"># отучить в пользу case.</span>
+<span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:some</span>
+  <span class="c1"># ...</span>
+<span class="k">elsif</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:another</span>
+  <span class="c1"># ...</span>
+<span class="k">else</span>
+  <span class="k">raise</span> <span class="s2">&quot;unreacheable: </span><span class="si">#{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+
+<span class="c1"># 2.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">assert_valid_keys</span><span class="p">(</span><span class="ss">:key_a</span><span class="p">,</span> <span class="ss">:key_b</span><span class="p">)</span>
+
+<span class="c1"># 3.</span>
+<span class="k">raise</span> <span class="s2">&quot;wrong </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">unless</span> <span class="sx">%w[start finish]</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div>
+<p>Я обычно не заморачиваюсь внятными сообщения в эксепшенах, так как если ошибка и случится, то по трейсу всегда легко отследить
+проблему. Данные конструкции призваны подсказывать программисту, что в коде возник какой-то случай, о
+котором раньше не позаботились. Также эти конструкции легко расширяются, когда появляются новые режимы,
+ключи или состояния.</p>
+
+<p>Для первого раза думаю хватит. Рад возвращению в онлайн. Раньше мы работали над большим количеством маленьких проектов и я прежде
+всего оптимизировал скорость и стандартность разработки. Сейчас у нас есть парочку средних проектов, на несколько человеко-месяцев
+(мифических :-) каждый. При увеличении кодовой базы возникают проблемы другого сорта, с которыми я буду сталкиваться, осмыслять
+и рассказывать вам. До новых встреч!</p>
+
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+</article>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     </div>
 

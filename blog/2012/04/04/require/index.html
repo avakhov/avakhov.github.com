@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Tech addicted</title>
+    <title>Require, Load и Rails</title>
 
     <meta name="author" content="Alexey Vakhov" />
     <meta name="description" content="Tech addicted">
@@ -51,154 +51,101 @@
     </div>
 
     <div id="main" role="main" class="container">
-      <div class="posts">
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/17/meeio/index.html">Ember - 3. REST</a></h1>
-      <div class="date">February 17, 2015</div>
+      <article class="post">
+  <h1 class="main">Require, Load и Rails</h1>
+  <div class="date">April  4, 2012</div>
 
-      <div class="img"><img src="/assets/meeio.jpg" /></div>
-      <div class="entry"><p>Давно не брал я в руки вима, вот беру и снова беру. Недавно узнал, что есть устойчивая аббревиатура MEAN
-для стека из монго, експресса, ангуляра и ноды.
-У нас ембер вместо ангуляра, меняем ноду на iojs, работаем в стеке MEEIO. </p>
-</div>
-      
-      <a href="/blog/2015/02/17/meeio/index.html" class="read-more">Read More</a>
-    </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/02/tsort/index.html">Tsort</a></h1>
-      <div class="date">February  2, 2015</div>
+  
+  <div class="entry">
+    <blockquote>
+Мы в ответе за тех, кого подключили с помощью load и require.
+<br>
+<i>Давид Хейнемейер де Сент-Экзюпери, Prince On Rails</i>
+</blockquote>
 
-      <div class="img"><img src="/assets/tsort.jpg" /></div>
-      <div class="entry"><p>В исходниках Рейлс я как-то увидел ссылку на модуль <code>tsort</code> <a href="https://github.com/rails/rails/blob/v4.2.0/railties/lib/rails/initializable.rb#L40-L45"><i class="fa fa-external-link"></i></a>.
-&quot;Tsort, WTF?&quot; - подумал я (в переводе с английского это означает -
-что за неведомый, удивительный метод <code>tsort</code> есть в нашем любимом руби).</p>
-</div>
-      
-      <a href="/blog/2015/02/02/tsort/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/29/ember-2-fire/index.html">Ember.js - 2. Index & Show</a></h1>
-      <div class="date">January 29, 2015</div>
+<p>В геме автомиграций я столкнулся с интересной проблемой, для решения которой пришлось глубже
+изучить <code>require</code>, <code>load</code> и также то, как работает Rails с зависимостями.</p>
 
-      <div class="img"><img src="/assets/ember-2-fire.jpg" /></div>
-      <div class="entry"><p>Сколько раз в жизни вам нужно было сделать одностраничное приложение, которое хранит данные
-в локал сторадже наподобие TodoMVC из официального гайда Эмбера
-<a href="http://emberjs.com/guides/"><i class="fa fa-external-link"></i></a>?
-Мне ни разу. Поэтому, как только я начинал делать что-то полезное,
-то сразу же возникало сотни практических вопросов, на которые гайды не отвечали.</p>
-</div>
-      
-      <a href="/blog/2015/01/29/ember-2-fire/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/26/flat_map/index.html">Enumerable#flat_map</a></h1>
-      <div class="date">January 26, 2015</div>
+<p>При выполнении задачи <code>rake db:migrate</code> гему необходимо пробежатся по всем моделям и обновить
+схему базы данных в соответствие с тем, что в модели записано. Я сделал это с помощью примерно
+такого кода:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;app/models/**/*.rb&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+  <span class="nb">require</span> <span class="n">file</span>
+<span class="k">end</span>
 
-      <div class="img"><img src="/assets/flat_map.jpg" /></div>
-      <div class="entry"><p>В Руби 1.9.2 появился класный метод <code>flat_map</code> <a href="http://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-flat_map"><i class="fa fa-external-link"></i></a>,
-который я незаслуженно обходил стороной.</p>
-</div>
-      
-      <a href="/blog/2015/01/26/flat_map/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/23/ember-1-intro/index.html">Ember.js - 1. Введение</a></h1>
-      <div class="date">January 23, 2015</div>
+<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Кстати обратите внимание на <a href="http://api.rubyonrails.org/classes/ActiveSupport/DescendantsTracker.html">ActiveSupport::DescendantsTracker</a>,
+по умолчанию он включается в <code>ActiveRecord::Model</code>, но его также удобно использовать при написании какого-нибудь модульного
+расширяемого API.</p>
 
-      <div class="img"><img src="/assets/ember-1-intro.jpg" /></div>
-      <div class="entry"><p>Говорят, что у Ember.js кривая обучения крутовата. Категорически с этим не соглашусь.</p>
-</div>
-      
-      <a href="/blog/2015/01/23/ember-1-intro/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/15/hub/index.html">Hub и Git</a></h1>
-      <div class="date">January 15, 2015</div>
+<p>Схема, описанная выше, работала хорошо, пока я не подключил девайс для авторизации. Автомиграции стали ломались на пользователе
+<code>User</code>. Складывалось ощущение, что модель <code>User</code> загружалась 2 раза и пыталась создать уже созданные колонки повторно.</p>
 
-      <div class="img"><img src="/assets/hub.jpg" /></div>
-      <div class="entry"><p>Привет! Легкая посленовогодняя разминка для лица:</p>
-</div>
-      
-      <a href="/blog/2015/01/15/hub/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/29/new-year/index.html">Year += 1</a></h1>
-      <div class="date">December 29, 2014</div>
+<p>Это оказалось действительно так, но сначала давайте более внимательно посмотрим на методы <code>require</code> и <code>load</code> из самого руби.
+Если кратко, то load загружает файл всегда, а require только один раз. Причем, код загруженный с помощью <code>load</code> будет
+загружен с помощью <code>require</code> еще один раз. Простой пример для иллюстрации:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### header.rb</span>
+<span class="nb">puts</span> <span class="s1">&#39;bang!&#39;</span>
 
-      <div class="img"><img src="/assets/new-year.jpg" /></div>
-      <div class="entry"><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="nb">puts</span> <span class="s2">&quot;Happy new </span><span class="si">#{</span><span class="n">year</span><span class="si">}</span><span class="s2"> year!&quot;</span>
-</code></pre></div></div>
-      
-      <a href="/blog/2014/12/29/new-year/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/25/contribute/index.html">Пул реквесты в опен сорс</a></h1>
-      <div class="date">December 25, 2014</div>
+<span class="c1">### demo.rb</span>
+<span class="nb">load</span> <span class="s1">&#39;header.rb&#39;</span>     <span class="c1"># print &#39;bang!&#39;</span>
+<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; []</span>
+<span class="nb">require</span> <span class="s1">&#39;header.rb&#39;</span>  <span class="c1"># print &#39;bang!&#39;</span>
+<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; [&#39;header.rb&#39;]</span>
+<span class="nb">require</span> <span class="s1">&#39;header.rb&#39;</span>  <span class="c1"># print nothing</span>
+<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; [&#39;header.rb&#39;]</span>
+</code></pre></div>
+<p>Таким образом, если мы один и тоже файл сначала подключим с помощью <code>load</code> а потом с помощью <code>require</code>, то он подключится два раза.</p>
 
-      <div class="img"><img src="/assets/contribute.jpg" /></div>
-      <div class="entry"><p>Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
-из пяти пунктов:</p>
-</div>
-      
-      <a href="/blog/2014/12/25/contribute/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/22/gnu-screen/index.html">Добротный мультиплексор</a></h1>
-      <div class="date">December 22, 2014</div>
+<p>Когда я подключил devise, то <code>devise_for :users</code> который прописывает рауты, обращается к модели юзер через дебри кода с помощью 
+<code>ActiveSupport::Dependencies.constantize</code>
+<a href="https://github.com/plataformatec/devise/blob/45aca40f6ce6eb1006f239328f273c3496ba3a64/lib/devise.rb#L294">lib/devise.rb#L294</a>
+Через другие дебри кода, <code>ActiveSupport::Dependencies</code>, который хачит <code>Оbject</code>,
+<a href="https://github.com/rails/rails/blob/02b9c22df8053d71782ae11900d0194f217afc3c/activesupport/lib/active_support/dependencies.rb#L32">вызывает</a>
+<code>load</code> в девелопменте (чтобы нам было комфортно работать без перезагрузки сервера) и <code>require</code> в продакшене. Поэтому мой гем работал 
+корректно в продакшене <code>RAILS_ENV=production rake db:migrate</code> и не работал в девелопменте.</p>
 
-      <div class="img"><img src="/assets/gnu-screen.jpg" /></div>
-      <div class="entry"><p>Думаю большинство знает и использует замечательную &quot;свободную консольную утилиту-мультиплексор&quot;,
-как дружелюбно описывает GNU Screen википедия <a href="https://ru.wikipedia.org/wiki/GNU_Screen"><i class="fa fa-external-link"></i></a>,
-но я все же скажу пару слов.</p>
-</div>
-      
-      <a href="/blog/2014/12/22/gnu-screen/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/18/remove_a_lot_records/index.html">Удаляем записи из базы данных</a></h1>
-      <div class="date">December 18, 2014</div>
+<p>Исправил я просто, используя тот же трюк с <code>constantize</code>, что и девайс:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;app/models/**/*.rb&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;app/models/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="no">Regexp</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">extname</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;$&#39;</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+  <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">constantize</span><span class="p">(</span><span class="nb">name</span><span class="o">.</span><span class="n">classify</span><span class="p">)</span>
+<span class="k">end</span>
 
-      <div class="img"><img src="/assets/remove_a_lot_records.jpg" /></div>
-      <div class="entry"><p>Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
-Active Record запросы. Когда записей уже миллионы, начинаются разные интересные задачи.</p>
-</div>
-      
-      <a href="/blog/2014/12/18/remove_a_lot_records/index.html" class="read-more">Read More</a>
-    </article>
-  
-</div>
+<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Новая версия гема 1.0.1 работает с девайсом и без, в продакшене и в девелопменте.</p>
 
-<!-- Pagination links -->
-<div class="pagination">
-  
-    <span class="previous">Previous</span>
-  
-  <span class="page_number ">Page: 1 of 6</span>
-  
-    <a href="/page2" class="next">Next</a>
-  
-</div>
+<p><em>Пока я разбирался в require и load начал понимать, что может быть автомиграции чуть-чуть текут по памяти в девелопменте. Но видимо
+они это делают в очень щадящем режиме, что я ни разу этого не заметил. Вообще тема сложная, я только один раз сталкивался
+с тем, что globalize2 сильно тек в девелопменте, где-то я уже об этом писал. Ошибки такого класса тяжело поймать и тяжело исправить,
+но мне кажется, что в девелопмент режиме небольшие утечки - не редкость. Поразмышляю об этом на досуге.</em></p>
+
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+</article>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     </div>
 
