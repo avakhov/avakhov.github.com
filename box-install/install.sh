@@ -8,10 +8,14 @@ ssh $HOST 'test -d /root/blog || git clone git@github.com:avakhov/blog /root/blo
 ssh $HOST git config --global user.email "vakhov@gmail.com"
 ssh $HOST git config --global user.name "Alex Vakhov"
 ssh $HOST git config --global push.default matching
+ssh $HOST << EOF
+  echo "Europe/Moscow" > /etc/timezone 
+  dpkg-reconfigure -f noninteractive tzdata
+EOF
 
 # ruby-ruby-ruby - https://gist.github.com/scmx/9489499
 # ssh $HOST << EOF
-#   apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev nodejs
+#   apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev nodejs python
 #   pushd /tmp
 #     wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz
 #     tar -xvzf ruby-2.1.2.tar.gz
