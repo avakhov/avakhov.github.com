@@ -7,6 +7,54 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>И снова здравствуйте</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/reborn/main.jpg&quot; /&gt;
+          &lt;p&gt;Я много раз начинал писать блог и много раз бросал. Но природу не обманешь, нравится мне это дело, попробую еще раз.&lt;/p&gt;
+
+&lt;p&gt;Итак, представлюсь. Меня зовут Алексей Вахов. 7 лет я был C++ разработчиком разной степени
+суровости. С Руби он Рейлс меня познакомил дорогой друг &lt;a href=&quot;http://evtuhovich.ru/&quot;&gt;Иван Евтухович&lt;/a&gt;
+в 2006 году. Увлекаюсь Рейлс почти с самых первых версий и даже попал в
+&lt;a href=&quot;http://contributors.rubyonrails.org/&quot;&gt;топ-100 контрибьюторов&lt;/a&gt;. Однако профессионально занимаюсь
+веб-разработкой около 6 лет.&lt;/p&gt;
+
+&lt;p&gt;Сейчас работаю техническим директором в компании &lt;a href=&quot;https://uchi.ru&quot;&gt;Учи.ру&lt;/a&gt;.
+Мы занимаемся интересным и важным делом - учим детей математике и даже уже чуть-чуть русскому языку.
+Четыре года назад проект начинался с нуля, первых пользователей мы нашли в школе, которая находится рядом с офисом. Сегодня
+у нас 900 тысяч учеников, много продакшенов, серверов, задач, вопросов и планов.&lt;/p&gt;
+
+&lt;!--
+&lt;div class=&quot;hr&quot;&gt;&amp;middot;&amp;middot;&amp;middot;&lt;/div&gt;
+
+Я очень трепетно отношусь к копирайтам любого вида, сразу же решил, что иллюстрации к блогу буду
+рисовать сам, чтобы быть точно уверенным, что не нарушаю чужих прав.
+Также мне сложно провести границу в голове, где
+заканчиваются мои мысли и начинается коммерческая тайна. Поэтому про работу
+буду писать
+только ту информацию, в открытости которой я уверен.
+--&gt;
+
+&lt;p&gt;До сих пор очень люблю Рейлс, хотя заниматься им стал конечно гораздо меньше. В настоящее время больше интересуюсь всем,
+что связано с разработкой ПО в целом: как создать комфортную среду, наладить процессы и взаимодействие
+внутри команды и вне, обеспечить стабильность приложений и их дальнейшее развитие, и так далее.&lt;/p&gt;
+
+&lt;p&gt;В блоге планирую писать про разные штуки, связанные с разработкой, работой, а также свои мысли, идеи
+и все такое. Надеюсь что-то покажется интересным и возможно даже поможет. Писать планирую регулярно
+и достаточно долгий срок. Как говаривал Будда в жизни есть 2 сложные вещи:
+начать что-то делать и продолжить
+это делать.&lt;/p&gt;
+
+&lt;p&gt;На сегодня все, спасибо за внимание и до новых встреч!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Алексей Вахов&lt;/em&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 10 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/10/reborn/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/10/reborn/index.html</guid>
+      </item>
+    
+      <item>
         <title>Ember - 3. REST</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/meeio.jpg&quot; /&gt;
@@ -633,100 +681,6 @@ git push
         <pubDate>Mon, 22 Dec 2014 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2014/12/22/gnu-screen/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2014/12/22/gnu-screen/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Удаляем записи из базы данных</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/remove_a_lot_records.jpg&quot; /&gt;
-          &lt;p&gt;Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
-Active Record запросы. Когда записей уже миллионы, начинаются разные интересные задачи.&lt;/p&gt;
-
-&lt;p&gt;Как то раз я расщеплял базу на две и нужно было удалить примерно 10 миллионов детей,
-которые остались без родителей (имена таблиц - выдуманные).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/remove_a_lot_records/db.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://evtuhovich.ru/&quot;&gt;Иван Евтухович&lt;/a&gt; (я всегда звоню ему с техническими вопросами,
-Иван знает все, особенно про PostgreSQL) сказал, что можно конечно удалить в лоб,
-в одной транзакции, но она будет работать долго и молча.
-Лучше положить id во временную таблицу и удалять записи небольшими порциями, не теряя лица.&lt;/p&gt;
-
-&lt;h2&gt;Играем с тестовой базой&lt;/h2&gt;
-
-&lt;p&gt;Заполняем базу крайне синтетическими данными на 20M записей &lt;a href=&quot;https://gist.github.com/avakhov/48518e4902acb57a7fed#file-1_seed-rb&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;10_000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create!&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;(&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;INSERT INTO children (parent_id) VALUES &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;, &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Parent #&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;10_000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;(0)&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;INSERT INTO children (parent_id) VALUES &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;, &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Chunk #&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Удаляем одним запросом:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;DELETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IN&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;children&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parents&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;-- =&amp;gt; DELETE 10000000&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;-- =&amp;gt; Time: 7538596.724 ms (~ 2 hours)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Удаляем порциями по 1000 записей &lt;a href=&quot;https://gist.github.com/avakhov/48518e4902acb57a7fed#file-3_by_small_chunks-rb&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table_exists?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;deleting_ids&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;m1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;measure&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;SQL&lt;/span&gt;
-&lt;span class=&quot;sh&quot;&gt;      BEGIN;&lt;/span&gt;
-
-&lt;span class=&quot;sh&quot;&gt;      CREATE TABLE deleting_ids(id integer);&lt;/span&gt;
-&lt;span class=&quot;sh&quot;&gt;      CREATE INDEX ON deleting_ids(id);&lt;/span&gt;
-
-&lt;span class=&quot;sh&quot;&gt;      INSERT INTO deleting_ids&lt;/span&gt;
-&lt;span class=&quot;sh&quot;&gt;      SELECT children.id&lt;/span&gt;
-&lt;span class=&quot;sh&quot;&gt;      FROM children LEFT JOIN parents ON children.parent_id = parents.id&lt;/span&gt;
-&lt;span class=&quot;sh&quot;&gt;      WHERE parents.id IS NULL;&lt;/span&gt;
-
-&lt;span class=&quot;sh&quot;&gt;      COMMIT;&lt;/span&gt;
-&lt;span class=&quot;no&quot;&gt;    SQL&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;m2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;measure&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DeletingId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ids&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DeletingId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pluck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;Child&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;DeletingId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Chunk #&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; processed&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# =&amp;gt; (112.227890)   (~ 2 mins)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# =&amp;gt; (1052.880441)  (~ 17 mins)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Выводы&lt;/h2&gt;
-
-&lt;p&gt;В одной транзакции 10М записей удалялось 2 часа,
-по частям - 20 минут (эти времена некорректно сравнивать, так как многое зависит
-от настроек базы, данных, нагрузки и так далее).&lt;/p&gt;
-
-&lt;p&gt;Даже не обращая внимание на время исполнения, второй способ все равно гораздо
-лучше, так как он явно показывает прогресс и изменяет базу небольшими, контролируемыми шагами.
-Более того, скрипт можно прервать в любом месте и запустить заново, он просто продолжит
-удалять, что в случае одной транзакции сделать невозможно.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 18 Dec 2014 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2014/12/18/remove_a_lot_records/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2014/12/18/remove_a_lot_records/index.html</guid>
       </item>
     
   </channel>

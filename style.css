@@ -291,7 +291,7 @@ nav a {
   border-left: 2px solid #666;
   padding: 0.1em 1em;
   color: #666;
-  font-size: 22px;
+  font-size: 16px;
   font-style: italic;
 }
 .post .comments {
@@ -707,4 +707,15 @@ h1.main {
     padding-left: 10px;
     padding-right: 10px;
   }
+}
+.hr {
+  text-align: center;
+  font-size: 250%;
+  letter-spacing: 0.3em;
+  color: #999;
+}
+
+.read {
+  background-color: #faa;
+  padding: 0 10px;
 }

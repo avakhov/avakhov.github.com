@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>История одной запятой</title>
+    <title>И снова здравствуйте</title>
 
     <meta name="author" content="Alexey Vakhov" />
     <meta name="description" content="Tech addicted">
@@ -54,87 +54,50 @@
 
     <div id="main" role="main" class="container">
       <article class="post">
-  <h1 class="main">История одной запятой</h1>
+  <h1 class="main">И снова здравствуйте</h1>
   
-  <div class="date">July 17, 2012</div>
+  <div class="date">August 10, 2016</div>
 
-  
+  <div class="img"><img src="/assets/2/reborn/main.jpg" /></div>
   
   <div class="entry">
-    <p>Программисты в повседневной практике часто работают с различными перечислениями. Это могут быть элементы массива,
-пары ключ-значения или, например, параметры метода. Существует одна хитрость при определении таких перечислений, которую я
-использую уже очень давно и сегодня хочу поделиться с вами.</p>
+    <p>Я много раз начинал писать блог и много раз бросал. Но природу не обманешь, нравится мне это дело, попробую еще раз.</p>
 
-<p>В C++ мы использовали следующую запись конструкторов:</p>
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">SomeClass</span><span class="o">::</span><span class="n">SomeClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">i_value</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">i_string</span><span class="p">)</span>
-  <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">i_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">,</span> <span class="n">m_value</span><span class="p">(</span><span class="n">i_value</span><span class="p">)</span>
-  <span class="p">,</span> <span class="n">m_string</span><span class="p">(</span><span class="n">i_string</span><span class="p">)</span>
-  <span class="p">,</span> <span class="n">m_float</span><span class="p">()</span>
-  <span class="p">,</span> <span class="n">m_storage</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Мы использовали явные вызовы конструкторов каждого члена класса, даже там где это можно было опустить, чтобы лучше контролировать
-деятельность классов. Часто приходится жертвовать теоретическим изяществом ради достижения практических целей. Однако главное
-не в этом. Обратите внимание на оформление запятых. Такая конструкция позволяет легко менять инициализаторы
-местами и добавлять новые, не боясь получить синтаксическую ошибку. Это экономит немного времени и чуть-чуть нервных клетов.</p>
+<p>Итак, представлюсь. Меня зовут Алексей Вахов. 7 лет я был C++ разработчиком разной степени
+суровости. С Руби он Рейлс меня познакомил дорогой друг <a href="http://evtuhovich.ru/">Иван Евтухович</a>
+в 2006 году. Увлекаюсь Рейлс почти с самых первых версий и даже попал в
+<a href="http://contributors.rubyonrails.org/">топ-100 контрибьюторов</a>. Однако профессионально занимаюсь
+веб-разработкой около 6 лет.</p>
 
-<p>В мире рейлс дела с перечислениями обстоят еще лучше, так как интерпретатор руби не такой строгий, как компилятор C++.
-Можно объявлять массивы:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span>
-  <span class="s1">&#39;value1&#39;</span><span class="p">,</span>
-  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- внимание, запятая!</span>
-<span class="o">]</span>
-</code></pre></div>
-<p>хэши:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="ss">key</span><span class="p">:</span> <span class="ss">:value</span><span class="p">,</span>
-  <span class="ss">anohter</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="c1"># &lt;-- опять запятая!  </span>
-<span class="p">}</span>
-</code></pre></div>
-<p>и вызывать методы:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">some</span><span class="p">(</span>
-  <span class="s1">&#39;abc&#39;</span><span class="p">,</span>
-  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- и снова она!</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>добавляя запятую в конце последнего члена перечисления. Возможно это синтаксически не совсем изящно, но работает
-как ожидается и экономит время на длинных конструкциях.</p>
+<p>Сейчас работаю техническим директором в компании <a href="https://uchi.ru">Учи.ру</a>.
+Мы занимаемся интересным и важным делом - учим детей математике и даже уже чуть-чуть русскому языку.
+Четыре года назад проект начинался с нуля, первых пользователей мы нашли в школе, которая находится рядом с офисом. Сегодня
+у нас 900 тысяч учеников, много продакшенов, серверов, задач, вопросов и планов.</p>
 
-<p>В кофе-скрипт дела идут настолько замечательно, что запятых не нужно вообще:</p>
-<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">some_method</span><span class="p">(</span>
-  <span class="mi">1</span>
-  <span class="mi">2</span>
-<span class="p">)</span>
+<!--
+<div class="hr">&middot;&middot;&middot;</div>
 
-<span class="nv">array = </span><span class="p">[</span>
-  <span class="mi">4</span>
-  <span class="mi">5</span>
-  <span class="mi">6</span>
-<span class="p">]</span>
+Я очень трепетно отношусь к копирайтам любого вида, сразу же решил, что иллюстрации к блогу буду
+рисовать сам, чтобы быть точно уверенным, что не нарушаю чужих прав.
+Также мне сложно провести границу в голове, где
+заканчиваются мои мысли и начинается коммерческая тайна. Поэтому про работу
+буду писать
+только ту информацию, в открытости которой я уверен.
+-->
 
-<span class="nv">hash = </span><span class="p">{</span>
-  <span class="nv">a: </span><span class="mi">1</span>
-  <span class="nv">b: </span><span class="mi">1</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Джаваскрипт-интерпретатор в Хроме и Файерфоксе работает достойно:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">array</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="mi">4</span><span class="p">,</span>
-  <span class="mi">5</span><span class="p">,</span>
-  <span class="mi">6</span><span class="p">,</span>
-<span class="p">];</span>
+<p>До сих пор очень люблю Рейлс, хотя заниматься им стал конечно гораздо меньше. В настоящее время больше интересуюсь всем,
+что связано с разработкой ПО в целом: как создать комфортную среду, наладить процессы и взаимодействие
+внутри команды и вне, обеспечить стабильность приложений и их дальнейшее развитие, и так далее.</p>
 
-<span class="nx">hash</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>И наконец джаваскрипт в интернет-эксплорере выдает ошибку:</p>
+<p>В блоге планирую писать про разные штуки, связанные с разработкой, работой, а также свои мысли, идеи
+и все такое. Надеюсь что-то покажется интересным и возможно даже поможет. Писать планирую регулярно
+и достаточно долгий срок. Как говаривал Будда в жизни есть 2 сложные вещи:
+начать что-то делать и продолжить
+это делать.</p>
 
-<p><img src="/assets/old/13-comma/ie.png" alt=""></p>
+<p>На сегодня все, спасибо за внимание и до новых встреч!</p>
+
+<p><em>Алексей Вахов</em></p>
 
     <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
