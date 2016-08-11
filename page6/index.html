@@ -44,7 +44,6 @@
           </div>
           
           <nav>
-            <a href="/atom.xml">RSS</a>
             <a href="/about.html">ABOUT</a>
             <a href="https://www.google.com/search?q=site%3Avakhov.me">SEARCH</a>
           </nav>
@@ -62,13 +61,86 @@
       <div class="date">April 11, 2012</div>
 
       
-      <div class="entry"><p>При работе с руби иногда встречаются ошибки, которые вызывают замешательство. Недавно я создавал
+      <div class="entry">
+        <p>При работе с руби иногда встречаются ошибки, которые вызывают замешательство. Недавно я создавал
 простой DSL для своей библиотеки на остове метода <code>instance_eval</code> (метод весьма спорный, его нужно
 использовать аккуратно, но сегодня речь не об этом). Интерпретатор руби вылетал с очень странной ошибкой,
 на простом коде:</p>
-</div>
-      
-      <a href="/blog/2012/04/11/dsl-and-select/index.html" class="read-more">Read More</a>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Dsl</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="vi">@fields</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="nb">instance_eval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[select text string]</span>
+
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">if</span> <span class="no">METHODS</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="nb">method</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">args</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span>
+      <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="nb">method</span><span class="p">,</span> <span class="n">args</span><span class="o">]</span>
+    <span class="k">else</span>
+      <span class="k">super</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Dsl</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+  <span class="n">string</span> <span class="ss">:a</span>
+  <span class="nb">select</span> <span class="ss">:b</span>  <span class="c1"># &lt;--- BOOM!</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Трейс ошибки:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">demo.rb:20:in `select&#39;: wrong argument type Symbol (expected Array) (TypeError)
+    from demo.rb:20:in `block in &lt;main&gt;&#39;
+    from demo.rb:4:in `instance_eval&#39;
+    from demo.rb:4:in `initialize&#39;
+    from demo.rb:18:in `new&#39;
+    from demo.rb:18:in `&lt;main&gt;&#39;
+</code></pre></div>
+<p>Сейчас меня эта ошибка не удивляет, так как я знаю в чем подвох. Но тогда я очень удивился, даже безуспешно пытался отладить
+свой код.</p>
+
+<p>Секрет очень простой - в руби есть системный метод <code>select</code>
+(<a href="http://www.ruby-doc.org/core-1.9.3/Kernel.html#method-i-select">Kernel.html#method-i-select</a>) и происходит конфликт имен.
+Хорошо, что я еще не &quot;угадал&quot; аргументы, тогда бы ошибка была бы еще сложнее.</p>
+
+<p>Обойти эту проблему очень просто, необходимо объявить метод <code>select</code> в DSL явно:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># ...</span>
+
+  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[text string]</span>
+
+  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="ss">:string</span><span class="p">,</span> <span class="nb">name</span><span class="o">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="c1"># ...</span>
+</code></pre></div>
+<p>Таким образом при работе с рейлс у вас в распоряжении минимум 3 различных метода <code>select</code>: </p>
+
+<ul>
+<li>хелпер метод для рисования комбобоксов;</li>
+<li>метод поиска по массиву (<code>[1, 2, 3, 4, 5].select{|a| a%2 == 0}</code>);</li>
+<li>и наш сегодняшний таинственный незнакомец.</li>
+</ul>
+
+<p>Рейлс, как и само руби, довольно плохо защищено от конфликтов имен, так как количество
+системных методов руби и внутренних методов рейлс равно бесконечности. Поэтому если
+вам кажется, что интерпретатор свихнулся, возможно вы как раз поймали ошибку аналогичную описанной.</p>
+
+<p>И еще один совет - не используйте класс <code>Config</code> в глобальном пространстве имен:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># OK</span>
+<span class="k">module</span> <span class="nn">A</span>
+  <span class="k">class</span> <span class="nc">Config</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># BAD</span>
+<span class="k">class</span> <span class="nc">Config</span> <span class="c1"># &lt;-- in `&lt;main&gt;&#39;: Config is not a class (TypeError) </span>
+<span class="k">end</span>
+</code></pre></div>
+        <div style="float:right"><a href="/blog/2012/04/11/dsl-and-select/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -78,14 +150,78 @@
       <div class="date">April  4, 2012</div>
 
       
-      <div class="entry"><blockquote>
+      <div class="entry">
+        <blockquote>
 Мы в ответе за тех, кого подключили с помощью load и require.
 <br>
 <i>Давид Хейнемейер де Сент-Экзюпери, Prince On Rails</i>
 </blockquote>
-</div>
-      
-      <a href="/blog/2012/04/04/require/index.html" class="read-more">Read More</a>
+
+<p>В геме автомиграций я столкнулся с интересной проблемой, для решения которой пришлось глубже
+изучить <code>require</code>, <code>load</code> и также то, как работает Rails с зависимостями.</p>
+
+<p>При выполнении задачи <code>rake db:migrate</code> гему необходимо пробежатся по всем моделям и обновить
+схему базы данных в соответствие с тем, что в модели записано. Я сделал это с помощью примерно
+такого кода:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;app/models/**/*.rb&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+  <span class="nb">require</span> <span class="n">file</span>
+<span class="k">end</span>
+
+<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Кстати обратите внимание на <a href="http://api.rubyonrails.org/classes/ActiveSupport/DescendantsTracker.html">ActiveSupport::DescendantsTracker</a>,
+по умолчанию он включается в <code>ActiveRecord::Model</code>, но его также удобно использовать при написании какого-нибудь модульного
+расширяемого API.</p>
+
+<p>Схема, описанная выше, работала хорошо, пока я не подключил девайс для авторизации. Автомиграции стали ломались на пользователе
+<code>User</code>. Складывалось ощущение, что модель <code>User</code> загружалась 2 раза и пыталась создать уже созданные колонки повторно.</p>
+
+<p>Это оказалось действительно так, но сначала давайте более внимательно посмотрим на методы <code>require</code> и <code>load</code> из самого руби.
+Если кратко, то load загружает файл всегда, а require только один раз. Причем, код загруженный с помощью <code>load</code> будет
+загружен с помощью <code>require</code> еще один раз. Простой пример для иллюстрации:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### header.rb</span>
+<span class="nb">puts</span> <span class="s1">&#39;bang!&#39;</span>
+
+<span class="c1">### demo.rb</span>
+<span class="nb">load</span> <span class="s1">&#39;header.rb&#39;</span>     <span class="c1"># print &#39;bang!&#39;</span>
+<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; []</span>
+<span class="nb">require</span> <span class="s1">&#39;header.rb&#39;</span>  <span class="c1"># print &#39;bang!&#39;</span>
+<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; [&#39;header.rb&#39;]</span>
+<span class="nb">require</span> <span class="s1">&#39;header.rb&#39;</span>  <span class="c1"># print nothing</span>
+<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; [&#39;header.rb&#39;]</span>
+</code></pre></div>
+<p>Таким образом, если мы один и тоже файл сначала подключим с помощью <code>load</code> а потом с помощью <code>require</code>, то он подключится два раза.</p>
+
+<p>Когда я подключил devise, то <code>devise_for :users</code> который прописывает рауты, обращается к модели юзер через дебри кода с помощью 
+<code>ActiveSupport::Dependencies.constantize</code>
+<a href="https://github.com/plataformatec/devise/blob/45aca40f6ce6eb1006f239328f273c3496ba3a64/lib/devise.rb#L294">lib/devise.rb#L294</a>
+Через другие дебри кода, <code>ActiveSupport::Dependencies</code>, который хачит <code>Оbject</code>,
+<a href="https://github.com/rails/rails/blob/02b9c22df8053d71782ae11900d0194f217afc3c/activesupport/lib/active_support/dependencies.rb#L32">вызывает</a>
+<code>load</code> в девелопменте (чтобы нам было комфортно работать без перезагрузки сервера) и <code>require</code> в продакшене. Поэтому мой гем работал 
+корректно в продакшене <code>RAILS_ENV=production rake db:migrate</code> и не работал в девелопменте.</p>
+
+<p>Исправил я просто, используя тот же трюк с <code>constantize</code>, что и девайс:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;app/models/**/*.rb&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;app/models/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="no">Regexp</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">extname</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;$&#39;</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+  <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">constantize</span><span class="p">(</span><span class="nb">name</span><span class="o">.</span><span class="n">classify</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Новая версия гема 1.0.1 работает с девайсом и без, в продакшене и в девелопменте.</p>
+
+<p><em>Пока я разбирался в require и load начал понимать, что может быть автомиграции чуть-чуть текут по памяти в девелопменте. Но видимо
+они это делают в очень щадящем режиме, что я ни разу этого не заметил. Вообще тема сложная, я только один раз сталкивался
+с тем, что globalize2 сильно тек в девелопменте, где-то я уже об этом писал. Ошибки такого класса тяжело поймать и тяжело исправить,
+но мне кажется, что в девелопмент режиме небольшие утечки - не редкость. Поразмышляю об этом на досуге.</em></p>
+
+        <div style="float:right"><a href="/blog/2012/04/04/require/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -95,11 +231,69 @@
       <div class="date">March 29, 2012</div>
 
       
-      <div class="entry"><p><a href="http://evtuhovich.ru">Иван Евтухович</a> пригласил меня принять
+      <div class="entry">
+        <p><a href="http://evtuhovich.ru">Иван Евтухович</a> пригласил меня принять
 участие в <a href="http://ruby.rpod.ru/">Ruby NoName подкасте</a>. Я с радостью и волнением это предложение принял.</p>
-</div>
-      
-      <a href="/blog/2012/03/29/rubynoname-podcast/index.html" class="read-more">Read More</a>
+
+<p>У меня небольшой опыт публичных выступлений, поэтому сам вид микрофона бросает в дрожь,
+особенно в начале. Беседа, которая гладко текла на кухне, сразу же превратилась в невнятное
+бормотание, как только пошла запись. Когда попадаешь в непревычное окружение, мозг начинает
+лихорадочно придумывать новые, адекватные шаблоны поведения и выглядит это не очень.</p>
+
+<p>В подкасте записываться не так страшно, как выступать перед аудиторией на конференции, но все равно
+очень страшно. Непонятно к кому обращаться: к слушателям, которые где-то там, неизвестно где,
+к микрофону, к Ивану, сидящему рядом, или к кошке, которая образцово пришла во второй половине
+записи, чтобы успеть попасть в новый выпуск.</p>
+
+<p>Мы беседовали про рейлс, особенно про последние версии, про перспективы и развитие фрейворка. Ваню
+очень впечатляют мои 50 комитов в рейлс. Меня они конечно тоже впечатляют, но не так сильно.
+В комьюнити есть много людей, которые принесли гораздо больше пользы независимо от рейтинга.
+Я пока не смог принести что-то действительно значимое и заметное в рейлс, мне не хватает
+опыта. Но даже находить и исправлять ошибки и шереховатости - cложная задача, рейлс читают
+и используют тысячи людей каждый день, в них очень достойных код.</p>
+
+<p>Сам рейтинг особенно полезен на первых этапах, когда каждый коммит продвигает на много позиций вверх,
+это приятно. Каюсь, что смотрел страницу
+<a href="http://contributors.rubyonrails.org/">http://contributors.rubyonrails.org/</a> чаще, чем положено
+взрослому человеку. Но это же в крови человека: измерять и сравнивать.</p>
+
+<p>Я обратил внимание, что большинство публикаций и выступлений делится на 3 группы:
+техники, приемы, фреймворки и библиотеки, высокие нагрузки, деплой и настройка серверов.
+Думаю это логично.
+Так как любой проект нужно написать. Под него нужно настроить сервера, стейджи и продакшены,
+наладить быструю выкатку, мониторинг, бэкап. И нужно справится с нагрузкой в случае успеха проекта.
+Еще на всех этапах необходимо грамотное и не навязчивое управление.
+Раньше я думал, что проджект-менеджеры только пишут письма и зарабатывают больше денег, сейчас
+я понимаю, что ошибался. Просто хороших проджект-менеджеров, как и любых других специалистов,
+довольно мало. В книге
+<a href="http://www.ozon.ru/context/detail/id/1376021/">управление программными проектами</a> описывается более
+20 компетенций, которыми должен обладать профессиональный менеджер, и это не только писать письма.</p>
+
+<p>Я сейчас концентрируюсь на написании кода, глубоком понимании библиотек и адекватном их использовании.
+Большие нагрузки мы еще не заслужили, а сервера у нас более менее настроены. Современное железо
+прощает много ошибок. Я выкладывал в продакшн сайт, главная страница которого генерила 600 запросов
+к базе при каждой отрисовке, все обошлось (1-3 запроса в секунду в пике); а нагрузку в 10-15
+запросов в секунду мы выдержали базовым кэшированием. </p>
+
+<p>Ваня спрашивал меня, чтобы я посоветовал слушателям. Повторюсь, что я советую программировать
+как можно больше, в любое удобное время. Чтобы написать великолепный проект,
+необходимо написать 10 плохих и 50 средних.
+Физику мира не изменить, можно только подкорректировать цифры 10 и 50, а можно их постараться
+проскочить быстрее. Надеюсь своих 10 плохих проектов я уже написал :) Приступаю к средним.</p>
+
+<p>Желаю приятного и плодотворного программирования!</p>
+
+<p>
+<a href="http://ruby.rpod.ru/271792.html">Ruby NoName Podcast S04E06</a> - подкаст
+<br>
+<em>Я, кошка и микрофон</em>
+<br>
+<img src="/assets/old/3-podcast/ya.jpg">
+</p>
+
+        <div style="float:right"><a href="/blog/2012/03/29/rubynoname-podcast/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -109,14 +303,36 @@
       <div class="date">March 28, 2012</div>
 
       
-      <div class="entry"><p>Когда я делал свой первый интернет-магазин из Agile Web Development with Rails, мне
+      <div class="entry">
+        <p>Когда я делал свой первый интернет-магазин из Agile Web Development with Rails, мне
 понравилось, что программа выглядит как английский текст. После C++ это было так здорово. Я везде
 использовал and. Потом я где-то прочитал, что это неправильно и нужно в логических условиях
 использовать &amp;&amp; и ||, а в render(&#39;help me&#39;) and die нужно использовать английские варианты. Я переключился
 на новый стиль.</p>
-</div>
-      
-      <a href="/blog/2012/03/28/and-or-and/index.html" class="read-more">Read More</a>
+
+<p>Недавно я снова вернулся к данному вопросу, но не смог найти других отличий между and и &amp;&amp; (or и ||)
+кроме <a href="http://www.ruby-doc.org/docs/ProgrammingRuby/language.html#operatorexpressions">приоритетов</a>.
+Поэтому приведу несколько примеров, когда отличия будут существенные:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">true</span> <span class="ow">and</span> <span class="nb">puts</span> <span class="s1">&#39;help&#39;</span> <span class="c1"># =&gt; print &#39;help&#39; to output</span>
+<span class="kp">true</span> <span class="o">&amp;&amp;</span> <span class="nb">puts</span> <span class="s1">&#39;help&#39;</span>  <span class="c1"># =&gt; SyntaxError: compile error ...</span>
+
+<span class="kp">true</span> <span class="ow">or</span> <span class="kp">false</span> <span class="ow">and</span> <span class="kp">false</span> <span class="c1"># =&gt; false</span>
+<span class="kp">true</span> <span class="o">||</span> <span class="kp">false</span> <span class="o">&amp;&amp;</span> <span class="kp">false</span>  <span class="c1"># =&gt; true</span>
+
+<span class="n">redirect_to</span> <span class="vi">@post</span> <span class="ow">and</span> <span class="k">return</span> <span class="c1"># OK</span>
+<span class="n">redirect_to</span> <span class="vi">@post</span> <span class="o">&amp;&amp;</span> <span class="k">return</span>  <span class="c1"># Опасно, return не будет вызван</span>
+</code></pre></div>
+<p>Разница незначительная, поэтому можно использовать любые варианты, однако мне больше нравится
+классический вариант:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="n">cond1</span> <span class="o">&amp;&amp;</span> <span class="n">cond2</span>
+<span class="c1"># ...</span>
+<span class="k">end</span>
+
+<span class="n">redirect_to</span> <span class="vi">@post</span> <span class="ow">and</span> <span class="k">return</span>
+</code></pre></div>
+        <div style="float:right"><a href="/blog/2012/03/28/and-or-and/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -126,14 +342,51 @@
       <div class="date">March 24, 2012</div>
 
       
-      <div class="entry"><p>Мне всегда немного не нравились миграции тем, что они разрастаются и описание моделей становится
+      <div class="entry">
+        <p>Мне всегда немного не нравились миграции тем, что они разрастаются и описание моделей становится
 размазанным. К тому же я часто забываю добавить какую-нибудь колонку или путаю тип.
 Ради каждой из таких операций создавать отдельную миграцию довольно утомительно.
 Во всех своих проектах мы используем авто-миграции, которые я недавно опубликовал как
 <a href="https://github.com/boshie/automigration">отдельный гем</a>. </p>
-</div>
-      
-      <a href="/blog/2012/03/24/automigration/index.html" class="read-more">Read More</a>
+
+<p>Инсталяция - классическая: добавить <tt>gem &#39;automigration&#39;</tt> в <tt>Gemfile</tt> и <tt>bundle install</tt>.</p>
+
+<p>Теперь добавьте описание колонок моделей прямо в модели:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_fields</span> <span class="k">do</span>
+    <span class="n">string</span> <span class="ss">:name</span>
+    <span class="n">integer</span> <span class="ss">:login_count</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>и запустите миграции:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">rake db:create db:migrate
+</code></pre></div>
+<p>Гем автоматически создает необходимые таблицы, удаляет устаревшие, добавляет/удаляет/обновляет колонки,
+описанные в моделях. После этого запускаются классические миграции. Таким образом количество
+необходимых миграций сильно сокращается.</p>
+
+<h2>Известные недостатки</h2>
+
+<p>Сейчас есть несколько известных дефектов и неточностей:</p>
+
+<ul>
+<li>Сложности при переименовании колонки. По умолчанию авто-миграции удалят старую колонку и создадут новую. Если нужно при этом сохранить старый контент, то необходимо либо сделать это вручную, либо создать временную миграцию, которая перенесет информацию. Но такая ситуация довольно редкая.</li>
+<li>Гем работает только с PostgreSQL. Возможно он работает и с другими базами, никогда не проверял.</li>
+<li>Миграции из гемов-енджинов будет работать неправильно. Это я исправлю.</li>
+<li>Для того, чтобы подцепились модели из гемов-енджинов необходимо указать путь до папки с моделями (используется только при исполнении задачи rake db:migration):</li>
+</ul>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Custom</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Engine</span>
+    <span class="n">initializer</span> <span class="s1">&#39;custom&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
+      <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">automigration</span><span class="o">.</span><span class="n">model_paths</span> <span class="o">&lt;&lt;</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../../../app/models&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+        <div style="float:right"><a href="/blog/2012/03/24/automigration/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -143,10 +396,54 @@
       <div class="date">March 13, 2012</div>
 
       
-      <div class="entry"><p>В ActiveSupport есть метод <a href="http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain"><code>alias_method_chain</code></a>, который позволяет удобно расширять функциональность методов.</p>
-</div>
-      
-      <a href="/blog/2012/03/13/alias-method-chain/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>В ActiveSupport есть метод <a href="http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain"><code>alias_method_chain</code></a>, который позволяет удобно расширять функциональность методов.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">A</span>
+  <span class="k">def</span> <span class="nf">some</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">B</span> <span class="o">&lt;</span> <span class="n">A</span>
+  <span class="k">def</span> <span class="nf">some_with_bench</span>
+    <span class="n">benchmark</span> <span class="s2">&quot;some method&quot;</span> <span class="k">do</span>
+      <span class="n">some_without_bench</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="n">alias_method_chain</span> <span class="ss">:some</span><span class="p">,</span> <span class="ss">:bench</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Он также корректно обрабатывает методы, которые заканчиваются на <tt>?</tt>, <tt>!</tt> или <tt>=</tt>.
+У этого метода есть 2 хитрости: одна полезная, другая для души.</p>
+
+<h2>1. Перегрузка сеттера</h2>
+
+<p>Если вы перегружаете сеттер-метод, мне однажды это понадобилось cделать в модели, необходимо помнить
+о правильном синтаксисе:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Model</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">value_with_feature</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">&quot;value = </span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+    <span class="n">value_without_feature</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="c1"># &lt;-- НЕПРАВИЛЬНО! Старый метод не будет вызван!</span>
+                              <span class="c1"># Никаких ошибок показано не будет.</span>
+
+    <span class="nb">self</span><span class="o">.</span><span class="n">value_without_feature</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>   <span class="c1"># &lt;-- OK</span>
+    <span class="nb">send</span><span class="p">(</span><span class="ss">:value_without_feature</span><span class="o">=</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="c1"># &lt;-- OK</span>
+  <span class="k">end</span>
+  <span class="n">alias_method_chain</span> <span class="ss">:value</span><span class="o">=</span><span class="p">,</span> <span class="ss">:feature</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Конструкция в первом случае будет интерпретирована как локальная переменная
+<code>value_without_feature</code>, которой присваивается значение <code>v</code>.</p>
+
+<h2>2. Блоковая версия <code>alias_method_chain</code></h2>
+
+<p><code>alias_method_chain</code> может принимать блок в качество параметра. Это недокументированная возможность
+используется в <code>ActiveSupport::Deprecation</code>
+<a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/deprecation/method_wrappers.rb#L13"><code>active_support/deprecation/method_wrappers.rb#L13</code></a>. Для того и была <a href="https://github.com/rails/rails/commit/643571ca25bc2fcc701e6def0975f56fe10a732f">создана</a>.</p>
+
+        <div style="float:right"><a href="/blog/2012/03/13/alias-method-chain/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -156,11 +453,36 @@
       <div class="date">March  1, 2012</div>
 
       
-      <div class="entry"><p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
+      <div class="entry">
+        <p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
 будет поддерживать классическую цепочку поиска подходящего лайоута согласно <a href="http://api.rubyonrails.org/classes/AbstractController/Layouts.html#label-Inheritance+Examples">документации</a>.</p>
-</div>
-      
-      <a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html" class="read-more">Read More</a>
+
+<p>Например так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/routes.rb</span>
+<span class="no">WeirdRailsApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">controller</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ApplicationController</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">text</span>
+      <span class="n">render</span> <span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;demo&#39;</span><span class="p">,</span> <span class="ss">layout</span><span class="p">:</span> <span class="kp">true</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="n">controller</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="ss">:text</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Я не знаю зачем вам может понадобиться написать такой код, но никогда же нельзя
+за себя ручаться, мало ли что.</p>
+
+<p>Вынужден огорчить, но в сегодняшних версиях рейлс вы получите ексепшн:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">There was no default layout for #&lt;Class:0xa1e6cd4&gt; in #&lt;ActionView::PathSet:...
+</code></pre></div>
+<p>Это происходит из-за ошибки в рейлс при поиске лайоута. К счастью я нашел этот дефект и <a href="https://github.com/rails/rails/commit/b27c29ef4a26755b8de04686241694ce5ee33724">исправил</a>. </p>
+
+<p>В рейлс 4.0 вы сможете пользоваться привычным наследованием лайоутов и для анонимных
+контроллеров тоже. Код, предложенный вверху поста, будет выполняться правильно.</p>
+
+        <div style="float:right"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -170,10 +492,26 @@
       <div class="date">February 28, 2012</div>
 
       
-      <div class="entry"><p>По умолчанию при рендеринге простого текста в контроллере он отрисовывается как есть:</p>
-</div>
-      
-      <a href="/blog/2012/02/28/render-text-layout/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>По умолчанию при рендеринге простого текста в контроллере он отрисовывается как есть:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">action</span>
+  <span class="n">render</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">&quot;some&quot;</span> <span class="c1"># =&gt; some</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Но если вы занимаетесь мета-программирования и создаете цмс или динамический скаффолд,
+то пригодится рендеринг текста с лайоутом.</p>
+
+<p>Это сделать очень просто:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">action</span>
+  <span class="n">render</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">&quot;some&quot;</span><span class="p">,</span> <span class="ss">layout</span><span class="p">:</span> <span class="kp">true</span> <span class="c1"># =&gt; &quot;&lt;!DOCTYPE html&gt;&lt;html&gt; ...&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Я не помню насколько это хорошо документировано в методе render, но данное поведение обеспечивает
+<a href="https://github.com/rails/rails/blob/v3.2.1/actionpack/lib/abstract_controller/layouts.rb#L421">одна строчка</a> из абстракт-контроллера.</p>
+
+        <div style="float:right"><a href="/blog/2012/02/28/render-text-layout/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -183,11 +521,50 @@
       <div class="date">February 23, 2012</div>
 
       
-      <div class="entry"><p>Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
+      <div class="entry">
+        <p>Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
 необходимо сначала определить метод, а потом передать его имя в helper_method:</p>
-</div>
-      
-      <a href="/blog/2012/02/23/action-controller-helper-method/index.html" class="read-more">Read More</a>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionControllerBase</span>
+  <span class="k">def</span> <span class="nf">current_user</span>
+    <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="n">helper_method</span> <span class="ss">:current_user</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Однако можно объявлять метод хелпером до его конкретной имплементации.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionControllerBase</span>
+  <span class="n">before_filter</span> <span class="ss">:authenticate!</span>
+  <span class="n">helper_method</span> <span class="ss">:current_user</span>
+  <span class="c1"># ...</span>
+
+  <span class="k">def</span> <span class="nf">current_user</span>
+    <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Это более красиво выносить фильтры, хэлпер методы и другие служебные объявления в начало класса.
+Я нашел эту особенность в <a href="https://github.com/rails/rails/blob/master/actionpack/lib/abstract_controller/helpers.rb#L51">реализации</a> данного метода, а также есть соответствующий пример в <a href="http://api.rubyonrails.org/classes/AbstractController/Helpers/ClassMethods.html#method-i-helper_method">документации</a>.</p>
+
+<p>Если же вернуться от рейлс к руби, то, например, метод можно сделать приватным только после его объявления:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">A</span>
+  <span class="kp">private</span> <span class="ss">:some</span> <span class="c1"># &lt;--- EXCEPTION: undefined method `some&#39; for class `A&#39;</span>
+
+  <span class="k">def</span> <span class="nf">some</span>
+    <span class="nb">puts</span> <span class="s2">&quot;some&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">B</span>
+  <span class="k">def</span> <span class="nf">another</span>
+    <span class="nb">puts</span> <span class="s2">&quot;another&quot;</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span> <span class="ss">:another</span> <span class="c1"># Ok!</span>
+<span class="k">end</span>
+</code></pre></div>
+        <div style="float:right"><a href="/blog/2012/02/23/action-controller-helper-method/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -197,16 +574,94 @@
       <div class="date">February 17, 2012</div>
 
       
-      <div class="entry"><p>Для нашей компании мы решили сделать максимально простой сайт, разместив на белом фоне несколько 
+      <div class="entry">
+        <p>Для нашей компании мы решили сделать максимально простой сайт, разместив на белом фоне несколько 
 блоков с информацией. Я решил взять сетку 
 твиттер бутстрап-фрейморка и обойтись без помощи дизайнера и верстальщика. Верстка для бутстрапа
 требует довольно большое количество вложенных дивов, поэтому лучше всего использовать Haml, 
 с разбивкой содержания на несколько партиалов. Статические сайты обычно удобно делать с помощью Jekyll,
 но я не знаю насколько сложно добавить поддержку хамл к Jekyll и возможно ли это сделать быстро. 
 В нашем случае данную задачу можно решить c помощью нескольких простых скриптов.</p>
-</div>
-      
-      <a href="/blog/2012/02/17/simple-haml-generator/index.html" class="read-more">Read More</a>
+
+<p>Итак, скачиваем исходники бутстрап с <a href="http://twitter.github.com/bootstrap/">официальной страницы
+проекта</a> в папку проекта. Создаем директорию views,
+добавляем хамл-файлы:</p>
+<div class="highlight"><pre><code class="language-haml" data-lang="haml"><span class="cp">-# views/index.haml</span>
+<span class="nn">!!! 5</span>
+<span class="nt">%html</span>
+  <span class="nt">%head</span>
+    <span class="cp">-# ...</span>
+<span class="nt">%body</span>
+  <span class="nc">.container</span>
+    <span class="p">=</span> <span class="n">partial</span> <span class="ss">:header</span>
+    <span class="cp">-# ...</span>
+</code></pre></div><div class="highlight"><pre><code class="language-haml" data-lang="haml"><span class="cp">-# views/_header.haml</span>
+<span class="nc">.header</span>
+  <span class="nt">%h1</span> Logo
+</code></pre></div>
+<p>Создаем файл который будет собирать наш сайт в папку _site:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># make.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;haml&#39;</span>
+
+<span class="sb">`rm -fr _site &amp;&amp; mkdir _site`</span>
+<span class="sb">`cp -r bootstrap _site`</span>
+
+<span class="nb">puts</span> <span class="s2">&quot;generate index.html&quot;</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="o">::</span><span class="no">Haml</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;views/index.haml&#39;</span><span class="p">))</span>
+<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;_site/index.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span> <span class="n">engine</span><span class="o">.</span><span class="n">render</span><span class="p">}</span>
+</code></pre></div>
+<p>Запускаем файл make.rb и получаем ошибку Unknown method &#39;partial&#39;.
+В наш генератор необходимо добавить поддержку паршиалов.</p>
+
+<p>У <a href="http://haml-lang.com/docs/yardoc/Haml/Engine.html#render-instance_method">Haml::Engine#render</a>
+метода есть параметр scope, который позволяет выполнить код хамла в контексте произвольного объекта.
+Реализуем простой паршиал и запустим make.rb снова:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ...</span>
+
+<span class="k">class</span> <span class="nc">Helpers</span>
+  <span class="k">def</span> <span class="nf">partial</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+    <span class="o">::</span><span class="no">Haml</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;views/_</span><span class="si">#{</span><span class="n">template</span><span class="si">}</span><span class="s2">.haml&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">Helpers</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">engine</span> <span class="o">=</span> <span class="o">::</span><span class="no">Haml</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;views/index.haml&#39;</span><span class="p">))</span>
+<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;_site/index.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span> <span class="n">engine</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">Helpers</span><span class="o">.</span><span class="n">new</span><span class="p">)}</span>
+</code></pre></div>
+<p>Теперь скрипт выполнится правильно и создаст готовый сайт в папке _site.</p>
+
+<p>Для удобства разработки добавим гард:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Guardfile</span>
+<span class="n">ignore_paths</span> <span class="s1">&#39;_site&#39;</span>
+<span class="n">guard</span> <span class="ss">:shell</span> <span class="k">do</span>
+  <span class="n">watch</span><span class="p">(</span><span class="sr">/.*/</span><span class="p">)</span> <span class="p">{</span> <span class="sb">`./make.rb`</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>а также скрипт деплоя готового сайта:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># deploy.sh</span>
+./make.rb
+rsync -aP --del _site/ server:/www/site
+</code></pre></div>
+<p>Таким образом очень быстро мы получили готовый генератор простых статических сайтов.
+Примером сайта выполненного по этой технологии является <a href="http://boshie.com">сайт нашей компании</a>.</p>
+
+<p>В качестве дополнительного плюса, при использовании haml, исходный код вашего сайта будет рисоваться
+симпатичной змейкой.</p>
+
+<p><img src="/assets/old/1/zip-zip.png" alt=""></p>
+
+<p><strong>Update:</strong> Есть шутка, что нет смысла чему-то долго учиться, потому-что всегда
+на ютубе будет много роликов, где кто-нибудь это делает в 10 раз лучше.
+Так и в руби, на любую идею уже есть красиво оформленный гем. 
+Вот ссылки на генераторы статических сайтов, которые посоветовали коллеги в комментариях:</p>
+
+<ul>
+<li><a href="http://middlemanapp.com/">http://middlemanapp.com/</a></li>
+<li><a href="http://stasis.me/">http://stasis.me/</a></li>
+</ul>
+
+        <div style="float:right"><a href="/blog/2012/02/17/simple-haml-generator/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
 </div>
@@ -221,6 +676,9 @@
     <span class="next ">Next</span>
   
 </div>
+
+<script id="dsq-count-scr" src="//vakhov-me.disqus.com/count.js" async></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
     </div>
 
@@ -247,11 +705,7 @@
 </a>
           
           
-          <a href="/atom.xml"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <path d="M0.112290344,30 C0.112290344,13.4314567 13.3426506,0 29.663129,0 C45.9836073,0 59.2139676,13.4314567 59.2139676,30 C59.2139676,46.5685433 45.9836073,60 29.663129,60 C13.3426506,60 0.112290344,46.5685433 0.112290344,30 Z M0.112290344,30" fill="#E18F00" sketch:type="MSShapeGroup"></path>
-    <path d="M26.5147755,38.7571296 C26.5147755,36.8192934 24.9575021,35.2291656 23.0297047,35.2291656 C21.1094331,35.2291656 19.5492775,36.8192934 19.5492775,38.7571296 C19.5492775,40.7052068 21.1094331,42.277616 23.0297047,42.277616 C24.957422,42.277616 26.5146954,40.7052881 26.5147755,38.7571296 Z M36.8075433,42.2700571 C36.8075433,32.6055847 29.062648,24.7442705 19.5492775,24.7442705 L19.5492775,29.8318017 C22.8128986,29.8318017 25.8817303,31.1272145 28.1920609,33.4740429 C30.4999895,35.8159133 31.7732853,38.9454513 31.7732853,42.2701384 L36.8075433,42.2700571 Z M45.6871482,42.2675375 C45.6871482,27.6346878 33.9604014,15.722384 19.5492775,15.722384 L19.5492775,20.8123535 C31.186916,20.8123535 40.660496,30.438869 40.660496,42.2673749 L45.6871482,42.2675375 Z M45.6871482,42.2675375" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-</svg>
-</a>
+          <!--  -->
           <a href="http://twitter.com/avakhov"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <path d="M0,30 C0,13.4314567 13.4508663,0 30.0433526,0 C46.6358389,0 60.0867052,13.4314567 60.0867052,30 C60.0867052,46.5685433 46.6358389,60 30.0433526,60 C13.4508663,60 0,46.5685433 0,30 Z M0,30" fill="#4099FF" sketch:type="MSShapeGroup"></path>
     <path d="M29.2997675,23.8879776 L29.3627206,24.9260453 L28.3135016,24.798935 C24.4943445,24.3116787 21.1578281,22.6592444 18.3249368,19.8840023 L16.9399677,18.5069737 L16.5832333,19.5238563 C15.8277956,21.7906572 16.3104363,24.1845684 17.8842648,25.7946325 C18.72364,26.6844048 18.5347806,26.8115152 17.0868584,26.2818888 C16.5832333,26.1124083 16.1425613,25.985298 16.1005925,26.0488532 C15.9537019,26.1971486 16.457327,28.1249885 16.8560302,28.8876505 C17.4016241,29.9469033 18.5137962,30.9849709 19.7308902,31.5993375 L20.7591248,32.0865938 L19.5420308,32.1077788 C18.3669055,32.1077788 18.3249368,32.1289639 18.4508431,32.57385 C18.8705307,33.9508786 20.5282967,35.4126474 22.3749221,36.048199 L23.6759536,36.4930852 L22.5427971,37.1710069 C20.8640467,38.1455194 18.891515,38.6963309 16.9189833,38.738701 C15.9746862,38.759886 15.1982642,38.8446262 15.1982642,38.9081814 C15.1982642,39.1200319 17.7583585,40.306395 19.2482495,40.7724662 C23.7179224,42.1494948 29.0269705,41.5563132 33.0140027,39.2047722 C35.846894,37.5311528 38.6797853,34.2050993 40.0018012,30.9849709 C40.7152701,29.2689815 41.428739,26.1335934 41.428739,24.6294545 C41.428739,23.654942 41.4916922,23.5278317 42.6668174,22.3626537 C43.359302,21.6847319 44.0098178,20.943255 44.135724,20.7314044 C44.3455678,20.3288884 44.3245835,20.3288884 43.2543801,20.6890343 C41.4707078,21.324586 41.2188952,21.2398458 42.1002392,20.2865183 C42.750755,19.6085965 43.527177,18.3798634 43.527177,18.0197174 C43.527177,17.9561623 43.2124113,18.0620876 42.8556769,18.252753 C42.477958,18.4646036 41.6385828,18.7823794 41.0090514,18.9730449 L39.8758949,19.3331908 L38.8476603,18.634084 C38.281082,18.252753 37.4836756,17.829052 37.063988,17.7019416 C35.9937846,17.4053509 34.357003,17.447721 33.3917215,17.7866818 C30.768674,18.7400093 29.110908,21.1974757 29.2997675,23.8879776 Z M29.2997675,23.8879776" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

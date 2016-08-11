@@ -44,7 +44,6 @@
           </div>
           
           <nav>
-            <a href="/atom.xml">RSS</a>
             <a href="/about.html">ABOUT</a>
             <a href="https://www.google.com/search?q=site%3Avakhov.me">SEARCH</a>
           </nav>
@@ -62,10 +61,70 @@
       <div class="date">November 17, 2014</div>
 
       <div class="img"><img src="/assets/long-death-migtations.jpg" /></div>
-      <div class="entry"><p>В Рейлс есть метод <code>#reset_column_information</code>, который я больше никогда не использую.</p>
-</div>
-      
-      <a href="/blog/2014/11/17/long-death-migtations/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>В Рейлс есть метод <code>#reset_column_information</code>, который я больше никогда не использую.</p>
+
+<h2>История</h2>
+
+<p>Допустим мы добавили колонку в таблицу <code>users</code> и тут же решили ее посчитать.
+А пользователей у нас много, и расчеты сложны (миграция написана как предлагается в документации
+<a href="http://api.rubyonrails.org/classes/ActiveRecord/ModelSchema/ClassMethods.html#method-i-reset_column_information"><i class="fa fa-external-link"></i></a>):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">SlowMigration</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">up</span>
+    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:some_awesome_column</span><span class="p">,</span> <span class="ss">:string</span>
+
+    <span class="no">User</span><span class="o">.</span><span class="n">reset_column_information</span>
+
+    <span class="no">User</span><span class="o">.</span><span class="n">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+      <span class="n">user</span><span class="o">.</span><span class="n">some_awesome_column</span> <span class="o">=</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="c1"># Сложные вычисления</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Далее деплоим новую версию приложения на хероку <code>git push heroku master</code>, юникорны начали перегружаться, и
+следом запускаем миграции <code>heroku run rake db:migrate</code>.
+Каждая миграция выполняется в отдельной транзакции, <code>add column</code> превратится в
+<code>ALTER TABLE</code>. Опуская детали, процесс выполнения миграции выглядит так:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SQL: BEGIN      # &lt;-- начало транзакции
+
+== 20141112130023 SlowMigration: migrating =========================
+-- add_column(:users, :some_awesome_column, :string)
+
+# новая колонка
+SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character varying(255)
+
+   -&gt; 0.0024s
+
+# &lt;-- здесь мы долго обновляем всех пользователей
+</code></pre></div>
+<p>Теперь на наш свежеперезапущенные юникорны приходят пользователи, у которых мы проверяем
+авторизацию <code>User.find...</code>. Чтобы работала магия ActiveRecord при первом обращении
+к модели запрашивается схема таблицы <code>users</code>.
+В Postgresql используется следующий запрос <a href="https://github.com/rails/rails/blob/v4.1.6/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L975"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">attname</span><span class="p">,</span> <span class="n">format_type</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">atttypid</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">atttypmod</span><span class="p">),</span>
+  <span class="n">pg_get_expr</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">adbin</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">adrelid</span><span class="p">),</span> <span class="n">a</span><span class="p">.</span><span class="n">attnotnull</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">atttypid</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">atttypmod</span>
+<span class="k">FROM</span> <span class="n">pg_attribute</span> <span class="n">a</span> <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">pg_attrdef</span> <span class="n">d</span>
+  <span class="k">ON</span> <span class="n">a</span><span class="p">.</span><span class="n">attrelid</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">adrelid</span> <span class="k">AND</span> <span class="n">a</span><span class="p">.</span><span class="n">attnum</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">adnum</span>
+<span class="k">WHERE</span> <span class="n">a</span><span class="p">.</span><span class="n">attrelid</span> <span class="o">=</span> <span class="s1">&#39;&quot;users&quot;&#39;</span><span class="p">::</span><span class="n">regclass</span>
+  <span class="k">AND</span> <span class="n">a</span><span class="p">.</span><span class="n">attnum</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">AND</span> <span class="k">NOT</span> <span class="n">a</span><span class="p">.</span><span class="n">attisdropped</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">a</span><span class="p">.</span><span class="n">attnum</span>
+</code></pre></div>
+<p>Запрос жутковатый, однако для нас важно то, что он будет ждать окончании транзакции, которая меняет схему таблицы <code>users</code>.</p>
+
+<p><img src="/assets/long-death-migtations/con.png" alt=""></p>
+
+<p>Я промоделировал проблему в консоли, но рейлс приложение залипает абсолютно так же.</p>
+
+<h2>Выводы</h2>
+
+<p>Метод <code>#reset_column_information</code> сам по себе хороший, но шаблон использования, который он
+предлагает, может испортить выкатку на Хероку. Поэтому я больше не меняю схему и данные в одной транзакции.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/17/long-death-migtations/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -75,10 +134,21 @@
       <div class="date">November 13, 2014</div>
 
       <div class="img"><img src="/assets/disqus-orient.jpg" /></div>
-      <div class="entry"><p>Я люблю сайты, которые хорошо отображаются на телефоне. Когда они плотно вбиты в ширину экрана и вверх-вниз скролятся, а вправо-влево нет.</p>
-</div>
-      
-      <a href="/blog/2014/11/13/disqus-orient/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>Я люблю сайты, которые хорошо отображаются на телефоне. Когда они плотно вбиты в ширину экрана и вверх-вниз скролятся, а вправо-влево нет.</p>
+
+<p>Верстка комментариев Дискуса подстраивается под ширину экрана, но едет при смене положения устройства.
+Я встречал этот баг на многих сайтах.
+Чтобы мой блог приятно было смотреть и так, и сяк, и с поворота я добавил переинициализацию комментариев <a href="https://github.com/avakhov/avakhov.github.io/blob/5e3161c5acf5a0dc1d61d77d94def834e7ea00ca/_layouts/default.html#L35"><i class="fa fa-external-link"></i></a>. </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">  <span class="nt">&lt;body</span> <span class="na">onorientationchange=</span><span class="s">&quot;if(DISQUS) DISQUS.reset({reload: true});&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>Не помню где этот рецепт подсмотрел, но теперь скролл на телефоне отличный.</p>
+
+<p><img src="/assets/disqus-orient/ip.png" alt=""></p>
+
+        <div style="float:right"><a href="/blog/2014/11/13/disqus-orient/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -88,11 +158,48 @@
       <div class="date">November 10, 2014</div>
 
       <div class="img"><img src="/assets/rackup-ru.jpg" /></div>
-      <div class="entry"><p>Я задумался, что означает расширение <code>.ru</code> у файла <code>config.ru</code> и
+      <div class="entry">
+        <p>Я задумался, что означает расширение <code>.ru</code> у файла <code>config.ru</code> и
 почему приложение не запустится, если поменять расширение на <code>.rb</code>.</p>
-</div>
-      
-      <a href="/blog/2014/11/10/rackup-ru/index.html" class="read-more">Read More</a>
+
+<p>Christian Neukirchen, автор оригинального кода запуска rack-приложения, сказал, что это
+сокрашение от <code>Rack Up</code>. Отдельное расширение он завел, чтобы люди не пытались запустить
+конфиг с помощью обычного руби. </p>
+
+<p>Так же, изучая исходники, я узнал несколько других секретов rack.</p>
+
+<h2>Параметры по умолчанию в config.ru</h2>
+
+<p>В файле <code>config.ru</code> можно указать параметры по умолчанию, начав первую строку с символов <code>#\</code>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#\ -p 3000</span>
+<span class="n">run</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">env</span><span class="o">|</span> <span class="o">[</span> <span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span> <span class="o">]</span> <span class="p">}</span>
+</code></pre></div>
+<p>Такое rack-приложение запустится на 3000-м порту, вместо 9292.</p>
+
+<h2>Что такое метод run в config.ru</h2>
+
+<p><code>#run</code> это метод класса <code>Rack::Builder</code> <a href="https://github.com/rack/rack/blob/9269d22c56762076e3b775ea65ec1d40494d2402/lib/rack/builder.rb#L103"><i class="fa fa-external-link"></i></a>,
+так как конфиг файла для <code>rackup</code> исполняется
+в контексте <code>Rack::Builder</code> c помощью <code>eval</code> <a href="https://github.com/rack/rack/blob/9269d22c56762076e3b775ea65ec1d40494d2402/lib/rack/builder.rb#L48-L51"><i class="fa fa-external-link"></i></a>.</p>
+
+<h2>Что будет если передать rackup обычный rb-файл</h2>
+
+<p><code>Rackup</code> возьмет класс, который совпадает с именем файла и запустит его как rack-приложение <a href="https://github.com/rack/rack/blob/9269d22c56762076e3b775ea65ec1d40494d2402/lib/rack/builder.rb#L43"><i class="fa fa-external-link"></i></a>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app.rb</span>
+<span class="c1"># </span>
+<span class="c1"># Usage: rackup app.rb</span>
+
+<span class="k">class</span> <span class="nc">App</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="o">[</span> <span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span> <span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Теперь файл <code>config.ru</code>, который лежит в корне каждого Рейлс проекта, больше не вызывает у меня вопросов.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/10/rackup-ru/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -102,11 +209,45 @@
       <div class="date">November  6, 2014</div>
 
       <div class="img"><img src="/assets/pretty-bash-prompt.jpg" /></div>
-      <div class="entry"><p>Подозреваю, что многие меняли внешний вид строки приглашения
+      <div class="entry">
+        <p>Подозреваю, что многие меняли внешний вид строки приглашения
 (так же переводится prompt, правильно?) в консоли много-много раз.</p>
-</div>
-      
-      <a href="/blog/2014/11/06/pretty-bash-prompt/index.html" class="read-more">Read More</a>
+
+<p>После долгих экспериментов я остановился на таком:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># http://stackoverflow.com/a/1862762</span>
+<span class="k">function</span> timer_start <span class="o">{</span>
+  <span class="nv">timer</span><span class="o">=</span><span class="k">${</span><span class="nv">timer</span><span class="k">:-</span><span class="nv">$SECONDS</span><span class="k">}</span>
+<span class="o">}</span>
+<span class="k">function</span> timer_stop <span class="o">{</span>
+  <span class="nv">timer_show</span><span class="o">=</span><span class="k">$((</span><span class="nv">$SECONDS</span> <span class="o">-</span> <span class="nv">$timer</span><span class="k">))</span>
+  <span class="nb">unset </span>timer
+<span class="o">}</span>
+<span class="nb">trap</span> <span class="s1">&#39;timer_start&#39;</span> DEBUG
+<span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="k">${</span><span class="nv">PROMPT_COMMAND</span><span class="k">}</span>timer_stop<span class="p">;</span>
+
+<span class="c">## http://railstips.org/blog/archives/2009/02/02/bedazzle-your-bash-prompt-with-git-info/</span>
+<span class="k">function</span> parse_git_branch <span class="o">{</span>
+  <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="nb">exit</span>
+<span class="nb">  echo</span> <span class="s2">&quot;[&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;]&quot;</span>
+<span class="o">}</span>
+
+<span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\e[0;33m\]\w\[\e[0m\]{\${timer_show}}(\$(ruby -v | cut -d&#39; &#39; -f2))\$(parse_git_branch)$ &quot;</span>
+</code></pre></div>
+<p>Данное приглашение состоит из текущей директории, времени запуска последней команды в секундах,
+версии руби и текущей git-ветки. Версию руби и ветку я видел у многих, а время запуска последней
+команды вживую не встречал. Однако это очень удобно. Допустим у вас в консоли что-то долго работало
+(например восстановление дампа базы), узнав время выполнения этой операции, вы сможете
+лучше запланировать время в будущем.</p>
+
+<p>В собранном виде это выглядит так:</p>
+
+<p><img src="/assets/pretty-bash-prompt/ps.png" alt=""></p>
+
+<p>Симпатично.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/06/pretty-bash-prompt/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -116,10 +257,79 @@
       <div class="date">October 30, 2014</div>
 
       <div class="img"><img src="/assets/oaas.jpg" /></div>
-      <div class="entry"><p>Мне нравится концепция сервис объектов для гурманов, на работе мы её часто используем.</p>
-</div>
-      
-      <a href="/blog/2014/10/30/oaas/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>Мне нравится концепция сервис объектов для гурманов, на работе мы её часто используем.</p>
+
+<p>Оригинальный материал можно найти по ссылке <a href="http://brewhouse.io/blog/2014/04/30/gourmet-service-objects.html"><i class="fa fa-external-link"></i></a>, у нас же прижились два правила:</p>
+
+<ol>
+<li>У сервисного объекта есть метод call (обязательно). </li>
+<li>Название начинается с глагола (за этим не следим, но так само получается). </li>
+</ol>
+
+<p>В проекте среднего размера сервисные объекты хорошо заменяют архитектуру, организуя код в компактные
+классы. Приведу пару примеров:</p>
+
+<p>ООП:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">AuthenticateUser</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="kp">new</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">call</span>
+  <span class="k">end</span>
+
+  <span class="c1"># NOTE: пользуемся keyword arguments</span>
+  <span class="c1"># http://brainspec.com/blog/2012/10/08/keyword-arguments-ruby-2-0/</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">cookies</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="ss">permanent</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="vi">@cookies</span> <span class="o">=</span> <span class="n">cookies</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="n">user</span>
+    <span class="vi">@permanent</span> <span class="o">=</span> <span class="n">permanent</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">call</span>
+    <span class="k">if</span> <span class="vi">@user</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span>
+      <span class="n">set_cookie</span><span class="p">(</span><span class="s2">&quot;admin&quot;</span><span class="p">)</span>
+    <span class="k">elsif</span> <span class="vi">@user</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Customer</span><span class="p">)</span>
+      <span class="n">set_cookie</span><span class="p">(</span><span class="s2">&quot;c-</span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">elsif</span> <span class="vi">@user</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Reseller</span><span class="p">)</span>
+      <span class="n">set_cookie</span><span class="p">(</span><span class="s2">&quot;r-</span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="k">raise</span> <span class="s2">&quot;unknown user: </span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nf">set_cookie</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="vi">@permanent</span>
+      <span class="vi">@cookies</span><span class="o">.</span><span class="n">signed</span><span class="o">.</span><span class="n">permanent</span><span class="o">[</span><span class="ss">:uid</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">else</span>
+      <span class="vi">@cookies</span><span class="o">.</span><span class="n">signed</span><span class="o">[</span><span class="ss">:uid</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Простой сервисный объект:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">GetCurrentUser</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cookies</span><span class="o">.</span><span class="n">signed</span><span class="o">[</span><span class="ss">:uid</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;admin&#39;</span>
+      <span class="s1">&#39;admin&#39;</span>
+    <span class="k">else</span>
+      <span class="n">user_type</span><span class="p">,</span> <span class="n">user_id</span> <span class="o">=</span> <span class="n">cookies</span><span class="o">.</span><span class="n">signed</span><span class="o">[</span><span class="ss">:uid</span><span class="o">].</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">user_type</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span>
+        <span class="no">Customer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+      <span class="k">elsif</span> <span class="n">user_type</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span>
+        <span class="no">Reseller</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Сервисными объектами легко думать. Когда я вижу запись
+<code>AuthenticateUser.call(cookies, @user)</code>, сразу догадываюсь, что это сервисный объект,
+у которого одна единственная обязанность - логинить пользователя. Не заглядывая в код ясно, что там все в порядке.</p>
+
+        <div style="float:right"><a href="/blog/2014/10/30/oaas/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -129,11 +339,35 @@
       <div class="date">October 27, 2014</div>
 
       <div class="img"><img src="/assets/record-lock.jpg" /></div>
-      <div class="entry"><p>Бывает, что при обновлении строчки в базе хочется сделать серию сложных операций с зависимыми записями и желательно, чтобы паралельные
+      <div class="entry">
+        <p>Бывает, что при обновлении строчки в базе хочется сделать серию сложных операций с зависимыми записями и желательно, чтобы паралельные
 потоки в это время не мешали.</p>
-</div>
-      
-      <a href="/blog/2014/10/27/record-lock/index.html" class="read-more">Read More</a>
+
+<p>В PostgreSQL есть замечательный способ блокировки <code>SELECT FOR UPDATE</code>, который мне как-то подсказал <a href="http://evtuhovich.ru">Иван</a>.
+Если запустить 2 транзакции и в обеих вызвать <code>SELECT FOR UPDATE</code>, то вторая транзакция будет ожидать окончания первой.</p>
+
+<p><img src="/assets/record-lock/lock.png" alt=""></p>
+
+<p>В Рейсл такие запросы удобно упакованы в методе <code>with_lock</code> <a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html#method-i-with_lock"><i class="fa fa-external-link"></i></a>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">do_some_tricky_calculations</span>
+    <span class="n">with_lock</span> <span class="k">do</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Tricky Dude&quot;</span>
+      <span class="c1"># update a lot different records</span>
+      <span class="n">save!</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>В логах мы увидем такой же <code>FOR UPDATE</code>, как мы это делали вручную:</p>
+
+<p><img src="/assets/record-lock/rails.png" alt=""></p>
+
+<p>Как и в любой хорошем приеме, здесь нужна мера. Если блокировать базу часто и надолго, то производительность упадет сильно.</p>
+
+        <div style="float:right"><a href="/blog/2014/10/27/record-lock/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -143,11 +377,48 @@
       <div class="date">October 23, 2014</div>
 
       <div class="img"><img src="/assets/sinatra-embed-views.jpg" /></div>
-      <div class="entry"><p>В руби можно закончить скрипт досрочно, а Синатра позволяет разместить там вьюхи. Но давайте обо всем
+      <div class="entry">
+        <p>В руби можно закончить скрипт досрочно, а Синатра позволяет разместить там вьюхи. Но давайте обо всем
 по порядку.</p>
-</div>
-      
-      <a href="/blog/2014/10/23/sinatra-embed-views/index.html" class="read-more">Read More</a>
+
+<p>Любой текст, который встретится в руби-скрипте за маркером <code>__END__</code> проигнорируется во время 
+выполнения, но будет доступен, через IO-объект <code>DATA</code>. В блоге Causis Theory можно найти
+несколько любопытных примеров использования этой фичи <a href="http://caiustheory.com/why-i-love-data/"><i class="fa fa-external-link"></i></a>, самый приличный из которых, как мне кажется:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DATA</span><span class="o">.</span><span class="n">each_line</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:chomp</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span>
+  <span class="sb">`open &quot;</span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="sb">&quot;`</span>
+<span class="k">end</span>
+
+<span class="cp">__END__</span>
+<span class="cp">http://google.com/</span>
+<span class="cp">http://yahoo.com/</span>
+</code></pre></div>
+<p>Во фрейморке Синатра пошли еще дальше и предложили использовать подвал скрипта для внедрения 
+именованных вьюх.
+Этот прием называется Inline <nobr>Templates <a href="https://github.com/sinatra/sinatra/blob/v1.4.5/README.md#inline-templates"><i class="fa fa-external-link"></i></a></nobr> и позволяет, ну вы сами видите, что он позволяет делать:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+
+<span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+  <span class="n">erb</span> <span class="ss">:index</span>
+<span class="k">end</span>
+
+<span class="cp">__END__</span>
+
+<span class="cp">@@ layout</span>
+<span class="cp">&lt;html&gt;</span>
+<span class="cp">  &lt;body&gt;</span>
+<span class="cp">    &lt;%= yield %&gt;</span>
+<span class="cp">  &lt;/body&gt;</span>
+<span class="cp">&lt;/html&gt;</span>
+
+<span class="cp">@@ index</span>
+<span class="cp">&lt;div&gt;Hello!&lt;/div&gt;</span>
+</code></pre></div>
+<p>Снимаю шляпу перед очередной экзотической штучкой мира руби.</p>
+
+        <div style="float:right"><a href="/blog/2014/10/23/sinatra-embed-views/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -157,10 +428,34 @@
       <div class="date">October 20, 2014</div>
 
       <div class="img"><img src="/assets/mini-rails.jpg" /></div>
-      <div class="entry"><p>Самое маленькое приложение на Рейлс, которое я могу написать, выглядит так (проверял на 4.1.6):</p>
-</div>
-      
-      <a href="/blog/2014/10/20/mini-rails/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>Самое маленькое приложение на Рейлс, которое я могу написать, выглядит так (проверял на 4.1.6):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config.ru</span>
+<span class="nb">require</span> <span class="s2">&quot;rails&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;action_controller/railtie&quot;</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">routes</span><span class="o">.</span><span class="n">append</span> <span class="k">do</span>
+    <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="s2">&quot;home#index&quot;</span>
+  <span class="k">end</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">secret_token</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span><span class="o">*</span><span class="mi">30</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="n">render</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Application</span><span class="o">.</span><span class="n">initialize!</span>
+<span class="n">run</span> <span class="no">Application</span>
+</code></pre></div>
+<p>Создайте файл <code>config.ru</code>, с указанным выше содержанием, запустите его с помощью <code>rackup</code>.
+На главной странице вы увидите &quot;Hello!&quot;.</p>
+
+        <div style="float:right"><a href="/blog/2014/10/20/mini-rails/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -170,10 +465,79 @@
       <div class="date">October 16, 2014</div>
 
       <div class="img"><img src="/assets/namespaces.jpg" /></div>
-      <div class="entry"><p>В Рейлс очень удобно организовывать код по неймспейсам.</p>
-</div>
-      
-      <a href="/blog/2014/10/16/namespaces/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>В Рейлс очень удобно организовывать код по неймспейсам.</p>
+
+<p>Допустим есть файл <code>app/components/api/command.rb</code>, со следующим содержанием:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app/components/api/command.rb</span>
+<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Command</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Рейлс сам создаст промежуточный модуль <code>Api</code>, который в обычном руби приходится объявлять так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Api</span>
+  <span class="k">class</span> <span class="nc">Command</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Как же это работает?</p>
+
+<p>Каждое Рейлс приложение - это <code>Rails::Engine</code>, который при инициализации вызывает
+серию хуков, один из которых устанавливает пути автозагрузки
+<a href="https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine/configuration.rb#L37"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Rails</span>
+  <span class="k">class</span> <span class="nc">Engine</span>
+<span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">paths</span>
+      <span class="vi">@paths</span> <span class="o">||=</span> <span class="k">begin</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Paths</span><span class="o">::</span><span class="no">Root</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@root</span><span class="p">)</span>
+
+        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>                 <span class="ss">eager_load</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">glob</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app/assets&quot;</span><span class="p">,</span>          <span class="ss">glob</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app/controllers&quot;</span><span class="p">,</span>     <span class="ss">eager_load</span><span class="p">:</span> <span class="kp">true</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p>Строчка <code>paths.add &quot;app&quot;, ..., glob: &quot;*&quot;</code> ищет все папки из <code>app</code> (в нашем
+случае это <code>app/components</code>).</p>
+
+<p>Далее пути добавляются в <code>ActiveSupport::Dependencies</code> <a href="https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine.rb#L559"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Rails</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="no">Railtie</span>
+<span class="c1"># ...</span>
+    <span class="n">initializer</span> <span class="ss">:set_autoload_paths</span><span class="p">,</span> <span class="ss">before</span><span class="p">:</span> <span class="ss">:bootstrap_hook</span> <span class="k">do</span>
+      <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">autoload_paths</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="o">*</span><span class="n">_all_autoload_paths</span><span class="p">)</span>
+      <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">autoload_once_paths</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="o">*</span><span class="n">_all_autoload_once_paths</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p><code>ActiveSupport::Dependencies</code> расширяет все модули с помощью специального внутреннего модуля <code>ModuleConstMissing</code> <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L290"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ActiveSupport</span> <span class="c1">#:nodoc:</span>
+  <span class="k">module</span> <span class="nn">Dependencies</span> <span class="c1">#:nodoc:</span>
+<span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">hook!</span>
+      <span class="no">Object</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">Loadable</span> <span class="p">}</span>
+      <span class="no">Module</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">ModuleConstMissing</span> <span class="p">}</span>
+      <span class="no">Exception</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">Blamable</span> <span class="p">}</span>
+    <span class="k">end</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p><code>ModuleConstMissing</code> в свою очередь, используя <code>const_missing</code>, перехватает все обращения к неизвестным константам и загружает 
+необходимые файлы <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L458"><i class="fa fa-external-link"></i></a>, считая что раз в путях поиска (<code>app/*</code> в нашем примере) есть файл <code>api/command.rb</code>, то класс <code>Api::Command</code> должен находится именно там.</p>
+
+<p>Ах да, модуль <code>Api</code>, с которого мы начали наш разговор, создается в методе <code>ActiveSupport::Dependencies#autoload_module!</code> <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L420"><i class="fa fa-external-link"></i></a>) при первой попытке
+разрезолвить полное имя класса <code>Api::Command</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ActiveSupport</span> <span class="c1">#:nodoc:</span>
+  <span class="k">module</span> <span class="nn">Dependencies</span> <span class="c1">#:nodoc:</span>
+<span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">autoload_module!</span><span class="p">(</span><span class="n">into</span><span class="p">,</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">qualified_name</span><span class="p">,</span> <span class="n">path_suffix</span><span class="p">)</span>
+      <span class="k">return</span> <span class="kp">nil</span> <span class="k">unless</span> <span class="n">base_path</span> <span class="o">=</span> <span class="n">autoloadable_module?</span><span class="p">(</span><span class="n">path_suffix</span><span class="p">)</span>
+      <span class="n">mod</span> <span class="o">=</span> <span class="no">Module</span><span class="o">.</span><span class="n">new</span>
+      <span class="n">into</span><span class="o">.</span><span class="n">const_set</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">mod</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+        <div style="float:right"><a href="/blog/2014/10/16/namespaces/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -183,11 +547,62 @@
       <div class="date">October 12, 2014</div>
 
       <div class="img"><img src="/assets/ed-editor.jpg" /></div>
-      <div class="entry"><p>Однажды мне захотелось отредактировать файл прямо на Хероку,
+      <div class="entry">
+        <p>Однажды мне захотелось отредактировать файл прямо на Хероку,
 потянувшись за Vim с удивлением узнал, что на Хероку Vim/Vi нету. Увы.</p>
-</div>
-      
-      <a href="/blog/2014/10/12/ed-editor/index.html" class="read-more">Read More</a>
+
+<p>Интернет заботливо подсказал, что в 1970 году, симпатичный парень Кен Томпсон написал редактор <code>ed</code>,
+который точно есть абсолютно на всех unix-системах уже 40 с лишним лет.
+И точно на Хероку он есть.
+Ed - прадедушка вима и сейчас мы немного посмотрим на него поближе. </p>
+
+<p>Пересказывать мануал и википедию я не буду, лучше просто расскажу пару забавных фактов.
+Первый факт - все команды в ed состоят из одной английской буквы,
+а в случае ошибки выводится только знак вопроса. Второй факт - в ed нет подсветки синтаксиса. </p>
+
+<p>Вот пример работы работы с ed:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ed -p: <span class="c"># опция -p:, делает ed более похожим на вим</span>
+:a
+This is new file.
+Ed is the gest!
+.
+:%l
+This is new file.<span class="err">$</span>
+Ed is the gest!<span class="err">$</span>
+:1d
+:s/gest/best
+Ed is the best!
+:w demo.txt
+16
+:q
+<span class="nv">$ </span>cat demo.txt
+Ed is the best!
+</code></pre></div>
+<p>Строчки, которые начинаются с двоеточия - это команды в ed. В данном примере мы добавили в буфер 
+две строчки, вывели их, удалили первую строку, исправили опечатку и
+сохранили результат в файл <code>demo.txt</code>. При некоторой сноровке можно легко создавать
+и редактировать небольшие файлики.</p>
+
+<p>Редактор ed мне очень понравился, кроме Хероку я его использую, например,
+чтобы вставить предупреждение на вторую строчку в каждом баш скрипте:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> binary in *.sh
+<span class="k">do</span>
+ed &gt; /dev/null <span class="nv">$binary</span> <span class="s">&lt;&lt;EOF</span>
+<span class="s">1</span>
+<span class="s">a</span>
+<span class="s"># GENERATED AUTOMATICALLY. DO NOT MODIFY THIS FILE!</span>
+<span class="s">.</span>
+<span class="s">w</span>
+<span class="s">EOF</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Кстати, это Кен Томпсон - мне кажется так и должен выглядеть настоящий разработчик:</p>
+
+<p><img src="/assets/ed-editor/Ken_Thompson_02.jpg" alt=""></p>
+
+        <div style="float:right"><a href="/blog/2014/10/12/ed-editor/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
 </div>
@@ -202,6 +617,9 @@
     <a href="/page4" class="next">Next</a>
   
 </div>
+
+<script id="dsq-count-scr" src="//vakhov-me.disqus.com/count.js" async></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
     </div>
 
@@ -228,11 +646,7 @@
 </a>
           
           
-          <a href="/atom.xml"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <path d="M0.112290344,30 C0.112290344,13.4314567 13.3426506,0 29.663129,0 C45.9836073,0 59.2139676,13.4314567 59.2139676,30 C59.2139676,46.5685433 45.9836073,60 29.663129,60 C13.3426506,60 0.112290344,46.5685433 0.112290344,30 Z M0.112290344,30" fill="#E18F00" sketch:type="MSShapeGroup"></path>
-    <path d="M26.5147755,38.7571296 C26.5147755,36.8192934 24.9575021,35.2291656 23.0297047,35.2291656 C21.1094331,35.2291656 19.5492775,36.8192934 19.5492775,38.7571296 C19.5492775,40.7052068 21.1094331,42.277616 23.0297047,42.277616 C24.957422,42.277616 26.5146954,40.7052881 26.5147755,38.7571296 Z M36.8075433,42.2700571 C36.8075433,32.6055847 29.062648,24.7442705 19.5492775,24.7442705 L19.5492775,29.8318017 C22.8128986,29.8318017 25.8817303,31.1272145 28.1920609,33.4740429 C30.4999895,35.8159133 31.7732853,38.9454513 31.7732853,42.2701384 L36.8075433,42.2700571 Z M45.6871482,42.2675375 C45.6871482,27.6346878 33.9604014,15.722384 19.5492775,15.722384 L19.5492775,20.8123535 C31.186916,20.8123535 40.660496,30.438869 40.660496,42.2673749 L45.6871482,42.2675375 Z M45.6871482,42.2675375" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-</svg>
-</a>
+          <!--  -->
           <a href="http://twitter.com/avakhov"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <path d="M0,30 C0,13.4314567 13.4508663,0 30.0433526,0 C46.6358389,0 60.0867052,13.4314567 60.0867052,30 C60.0867052,46.5685433 46.6358389,60 30.0433526,60 C13.4508663,60 0,46.5685433 0,30 Z M0,30" fill="#4099FF" sketch:type="MSShapeGroup"></path>
     <path d="M29.2997675,23.8879776 L29.3627206,24.9260453 L28.3135016,24.798935 C24.4943445,24.3116787 21.1578281,22.6592444 18.3249368,19.8840023 L16.9399677,18.5069737 L16.5832333,19.5238563 C15.8277956,21.7906572 16.3104363,24.1845684 17.8842648,25.7946325 C18.72364,26.6844048 18.5347806,26.8115152 17.0868584,26.2818888 C16.5832333,26.1124083 16.1425613,25.985298 16.1005925,26.0488532 C15.9537019,26.1971486 16.457327,28.1249885 16.8560302,28.8876505 C17.4016241,29.9469033 18.5137962,30.9849709 19.7308902,31.5993375 L20.7591248,32.0865938 L19.5420308,32.1077788 C18.3669055,32.1077788 18.3249368,32.1289639 18.4508431,32.57385 C18.8705307,33.9508786 20.5282967,35.4126474 22.3749221,36.048199 L23.6759536,36.4930852 L22.5427971,37.1710069 C20.8640467,38.1455194 18.891515,38.6963309 16.9189833,38.738701 C15.9746862,38.759886 15.1982642,38.8446262 15.1982642,38.9081814 C15.1982642,39.1200319 17.7583585,40.306395 19.2482495,40.7724662 C23.7179224,42.1494948 29.0269705,41.5563132 33.0140027,39.2047722 C35.846894,37.5311528 38.6797853,34.2050993 40.0018012,30.9849709 C40.7152701,29.2689815 41.428739,26.1335934 41.428739,24.6294545 C41.428739,23.654942 41.4916922,23.5278317 42.6668174,22.3626537 C43.359302,21.6847319 44.0098178,20.943255 44.135724,20.7314044 C44.3455678,20.3288884 44.3245835,20.3288884 43.2543801,20.6890343 C41.4707078,21.324586 41.2188952,21.2398458 42.1002392,20.2865183 C42.750755,19.6085965 43.527177,18.3798634 43.527177,18.0197174 C43.527177,17.9561623 43.2124113,18.0620876 42.8556769,18.252753 C42.477958,18.4646036 41.6385828,18.7823794 41.0090514,18.9730449 L39.8758949,19.3331908 L38.8476603,18.634084 C38.281082,18.252753 37.4836756,17.829052 37.063988,17.7019416 C35.9937846,17.4053509 34.357003,17.447721 33.3917215,17.7866818 C30.768674,18.7400093 29.110908,21.1974757 29.2997675,23.8879776 Z M29.2997675,23.8879776" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

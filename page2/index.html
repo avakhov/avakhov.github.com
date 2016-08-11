@@ -44,7 +44,6 @@
           </div>
           
           <nav>
-            <a href="/atom.xml">RSS</a>
             <a href="/about.html">ABOUT</a>
             <a href="https://www.google.com/search?q=site%3Avakhov.me">SEARCH</a>
           </nav>
@@ -62,12 +61,32 @@
       <div class="date">December 22, 2014</div>
 
       <div class="img"><img src="/assets/gnu-screen.jpg" /></div>
-      <div class="entry"><p>Думаю большинство знает и использует замечательную &quot;свободную консольную утилиту-мультиплексор&quot;,
+      <div class="entry">
+        <p>Думаю большинство знает и использует замечательную &quot;свободную консольную утилиту-мультиплексор&quot;,
 как дружелюбно описывает GNU Screen википедия <a href="https://ru.wikipedia.org/wiki/GNU_Screen"><i class="fa fa-external-link"></i></a>,
 но я все же скажу пару слов.</p>
-</div>
-      
-      <a href="/blog/2014/12/22/gnu-screen/index.html" class="read-more">Read More</a>
+
+<p>Если вам нужно выполнить большой и важный скрипт на несколько часов, запустите этот скрипт
+на сервере в сессии GNU Screen, который наверняка уже установлен.</p>
+
+<ul>
+<li><code>screen</code> - новый сеанс</li>
+<li><code>screen -rd</code> - присоединиться к старой сессии</li>
+<li><code>Ctrl-a c</code> - создать новое окно (уже находясь внутри screen)</li>
+<li><code>Ctrl-a n</code> - перейти на следующее окно</li>
+<li><code>Ctrl-a d</code> - отсоединиться от сессии (оставив ее работать)</li>
+</ul>
+
+<p>Запускаем долгий скрипт в screen, выключаем компьютер, на следующий день
+заходим в сессию и изучаем, как там обстоят дела.</p>
+
+<p>Если нужно много работать с серверами, думаю можно настроить окружение удобнее,
+но для эпизодического использования
+хватит пяти команд.</p>
+
+        <div style="float:right"><a href="/blog/2014/12/22/gnu-screen/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -77,11 +96,94 @@
       <div class="date">December 18, 2014</div>
 
       <div class="img"><img src="/assets/remove_a_lot_records.jpg" /></div>
-      <div class="entry"><p>Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
+      <div class="entry">
+        <p>Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
 Active Record запросы. Когда записей уже миллионы, начинаются разные интересные задачи.</p>
-</div>
-      
-      <a href="/blog/2014/12/18/remove_a_lot_records/index.html" class="read-more">Read More</a>
+
+<p>Как то раз я расщеплял базу на две и нужно было удалить примерно 10 миллионов детей,
+которые остались без родителей (имена таблиц - выдуманные).</p>
+
+<p><img src="/assets/remove_a_lot_records/db.png" alt=""></p>
+
+<p><a href="http://evtuhovich.ru/">Иван Евтухович</a> (я всегда звоню ему с техническими вопросами,
+Иван знает все, особенно про PostgreSQL) сказал, что можно конечно удалить в лоб,
+в одной транзакции, но она будет работать долго и молча.
+Лучше положить id во временную таблицу и удалять записи небольшими порциями, не теряя лица.</p>
+
+<h2>Играем с тестовой базой</h2>
+
+<p>Заполняем базу крайне синтетическими данными на 20M записей <a href="https://gist.github.com/avakhov/48518e4902acb57a7fed#file-1_seed-rb"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ...</span>
+<span class="mi">10_000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+  <span class="n">parent</span> <span class="o">=</span> <span class="no">Parent</span><span class="o">.</span><span class="n">create!</span>
+  <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;(</span><span class="si">#{</span><span class="n">parent</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)&quot;</span><span class="o">]*</span><span class="mi">1000</span>
+  <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO children (parent_id) VALUES </span><span class="si">#{</span><span class="n">values</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Parent #</span><span class="si">#{</span><span class="n">parent</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="mi">10_000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+  <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;(0)&quot;</span><span class="o">]*</span><span class="mi">1000</span>
+  <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO children (parent_id) VALUES </span><span class="si">#{</span><span class="n">values</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Chunk #</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Удаляем одним запросом:</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">children</span>
+<span class="k">WHERE</span> <span class="n">id</span> <span class="k">IN</span> <span class="p">(</span>
+  <span class="k">SELECT</span> <span class="n">children</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">FROM</span> <span class="n">children</span> <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">parents</span> <span class="k">ON</span> <span class="n">children</span><span class="p">.</span><span class="n">parent_id</span> <span class="o">=</span> <span class="n">parents</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">WHERE</span> <span class="n">parents</span><span class="p">.</span><span class="n">id</span> <span class="k">IS</span> <span class="k">NULL</span>
+<span class="p">);</span>
+<span class="c1">-- =&gt; DELETE 10000000</span>
+<span class="c1">-- =&gt; Time: 7538596.724 ms (~ 2 hours)</span>
+</code></pre></div>
+<p>Удаляем порциями по 1000 записей <a href="https://gist.github.com/avakhov/48518e4902acb57a7fed#file-3_by_small_chunks-rb"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ...</span>
+<span class="k">unless</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">table_exists?</span><span class="p">(</span><span class="s2">&quot;deleting_ids&quot;</span><span class="p">)</span>
+  <span class="n">m1</span> <span class="o">=</span> <span class="no">Benchmark</span><span class="o">.</span><span class="n">measure</span> <span class="p">{</span>
+    <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span> <span class="o">&lt;&lt;-</span><span class="no">SQL</span>
+<span class="sh">      BEGIN;</span>
+
+<span class="sh">      CREATE TABLE deleting_ids(id integer);</span>
+<span class="sh">      CREATE INDEX ON deleting_ids(id);</span>
+
+<span class="sh">      INSERT INTO deleting_ids</span>
+<span class="sh">      SELECT children.id</span>
+<span class="sh">      FROM children LEFT JOIN parents ON children.parent_id = parents.id</span>
+<span class="sh">      WHERE parents.id IS NULL;</span>
+
+<span class="sh">      COMMIT;</span>
+<span class="no">    SQL</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">m2</span> <span class="o">=</span> <span class="no">Benchmark</span><span class="o">.</span><span class="n">measure</span> <span class="p">{</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="no">DeletingId</span><span class="o">.</span><span class="n">first</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="no">DeletingId</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
+    <span class="no">Child</span><span class="o">.</span><span class="n">delete_all</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">ids</span><span class="p">)</span>
+    <span class="no">DeletingId</span><span class="o">.</span><span class="n">delete_all</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">ids</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Chunk #</span><span class="si">#{</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> processed&quot;</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+<span class="c1"># =&gt; (112.227890)   (~ 2 mins)</span>
+<span class="c1"># =&gt; (1052.880441)  (~ 17 mins)</span>
+</code></pre></div>
+<h2>Выводы</h2>
+
+<p>В одной транзакции 10М записей удалялось 2 часа,
+по частям - 20 минут (эти времена некорректно сравнивать, так как многое зависит
+от настроек базы, данных, нагрузки и так далее).</p>
+
+<p>Даже не обращая внимание на время исполнения, второй способ все равно гораздо
+лучше, так как он явно показывает прогресс и изменяет базу небольшими, контролируемыми шагами.
+Более того, скрипт можно прервать в любом месте и запустить заново, он просто продолжит
+удалять, что в случае одной транзакции сделать невозможно.</p>
+
+        <div style="float:right"><a href="/blog/2014/12/18/remove_a_lot_records/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -91,11 +193,39 @@ Active Record запросы. Когда записей уже миллионы,
       <div class="date">December 15, 2014</div>
 
       <div class="img"><img src="/assets/timestamps.jpg" /></div>
-      <div class="entry"><p>Как то раз я нашел ошибку в сервисе <a href="https://github.com/noahhl/batsd">Batsd</a>, написанным Noah Lorang из компании тогда еще 37signals.
+      <div class="entry">
+        <p>Как то раз я нашел ошибку в сервисе <a href="https://github.com/noahhl/batsd">Batsd</a>, написанным Noah Lorang из компании тогда еще 37signals.
 И очень обрадовался, найти у ошибку у таких парней - очень почетно.</p>
-</div>
-      
-      <a href="/blog/2014/12/15/timestamps/index.html" class="read-more">Read More</a>
+
+<p>Batsd - это штука для хранения агрегированных метрик на подобии statsd, только на руби. В коде я увидел строчку,
+где берутся таймстемпы из текстового файла и сравниваются как строки, без конвертации в число <a href="https://github.com/noahhl/batsd/blob/3cc5e016ed1424aab0fd7d7b06bad5b2076ef4ca/lib/batsd/diskstore.rb#L56-L58"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">        <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span> 
+          <span class="k">while</span> <span class="p">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">gets</span><span class="p">)</span>
+            <span class="n">ts</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span>
+            <span class="k">if</span> <span class="n">ts</span> <span class="o">&gt;=</span> <span class="n">start_ts</span> <span class="o">&amp;&amp;</span> <span class="n">ts</span> <span class="o">&lt;=</span> <span class="n">end_ts</span>    <span class="c1"># &lt;--- ЗДЕСЬ!</span>
+              <span class="n">datapoints</span> <span class="o">&lt;&lt;</span> <span class="p">{</span><span class="ss">timestamp</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span> <span class="ss">value</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">to_f</span><span class="p">}</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          <span class="n">file</span><span class="o">.</span><span class="n">close</span>
+        <span class="k">end</span>
+</code></pre></div>
+<p>Вот оно! - подумал я, но оказалось было рано праздновать победу. </p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">004</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">13</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">19</span> <span class="o">+</span><span class="mo">0300</span><span class="p">,</span> <span class="mi">1418638219</span><span class="o">]</span>
+
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">2001</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">09</span> <span class="mo">05</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">40</span> <span class="o">+</span><span class="mo">0400</span>
+
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">9_999_999_999</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">2286</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">20</span> <span class="mi">20</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">39</span> <span class="o">+</span><span class="mo">0300</span>
+</code></pre></div>
+<p>Сейчас таймстемп 10-ти значный и даты, начиная c конца 2001 года, можно безболезненно сравнивать как строки.</p>
+
+<p>Это конечно хак, но хак забавный.</p>
+
+        <div style="float:right"><a href="/blog/2014/12/15/timestamps/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -105,14 +235,47 @@ Active Record запросы. Когда записей уже миллионы,
       <div class="date">December 11, 2014</div>
 
       <div class="img"><img src="/assets/react-sortable.jpg" /></div>
-      <div class="entry"><p>В React.js прекрасно все, кроме поддержки драгов из коробки,
+      <div class="entry">
+        <p>В React.js прекрасно все, кроме поддержки драгов из коробки,
 в частности сортируемого списка.
 В интернете в основном предлагают вручную обрабатывать события мышки. Однако сделать корректную сортировку
 длинного списка с учетом скроллов и браузеров довольно сложно, поэтому я прикрутил
 jQuery UI Sortable, не нарушая реактивности системы.</p>
-</div>
-      
-      <a href="/blog/2014/12/11/react-sortable/index.html" class="read-more">Read More</a>
+
+<p>Воспользуемся генератором вкусных рецептов из старого выпуска <a href="/blog/2014/11/27/react-todo/index.html"><i class="fa fa-external-link"></i></a> и добавим возможность менять шаги в рецепте с
+помощью перетаскивания.</p>
+
+<p>С React.js даже самый минимальный код все равно довольно большой, поэтому дам ссылки на результат
+и немного поясню изменения:</p>
+
+<ul>
+<li><a href="http://bl.ocks.org/avakhov/raw/7b9d2b1a354e59dbfa63/">Живое демо (работает даже на телефоне)</a></li>
+<li><a href="https://gist.github.com/avakhov/7b9d2b1a354e59dbfa63">Исходники</a></li>
+<li><a href="https://gist.github.com/avakhov/a491f8d5eac0cbb74f91">Изменения с предыдущей версии</a></li>
+</ul>
+
+<p><img src="/assets/react-sortable/screen.png" alt=""></p>
+
+<p>За таскание отвечает класс <code>Sortable</code>, в который передается функция, рисующая шаг рецепта.
+<code>Sortable</code> отрисовывает список и навешивает jQuery UI Sortable на элементы.
+В колбеке <code>stop</code> мы вызываем
+<code>sortable(&quot;cancel&quot;)</code> чтобы отменить результат переноса (это очень важно,
+так как если мы будем вручную менять DOM, то React.js будет ругаться). Далее
+мы рапортуем главному
+приложение о изменении состояния, и он уже сам
+обновляет список через реактивность.</p>
+
+<p>Я постарался изобразить процесс на диаграмме (думаю совершил 33 ошибки в UML, но мне
+хотелось опробовать сервис <a href="http://draw.io">draw.io</a>):</p>
+
+<p><img src="/assets/react-sortable/diag.png" alt=""></p>
+
+<p>Не знаю насколько данное решение готово для использования на продакшене, но для внутренних интерфейсов
+очень даже ничего.</p>
+
+        <div style="float:right"><a href="/blog/2014/12/11/react-sortable/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -122,10 +285,40 @@ jQuery UI Sortable, не нарушая реактивности системы.
       <div class="date">December  8, 2014</div>
 
       <div class="img"><img src="/assets/2-small-things.jpg" /></div>
-      <div class="entry"><p>Накопилось пару мелочей, о которых хочу сегодня написать.</p>
-</div>
-      
-      <a href="/blog/2014/12/08/2-small-things/index.html" class="read-more">Read More</a>
+      <div class="entry">
+        <p>Накопилось пару мелочей, о которых хочу сегодня написать.</p>
+
+<h2>Array#to_h</h2>
+
+<p>Ровно сто тысяч раз я писал примерно так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ages</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">[</span> <span class="n">users</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="o">[</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">age</span><span class="o">]</span>
+<span class="p">}</span><span class="o">]</span>
+</code></pre></div>
+<p>Боги увидели мои страдания и послали человека с именем
+<a href="https://github.com/marcandre">Marc-André Lafortune</a>, который добавил в транк метод <code>#to_h</code> <a href="https://github.com/ruby/ruby/commit/dc215dcd9f96620b7c06a25a741d13b19c2f130b"><i class="fa fa-external-link"></i></a>
+около года назад.
+Изменения появились в руби 2.1, я все время забываю, что этим уже можно и нужно пользоваться:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ages</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="o">[</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">age</span><span class="o">]</span>
+<span class="p">}</span><span class="o">.</span><span class="n">to_h</span>
+</code></pre></div>
+<h2>Интерполяция без {}</h2>
+
+<p>Где-то в исходниках я увидел как выводять пид процесса</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="s2">&quot;PID: #$$&quot;</span>
+</code></pre></div>
+<p>&quot;Что же это такое?&quot; - подумал я. Я знаю только только вариант <code>puts &quot;PID: #{$$}&quot;</code>. Оказываетcя в руби
+глобальные переменные можно интерполировать без кавычек:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$name</span> <span class="o">=</span> <span class="s2">&quot;Alexey&quot;</span>
+<span class="nb">puts</span> <span class="s2">&quot;I&#39;m </span><span class="si">#{</span><span class="vg">$name</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c1"># =&gt; I&#39;m Alexey</span>
+<span class="nb">puts</span> <span class="s2">&quot;I&#39;m </span><span class="si">#$name</span><span class="s2">&quot;</span>     <span class="c1"># =&gt; I&#39;m Alexey</span>
+</code></pre></div>
+<p><img class='emoji' title=':fire:' alt=':fire:' src='https://assets.github.com/images/icons/emoji/unicode/1f525.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':fire:' alt=':fire:' src='https://assets.github.com/images/icons/emoji/unicode/1f525.png' height='20' width='20' align='absmiddle' /></p>
+
+        <div style="float:right"><a href="/blog/2014/12/08/2-small-things/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -135,11 +328,49 @@ jQuery UI Sortable, не нарушая реактивности системы.
       <div class="date">December  4, 2014</div>
 
       <div class="img"><img src="/assets/require.jpg" /></div>
-      <div class="entry"><p>Я люблю поразбираться в простых, рутинных мелочах, чтобы лучше понимать как мир устроен.
+      <div class="entry">
+        <p>Я люблю поразбираться в простых, рутинных мелочах, чтобы лучше понимать как мир устроен.
 Сегодня предлагаю посмотреть на подключение локальных файлов в руби-скриптах.</p>
-</div>
-      
-      <a href="/blog/2014/12/04/require/index.html" class="read-more">Read More</a>
+
+<p>Допустим у нас есть утилитка, которая выросла в размерах и мы разнесли ее по разным файлам.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># some.rb</span>
+<span class="k">module</span> <span class="nn">Some</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+
+<span class="c1"># main.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;some&#39;</span>                                <span class="c1"># 1. никогда</span>
+<span class="nb">require</span> <span class="s1">&#39;./some&#39;</span>                              <span class="c1"># 2. иногда</span>
+<span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../some&#39;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span> <span class="c1"># 3. всегда</span>
+</code></pre></div>
+<p>1-й вариант не будет работать совсем, так как руби не будет искать файл локально, во 2-м варианте
+можно запускать скрипт только из директории, где расположен <code>main.rb</code>,
+3-й вариант работает всегда.</p>
+
+<p>В исходниках я встречал конструкцию <code>$: &lt;&lt; &#39;.&#39;</code>, но не использовал из-за смешного вида. Но даже
+смешному коду нужно дать шанс. Код ниже будет запускать только из текущей директории:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$:</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;.&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;some&#39;</span> 
+</code></pre></div>
+<p><code>expand_path</code> будет работать всегда, правда в живой природе не такого не видел:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$:</span> <span class="o">&lt;&lt;</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+<span class="nb">require</span> <span class="s1">&#39;some&#39;</span> 
+</code></pre></div>
+<p>Почему же хочется запускать скрипты из другой директории? Рассказываю.
+Например во многих репозитариях у
+нас есть папка <code>custom</code>
+с разными одноразовыми скриптами, которые выкинуть жалко. 
+Из Рейлс мы запускаем их через <code>rails runner ./custom/some-code.rb</code>,
+чтобы была вся привычная магия и можно было бы вообще не думать.
+Но если репозитарий не рейлсовый,
+то удобно набрать в корневой папке проекта команду <code>ruby ./custom/some-tricky-file.rb</code>.</p>
+
+<p>Кейс конечно редкий, но реальный. Поэтому, пожалуй, продолжу и дальше использовать
+<code>require File.expand_path(&#39;../some&#39;, __FILE__)</code>.</p>
+
+        <div style="float:right"><a href="/blog/2014/12/04/require/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -149,12 +380,33 @@ jQuery UI Sortable, не нарушая реактивности системы.
       <div class="date">December  1, 2014</div>
 
       <div class="img"><img src="/assets/500-it.jpg" /></div>
-      <div class="entry"><p>Когда к новому проекту подключаешь трекер ошибок, Airbrake или Honeybadger (кстати говорят, что
+      <div class="entry">
+        <p>Когда к новому проекту подключаешь трекер ошибок, Airbrake или Honeybadger (кстати говорят, что
 можно еще Skylight или Opbeat, но я не пробовал), хочется проверить, что все настроено
 правильно.</p>
-</div>
-      
-      <a href="/blog/2014/12/01/500-it/index.html" class="read-more">Read More</a>
+
+<p>Можно дождаться когда кто-нибудь внесет в продакшен дефект, но я обычно добавляю
+какой-нибудь секретный раут, вызывающий 500:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/routes.rb</span>
+<span class="n">get</span> <span class="s1">&#39;some_500_secret_url&#39;</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="nb">proc</span> <span class="p">{</span> <span class="k">raise</span> <span class="s1">&#39;500&#39;</span> <span class="p">}</span>
+</code></pre></div>
+<p>На самом деле к рауте привязано полноценное rack-приложение, которое по канонам
+должно выглядеть хотя бы так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">get</span> <span class="s1">&#39;some_500_secret_url&#39;</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">env</span><span class="o">|</span>
+  <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s1">&#39;Hello 500&#39;</span><span class="o">]]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Но для тестирование работы эксепшенов достаточно просто бросить рантайм-ошибку.</p>
+
+<p>Теперь можно вызывать
+500 на продакшене столько раз, сколько необходимо.</p>
+
+<p><b>Update:</b> <a href=http://leopard.in.ua/>Алексей</a> показал как вызвать 500 на любом урле Рейлс-сайта,
+для этого достаточно добавить <code>?%28t%B3odei%29</code> в конец. Я проверил, получается <code>ArgumentError: invalid byte sequence in UTF-8</code>, очень забавно, на вызов Ктулху похоже :-)</p>
+
+        <div style="float:right"><a href="/blog/2014/12/01/500-it/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -164,11 +416,32 @@ jQuery UI Sortable, не нарушая реактивности системы.
       <div class="date">November 27, 2014</div>
 
       <div class="img"><img src="/assets/react-todo.jpg" /></div>
-      <div class="entry"><p>Чтобы продемонстрировать библиотеку React.js, которая мне очень нравится, я сделал простой
+      <div class="entry">
+        <p>Чтобы продемонстрировать библиотеку React.js, которая мне очень нравится, я сделал простой
 интерфейс для создания вкусных пошаговых рецептов.</p>
-</div>
-      
-      <a href="/blog/2014/11/27/react-todo/index.html" class="read-more">Read More</a>
+
+<p>По ссылке находится живая дема <a href="http://bl.ocks.org/avakhov/raw/9b5db69c4d4b40444a6f/"><i class="fa fa-external-link"></i></a>, исходники на Гитхабе <a href="https://gist.github.com/avakhov/9b5db69c4d4b40444a6f"><i class="fa fa-external-link"></i></a> и ниже можно посмотреть результат работы:</p>
+
+<p><img src="/assets/react-todo/screen.png" alt=""></p>
+
+<p>В React.js интересно обрабатываются действия пользователя. У объекта <code>Item</code> что-то меняется
+(в нашем случае пользователь нажал
+на кнопку удаления). <code>Item</code> рапортует об изменении
+родителю, который в свою очередь передает информацию главному объекту,
+и он уже помечает изменение в состоянии с помощью <code>this.setState</code>.
+Далее реактивная магия обновляет виртуальный и реальный DOM без нашего участия в удобное для
+себя время.</p>
+
+<p><img src="/assets/react-todo/s.png" alt=""></p>
+
+<p>Хотя каждый компонент может содержать в себе состояние, у меня почему-то
+вся изменяемая часть всегда собирается в главном объекте. Он из-за этого распухает,
+но все равно мне кажется, что код на React.js
+гораздо легче писать и поддерживать, чем аналогичное решение, допустим, на jQuery.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/27/react-todo/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -178,11 +451,51 @@ jQuery UI Sortable, не нарушая реактивности системы.
       <div class="date">November 24, 2014</div>
 
       <div class="img"><img src="/assets/be_rspec.jpg" /></div>
-      <div class="entry"><p>Как-то раз я решил разобраться какая именно магия используется в RSpec-предикаторах <code>be_some</code>, так
+      <div class="entry">
+        <p>Как-то раз я решил разобраться какая именно магия используется в RSpec-предикаторах <code>be_some</code>, так
 как на первый взгляд они напоминают <code>undefined local variable or method</code>.</p>
-</div>
-      
-      <a href="/blog/2014/11/24/be_rspec/index.html" class="read-more">Read More</a>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Sun</span>
+  <span class="k">def</span> <span class="nf">available?</span>
+    <span class="kp">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="no">Sun</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">&quot;sad and cold&quot;</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">Sun</span><span class="o">.</span><span class="n">new</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be_available</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Конечно же это <code>method_messing</code>. Продираться через все хитросплетения RSpec мне не захотелось, хотя
+код там  очень основательный и щедро документированный, я нашел лишь несколько ключевых точек.</p>
+
+<p><code>describe Sun</code> превращается в класс <code>RSpec::ExampleGroups::Sun</code>, наследованный от
+<code>RSpec::Core::ExampleGroup</code>, в который при инициализации подмешивается модуль <code>RSpec::Matchers</code> <a href="https://github.com/rspec/rspec-core/blob/v3.1.7/lib/rspec/core/configuration.rb#L1095-L1101"><i class="fa fa-external-link"></i></a>, 
+отлавливающий <code>be_*</code> с помощью <code>method_messing</code> <a href="https://github.com/rspec/rspec-expectations/blob/v3.1.2/lib/rspec/matchers.rb#L928-L940"><i class="fa fa-external-link"></i></a>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">RSpec</span>
+  <span class="c1"># ...</span>
+  <span class="k">module</span> <span class="nn">Matchers</span>
+  <span class="c1"># ...</span>
+
+    <span class="no">BE_PREDICATE_REGEX</span> <span class="o">=</span> <span class="sr">/^(be_(?:an?_)?)(.*)/</span>
+    <span class="no">HAS_REGEX</span> <span class="o">=</span> <span class="sr">/^(?:have_)(.*)/</span>
+
+    <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="k">case</span> <span class="nb">method</span><span class="o">.</span><span class="n">to_s</span>
+      <span class="k">when</span> <span class="no">BE_PREDICATE_REGEX</span>
+        <span class="no">BuiltIn</span><span class="o">::</span><span class="no">BePredicate</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="k">when</span> <span class="no">HAS_REGEX</span>
+        <span class="no">BuiltIn</span><span class="o">::</span><span class="no">Has</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="k">super</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+</code></pre></div>
+<p>Отлично, теперь можно спать спокойно.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/24/be_rspec/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -192,12 +505,35 @@ jQuery UI Sortable, не нарушая реактивности системы.
       <div class="date">November 20, 2014</div>
 
       <div class="img"><img src="/assets/array_find.jpg" /></div>
-      <div class="entry"><p>Полагаясь на интуицию, как делаю в 90% случаев, программируя на Руби, я написал проверку
+      <div class="entry">
+        <p>Полагаясь на интуицию, как делаю в 90% случаев, программируя на Руби, я написал проверку
 наличия элемента в массиве <code>array.find(4) ? &#39;success&#39; : &#39;fail&#39;</code> и с удивлением
 узнал, что это не работает.</p>
-</div>
-      
-      <a href="/blog/2014/11/20/array_find/index.html" class="read-more">Read More</a>
+
+<p>Документация нам подсказывает <a href="http://ruby-doc.org/core-2.1.3/Enumerable.html#method-i-find"><i class="fa fa-external-link"></i></a>, что <code>find</code> вернет <code>Enumerator</code> если блок не задан.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  #&lt;Enumerator: [1, 2, 3]:find(4)&gt;</span>
+</code></pre></div>
+<p>Любой объект в руби - это <code>true</code>, поэтому конструкция из вступления будет всегда возвращать
+<code>success</code>. Есть несколько способов исправить ситуацию.</p>
+
+<p>Использовать блочную версию <code>find</code> (не очень изящно, но работает):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">}</span>  <span class="c1"># =&gt;  nil</span>
+</code></pre></div>
+<p>Использовать метод <code>index</code> или <code>include?</code> (я так делаю, когда пишу на чистом руби): </p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">index</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>     <span class="c1"># =&gt;  nil</span>
+<span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">include?</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  false</span>
+</code></pre></div>
+<p>В Рейлс (или когда просто подключен <code>ActiveSupport</code>) еще есть метод <code>#in?</code>
+<a href="http://api.rubyonrails.org/classes/Object.html#method-i-in-3F"><i class="fa fa-external-link"></i></a>,
+позволяющий иногда сделать код более читаемым:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+<span class="mi">4</span><span class="o">.</span><span class="n">in?</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>       <span class="c1"># =&gt;  false</span>
+</code></pre></div>
+<p>На один неправильный вариант использования <code>find</code>, есть много правильных.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/20/array_find/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
 </div>
@@ -212,6 +548,9 @@ jQuery UI Sortable, не нарушая реактивности системы.
     <a href="/page3" class="next">Next</a>
   
 </div>
+
+<script id="dsq-count-scr" src="//vakhov-me.disqus.com/count.js" async></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
     </div>
 
@@ -238,11 +577,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
 </a>
           
           
-          <a href="/atom.xml"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <path d="M0.112290344,30 C0.112290344,13.4314567 13.3426506,0 29.663129,0 C45.9836073,0 59.2139676,13.4314567 59.2139676,30 C59.2139676,46.5685433 45.9836073,60 29.663129,60 C13.3426506,60 0.112290344,46.5685433 0.112290344,30 Z M0.112290344,30" fill="#E18F00" sketch:type="MSShapeGroup"></path>
-    <path d="M26.5147755,38.7571296 C26.5147755,36.8192934 24.9575021,35.2291656 23.0297047,35.2291656 C21.1094331,35.2291656 19.5492775,36.8192934 19.5492775,38.7571296 C19.5492775,40.7052068 21.1094331,42.277616 23.0297047,42.277616 C24.957422,42.277616 26.5146954,40.7052881 26.5147755,38.7571296 Z M36.8075433,42.2700571 C36.8075433,32.6055847 29.062648,24.7442705 19.5492775,24.7442705 L19.5492775,29.8318017 C22.8128986,29.8318017 25.8817303,31.1272145 28.1920609,33.4740429 C30.4999895,35.8159133 31.7732853,38.9454513 31.7732853,42.2701384 L36.8075433,42.2700571 Z M45.6871482,42.2675375 C45.6871482,27.6346878 33.9604014,15.722384 19.5492775,15.722384 L19.5492775,20.8123535 C31.186916,20.8123535 40.660496,30.438869 40.660496,42.2673749 L45.6871482,42.2675375 Z M45.6871482,42.2675375" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-</svg>
-</a>
+          <!--  -->
           <a href="http://twitter.com/avakhov"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <path d="M0,30 C0,13.4314567 13.4508663,0 30.0433526,0 C46.6358389,0 60.0867052,13.4314567 60.0867052,30 C60.0867052,46.5685433 46.6358389,60 30.0433526,60 C13.4508663,60 0,46.5685433 0,30 Z M0,30" fill="#4099FF" sketch:type="MSShapeGroup"></path>
     <path d="M29.2997675,23.8879776 L29.3627206,24.9260453 L28.3135016,24.798935 C24.4943445,24.3116787 21.1578281,22.6592444 18.3249368,19.8840023 L16.9399677,18.5069737 L16.5832333,19.5238563 C15.8277956,21.7906572 16.3104363,24.1845684 17.8842648,25.7946325 C18.72364,26.6844048 18.5347806,26.8115152 17.0868584,26.2818888 C16.5832333,26.1124083 16.1425613,25.985298 16.1005925,26.0488532 C15.9537019,26.1971486 16.457327,28.1249885 16.8560302,28.8876505 C17.4016241,29.9469033 18.5137962,30.9849709 19.7308902,31.5993375 L20.7591248,32.0865938 L19.5420308,32.1077788 C18.3669055,32.1077788 18.3249368,32.1289639 18.4508431,32.57385 C18.8705307,33.9508786 20.5282967,35.4126474 22.3749221,36.048199 L23.6759536,36.4930852 L22.5427971,37.1710069 C20.8640467,38.1455194 18.891515,38.6963309 16.9189833,38.738701 C15.9746862,38.759886 15.1982642,38.8446262 15.1982642,38.9081814 C15.1982642,39.1200319 17.7583585,40.306395 19.2482495,40.7724662 C23.7179224,42.1494948 29.0269705,41.5563132 33.0140027,39.2047722 C35.846894,37.5311528 38.6797853,34.2050993 40.0018012,30.9849709 C40.7152701,29.2689815 41.428739,26.1335934 41.428739,24.6294545 C41.428739,23.654942 41.4916922,23.5278317 42.6668174,22.3626537 C43.359302,21.6847319 44.0098178,20.943255 44.135724,20.7314044 C44.3455678,20.3288884 44.3245835,20.3288884 43.2543801,20.6890343 C41.4707078,21.324586 41.2188952,21.2398458 42.1002392,20.2865183 C42.750755,19.6085965 43.527177,18.3798634 43.527177,18.0197174 C43.527177,17.9561623 43.2124113,18.0620876 42.8556769,18.252753 C42.477958,18.4646036 41.6385828,18.7823794 41.0090514,18.9730449 L39.8758949,19.3331908 L38.8476603,18.634084 C38.281082,18.252753 37.4836756,17.829052 37.063988,17.7019416 C35.9937846,17.4053509 34.357003,17.447721 33.3917215,17.7866818 C30.768674,18.7400093 29.110908,21.1974757 29.2997675,23.8879776 Z M29.2997675,23.8879776" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

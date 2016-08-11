@@ -44,7 +44,6 @@
           </div>
           
           <nav>
-            <a href="/atom.xml">RSS</a>
             <a href="/about.html">ABOUT</a>
             <a href="https://www.google.com/search?q=site%3Avakhov.me">SEARCH</a>
           </nav>
@@ -62,11 +61,100 @@
       <div class="date">November 28, 2012</div>
 
       
-      <div class="entry"><p>Сегодня я расскажу как сделать несколько простых http-серверов на руби, каждый из которых можно использовать
+      <div class="entry">
+        <p>Сегодня я расскажу как сделать несколько простых http-серверов на руби, каждый из которых можно использовать
 для решения тех или иных задач.</p>
-</div>
-      
-      <a href="/blog/2012/11/28/say-hello-4-times/index.html" class="read-more">Read More</a>
+
+<h2>Hello Sinatra</h2>
+
+<p>Самый высокоуровневый вариант. Sinatra-приложения идеально подходят для написания небольших API, простое приложение пишется
+очень быстро:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+
+<span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="mi">8000</span>
+
+<span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+  <span class="s1">&#39;Hello&#39;</span>
+<span class="k">end</span>
+</code></pre></div>
+<h2>Hallo Rack</h2>
+
+<p>Подавляющее большинство современных руби-фреймворков (в том числе синатра и рейлс) используют гем <code>rack</code>,
+который реализует низкоуровневые http-интерфейсы.
+Простой веб-сервер можно написать и на чистом rack:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;rack&#39;</span>
+
+<span class="no">Rack</span><span class="o">::</span><span class="no">Server</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
+  <span class="ss">app</span><span class="p">:</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span>
+    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s1">&#39;Hello&#39;</span><span class="o">]]</span>
+  <span class="p">},</span>
+  <span class="ss">Port</span><span class="p">:</span> <span class="mi">8000</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2>Salut Webrick</h2>
+
+<p>Слово вебрик я знаю еще со времен рейлс 1, когда я первый раз узнал про фреймворк, но для меня стало открытием,
+что вебрик оказывается включен в стандартные библиотеки руби. Вот он, родной:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;webrick&#39;</span>
+
+<span class="no">WEBrick</span><span class="o">::</span><span class="no">HTTPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:Port</span> <span class="o">=&gt;</span> <span class="mi">8000</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
+  <span class="n">server</span><span class="o">.</span><span class="n">mount_proc</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">req</span><span class="p">,</span> <span class="n">res</span><span class="o">|</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
+  <span class="k">end</span>
+  <span class="nb">trap</span><span class="p">(</span><span class="s1">&#39;INT&#39;</span><span class="p">){</span> <span class="n">server</span><span class="o">.</span><span class="n">shutdown</span> <span class="p">}</span>
+  <span class="n">server</span><span class="o">.</span><span class="n">start</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Кстати, лог, который выдает данный скрипт, до боли знакомый:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">~/proj/avakhov.github.com(1.9.3-p194)[source]$ ruby salut_webrick.rb 
+[2012-12-26 10:21:52] INFO  WEBrick 1.3.1
+[2012-12-26 10:21:52] INFO  ruby 1.9.3 (2012-04-20) [x86_64-darwin11.4.2]
+[2012-12-26 10:21:52] INFO  WEBrick::HTTPServer#start: pid=28642 port=8000
+localhost - - [26/Dec/2012:10:21:58 MSK] &quot;GET / HTTP/1.1&quot; 200 5
+- -&gt; /
+^C[2012-12-26 10:22:05] INFO  going to shutdown ...
+[2012-12-26 10:22:05] INFO  WEBrick::HTTPServer#start done.
+</code></pre></div>
+<h2>Привет TCP сервер</h2>
+
+<p>Как то раз я изучал проблему с сайтом, который на каждый 2-3 клик залипал на 30 секунд и отрывался по таймауту.
+В чем была причина я уже не помню, однако в процессе исследований я познакомился с замечательной утилитой <code>tcpdump</code> (ничего
+более похожего на Матрицу я еще пока не видел), а также запускал примитивные веб-серверы на руби. В процессе исследования кода
+руби нашел еще более низкоуровневый веб сервер, чем вебрик, он уже по настоящему прекрасен:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;socket&#39;</span>
+
+<span class="no">TCPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span>
+    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">client</span><span class="o">.</span><span class="n">addr</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">while</span> <span class="n">line</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">gets</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!~</span> <span class="sr">/^\s*$/</span>
+      <span class="nb">puts</span> <span class="n">line</span>
+    <span class="k">end</span>
+    <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">resp</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="o">[</span>
+      <span class="s2">&quot;http/1.1 200 ok&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;date: tue, 14 jan 1984 12:48:00 UTC+3&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;server: Ruby TCPServer&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;content-type: text/html; charset=utf-8&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;content-length: </span><span class="si">#{</span><span class="n">resp</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="o">].</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="o">]</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">write</span> <span class="n">headers</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">write</span> <span class="n">resp</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">close</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Если вдруг станет скучно на работе, вы всегда можете написать какой-нибудь простой http-сервер на руби, возможно это
+вас развеселит. Хороших праздников!</p>
+
+        <div style="float:right"><a href="/blog/2012/11/28/say-hello-4-times/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -76,12 +164,133 @@
       <div class="date">November 20, 2012</div>
 
       
-      <div class="entry"><p>Срочно в номер, срочно в номер. Ребята, оказывает в руби есть перегрузка операторов! Я работаю с руби
+      <div class="entry">
+        <p>Срочно в номер, срочно в номер. Ребята, оказывает в руби есть перегрузка операторов! Я работаю с руби
 уже несколько лет, а перегрузка есть! И у меня возникает ощущение, что она была все это время.
 Маловероятно, что ее добавили только вчера, когда я в первый раз про нее узнал.</p>
-</div>
-      
-      <a href="/blog/2012/11/20/ruby-overload-operators/index.html" class="read-more">Read More</a>
+
+<p>Сегодня я 
+покажу как можно облегчить реализацию простой математической визуализации фрактального типа,
+используя перегрузку стандартных операторов. Кроме того расскажу
+про удобные трансформации SVG, с которыми я также познакомился недавно.</p>
+
+<p>Подготовим шаблон для генерации HTML-файла:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">HTML_LAYOUT</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">HTML</span>
+<span class="sh">&lt;!DOCTYPE html&gt;</span>
+<span class="sh">&lt;html&gt;</span>
+<span class="sh">  &lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Title&lt;/title&gt;&lt;/head&gt;</span>
+<span class="sh">  &lt;style&gt;body {text-align: center;}&lt;/style&gt;</span>
+<span class="sh">  &lt;body&gt;%body%&lt;/body&gt;</span>
+<span class="sh">&lt;/html&gt;</span>
+<span class="no">HTML</span>
+</code></pre></div>
+<p>В шаблон вставим SVG-картинку:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">SIZE</span> <span class="o">=</span> <span class="mi">600</span><span class="o">.</span><span class="mi">0</span> <span class="c1"># размер SVG-картинки в пикселях</span>
+
+<span class="c1"># Шаблон для генерации svg</span>
+<span class="no">SVG_TEMPLATE</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">SVG</span>
+<span class="sh">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;#{SIZE.to_i}&quot; height=&quot;#{SIZE.to_i}&quot;&gt;</span>
+<span class="sh">  &lt;!--</span>
+<span class="sh">    Подписи к координатным осям. Делаем здесь, так как иначе</span>
+<span class="sh">    трансформации их перевернут.</span>
+<span class="sh">  --&gt;</span>
+<span class="sh">  &lt;text x=&quot;#{SIZE - 20}&quot; y=&quot;#{SIZE/2 + 23}&quot; font-family=&quot;Verdana&quot; font-size=&quot;16&quot; fill=&quot;black&quot;&gt;X&lt;/text&gt;</span>
+<span class="sh">  &lt;text x=&quot;#{SIZE/2 - 20}&quot; y=&quot;#{20}&quot; font-family=&quot;Verdana&quot; font-size=&quot;16&quot; fill=&quot;black&quot;&gt;Y&lt;/text&gt;</span>
+
+
+<span class="sh">  &lt;!--</span>
+<span class="sh">    Транcформации приводят систему координат к привычной математической. Не нужно</span>
+<span class="sh">    для отрисовки каждой точки выполнять преобразования координат (и ловить ошибки</span>
+<span class="sh">    на этих преобразованиях).</span>
+<span class="sh">  --&gt;</span>
+<span class="sh">  &lt;g transform=&quot;translate(#{SIZE/2},#{SIZE/2})&quot;&gt;</span>
+<span class="sh">    &lt;g transform=&quot;scale(-#{SIZE/3}, #{SIZE/3})&quot;&gt;</span>
+<span class="sh">      &lt;g transform=&quot;rotate(180)&quot;&gt;</span>
+
+<span class="sh">        &lt;!--</span>
+<span class="sh">          Координатные оси. Они уже рисуются в привычном математическом масштабе от 0 до 1.</span>
+<span class="sh">        --&gt;</span>
+<span class="sh">        &lt;line x1=&quot;-1.5&quot; y1=&quot;0&quot; x2=&quot;1.5&quot; y2=&quot;0&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.005&quot; /&gt;</span>
+<span class="sh">        &lt;line x1=&quot;0&quot; y1=&quot;-1.5&quot; x2=&quot;0&quot; y2=&quot;1.5&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.005&quot; /&gt;</span>
+
+<span class="sh">        &lt;!--</span>
+<span class="sh">          Отметки на осях [0, 1], [0, -1], [1, 0] и [-1, 0].</span>
+<span class="sh">        --&gt;</span>
+<span class="sh">        &lt;circle cx=&quot;0&quot; cy=&quot;1&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+<span class="sh">        &lt;circle cx=&quot;0&quot; cy=&quot;-1&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+<span class="sh">        &lt;circle cx=&quot;1&quot; cy=&quot;0&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+<span class="sh">        &lt;circle cx=&quot;-1&quot; cy=&quot;0&quot; r=&quot;0.01&quot; fill=&quot;black&quot; /&gt;</span>
+
+<span class="sh">        &lt;!-- Сам контент --&gt;</span>
+<span class="sh">        %content%</span>
+<span class="sh">      &lt;/g&gt;</span>
+<span class="sh">    &lt;/g&gt;</span>
+<span class="sh">  &lt;/g&gt;</span>
+<span class="sh">&lt;/svg&gt;</span>
+<span class="no">SVG</span>
+</code></pre></div>
+<p>C помощью 3-х SVG-трансформаций мы подготовили привычную систему координат от -1.5 до 1.5,
+в которой удобно рисовать всякие математические и вероятностные штуки.</p>
+
+<p><img src="/assets/old/14-fractal/1.png" alt=""></p>
+
+<p>Далее создаем класс Vector (вот она перегрузка пошла):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Вектор</span>
+<span class="k">class</span> <span class="nc">Vector</span> <span class="o">&lt;</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:x</span><span class="p">,</span> <span class="ss">:y</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">+</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">*</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+    <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">factor</span><span class="p">,</span> <span class="n">y</span><span class="o">*</span><span class="n">factor</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span>
+    <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+      <span class="n">x</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">),</span>
+      <span class="n">x</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="no">Math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">abs</span>
+    <span class="no">Math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>И рисуем три красных тентакля, используя новоиспеченную векторную математику в полном объеме:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;out.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">puts</span> <span class="no">HTML_LAYOUT</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;%body%&#39;</span><span class="p">){</span>
+    <span class="no">SVG_TEMPLATE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;%content%&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+      <span class="n">point</span> <span class="o">=</span> <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="n">scale</span> <span class="o">=</span> <span class="no">Vector</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mo">07</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="mi">150</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+        <span class="n">point2</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="no">Math</span><span class="o">::</span><span class="no">PI</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">point3</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="no">Math</span><span class="o">::</span><span class="no">PI</span><span class="o">*</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">+=</span> <span class="sx">%(&lt;circle cx=&quot;</span><span class="si">#{</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="sx">&quot; cy=&quot;</span><span class="si">#{</span><span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="sx">&quot; r=&quot;0.02&quot; fill=&quot;red&quot; /&gt;)</span>
+        <span class="n">out</span> <span class="o">+=</span> <span class="sx">%(&lt;circle cx=&quot;</span><span class="si">#{</span><span class="n">point2</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="sx">&quot; cy=&quot;</span><span class="si">#{</span><span class="n">point2</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="sx">&quot; r=&quot;0.02&quot; fill=&quot;red&quot; /&gt;)</span>
+        <span class="n">out</span> <span class="o">+=</span> <span class="sx">%(&lt;circle cx=&quot;</span><span class="si">#{</span><span class="n">point3</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="sx">&quot; cy=&quot;</span><span class="si">#{</span><span class="n">point3</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="sx">&quot; r=&quot;0.02&quot; fill=&quot;red&quot; /&gt;)</span>
+        <span class="n">point</span> <span class="o">+=</span> <span class="n">scale</span>                    <span class="c1"># &lt;-- Вот она перегрузка</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="mi">0</span><span class="o">.</span><span class="mi">98</span><span class="p">)</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># &lt;-- и здесь</span>
+      <span class="k">end</span>
+      <span class="n">out</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Красиво и просто (математические объекты - это самое красивое, что могут сделать программисты
+без дизайнеров):</p>
+
+<p><img src="/assets/old/14-fractal/2.png" alt=""></p>
+
+<p>Счастливой визуализации! Напоследок еще картинка, которую я нарисовал, используя данную технологию,
+решая одну задачу из теории вероятности:</p>
+
+<p><img src="/assets/old/14-fractal/3.png" alt=""></p>
+
+        <div style="float:right"><a href="/blog/2012/11/20/ruby-overload-operators/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -91,13 +300,152 @@
       <div class="date">November 16, 2012</div>
 
       
-      <div class="entry"><p>У меня всегда есть файл <code>config/initializers/_monkey_patching.rb</code>, в который я добавляю
+      <div class="entry">
+        <p>У меня всегда есть файл <code>config/initializers/_monkey_patching.rb</code>, в который я добавляю
 необходимую низкоуровневую функциональность в рейлс и руби. Когда я плохо знал
 возможности языка и фреймворка, этот файл был большой. Теперь я его регулярно
 пересматриваю и по возможности переписываю код на стандартные механизмы.</p>
-</div>
-      
-      <a href="/blog/2012/11/16/show-me-your-monkey-patch-file/index.html" class="read-more">Read More</a>
+
+<p>Сегодня хочу поделиться с вами, что хранится у меня в этом файле сейчас.</p>
+
+<h2>_ASSERT - реал-тайм проверки</h2>
+
+<p>Когда проект разрастается программисты жертвуют компактностью и изяществом в пользу единообразия
+и стандартизации. После некоторого размера (я его оцениваю примерно в 10-20 KLOC для руби-подобных
+языков) один человек уже не в состоянии удержать в голове все нюансы программы одновременно.
+Возникает необходимость доверять коду. Обычно это достигается с помощью написания модулей, классов,
+систем с которыми можно взаимодейстовать как с черными ящиками с помощью формальных
+интерфейсов.</p>
+
+<p>Мне очень нравится идея разработки программного обеспечения, которая называется &quot;программирования
+по конкракту&quot;. В википедии написано <a href="http://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">много слов</a> на эту тему,
+я предпочитаю программированием по контракту называть такой способ разработки методов и классов,
+что они обязуются правильно работать при правильных аргументах. То есть черные ящики должны быть
+крепко сколочены.</p>
+
+<p>В С++ крепкость ящиков на нижнем уровне достигается строгой типизацией, вам
+нужно достаточно хорошо умаслить
+компилятор, чтобы он собрал ваш код, и ассертами - положительными утверждениями,
+которые бросают эксепшен если утверждение оказалось ложным.</p>
+
+<p>Выглядит это примерно так:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// Возвращает корень числа `x`.</span>
+<span class="c1">// Note: аргумент x должен быть неотрицательным.</span>
+<span class="kt">float</span> <span class="nf">sqrt</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">_ASSERT</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">Math</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Eсли мы передадим неправильный
+аргумент, то программа разорвет с нами контракт и честно грохнется. По стеку гораздо легче
+искать ошибку, чем если бы программа попыталась сохранить статус-кво и продолжила бы работать
+с внутренними ошибками и противоречиями.</p>
+
+<p>В руби рантайм-ошибки встречаются гораздо чаще (нет строгой типизации), частичную роль компиляции
+выполняют тесты. В качестве ассерт-механизма я обычно использовал стандартные эксепшены:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">raise</span> <span class="s2">&quot;Some msg&quot;</span> <span class="k">if</span> <span class="n">something_wrong</span>
+</code></pre></div>
+<p>однако недавно завел формальный метод _ASSERT, который теперь использую значительно чаще.
+Преимущество отдельного метода заключается в том, что не нужно каждый раз придумывать
+сообщение об ошибке. Кроме того контрактные предположения становятся заметными.</p>
+
+<p>Метод совсем простой, так как его значимость не техническая, а идеологическая:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Runtime Assert as in all other languages</span>
+<span class="k">def</span> <span class="nf">_ASSERT</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">)</span>
+  <span class="k">unless</span> <span class="n">condition</span>
+    <span class="k">raise</span> <span class="s2">&quot;Runtime Error at </span><span class="si">#{</span><span class="nb">caller</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span> <span class="s1">&#39;&lt;root&gt;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<h2>Each on steroids</h2>
+
+<p>Бывает нужно пройтись по коллекции и особо обработать первый и последние элементы. Если коллекция
+анонимная, то стандартными методами не получится отличить последний элемент от своих коллег.
+Исторически я использую следующий метод:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Enumerable</span>
+  <span class="k">class</span> <span class="nc">SteroidIter</span> <span class="o">&lt;</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:index</span><span class="p">,</span> <span class="ss">:first</span><span class="p">,</span> <span class="ss">:last</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">first?</span><span class="p">;</span> <span class="n">first</span><span class="p">;</span> <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">last?</span><span class="p">;</span> <span class="n">last</span><span class="p">;</span> <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">to_i</span><span class="p">;</span> <span class="n">index</span><span class="p">;</span> <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Продвинутый #each_with_index с возможностью узнать является ли</span>
+  <span class="c1"># текущий элемент первым/последним в коллекции.</span>
+  <span class="c1">#</span>
+  <span class="c1"># ==== Example</span>
+  <span class="c1">#</span>
+  <span class="c1">#   [1, 2, 3, 4].each_with_index do |elem, iter|</span>
+  <span class="c1">#     if iter.first?</span>
+  <span class="c1">#       puts &quot;first&quot;</span>
+  <span class="c1">#     elsif iter.last?</span>
+  <span class="c1">#       puts &quot;last&quot;</span>
+  <span class="c1">#     else</span>
+  <span class="c1">#       puts &quot;#{iter.to_i}.#{elem}&quot;</span>
+  <span class="c1">#     end</span>
+  <span class="c1">#   end</span>
+  <span class="c1">#</span>
+  <span class="c1">#   # =&gt;</span>
+  <span class="c1">#   #  first</span>
+  <span class="c1">#   #  1.2</span>
+  <span class="c1">#   #  2.3</span>
+  <span class="c1">#   #  last</span>
+  <span class="c1">#</span>
+  <span class="k">def</span> <span class="nf">each_on_steroids</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="n">each_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">elem</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+      <span class="k">yield</span> <span class="n">elem</span><span class="p">,</span> <span class="no">SteroidIter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">index</span> <span class="o">==</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<h2>Дубликаты</h2>
+
+<p>Несколько раз я сталкивался с задачей найти дублирующиеся элементы в коллекции. Задача довольно
+не тривиальная и за 10 секунд я ее решить не смогу (<code>array - array.uniq</code>, который
+мне всегда кажется, что должен решать эту задачу, к сожалению не работает). Поэтому родился
+такой метод:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Enumerable</span>
+  <span class="c1"># Returns all duplication in current collection</span>
+  <span class="c1">#</span>
+  <span class="c1"># ==== Example</span>
+  <span class="c1">#</span>
+  <span class="c1">#   [1, 4, 1, 3, 4, 4, 4].duplications # =&gt; [1, 4]</span>
+  <span class="c1">#</span>
+  <span class="k">def</span> <span class="nf">duplications</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="nb">self</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">}</span><span class="o">.</span><span class="n">uniq</span>
+  <span class="k">end</span>
+<span class="k">end</span> 
+</code></pre></div>
+<h2>Assets Compilation Progress</h2>
+
+<p>У нас ассеты собираются 2 минуты. Это значение находится на границе психологического комфорта,
+когда еще не хочется разбираться и оптимизировать, но уже хочется потыкать программу во время
+деплоя палкой, чтобы проверить не зависла ли она. Поэтому я немного расширил <code>sprockets</code>
+компилятор, заставив его отчитываться после каждых 5 собранных ассетов. Наблюдать за деплоем
+теперь стало гораздо занимательнее:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Делает компиляцию ассетов более итеративной</span>
+<span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Sprockets</span><span class="p">)</span>
+  <span class="k">module</span> <span class="nn">Sprockets</span>
+    <span class="k">class</span> <span class="nc">StaticCompiler</span>
+      <span class="n">cattr_accessor</span> <span class="ss">:processed</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">processed</span> <span class="o">=</span> <span class="mi">0</span>
+
+      <span class="k">def</span> <span class="nf">write_asset_with_logging</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">processed</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span>
+          <span class="nb">puts</span> <span class="s2">&quot;PROCESSED ASSETS: </span><span class="si">#{</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">processed</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">end</span>
+        <span class="n">write_asset_without_logging</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
+      <span class="k">end</span>
+      <span class="n">alias_method_chain</span> <span class="ss">:write_asset</span><span class="p">,</span> <span class="ss">:logging</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Вот такие монкей-патчи. Несколько совсем уж специфических хаков я выкинул, но все самое
+интересное показал. Спасибо за внимание.</p>
+
+        <div style="float:right"><a href="/blog/2012/11/16/show-me-your-monkey-patch-file/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -107,13 +455,207 @@
       <div class="date">November  6, 2012</div>
 
       
-      <div class="entry"><p>С++ я уважал за мощь и строгость, Руби обожаю за работу с строками, массивами и хэшами, но к Javascript всегда относился и продолжаю
+      <div class="entry">
+        <p>С++ я уважал за мощь и строгость, Руби обожаю за работу с строками, массивами и хэшами, но к Javascript всегда относился и продолжаю
 относится холодно. Мне не нравится как осуществляется работа с <code>this</code>, смущает обилие операторов и зарезервированных
 слов <code>undefined</code>, <code>null</code>, <code>Infinite</code>, <code>Nan</code>, <code>==</code>, <code>===</code>, а также я плохо ориентируются в колбеках. Кроме того, я не прочитал
 ни одной книги по Javascript, что конечно же не способствует установлению приятельских отношений с этим языком.</p>
-</div>
-      
-      <a href="/blog/2012/11/06/javascript-testing/index.html" class="read-more">Read More</a>
+
+<p>Однако в ближайшие лет 5 вряд ли появится альтернатива для разработки на стороне клиента, поэтому с javascript придется работать еще
+очень долго. В проекте, в котором я сейчас работаю, накопилось достаточно большое количество клиентского кода и пришла пора его тестировать
+автоматически. Так как тема для меня новая, то я провел несколько эспериментов и
+сегодня хочу предложить вашему вниманию 3 простых способа сделать ваш javascript более надежным.</p>
+
+<p>Оговорюсь, что у нас простой интерфейс, однако есть сложные алгоритмические куски кода на javascript. Поэтому наши задачи идеально
+подходят под классическое юнит-тестирование, про которое я буду рассказывать сегодня. Как тестировать сложный UI я
+пока не знаю, так как с такой задачей еще не сталкивался.</p>
+
+<h2>Способ 1. ExecJS</h2>
+
+<p>Предположим, что нам нужно протестировать функцию, которая удаляет все элементы массива, совпадающие с заданным:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Удаляет все элементы e из массива</span>
+<span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="nx">i</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Автоматические тесты запускаются на сервере после каждого комита, поэтому желательно, что бы js-тесты встроились в этот процесс.
+К счастью в любом рейлс-приложении у нас уже есть все необходимые компоненты.
+Гем <a href="https://github.com/sstephenson/execjs">execjs</a>, который используется при компилиции coffee-ассетов, можно использовать
+для выполнения произвольного кода на сервере.</p>
+
+<p>Добавляем <code>execjs</code> в секцию <code>test</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">&#39;execjs&#39;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Создаем спек для тестирования:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+
+<span class="n">describe</span> <span class="s2">&quot;array.js&quot;</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">&quot;implements Array#remove method&quot;</span> <span class="k">do</span>
+    <span class="c1"># Тестовые случаи</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">JS</span>
+<span class="sh">      var r1 = [1, 2, 2, 3].remove(2)</span>
+<span class="sh">      var r2 = [1, 1, 1, 1].remove(1)</span>
+<span class="sh">      // ...</span>
+<span class="no">    JS</span>
+
+    <span class="c1"># Создаем контекст</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/assets/javascripts/array.js&#39;</span><span class="p">))</span>
+    <span class="n">js_context</span> <span class="o">=</span> <span class="no">ExecJS</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">src</span> <span class="o">+</span> <span class="n">spec</span><span class="p">)</span>
+
+    <span class="c1"># Проверка ожиданий</span>
+    <span class="n">js_context</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;r1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+    <span class="n">js_context</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;r2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="o">[]</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Запускаем спеки:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">~/proj/blog-2-js-testing<span class="o">(</span>1.9.3-p194<span class="o">)[</span>master<span class="o">]</span><span class="nv">$ </span>rspec
+..
+
+Finished in 0.32502 seconds
+<span class="m">1</span> example, <span class="m">0</span> failures
+</code></pre></div>
+<p>Вуаля, работает! Таким образом уже можно писать простые спеки.</p>
+
+<p>Если файл, который нужно протестировать, написан на coffee-скрипте, то его можно скомпилировать с помощью гема <code>coffee-script</code>,
+который также подключен к каждому рейлс-приложению:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">&#39;execjs&#39;</span>
+  <span class="n">gem</span> <span class="s1">&#39;coffee-script&#39;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>компилируем его следующим образом:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="n">coffee</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/assets/javascripts/array.js&#39;</span><span class="p">))</span>
+  <span class="n">src</span> <span class="o">=</span> <span class="no">CoffeeScript</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">coffee</span><span class="p">)</span>
+  <span class="n">js_context</span> <span class="o">=</span> <span class="no">ExecJS</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+</code></pre></div>
+<p>Конечно такого рода код для работы с js-файлами лучше выделить в отдельное место, но для проверки технологии можно оставить и так.</p>
+
+<p>У данного метода тестирования есть много недостатков, главными из которых на мой взгляд являются: смешение js- и руби-кода в одном
+файле, а также возможная потеря информации на границе ruby и скрипта (<code>undefined</code>, <code>null</code>, <code>Infinite</code> все перейдут в <code>nil</code>, кроме того
+можно проверить только json-совместимые результаты). Главный положительный момент - тестирование органично встраивается
+в регулярный прогон тестов и не требует никаких дополнительных настроек.</p>
+
+<h2>Способ 2. Jasmine + ExecJS</h2>
+
+<p>Я слышал положительные отзывы о библиотеке <a href="http://pivotal.github.com/jasmine/">jasmine</a>. Синтаксис выглядит приятно и rspec-подобно.
+Поэтому решил модернизировать способ 1, чтобы писать спеки на чистом js (coffee).</p>
+
+<p>Скачиваем файлы <a href="https://github.com/pivotal/jasmine/blob/master/lib/jasmine-core/jasmine.js">jasmine.js</a> и <a href="https://github.com/pivotal/jasmine/blob/master/src/console/ConsoleReporter.js">ConsoleReporter.js</a>, помещаем их в <code>vendor/assets/javascripts</code>.</p>
+
+<p>Создаем файл, который будет запускать js-спеки. Он выглядит немного сложно, но так всегда происходит, когда мы начинаем
+решать нестандартную задачу на стыке языков.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># encoding: utf-8</span>
+<span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+
+<span class="c1"># Запустить js-спеки, используя jasmine и execjs</span>
+<span class="n">describe</span> <span class="s1">&#39;JS specs&#39;</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="nf">assets</span><span class="p">(</span><span class="n">js_files</span><span class="p">)</span>
+    <span class="nb">Array</span><span class="p">(</span><span class="n">js_files</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">js_file</span><span class="o">|</span>
+      <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">extname</span><span class="p">(</span><span class="n">js_file</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;.coffee&#39;</span>
+        <span class="no">CoffeeScript</span><span class="o">.</span><span class="n">compile</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">js_file</span><span class="p">))</span>
+      <span class="k">else</span>
+        <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">js_file</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="no">ASSETS</span> <span class="o">=</span> <span class="o">[</span>
+    <span class="s1">&#39;vendor/assets/javascripts/jasmine.js&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;vendor/assets/javascripts/ConsoleReporter.js&#39;</span><span class="p">,</span>
+
+    <span class="s1">&#39;app/assets/javascripts/array.js&#39;</span>
+  <span class="o">]</span>
+
+  <span class="no">Dir</span><span class="o">[</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;spec/javascripts/**/*_spec.js*&#39;</span><span class="p">)</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">asset</span><span class="o">|</span>
+    <span class="n">it</span> <span class="s2">&quot;passed </span><span class="si">#{</span><span class="no">Pathname</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span><span class="o">.</span><span class="n">relative_path_from</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+      <span class="c1"># Подкладываем переменную `exports`, которая нужна jasmine.js</span>
+      <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;var exports = {};</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+      <span class="c1"># Загружаем жасмин и тестируемый файл</span>
+      <span class="n">src</span> <span class="o">+=</span> <span class="n">assets</span><span class="p">(</span><span class="no">ASSETS</span> <span class="o">+</span> <span class="o">[</span><span class="n">asset</span><span class="o">]</span><span class="p">)</span>
+
+      <span class="c1"># Подключаем jasmine reporter</span>
+      <span class="n">src</span> <span class="o">+=</span> <span class="o">&lt;&lt;-</span><span class="no">JS</span>
+<span class="sh">        var out = &quot;&quot;;</span>
+<span class="sh">        var env = jasmine.getEnv();</span>
+
+<span class="sh">        // Собирать вывод мы будем в переменную `out`</span>
+<span class="sh">        var reporter = new jasmine.ConsoleReporter(function(msg){ out += msg; });</span>
+
+<span class="sh">        // Скажем jasmine не использовать setTimeout и все сделать в один поток</span>
+<span class="sh">        env.updateInterval = null;</span>
+
+<span class="sh">        // Запускаем js-cпеки</span>
+<span class="sh">        env.addReporter(reporter);</span>
+<span class="sh">        env.execute();</span>
+<span class="no">      JS</span>
+
+      <span class="n">js_context</span> <span class="o">=</span> <span class="no">ExecJS</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+      <span class="c1"># Используем assert, чтобы вывод в случае ошибки был понятнее</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="n">js_context</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+      <span class="n">js_specs_passed</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">=~</span> <span class="sr">/\d+ specs?, 0 failures/</span><span class="p">)</span>
+      <span class="n">assert</span> <span class="n">js_specs_passed</span><span class="p">,</span> <span class="n">out</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Пишем наш первый спек с помощью жасмина:</p>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span> <span class="s">&#39;Array&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">it</span> <span class="s">&quot;#remove&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="nx">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">].</span><span class="nx">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">([])</span>
+</code></pre></div>
+<p>Запускаем:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">~/proj/blog-2-js-testing<span class="o">(</span>1.9.3-p194<span class="o">)[</span>master<span class="o">]</span><span class="nv">$ </span>rspec
+..
+
+Finished in 0.57251 seconds
+<span class="m">2</span> examples, <span class="m">0</span> failures
+</code></pre></div>
+<p>Ура! Спеки пройдены.</p>
+
+<p>Данный способ мне идеологически нравится гораздо больше, рассмотрим его недостатки:</p>
+
+<ul>
+<li>Не учитываются зависимости между файлами.</li>
+<li>Нет возможности протестировать js, который работает с DOM.</li>
+<li>Сложно находить ошибку, когда спеки падают.</li>
+<li>Плохая гибкость, так как приходится указывать файлы явно.</li>
+</ul>
+
+<h2>Способ 3. ???</h2>
+
+<p>Способ 3 я еще не придумал. Мне любопытно посмотреть на <code>jasmine-gem</code> и совместить его с <a href="http://phantomjs.org/">phantomjs</a>.
+Так же интересно поиграть с <a href="https://github.com/jonleighton/poltergeist">полтергейстом</a> от Джона Лейгтона.
+Я буду рад, если вы поделитесь своим опытом тестирования javascript, так как тема важная, но мне показалось, что
+единого решения пока нет.</p>
+
+<p>До новых встреч!</p>
+
+<h3>Ссылки</h3>
+
+<ul>
+<li><a href="https://github.com/sstephenson/execjs">https://github.com/sstephenson/execjs</a> - execjs-гем</li>
+<li><a href="https://github.com/avakhov/blog-2-js-testing">https://github.com/avakhov/blog-2-js-testing</a> - исходные кода демо приложения</li>
+<li><a href="http://railscasts.com/episodes/297-running-javascript-in-ruby">http://railscasts.com/episodes/297-running-javascript-in-ruby</a> - Running JavaScript in Ruby</li>
+<li><a href="http://pivotal.github.com/jasmine/">http://pivotal.github.com/jasmine/</a> - jasmine</li>
+<li><a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html#method-i-relative_path_from">Pathname#relative<em>path</em>from</a></li>
+</ul>
+
+        <div style="float:right"><a href="/blog/2012/11/06/javascript-testing/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -123,13 +665,139 @@
       <div class="date">July 30, 2012</div>
 
       
-      <div class="entry"><p>Последнее время я очень полюбил mustache-темплейты и использую их всегда, когда нужно отрисовать кусок HTML на сервере и потенциально
+      <div class="entry">
+        <p>Последнее время я очень полюбил mustache-темплейты и использую их всегда, когда нужно отрисовать кусок HTML на сервере и потенциально
 на клиенте. Причем я не хочу переходить на более продвинутый handlebars, так как мне кажется, что logicless-сущность mustache
 помогает создать более изящную архитектуру, лучше спроектировать json&#39;ы общения клиента и сервера и избежать соблазна сделать
 erb-кашу из шаблонов.</p>
-</div>
-      
-      <a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/index.html" class="read-more">Read More</a>
+
+<p>Mustache я начал использовать после прошлогоднего ролика Райана
+<a href="http://railscasts.com/episodes/295-sharing-mustache-templates">Sharing Mustache Templates</a> и делал
+точно по рейлскасту: подключал вручную все паршиалы, качал mustache.js и т.д. Это немного муторно, но все поменялось,
+после того как <a href="https://twitter.com/leopard_me/">Алексей</a> создал прекрасный гем <a href="https://github.com/railsware/smt_rails">smt_rails</a>.
+Про <code>smt_rails</code> уже писали несколько раз, смотрите например
+<a href="http://vessi.github.com/blog/2012/07/13/niemnogho-o-sovmiestnykh-shablonakh/">статью Михаила Бортника</a>, поэтому повторять зачем он нужен
+я не буду, лучше расскажу про mustache-паршиалы и рекурсивные шаблоны, которые в <code>smt_rails</code> очень легко использовать.</p>
+
+<p>Допустим вы хотите отрисовать дерево комментариев, которые сверстаны с помощью вложенных списков примерно так:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;comments&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>
+      Comment #1
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Comment #1.1<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Comment #1.2<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Comment #1.3<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>
+          Comment #1.4
+          <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Comment #1.4.1<span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Comment #1.5<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Comment #2<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Comment #3<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<p>Данный кусок HTML можно отрисовать множеством способов, но предположим что вы еще хотите обновлять
+это дерево с помощью json на клиенте. Посмотрите как легко это можно сделать с помощью mustache-паршиалов:</p>
+
+<p><code>ruby Gemfile
+gem &#39;smt_rails&#39;, &#39;&gt;= 0.2.3&#39;
+</code></p>
+
+<script src="https://gist.github.com/3206500.js"> </script>
+
+<script src="https://gist.github.com/3206505.js"> </script>
+
+<p>Отрисовка комментариев на сервере:</p>
+<div class="highlight"><pre><code class="language-erb" data-lang="erb"><span class="x">&lt;h1&gt;Comments&lt;/h1&gt;</span>
+<span class="cp">&lt;%=</span>
+  <span class="n">render</span> <span class="s1">&#39;/comments&#39;</span><span class="p">,</span> <span class="ss">mustache</span><span class="p">:</span> <span class="p">{</span>
+    <span class="ss">comments</span><span class="p">:</span> <span class="o">[</span>
+      <span class="p">{</span>
+        <span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1&#39;</span><span class="p">,</span>
+        <span class="ss">children</span><span class="p">:</span> <span class="o">[</span>
+          <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1.1&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">},</span>
+          <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1.2&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">},</span>
+          <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1.3&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">},</span>
+          <span class="p">{</span>
+            <span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1.4&#39;</span><span class="p">,</span>
+            <span class="ss">children</span><span class="p">:</span> <span class="o">[</span>
+              <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1.4.1&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">}</span>
+            <span class="o">]</span><span class="p">,</span>
+            <span class="ss">empty</span><span class="p">:</span> <span class="kp">false</span>
+          <span class="p">},</span>
+          <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #1.5&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">},</span>
+        <span class="o">]</span><span class="p">,</span>
+        <span class="ss">empty</span><span class="p">:</span> <span class="kp">false</span> 
+      <span class="p">},</span>
+      <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #2&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">},</span>
+      <span class="p">{</span><span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;Comment #3&#39;</span><span class="p">,</span> <span class="ss">children</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">empty</span><span class="p">:</span> <span class="kp">true</span><span class="p">}</span>
+    <span class="o">]</span>
+  <span class="p">}</span>
+<span class="cp">%&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>Отрисовка комментариев через javascript (код полностью совпадает, только для отрисовки используется вызов 
+функции <code>SMT[&#39;имя шаблона&#39;]()</code> с параметрами):</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// ...</span>
+<span class="c1">//</span>
+<span class="c1">// SMT Rails</span>
+<span class="c1">//= require mustache</span>
+<span class="c1">//= require_tree ../../templates</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#place&quot;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">SMT</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">](</span>
+    <span class="p">{</span>
+      <span class="nx">comments</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1&#39;</span><span class="p">,</span>
+          <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1.1&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1.2&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1.3&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+            <span class="p">{</span>
+              <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1.4&#39;</span><span class="p">,</span>
+              <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1.4.1&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+              <span class="p">],</span>
+              <span class="nx">empty</span><span class="o">:</span> <span class="kc">false</span>
+            <span class="p">},</span>
+            <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #1.5&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+          <span class="p">],</span>
+          <span class="nx">empty</span><span class="o">:</span> <span class="kc">false</span> 
+        <span class="p">},</span>
+        <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #2&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+        <span class="p">{</span><span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Comment #3&#39;</span><span class="p">,</span> <span class="nx">children</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">empty</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>При реальной работе, конечно не нужно будет писать такие жуткие куски куда, подходящий json можно подготовить с помощью
+простого хелпер-метода:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">comments_to_mustache</span><span class="p">(</span><span class="n">comments</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">comments</span><span class="p">:</span> <span class="n">comments</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">comment</span><span class="o">|</span> <span class="n">_comment</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">_comment</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="ss">text</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+    <span class="ss">children</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span> <span class="n">_comment</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="p">},</span>
+    <span class="ss">empty</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">empty?</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Отмечу несколько тонких моментов. В серверной реализации <code>mustache (0.99.4)</code> использование пустого массива <code>children</code> обязательно, иначе
+возникнет бесконечный цикл при отрисовке рекурсивного шаблона. Параметр <code>empty</code> необходим, чтобы не отрисовывать пустой список
+<code>&lt;ul&gt;&lt;/ul&gt;</code> если нет вложенных комментариев. Этот параметр - обратная сторона logicless-природы mustache.</p>
+
+        <div style="float:right"><a href="/blog/2012/07/30/mustache-recursive-templates-smtrails/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -139,12 +807,85 @@ erb-кашу из шаблонов.</p>
       <div class="date">July 17, 2012</div>
 
       
-      <div class="entry"><p>Программисты в повседневной практике часто работают с различными перечислениями. Это могут быть элементы массива,
+      <div class="entry">
+        <p>Программисты в повседневной практике часто работают с различными перечислениями. Это могут быть элементы массива,
 пары ключ-значения или, например, параметры метода. Существует одна хитрость при определении таких перечислений, которую я
 использую уже очень давно и сегодня хочу поделиться с вами.</p>
-</div>
-      
-      <a href="/blog/2012/07/17/the-history-of-a-comma/index.html" class="read-more">Read More</a>
+
+<p>В C++ мы использовали следующую запись конструкторов:</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">SomeClass</span><span class="o">::</span><span class="n">SomeClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">i_value</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">i_string</span><span class="p">)</span>
+  <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">i_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_value</span><span class="p">(</span><span class="n">i_value</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_string</span><span class="p">(</span><span class="n">i_string</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_float</span><span class="p">()</span>
+  <span class="p">,</span> <span class="n">m_storage</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Мы использовали явные вызовы конструкторов каждого члена класса, даже там где это можно было опустить, чтобы лучше контролировать
+деятельность классов. Часто приходится жертвовать теоретическим изяществом ради достижения практических целей. Однако главное
+не в этом. Обратите внимание на оформление запятых. Такая конструкция позволяет легко менять инициализаторы
+местами и добавлять новые, не боясь получить синтаксическую ошибку. Это экономит немного времени и чуть-чуть нервных клетов.</p>
+
+<p>В мире рейлс дела с перечислениями обстоят еще лучше, так как интерпретатор руби не такой строгий, как компилятор C++.
+Можно объявлять массивы:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="s1">&#39;value1&#39;</span><span class="p">,</span>
+  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- внимание, запятая!</span>
+<span class="o">]</span>
+</code></pre></div>
+<p>хэши:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">key</span><span class="p">:</span> <span class="ss">:value</span><span class="p">,</span>
+  <span class="ss">anohter</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="c1"># &lt;-- опять запятая!  </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>и вызывать методы:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">some</span><span class="p">(</span>
+  <span class="s1">&#39;abc&#39;</span><span class="p">,</span>
+  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- и снова она!</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>добавляя запятую в конце последнего члена перечисления. Возможно это синтаксически не совсем изящно, но работает
+как ожидается и экономит время на длинных конструкциях.</p>
+
+<p>В кофе-скрипт дела идут настолько замечательно, что запятых не нужно вообще:</p>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">some_method</span><span class="p">(</span>
+  <span class="mi">1</span>
+  <span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="nv">array = </span><span class="p">[</span>
+  <span class="mi">4</span>
+  <span class="mi">5</span>
+  <span class="mi">6</span>
+<span class="p">]</span>
+
+<span class="nv">hash = </span><span class="p">{</span>
+  <span class="nv">a: </span><span class="mi">1</span>
+  <span class="nv">b: </span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Джаваскрипт-интерпретатор в Хроме и Файерфоксе работает достойно:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">array</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="mi">4</span><span class="p">,</span>
+  <span class="mi">5</span><span class="p">,</span>
+  <span class="mi">6</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nx">hash</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>И наконец джаваскрипт в интернет-эксплорере выдает ошибку:</p>
+
+<p><img src="/assets/old/13-comma/ie.png" alt=""></p>
+
+        <div style="float:right"><a href="/blog/2012/07/17/the-history-of-a-comma/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -154,11 +895,65 @@ erb-кашу из шаблонов.</p>
       <div class="date">July 10, 2012</div>
 
       
-      <div class="entry"><p>Я часто рассказываю в своей интерпретации
+      <div class="entry">
+        <p>Я часто рассказываю в своей интерпретации
 историю, которую прочитал в одной из классических книг по программированию, не могу вспомнить в какой.</p>
-</div>
-      
-      <a href="/blog/2012/07/10/death-illisuion/index.html" class="read-more">Read More</a>
+
+<p>Основная идея истории заключается в том, что у любого программного обеспечения есть 3 стадии: любительская, когда что-то
+работает у программиста на компьютере, профессиональная, когда программное обеспечение
+можно установить и люди его будут использовать в повседневной работе, и коробочная, которую
+можно устанавливать на многих компьютерах, многих людей. Трудозатраты этих 3-х версий находятся в примерном
+отношении 1:10:100, где коэффициент 10 очень сильно зависит от типа проекта. Очень вероятно встретить проект в котором
+данное соотношение будет 1<img class='emoji' title=':100:' alt=':100:' src='https://assets.github.com/images/icons/emoji/unicode/1f4af.png' height='20' width='20' align='absmiddle' />10000, но не существует проектов где бы это соотношение было 1:3:9 или еще лучше.</p>
+
+<p>В мире руби он рейлс программирования, в данной терминологии, любительская версия - это прототип, который почти работает,
+профессиональная версия - это живой продакшн, коробочная версия - это гем. На примере первых двух версий я хочу вам рассказать
+о самой страшной, по моему мнению, иллюзии, которая, я уверен, погубила очень много проектов. Это иллюзия приводит к главному
+бичу программистов - чудовищному срыву сроков. </p>
+
+<p><img src="/assets/old/12-illusion/schema.png" alt=""></p>
+
+<p>Посмотрите, что происходит в реальной жизни. Отрезок AС соответствует полному времени, необходимому для создания живого продакшена
+(исправление всех дефектов, доработок, сглаживание шероховатостей и т.д.). Отрезок AB - это время создания прототипа (любительской
+версии). Соотношение длин отрезков как раз соответствует отношению 1:10, которое мы обсуждали в начале рассказа. Точка L - это
+состояние проекта, когда у программиста на компьютере &quot;что-то работает&quot;. Данная версия деплоится на бету, клиент
+нажимает несколько кнопок, и у него создается впечатление что проект &quot;почти работает&quot;,
+то есть находится как минимум в точке K. Самое страшное, что часто сам программист думает так же. В данном, простом случае, получается
+ошибка оценки на порядок (кажется что проект выполнен по крайней мере на 70%, а на самом деле готовность проекта не больше 7%).</p>
+
+<p>Типовой проект обычно проходит по следующей схеме. Программист, наслаждаясь собой и жизнью,
+быстро проходит отрезок AL и даже AB, клиент радостно
+потирает руки. Оставшийся отрезок BC (90% времени!) проходят в стрессе, конфликтах и постоянных срывов сроков и обещаний. У вас
+возникает вопрос: &quot;Как же избежать такой схемы и не ошибаться в своих оценках?&quot; С удовольствием отвечаю: &quot;Я не знаю.&quot;</p>
+
+<p>Данная проблема очень волнует меня, но cеребрянной пули, которая помогла
+бы адекватно оценивать отрезки AB и AC не существует. Тем не менее существует набор методов, которые помогают ошибаться с оценкой не в 
+двадцать раз, а всего лишь в пять :-)</p>
+
+<p><strong>Контроль времени:</strong> на все возможные &quot;тёмные&quot; активности уходит неприлично много времени, гораздо больше, чем кажется.
+Написать письмо на три абзаца - 1 час рабочего времени, пост в блог - 3 часа рабочего времени, встреча с клиентом - 5 часов рабочего
+времени, разочарование в профессии - бесценно. Когда работаешь на энтузиазме над прототипом, то тёмных активностей гораздо меньше.</p>
+
+<p><strong>Договориться с клиентом об Agile:</strong> то есть брать оплату за фактическое время. На самом деле это полумера, так как клиент все равно
+будет требовать каких то оценок и обязательств. И ему будет сложно объяснить, что 20 часов, потраченных на рефакторинг,
+и 30 часов на твиттер - это для пользы дела.</p>
+
+<p><strong>Максимальное упрощение и стандартизация кодовой базы:</strong> &quot;Будь проще и люди потянутся к тебе&quot; - всегда говорит мой дядя.
+Усложненный, запутанный код сильно увеличивает вероятность заниженной оценки.</p>
+
+<p><strong>Автоматизация всего, чего возможно:</strong> если, для того чтобы выкатить проект необходимо зайти на сервер, git pull, выполнить пару рейк
+задач, перезапустить демона и обновить базу, то в какой-то момент вы обязательно забудете какой-нибудь шаг. Чтобы из дома открыть
+ноутбук, разобраться с паролями, с ошибкой, написать письмо, туда-сюда уходит 2 часа.
+Не забывайте, что в неделю у нас максимум 20-40 часов и так легко
+бесполезно потратить из них 10%.</p>
+
+<p><strong>Оптимизм:</strong> просто верить, что все будет хорошо.</p>
+
+<p>Надеюсь данные методики, особенно последняя, помогут вам выполнять все проекты в срок и даже немножко раньше :-)</p>
+
+        <div style="float:right"><a href="/blog/2012/07/10/death-illisuion/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -168,12 +963,95 @@ erb-кашу из шаблонов.</p>
       <div class="date">July  2, 2012</div>
 
       
-      <div class="entry"><p>3 недели в блог не писал и уже тяжело снова начинать. Так однажды я 2 года спортом не позанимался и тоже лень было возвращаться.
+      <div class="entry">
+        <p>3 недели в блог не писал и уже тяжело снова начинать. Так однажды я 2 года спортом не позанимался и тоже лень было возвращаться.
 Есть правда хорошое решение - нужно себя заставлять. И вот сегодня я хочу рассказать про разные мелочи,
 с которыми столкнулся в свое время.</p>
-</div>
-      
-      <a href="/blog/2012/07/02/advices/index.html" class="read-more">Read More</a>
+
+<h2>Kernel.caller</h2>
+
+<p>Вы будете смеятся, но раньше, чтобы вывести стек вызова методов приложения я использовал конструкцию:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
+  <span class="k">begin</span>
+    <span class="k">raise</span> 
+  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+    <span class="nb">p</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span> <span class="c1"># =&gt; [&quot;demo.rb:3:in `some&#39;&quot;, &quot;demo.rb:9:in `&lt;main&gt;&#39;&quot;]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">some</span>
+</code></pre></div>
+<p>После C++ мне казалось, что это вполне нормально (в C++ попробуйте вывести стек приложения в лог, там не побалуешь). Но это же руби,
+здесь можно все, причем очень просто! Случайно в интернете обратил внимание на системный вызов <code>Kernel.caller</code>.
+Напечатать цепочку вызовов можно так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
+  <span class="nb">p</span> <span class="nb">caller</span> <span class="c1"># =&gt; [&quot;demo.rb:5:in `&lt;main&gt;&#39;&quot;]</span>
+<span class="k">end</span>
+
+<span class="n">some</span>
+</code></pre></div>
+<h2>Добавление ошибки валидации на :base</h2>
+
+<p>Отображая ошибки валидации с помощью стандартного <code>object.errors.full_messages</code>, мы иногда получаем такие сообщения:
+&quot;Password Укажите пожалуйста пароль&quot;. Чтобы быстро избавиться от обязательно названия атрибута в начале сообщения, можно добавлять
+ошибки валидации следующим образом: <code>object.errros.add(:base, &#39;Укажите пожалуйста пароль&#39;)</code>. <code>full_message</code> не будет
+добавлять название атрибута в этом случае - <a href="https://github.com/rails/rails/blob/91f8cf22647e2e102c0897e88faec049f606843f/activemodel/lib/active_model/errors.rb#L287">activemodel/lib/active_model/errors.rb#L287</a>.</p>
+
+<h2>Rescue в одну строку</h2>
+
+<p>Этим шаблоном я еще не воспользовался, но он интригует. Все мы используем конструкции для установки значений по умолчанию:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">some</span> <span class="o">||</span> <span class="s2">&quot;default&quot;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">presence</span> <span class="o">||</span> <span class="s2">&quot;start&quot;</span> <span class="c1"># Rails only, обрабатывает nil? и blank?</span>
+</code></pre></div>
+<p>Оказывается можно так же легко установить дефалтовое значение, если метод вызывает исключение:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">another</span> <span class="k">rescue</span> <span class="s2">&quot;after exception&quot;</span>
+</code></pre></div>
+<p>Я обычно не вызываю эксепшенов в своем коде, которые где-то нужно обрабатывать. Но с внешними вызовами возможно пригодится.</p>
+
+<h2>IndexBy</h2>
+
+<p>Чего только не придумают руби-программисты, чтобы писать меньше кода. Недавно наткнулся на удивительный метод <a href="http://api.rubyonrails.org/classes/Enumerable.html#method-i-index_by">index_by</a> в рейлс:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Выдержка из документации:</span>
+
+<span class="c1"># Convert an enumerable to a hash:</span>
+<span class="n">people</span><span class="o">.</span><span class="n">index_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:login</span><span class="p">)</span>
+  <span class="c1"># =&gt; { &quot;nextangle&quot; =&gt; &lt;Person ...&gt;, &quot;chade-&quot; =&gt; &lt;Person ...&gt;, ...}</span>
+</code></pre></div>
+<h2>Ассерты</h2>
+
+<p>В С++ очень активно используются ассерты для проверки входных параметров, при выполнении каких-то подозрительных действий, для проверки
+возвращаемых значений и т.д. Это является частным случаем программирования по контракту. В рейлс, для собственного спокойствия,
+я тоже часто вставляю такого рода проверки. Приведу несколько типовых случаев:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 1.</span>
+<span class="c1"># не обращайте внимание на цепочку if-elseif, не могу себя</span>
+<span class="c1"># отучить в пользу case.</span>
+<span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:some</span>
+  <span class="c1"># ...</span>
+<span class="k">elsif</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:another</span>
+  <span class="c1"># ...</span>
+<span class="k">else</span>
+  <span class="k">raise</span> <span class="s2">&quot;unreacheable: </span><span class="si">#{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+
+<span class="c1"># 2.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">assert_valid_keys</span><span class="p">(</span><span class="ss">:key_a</span><span class="p">,</span> <span class="ss">:key_b</span><span class="p">)</span>
+
+<span class="c1"># 3.</span>
+<span class="k">raise</span> <span class="s2">&quot;wrong </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">unless</span> <span class="sx">%w[start finish]</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div>
+<p>Я обычно не заморачиваюсь внятными сообщения в эксепшенах, так как если ошибка и случится, то по трейсу всегда легко отследить
+проблему. Данные конструкции призваны подсказывать программисту, что в коде возник какой-то случай, о
+котором раньше не позаботились. Также эти конструкции легко расширяются, когда появляются новые режимы,
+ключи или состояния.</p>
+
+<p>Для первого раза думаю хватит. Рад возвращению в онлайн. Раньше мы работали над большим количеством маленьких проектов и я прежде
+всего оптимизировал скорость и стандартность разработки. Сейчас у нас есть парочку средних проектов, на несколько человеко-месяцев
+(мифических :-) каждый. При увеличении кодовой базы возникают проблемы другого сорта, с которыми я буду сталкиваться, осмыслять
+и рассказывать вам. До новых встреч!</p>
+
+        <div style="float:right"><a href="/blog/2012/07/02/advices/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -183,11 +1061,57 @@ erb-кашу из шаблонов.</p>
       <div class="date">June  5, 2012</div>
 
       
-      <div class="entry"><p>Добрый день, дорогие читатели! Я сейчас в отпуске и не в курсе последних рейлс-новостей, поэтому хочу написать пост на тему,
+      <div class="entry">
+        <p>Добрый день, дорогие читатели! Я сейчас в отпуске и не в курсе последних рейлс-новостей, поэтому хочу написать пост на тему,
 не связанную с программированием.</p>
-</div>
-      
-      <a href="/blog/2012/06/05/rules-and-comfort/index.html" class="read-more">Read More</a>
+
+<p>Однако, чтобы оправдывать тематику блога, отмечу про выход рейлс 3.2.5 из-за двух критических
+уязвимостей. Я пробовал их применить на наших проектах, но у меня не получилось их сломать, хакер из меня некудышный, но Егору
+Хомякову эти уязвимости нравятся. А раз он доволен - обязательно нужно обновляться, особенно если вы поддерживаете какой-нибудь
+крупный проект :) Ну вот про рейлс на сегодня все.</p>
+
+<p>Я люблю размышлять про смысл жизни и все такое, благо профессия программиста позволяет сохранять силы на размышления и обеспечивает
+материально. Живя в Москве, особенно остро ощущаю насколько сильно, искусственно разогнана жизнь современных людей. Мне нравится
+следующая аналогия - мне даже кажется, что я ее придумал сам.</p>
+
+<p>Представьте какой-нибудь ограниченный ресурс, допустим комнату, в которой четыре стула,
+и на них хотят отдохнуть пять людей. В первом случае люди заходят степенно, никуда не спешат, но одному человеку придется стоять.
+Однако в такой благоприятной обстановке, кто-нибудь, возможно, уступит ему место или предложит сидеть по очереди. Во втором случае люди
+пытаются захватить стул как можно быстрее. Математически понятно, что одному человеку все равно места не хватит. А в процессе потасовки
+возможно еще один стул сломают, и уже два человека останутся без места. Уровень агрессивности и дискомфорта
+будет гораздо выше, но результат такой же, даже хуже.</p>
+
+<p>Реклама, социальное давление провоцируют нас на поведение по второму сценарию, но по-человечески гораздо симпатичнее первый вариант.
+Почему же он так редко встречается? Главный недостаток данного сценария, что он очень уязвим для жуликов. Ушлый человек
+из второй группы, находясь в первом варианте, будет сидеть на стуле всегда, а то и на двух, посмеивась над остальными. Думаю,
+такое поведение вам прекрасно знакомо. Проще всего данную ситуацию проиллюстрировать известным
+рисунком про равновесие, первый вариант конечно лучше, но он слишком неустойчивый:</p>
+
+<p><img src="/assets/old/11-rules/ravn.png" alt=""></p>
+
+<p>Я мало был в других странах, но, по ощущениям, уровень комфорта и спокойствия в европейских странах выше. Мне кажется, местных жителей
+силой, для их же блага, загоняют и удерживают в первом сценарии. Однажды в Дрездене мы перешли дорогу на красный цвет.
+Машин не было в обе стороны настолько, насколько в принципе позволяет увидеть зрение. Вообще сложно представить более пустую дорогу.
+Неприятное, скажу я вам, ощущение переходить, когда все остальные 20 или 30 человек остались ждать зеленого сигнала. Они соблюдали
+правила.</p>
+
+<p>Я фанат правил и считаю, что именно они обеспечивают весь прогресс и комфорт. В гипотетической ситуации со стульями достаточно
+четырех правил и их соблюдения: не шумите, не спешите, не ломайте мебель, уступайте место. В С++ вообще 2 правила: чтите
+Страуструпа и не разыименовывайте нулевые указатели.</p>
+
+<p>В профессиональной деятельности я тоже стараюсь ответственно относится
+к правилам и самоограничениям. Вначале я маньячил и работал с утра до позднего вечера, в будни и выходные. Очевидно, что человек,
+который работает по 12 часов в день успевает больше, чем тот, который работает стандартные 8. Но таким образом поднимается
+общая планка (и подрывается здоровье), поэтому я сейчас в выходные отдыхаю, а в будни стараюсь работать не больше, чем в офисе. К сожалению,
+в этот отпуск мне не удалось отказаться от компьютера, я все равно раз в день, в два выхожу в интернет, проверяю
+почту, что-то поправляю. Но это показатель, что у нас еще плохо налажена система. Надеюсь, что в следующий отпуск я буду отдыхать
+как положено, по правилам.</p>
+
+<p>Желаю вам комфортной и спокойной жизни!</p>
+
+        <div style="float:right"><a href="/blog/2012/06/05/rules-and-comfort/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
     <article class="post">    
@@ -197,12 +1121,59 @@ erb-кашу из шаблонов.</p>
       <div class="date">May 28, 2012</div>
 
       
-      <div class="entry"><p>В сентябре 2011, убедив клиента, что мы работаем исключительно на последних версиях рейлс, я начал свой первый
+      <div class="entry">
+        <p>В сентябре 2011, убедив клиента, что мы работаем исключительно на последних версиях рейлс, я начал свой первый
 Rails 3 проект. Дополнительная пикантность ситуации была в том, что версию 3.0 зарелизили в августе 2010, однако
 мне казалось, что там не могло появиться ничего хорошего, рейлс 2.3 мне казались самодостаточными.</p>
-</div>
-      
-      <a href="/blog/2012/05/28/100-commits/index.html" class="read-more">Read More</a>
+
+<p>Случайно, исследуя создание нового приложения, я нашел, что метод <code>environment</code> в генераторах ставит неправильный отступ
+в <code>config/appliction.rb</code>. Так я сделал свой
+<a href="https://github.com/rails/rails/commit/e61d6afbab24163d37a73b25262ef73119b99a78">первый комит</a> в рейлс. Потом еще. И еще.
+Ощущение причастности к большому сложному открытому проекту оказалось настолько приятным, что в феврале 2012 я добавил
+в годовой план цель - достичь к концу года 100 комитов. С радостью сообщаю, что на днях я этой
+<a href="http://contributors.rubyonrails.org/contributors/alexey-vakhov/commits">цели достиг</a>.
+Вообще 2012 - очень ответственный год, так как непонятно сохранится ли спрос на программистов после конца света. Поэтому желательно
+освободиться от всех обязательств как можно раньше, чтобы успеть сделать действительно важные дела.</p>
+
+<p>Возвращаюсь к рейлс, хочу поделиться с вами тем, что я нашел и узнал в процессе работы. Самое главное, что цель
+&quot;N комитов&quot; - довольно плохая. Она провоцирует на мелкие подтасовки и, выполняя ее,
+слишком нервничаешь,
+когда комит не принимают или игнорируют. Если гнаться просто за количеством комитов, то можно использовать много мелких хитростей,
+например делать док-фиксы, комментируя каждый метод (док-фиксы проходят прямым комитом в <a href="https://github.com/lifo/docrails">lifo/docrails</a>), можно, решая одну проблему, разбивать ее на несколько частей, или найти направление, которое принесет много комитов. По мелочам, можно
+забыть сделать <code>git pull --rebase</code> перед комитом опять же док-фиксов. Если вы наблюдаете за мастером, думаю, что не раз видели
+подобные штуки.</p>
+
+<p>Но у цели &quot;N комитов&quot; есть очень важный нюанс, который делает ее на самом деле хорошей. Не зависимо от того, исправляете ли вы
+маленькую опечатку в комментарии, рефакторите метод, исправляете дефект или предлагаете новую функциональность, приходится проделывать
+довольно серьезную работу. Необходимо пройтись по истории, запустить тесты, исследовать граничные случаи, провести анализ и так далее.
+Вольно или невольно вы изучаете систему очень глубоко и такого рода рутина приучает к методичности. Когда я всерьез увлекся рейлс,
+то долгое время вставал в 8 утра и 2-3 часа изучал код, файл за файлом. Сейчас в эти утренние часы я подключил ведение блога,
+работу над персональными опен-сорс проектами, изучение новых технологий и подходов.</p>
+
+<p><a href="https://github.com/rails/rails/commit/b4167d3f3e4d25be16e06e71afd1c64a47ca54d7">Один из моих крайних комитов, самый любимый,</a> исправляет
+метод <code>Range#sum</code>. Посмотрите, пожалуйста, какую работу пришлось проделать, чтобы найти и исправить 2 ошибки в данном методе. Увидел
+этот дефект совершенно случайно, я хотел написать в твиттер про этот метод, что люблю, когда люди продумывают такие нюансы, но что-то
+в этом коде мне не понравилось, и я стал разбираться. </p>
+
+<p>Поэтому цель &quot;N комитов&quot; вполне хорошая, и если вы сделали 10, 20, 50, 100 или 10000 :) комитов, то независимо ни от чего, это по
+настоящему здорово. Вы помогли комьюнити и помогли себе, получая еще большее удовольствие от профессии. Мне кажется, что последнее
+время количество русскоязычных контрибьютеров сильно возросло, и это очень хорошо. <a href="http://blog.evtuhovich.ru/">Евтухович Иван</a>
+говорил, что гуру рейлс не очень охотно едут в Россию на конференции, из-за недостаточной активности нашего комьюнити. Возможно,
+это не единственная причина, но все-таки. Поэтому хочу особо отметить активных русскоязычных коллег: <a href="https://github.com/lest">Сергея Нартымова</a> (Сергей возглавляет русскоязычный <a href="http://contributors.rubyonrails.org/">топ</a>), <a href="https://github.com/bogdan">Богдана Гусева</a>,
+<a href="https://github.com/nashby">Василия Ермоловича</a>,
+<a href="https://github.com/brainopia">Равиля Байрамгалина</a> и <a href="https://github.com/gazay">Алексея Газиева</a>. Отдельно следует упомянуть 
+<a href="https://github.com/rails/rails/commit/b83965785db1eec019edf1fc272b1aa393e6dc57">Егора Хомякова</a>, который получил доступ в основной
+репозитарий не самым прямолинейным способом.</p>
+
+<p>Некоторое время назад я очень сильно застрял на 80-ти комитах и более 2-х недель ни мог найти ни одной шероховатости 
+(кстати раскрываю рыбные места - ActionPack и ActiveSupport, но ни в коем случае не ActiveRecord. Я нашел 3 ошибки в AR, но пока не знаю
+как их исправить, потому-что код там - гребанный ад, как однажды сказал <a href="https://twitter.com/#!/prepor">Андрей Руденко</a> про бандлер).
+К счастью потом дело пошло лучше и я успел поразить цель перед самым отпуском, завтра поеду отдыхать от компьютеров и от рейлс.
+Всем удачного программирования!</p>
+
+        <div style="float:right"><a href="/blog/2012/05/28/100-commits/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      </div>
     </article>
   
 </div>
@@ -217,6 +1188,9 @@ Rails 3 проект. Дополнительная пикантность сит
     <a href="/page5" class="next">Next</a>
   
 </div>
+
+<script id="dsq-count-scr" src="//vakhov-me.disqus.com/count.js" async></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
     </div>
 
@@ -243,11 +1217,7 @@ Rails 3 проект. Дополнительная пикантность сит
 </a>
           
           
-          <a href="/atom.xml"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <path d="M0.112290344,30 C0.112290344,13.4314567 13.3426506,0 29.663129,0 C45.9836073,0 59.2139676,13.4314567 59.2139676,30 C59.2139676,46.5685433 45.9836073,60 29.663129,60 C13.3426506,60 0.112290344,46.5685433 0.112290344,30 Z M0.112290344,30" fill="#E18F00" sketch:type="MSShapeGroup"></path>
-    <path d="M26.5147755,38.7571296 C26.5147755,36.8192934 24.9575021,35.2291656 23.0297047,35.2291656 C21.1094331,35.2291656 19.5492775,36.8192934 19.5492775,38.7571296 C19.5492775,40.7052068 21.1094331,42.277616 23.0297047,42.277616 C24.957422,42.277616 26.5146954,40.7052881 26.5147755,38.7571296 Z M36.8075433,42.2700571 C36.8075433,32.6055847 29.062648,24.7442705 19.5492775,24.7442705 L19.5492775,29.8318017 C22.8128986,29.8318017 25.8817303,31.1272145 28.1920609,33.4740429 C30.4999895,35.8159133 31.7732853,38.9454513 31.7732853,42.2701384 L36.8075433,42.2700571 Z M45.6871482,42.2675375 C45.6871482,27.6346878 33.9604014,15.722384 19.5492775,15.722384 L19.5492775,20.8123535 C31.186916,20.8123535 40.660496,30.438869 40.660496,42.2673749 L45.6871482,42.2675375 Z M45.6871482,42.2675375" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
-</svg>
-</a>
+          <!--  -->
           <a href="http://twitter.com/avakhov"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <path d="M0,30 C0,13.4314567 13.4508663,0 30.0433526,0 C46.6358389,0 60.0867052,13.4314567 60.0867052,30 C60.0867052,46.5685433 46.6358389,60 30.0433526,60 C13.4508663,60 0,46.5685433 0,30 Z M0,30" fill="#4099FF" sketch:type="MSShapeGroup"></path>
     <path d="M29.2997675,23.8879776 L29.3627206,24.9260453 L28.3135016,24.798935 C24.4943445,24.3116787 21.1578281,22.6592444 18.3249368,19.8840023 L16.9399677,18.5069737 L16.5832333,19.5238563 C15.8277956,21.7906572 16.3104363,24.1845684 17.8842648,25.7946325 C18.72364,26.6844048 18.5347806,26.8115152 17.0868584,26.2818888 C16.5832333,26.1124083 16.1425613,25.985298 16.1005925,26.0488532 C15.9537019,26.1971486 16.457327,28.1249885 16.8560302,28.8876505 C17.4016241,29.9469033 18.5137962,30.9849709 19.7308902,31.5993375 L20.7591248,32.0865938 L19.5420308,32.1077788 C18.3669055,32.1077788 18.3249368,32.1289639 18.4508431,32.57385 C18.8705307,33.9508786 20.5282967,35.4126474 22.3749221,36.048199 L23.6759536,36.4930852 L22.5427971,37.1710069 C20.8640467,38.1455194 18.891515,38.6963309 16.9189833,38.738701 C15.9746862,38.759886 15.1982642,38.8446262 15.1982642,38.9081814 C15.1982642,39.1200319 17.7583585,40.306395 19.2482495,40.7724662 C23.7179224,42.1494948 29.0269705,41.5563132 33.0140027,39.2047722 C35.846894,37.5311528 38.6797853,34.2050993 40.0018012,30.9849709 C40.7152701,29.2689815 41.428739,26.1335934 41.428739,24.6294545 C41.428739,23.654942 41.4916922,23.5278317 42.6668174,22.3626537 C43.359302,21.6847319 44.0098178,20.943255 44.135724,20.7314044 C44.3455678,20.3288884 44.3245835,20.3288884 43.2543801,20.6890343 C41.4707078,21.324586 41.2188952,21.2398458 42.1002392,20.2865183 C42.750755,19.6085965 43.527177,18.3798634 43.527177,18.0197174 C43.527177,17.9561623 43.2124113,18.0620876 42.8556769,18.252753 C42.477958,18.4646036 41.6385828,18.7823794 41.0090514,18.9730449 L39.8758949,19.3331908 L38.8476603,18.634084 C38.281082,18.252753 37.4836756,17.829052 37.063988,17.7019416 C35.9937846,17.4053509 34.357003,17.447721 33.3917215,17.7866818 C30.768674,18.7400093 29.110908,21.1974757 29.2997675,23.8879776 Z M29.2997675,23.8879776" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
