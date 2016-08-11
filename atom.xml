@@ -7,6 +7,37 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>%r{егекспы}</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/regexp/main.jpg&quot; /&gt;
+          &lt;p&gt;Недавно в канал коллега скинул ссылку &lt;a href=&quot;https://aaronlasseigne.com/2016/07/08/5-tips-for-writing-a-legible-regexp/&quot;&gt;5 Tips for Writing a Legible Regexp&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Лично мне кажется, что регекспы созданы для того, чтобы их только писать, читать их невозможно, как ни
+старайся. Однако
+совет про &lt;code&gt;%r{http://...}&lt;/code&gt; понравился, я использовал его в тот день для парсинга ссылок в
+тексте.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Зачем мне понадобилось парсить ссылки? О, это вообще другая история.
+У нас несколько десятков репозитариев, я слежу, чтобы они все были перечислены на главной странице
+в вики, сгруппированные по проектам, чтобы в случае чего было понятно
+к кому обратиться с вопросом. Простой скрипт
+на руби сравнивает список ссылок на странице с репозитариями в гитхабе и выдает разницу если она есть.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Однако &lt;code&gt;%r{}&lt;/code&gt; не единственная хитрость, которую стоит попробовать.
+В руби вообще на мой вкус самый дружелюбный синтаксис, среди всех языков, которые встречал.
+&lt;code&gt;%w[word1 word2]&lt;/code&gt;, &lt;code&gt;system %(ssh alex@host &amp;#39;grep &amp;quot;foo&amp;quot; /var/log/bar.log&amp;#39;)&lt;/code&gt;,
+&lt;code&gt;return unless ...&lt;/code&gt; и кучу других маленьких
+удобных приемов я использую каждый день.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 11 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/11/regexp/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/11/regexp/index.html</guid>
+      </item>
+    
+      <item>
         <title>И снова здравствуйте</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/reborn/main.jpg&quot; /&gt;
@@ -649,38 +680,6 @@ git push
         <pubDate>Thu, 25 Dec 2014 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2014/12/25/contribute/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2014/12/25/contribute/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Добротный мультиплексор</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/gnu-screen.jpg&quot; /&gt;
-          &lt;p&gt;Думаю большинство знает и использует замечательную &amp;quot;свободную консольную утилиту-мультиплексор&amp;quot;,
-как дружелюбно описывает GNU Screen википедия &lt;a href=&quot;https://ru.wikipedia.org/wiki/GNU_Screen&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;,
-но я все же скажу пару слов.&lt;/p&gt;
-
-&lt;p&gt;Если вам нужно выполнить большой и важный скрипт на несколько часов, запустите этот скрипт
-на сервере в сессии GNU Screen, который наверняка уже установлен.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;screen&lt;/code&gt; - новый сеанс&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;screen -rd&lt;/code&gt; - присоединиться к старой сессии&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Ctrl-a c&lt;/code&gt; - создать новое окно (уже находясь внутри screen)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Ctrl-a n&lt;/code&gt; - перейти на следующее окно&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Ctrl-a d&lt;/code&gt; - отсоединиться от сессии (оставив ее работать)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Запускаем долгий скрипт в screen, выключаем компьютер, на следующий день
-заходим в сессию и изучаем, как там обстоят дела.&lt;/p&gt;
-
-&lt;p&gt;Если нужно много работать с серверами, думаю можно настроить окружение удобнее,
-но для эпизодического использования
-хватит пяти команд.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 22 Dec 2014 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2014/12/22/gnu-screen/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2014/12/22/gnu-screen/index.html</guid>
       </item>
     
   </channel>

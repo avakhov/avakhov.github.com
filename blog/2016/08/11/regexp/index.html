@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Tech addicted</title>
+    <title>%r{егекспы}</title>
 
     <meta name="author" content="Alexey Vakhov" />
     <meta name="description" content="Tech addicted">
@@ -53,174 +53,55 @@
     </div>
 
     <div id="main" role="main" class="container">
-      <div class="posts">
+      <article class="post">
+  <h1 class="main">%r{егекспы}</h1>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/04/11/dsl-and-select/index.html">DSL, select и системные методы</a></h1>
-      
-      <div class="date">April 11, 2012</div>
+  <div class="date">August 11, 2016</div>
 
-      
-      <div class="entry"><p>При работе с руби иногда встречаются ошибки, которые вызывают замешательство. Недавно я создавал
-простой DSL для своей библиотеки на остове метода <code>instance_eval</code> (метод весьма спорный, его нужно
-использовать аккуратно, но сегодня речь не об этом). Интерпретатор руби вылетал с очень странной ошибкой,
-на простом коде:</p>
-</div>
-      
-      <a href="/blog/2012/04/11/dsl-and-select/index.html" class="read-more">Read More</a>
-    </article>
+  <div class="img"><img src="/assets/2/regexp/main.jpg" /></div>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/04/04/require/index.html">Require, Load и Rails</a></h1>
-      
-      <div class="date">April  4, 2012</div>
+  <div class="entry">
+    <p>Недавно в канал коллега скинул ссылку <a href="https://aaronlasseigne.com/2016/07/08/5-tips-for-writing-a-legible-regexp/">5 Tips for Writing a Legible Regexp</a>.</p>
 
-      
-      <div class="entry"><blockquote>
-Мы в ответе за тех, кого подключили с помощью load и require.
-<br>
-<i>Давид Хейнемейер де Сент-Экзюпери, Prince On Rails</i>
+<p>Лично мне кажется, что регекспы созданы для того, чтобы их только писать, читать их невозможно, как ни
+старайся. Однако
+совет про <code>%r{http://...}</code> понравился, я использовал его в тот день для парсинга ссылок в
+тексте.</p>
+
+<blockquote>
+<p>Зачем мне понадобилось парсить ссылки? О, это вообще другая история.
+У нас несколько десятков репозитариев, я слежу, чтобы они все были перечислены на главной странице
+в вики, сгруппированные по проектам, чтобы в случае чего было понятно
+к кому обратиться с вопросом. Простой скрипт
+на руби сравнивает список ссылок на странице с репозитариями в гитхабе и выдает разницу если она есть.</p>
 </blockquote>
-</div>
-      
-      <a href="/blog/2012/04/04/require/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/29/rubynoname-podcast/index.html">Ruby NoName подкаст</a></h1>
-      
-      <div class="date">March 29, 2012</div>
 
-      
-      <div class="entry"><p><a href="http://evtuhovich.ru">Иван Евтухович</a> пригласил меня принять
-участие в <a href="http://ruby.rpod.ru/">Ruby NoName подкасте</a>. Я с радостью и волнением это предложение принял.</p>
-</div>
-      
-      <a href="/blog/2012/03/29/rubynoname-podcast/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/28/and-or-and/index.html">And или &amp;&amp;</a></h1>
-      
-      <div class="date">March 28, 2012</div>
+<p>Однако <code>%r{}</code> не единственная хитрость, которую стоит попробовать.
+В руби вообще на мой вкус самый дружелюбный синтаксис, среди всех языков, которые встречал.
+<code>%w[word1 word2]</code>, <code>system %(ssh alex@host &#39;grep &quot;foo&quot; /var/log/bar.log&#39;)</code>,
+<code>return unless ...</code> и кучу других маленьких
+удобных приемов я использую каждый день.</p>
 
-      
-      <div class="entry"><p>Когда я делал свой первый интернет-магазин из Agile Web Development with Rails, мне
-понравилось, что программа выглядит как английский текст. После C++ это было так здорово. Я везде
-использовал and. Потом я где-то прочитал, что это неправильно и нужно в логических условиях
-использовать &amp;&amp; и ||, а в render(&#39;help me&#39;) and die нужно использовать английские варианты. Я переключился
-на новый стиль.</p>
-</div>
-      
-      <a href="/blog/2012/03/28/and-or-and/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/24/automigration/index.html">Автоматические миграции</a></h1>
-      
-      <div class="date">March 24, 2012</div>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+</article>
 
-      
-      <div class="entry"><p>Мне всегда немного не нравились миграции тем, что они разрастаются и описание моделей становится
-размазанным. К тому же я часто забываю добавить какую-нибудь колонку или путаю тип.
-Ради каждой из таких операций создавать отдельную миграцию довольно утомительно.
-Во всех своих проектах мы используем авто-миграции, которые я недавно опубликовал как
-<a href="https://github.com/boshie/automigration">отдельный гем</a>. </p>
-</div>
-      
-      <a href="/blog/2012/03/24/automigration/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/13/alias-method-chain/index.html">Alias Method Chain</a></h1>
-      
-      <div class="date">March 13, 2012</div>
 
-      
-      <div class="entry"><p>В ActiveSupport есть метод <a href="http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain"><code>alias_method_chain</code></a>, который позволяет удобно расширять функциональность методов.</p>
-</div>
-      
-      <a href="/blog/2012/03/13/alias-method-chain/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html">Лайоут анонимного контроллера</a></h1>
-      
-      <div class="date">March  1, 2012</div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'vakhov-me'; // required: replace example with your forum shortname
 
-      
-      <div class="entry"><p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
-будет поддерживать классическую цепочку поиска подходящего лайоута согласно <a href="http://api.rubyonrails.org/classes/AbstractController/Layouts.html#label-Inheritance+Examples">документации</a>.</p>
-</div>
-      
-      <a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/02/28/render-text-layout/index.html">Лайоут для текста</a></h1>
-      
-      <div class="date">February 28, 2012</div>
-
-      
-      <div class="entry"><p>По умолчанию при рендеринге простого текста в контроллере он отрисовывается как есть:</p>
-</div>
-      
-      <a href="/blog/2012/02/28/render-text-layout/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/02/23/action-controller-helper-method/index.html">Action Controller Helper Method</a></h1>
-      
-      <div class="date">February 23, 2012</div>
-
-      
-      <div class="entry"><p>Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
-необходимо сначала определить метод, а потом передать его имя в helper_method:</p>
-</div>
-      
-      <a href="/blog/2012/02/23/action-controller-helper-method/index.html" class="read-more">Read More</a>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/02/17/simple-haml-generator/index.html">Простой Haml генератор статических сайтов</a></h1>
-      
-      <div class="date">February 17, 2012</div>
-
-      
-      <div class="entry"><p>Для нашей компании мы решили сделать максимально простой сайт, разместив на белом фоне несколько 
-блоков с информацией. Я решил взять сетку 
-твиттер бутстрап-фрейморка и обойтись без помощи дизайнера и верстальщика. Верстка для бутстрапа
-требует довольно большое количество вложенных дивов, поэтому лучше всего использовать Haml, 
-с разбивкой содержания на несколько партиалов. Статические сайты обычно удобно делать с помощью Jekyll,
-но я не знаю насколько сложно добавить поддержку хамл к Jekyll и возможно ли это сделать быстро. 
-В нашем случае данную задачу можно решить c помощью нескольких простых скриптов.</p>
-</div>
-      
-      <a href="/blog/2012/02/17/simple-haml-generator/index.html" class="read-more">Read More</a>
-    </article>
-  
-</div>
-
-<!-- Pagination links -->
-<div class="pagination">
-  
-    <a href="/page5" class="previous">Previous</a>
-  
-  <span class="page_number ">Page: 6 of 6</span>
-  
-    <span class="next ">Next</span>
-  
-</div>
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
     </div>
 
