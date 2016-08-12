@@ -7,6 +7,56 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Как можно документировать схему базу данных</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/doc-db/main.jpg&quot; /&gt;
+          &lt;p&gt;Когда проект начал расти я почувствовал, что очень сильно не хватает комментариев к схеме
+базы данных. В живом приложении появляются таинcтвенные таблицы, какие-то флаги, json-ны и
+прочие неведомые вещи, иногда хочется узнать, что они означают.&lt;/p&gt;
+
+&lt;p&gt;Конечно некоторые поля в моделях очевидны, в &lt;code&gt;Student#name&lt;/code&gt; в принципе очевидно что хранится,
+но какое-нибудь &lt;code&gt;Group#migrated_from_old_db2&lt;/code&gt; (название вымышленое) нуждается в объяснении - кто, когда,
+зачем это мигрировал и что такое старая база (вторая). &lt;/p&gt;
+
+&lt;p&gt;Я завел файл &lt;code&gt;doc/db.md&lt;/code&gt;, в котором описал все таблицы и колонки, которые были на тот момент и
+попросил коллег поддерживать его. Конечно никто поддерживать не стал. И не из вредности,
+а потому-что при программировании приходится и так помнить тысячу вещей. Документирование
+изменений схемы не входило в обязательные рутины работы.&lt;/p&gt;
+
+&lt;div class=&quot;hr&quot;&gt;&amp;middot;&amp;middot;&amp;middot;&lt;/div&gt;
+
+&lt;p&gt;Решил проблему просто - написал тест, который падает, если в файле &lt;code&gt;doc/db.md&lt;/code&gt; нет описания для
+какой-нибудь колонки. Формат файла очень простой, он легко парсится и красиво выглядит в интерфейсе
+гитхаба:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# uchi.ru db schema
+
+## schools
+
+Школы.
+
+| column | description |
+|--:|--:|
+| name | Название |
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Все таблицы и колонки легко вытянуть с помощью &lt;code&gt;AR::Base.connection.tables&lt;/code&gt; и 
+&lt;code&gt;AR::Base.connection.columns&lt;/code&gt;. Вуаля! Мержить пул реквест на красных тестах нельзя.
+Но тесты падают, если схема обновилась, а &lt;code&gt;doc/db.md&lt;/code&gt; нет!&lt;/p&gt;
+
+&lt;div class=&quot;hr&quot;&gt;&amp;middot;&amp;middot;&amp;middot;&lt;/div&gt;
+
+&lt;p&gt;Теперь все базы данных у нас документированы, а файл &lt;code&gt;doc/db.md&lt;/code&gt; в каждом репозитарии один из ключевых
+при изучении приложения с которым работаешь первый раз или давно не работал. Поддерживать
+такую документацию легко и естественно, в итоге она гораздо информативнее стандартного 
+файла &lt;code&gt;db/schema.rb&lt;/code&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 12 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/12/doc-db/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/12/doc-db/index.html</guid>
+      </item>
+    
+      <item>
         <title>%r{егекспы}</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/regexp/main.jpg&quot; /&gt;
@@ -628,58 +678,6 @@ git push avakhov new-feature -u
         <pubDate>Mon, 29 Dec 2014 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2014/12/29/new-year/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2014/12/29/new-year/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Пул реквесты в опен сорс</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/contribute.jpg&quot; /&gt;
-          &lt;p&gt;Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
-из пяти пунктов:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Fork it ( https://github.com/[my-github-username]/awesome-gem/fork )&lt;/li&gt;
-&lt;li&gt;Create your feature branch (&lt;code&gt;git checkout -b my-new-feature&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Commit your changes (&lt;code&gt;git commit -am &amp;#39;Add some feature&amp;#39;&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Push to the branch (&lt;code&gt;git push origin my-new-feature&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Create a new Pull Request&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Я расскажу пару хитростей, которые можно использовать,
-чтобы сделать процесс создания пул реквестов еще приятнее и
-беззаботнее.&lt;/p&gt;
-
-&lt;h2&gt;Процесс создания пул реквестов&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;1. Форкаем репозитарий и клонируем&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git clone git@github.com:avakhov/awesome-gem.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;2. Подцепляем оригинальный remote (я его называю papa)&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git remote add papa git@github.com:awesome/awesome-gem.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;3. Берем самую свежую версию&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git fetch papa
-get checkout papa/master
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;4. Создаем ветку (можно начинать имя с чисел по порядку)&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git checkout -b 2-mega-fix
-git push origin 2-mega-fix -u
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;5. Комитим&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git commit -m&amp;quot;Msg&amp;quot;
-git push
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;6. Посылаем пул реквест через Github!&lt;/em&gt; &lt;img class=&#39;emoji&#39; title=&#39;:beer:&#39; alt=&#39;:beer:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f37a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:beer:&#39; alt=&#39;:beer:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f37a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:beer:&#39; alt=&#39;:beer:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f37a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Переходим к пункту 3, чтобы создать новый пул реквест.&lt;/p&gt;
-
-&lt;p&gt;Такой процедуры легко придерживаться и она гарантирует, что мы всегда
-работаем с актуальным кодом (в оригинальном процесс легко форкнуться от устаревшей ревизии).&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 25 Dec 2014 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2014/12/25/contribute/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2014/12/25/contribute/index.html</guid>
       </item>
     
   </channel>
