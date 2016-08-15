@@ -7,6 +7,55 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Когда все слишком хорошо</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/deploy/main.jpg&quot; /&gt;
+          &lt;p&gt;Давно заметил такой факт, что если выкатка сложная, то я сразу же открываю все
+инструменты мониторинга и жду ошибок. Одна, две, три проблемы - фикс
+и я спокоен. Но если проблем нет, то становится очень страшно.&lt;/p&gt;
+
+&lt;p style=&quot;text-align:center;font-size:110%&quot;&gt;&lt;b&gt;Может быть сломалось вообще все?!?!&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;Большие изменения означают, что у задачи очень много факторов, все комбинации которых невозможно
+отследить самым тщательным тестированием и код ревью. Я уверен, что при любом сложном 
+деплое что-то должно сломаться. По мелочи. Или по крупному. Обязательно должно.&lt;/p&gt;
+
+&lt;p&gt;И когда действительно сломалось, то как бы не наивно это звучало, я становлюсь
+сильно спокойнее. Молния же не попадает в одно место дважды? &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;hr&quot;&gt;&amp;middot;&amp;middot;&amp;middot;&lt;/div&gt;
+
+&lt;p&gt;Расскажу пару историй из жизни.&lt;/p&gt;
+
+&lt;p&gt;Мы оптимизировали тормозной кусок кода, который сильно нагружал базу.
+Выкатили и сразу смотрим заббикс. Немного ожидания и... Красота!
+База работает великолепно, CPU уменьшилось в 10 раз, все ровненько, гладенько. Чудесно.&lt;/p&gt;
+
+&lt;p&gt;Захожу на сайт - ошибка 500
+в кабинете ученика на всех страницах. Естественно нагрузка тут же снизилась на порядок, база
+отдыхает. Хотфиксим, катим, ждем немного пока трафик вернется и заббикс отрисует новые данные.
+Вот теперь ок.
+База нагружена, но чтение с диска уменьшилось раза в полтора, как мы и планировали.&lt;/p&gt;
+
+&lt;p&gt;Коллега проводит штатное нагрузочное тестирование, получает великолепные результаты.
+Четыре сервера выдают столько
+rps, сколько в прошлый раз выдавали двенадцать. Коллега радуется как хорошо настроил ферму. Подозрительно.&lt;/p&gt;
+
+&lt;p&gt;Через неделю
+проводим тестирование заново и выясняем, что в прошлом запуске сломалась авторизация.
+Нагрузка тестировала как здорово NGINX отдает 302 на &lt;code&gt;if current_user.nil?&lt;/code&gt;.
+Чиним, и совсем другая история - 
+пора бежать докупать сервера.&lt;/p&gt;
+
+&lt;p&gt;Поэтому я давно решил, если все слишком хорошо, это очень и очень плохо.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 15 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/15/deploy/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/15/deploy/index.html</guid>
+      </item>
+    
+      <item>
         <title>Как можно документировать схему базу данных</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/doc-db/main.jpg&quot; /&gt;
@@ -660,24 +709,6 @@ git push avakhov new-feature -u
         <pubDate>Thu, 15 Jan 2015 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2015/01/15/hub/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2015/01/15/hub/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Year += 1</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/new-year.jpg&quot; /&gt;
-          &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Happy new &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; year!&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Дорогие читатели, поздравляю с Новым Годом! Желаю вам в новом году рейлс 4.2 и руби 2.2!
-Сезон блоггинга-2014 объявляется закрытым, до новых встреч в следующем году!&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&#39;emoji&#39; title=&#39;:evergreen_tree:&#39; alt=&#39;:evergreen_tree:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f332.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:wine_glass:&#39; alt=&#39;:wine_glass:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f377.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:poultry_leg:&#39; alt=&#39;:poultry_leg:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f357.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:sake:&#39; alt=&#39;:sake:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f376.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cocktail:&#39; alt=&#39;:cocktail:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f378.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:clap:&#39; alt=&#39;:clap:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f44f.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:sleeping:&#39; alt=&#39;:sleeping:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f634.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 29 Dec 2014 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2014/12/29/new-year/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2014/12/29/new-year/index.html</guid>
       </item>
     
   </channel>
