@@ -7,6 +7,34 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Коварный backtick или как определить размер используемой памяти</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/back-tick/main.jpg&quot; /&gt;
+          &lt;p&gt;В одном жирненьком руби-воркере мы логировали размер памяти, которую расходует процесс, с
+помощью команды &lt;code&gt;&amp;#96;ps -o rss -p #{$$}&amp;#96;&lt;/code&gt;. Такой способ легко найти в интернете и он обычно работает.&lt;/p&gt;
+
+&lt;p&gt;Однако сам &lt;code&gt;Kernel#`&lt;/code&gt; сделан так, что он форкает руби процесс,
+соответственно на доли секунды резервируя еще столько же памяти, сколько
+процесс занимает уже. Наш воркер в ходе работы раздувался до 2.5-3GB и начал падать на 4GB оперативной памяти.&lt;/p&gt;
+
+&lt;p&gt;Я подсмотрел как сделано в ньюрелике (файл &lt;code&gt;new_relic/agent/samplers/memory_sampler.rb&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;proc_status_file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/proc/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vg&quot;&gt;$$&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/status&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;proc_status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proc_status_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;r&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_nonblock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;proc_status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/RSS:\s*(\d+) kB/i&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;vg&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_f&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;На линуксе вместо запуска &lt;code&gt;ps&lt;/code&gt; лучше использовать информацию из раздела &lt;code&gt;/proc&lt;/code&gt;.
+Такой способ не требует
+избыточной памяти и работает у нас
+по сей день.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 16 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/16/back-tick/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/16/back-tick/index.html</guid>
+      </item>
+    
+      <item>
         <title>Когда все слишком хорошо</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/deploy/main.jpg&quot; /&gt;
@@ -645,70 +673,6 @@ computed-свойста, вычисляемые реактивно, обзерв
         <pubDate>Fri, 23 Jan 2015 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2015/01/23/ember-1-intro/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2015/01/23/ember-1-intro/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Hub и Git</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/hub.jpg&quot; /&gt;
-          &lt;p&gt;Привет! Легкая посленовогодняя разминка для лица:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&#39;emoji&#39; title=&#39;:expressionless:&#39; alt=&#39;:expressionless:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f611.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:open_mouth:&#39; alt=&#39;:open_mouth:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f62e.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:expressionless:&#39; alt=&#39;:expressionless:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f611.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:flushed:&#39; alt=&#39;:flushed:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f633.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:expressionless:&#39; alt=&#39;:expressionless:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f611.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:stuck_out_tongue_closed_eyes:&#39; alt=&#39;:stuck_out_tongue_closed_eyes:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f61d.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:expressionless:&#39; alt=&#39;:expressionless:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f611.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:yum:&#39; alt=&#39;:yum:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f60b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; Yo!
-Теперь хорошо, можно работать дальше.&lt;/p&gt;
-
-&lt;p&gt;25 декабря прошлого года я описал свой процесс отправки пул реквестов &lt;a href=&quot;/blog/2014/12/25/contribute/index.html&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;
-и буквально на следующий день наткнулся на утилиту hub &lt;a href=&quot;https://hub.github.com/&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt; - makes git better with GitHub. С ее помощью (и кстати и без ее помощи) можно сделать процесс
-контрибьюторства совсем приятным.&lt;/p&gt;
-
-&lt;h3&gt;Более правильный процесс&lt;/h3&gt;
-
-&lt;p&gt;1 - Клонируем оригинальный репозитарий (лучше через протокол &lt;code&gt;git://&lt;/code&gt; - Гитхаб не разрешает пушить через него и поэтому
-вы случайно не отправите код, даже если у вас есть права на запись в репозитарий &lt;code&gt;awesome/awesome&lt;/code&gt;)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git clone git://github.com/awesome/awesome.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;2 - Подцепляем наш форк через дополнительный ремоут (вот здесь пригодиться &lt;code&gt;hub&lt;/code&gt;)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;hub fork
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;3 - Пушим ветки в ориджин &lt;code&gt;username&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git checkout -b new-feature
-...
-git push avakhov new-feature -u
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;То есть вместо клонирования форка забираем оригинальный репозитарий, подцепляя все что нужно
-через ремоуты. Так работать гораздо проще и естественнее, удивительно, что я об этом не знал.&lt;/p&gt;
-
-&lt;h3&gt;На работе мы отправляем пул реквесты через ветки, без форков&lt;/h3&gt;
-
-&lt;p&gt;В это случае полезны три алиаса, которыми я пользуюсь регулярно:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# ~/.gitconfig
-[user]
-  name = Alexey Vakhov
-  email = vakhov@gmail.com
-[alias]
-  o = !hub browse # раньше здесь был замысловатый код,
-                  # пока я не знал про hub
-  pushup = !git push origin `git symbolic-ref HEAD --short` -u
-  cleanup = !git checkout master &amp;amp;&amp;amp; git pull --rebase &amp;amp;&amp;amp; \
-    git remote prune origin &amp;amp;&amp;amp; git branch --merged | \
-    grep -v &amp;quot;\\*&amp;quot; | xargs -n 1 git branch -d
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;git o&lt;/code&gt; - открыть страницу репозитария.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;git pushup&lt;/code&gt; - отправить текущую, свежесозданную ветку в &lt;code&gt;origin&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;git cleanup&lt;/code&gt; - почистить локальный репозитарий от разных старых, уже смерженных в мастер веток.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 15 Jan 2015 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2015/01/15/hub/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2015/01/15/hub/index.html</guid>
       </item>
     
   </channel>
