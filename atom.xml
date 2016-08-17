@@ -7,6 +7,28 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Как помыть слона</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/watch-the-slon/main.jpg&quot; /&gt;
+          &lt;p&gt;Иногда накатывает настроение, когда кажется что все плохо, куча критичных проблем, невыполненных обещаний и непонятно за что хвататься.&lt;/p&gt;
+
+&lt;p&gt;В такие моменты обычно вспоминаю замечательную книгу &lt;a href=&quot;http://uibook2.usethics.ru&quot;&gt;Дизайн пользовательского интерфейса. Искусство мыть слона&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Чтобы хорошо вымыть слона, очень полезно начинать с самой
+грязной его части, иначе к концу мытья грязь успеет снова распространиться по слону.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Поэтому я выписываю все нерешенные вопросы в список, нахожу самый гнусный и стараюсь
+решить его хотя бы чуть-чуть. Обычно отпускает.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 17 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/17/watch-the-slon/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/17/watch-the-slon/index.html</guid>
+      </item>
+    
+      <item>
         <title>Коварный backtick или как определить размер используемой памяти</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/back-tick/main.jpg&quot; /&gt;
@@ -625,54 +647,6 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
         <pubDate>Mon, 26 Jan 2015 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2015/01/26/flat_map/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2015/01/26/flat_map/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Ember.js - 1. Введение</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/ember-1-intro.jpg&quot; /&gt;
-          &lt;p&gt;Говорят, что у Ember.js кривая обучения крутовата. Категорически с этим не соглашусь.&lt;/p&gt;
-
-&lt;p&gt;На самом деле обучение Ember.js - это глубокий темный колодец, в котором сидишь на дне и воешь от
-отчаяния. Но когда я немного разобрался, Эмбер начал мне нравится, даже сказал бы, что
-я его полюбил. Это действительно очень достойная и перспективная разработка.&lt;/p&gt;
-
-&lt;p&gt;Я хочу посвятить несколько выпусков работе с этим замечательным
-фреймворком.
-Не знаю, что в итоге получится, пока планирую, что мы
-зайдем немного с другой стороны, чем предлагается в официальных гайдах. Выпуски
-про Эмбер будут перемежаться с другими, более привычными темами про Руби, Рейлс и все такое,
-чтобы было веселее.
-Для успешной работы нам понадобится
-Node.js (я поставил через &lt;code&gt;ndenv&lt;/code&gt; по аналогии с моим любимым &lt;code&gt;rbenv&lt;/code&gt;) и
-&lt;a href=&quot;http://www.ember-cli.com/&quot;&gt;Ember-cli&lt;/a&gt; - это тру-способ организации проекта.&lt;/p&gt;
-
-&lt;p&gt;Для начала хочу отметить, что в Эмбере все наследуется от &lt;code&gt;Ember.Object&lt;/code&gt;, основная фишка
-которого, это возможность установить свойство через &lt;code&gt;set&lt;/code&gt; и взять его через &lt;code&gt;get&lt;/code&gt;. Всегда
-пользуйтесь этими методами. В качестве бонуса за непривычный синтаксис вы получите
-computed-свойста, вычисляемые реактивно, обзерверы, следящие за измененим свойств и
-всякие другие любопытные штуки. Создавать объект следует через &lt;code&gt;create&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ember&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;fullName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;surName&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;property&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;surName&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;alex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Alexey&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;alex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;fullName&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; &amp;quot;Alexey &amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;alex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;surName&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Vakhov&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;alex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;fullName&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; &amp;quot;Alexey Vakhov&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Подробнее можно прочитать в разделе &lt;a href=&quot;http://emberjs.com/guides/object-model/classes-and-instances/&quot;&gt;The Object Model&lt;/a&gt;
-официальной документации.&lt;/p&gt;
-
-&lt;p&gt;На сегодня все, до новых встреч!&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 23 Jan 2015 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2015/01/23/ember-1-intro/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2015/01/23/ember-1-intro/index.html</guid>
       </item>
     
   </channel>
