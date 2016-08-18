@@ -56,6 +56,33 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/18/alarm/index.html">Бдительность не бывает лишней</a></h1>
+      
+      <div class="date">August 18, 2016</div>
+
+      <div class="img"><img src="/assets/2/alarm/main.jpg" /></div>
+      <div class="entry">
+        <p>Как-то раз я переносил postgres-базу с продакшена на тестовый сервер.</p>
+
+<p>Продакшен работал уже на версии 9.4 и там даже добавили таблицу с jsonb-колонкой, тестовый сервер был
+все еще 9.3. Этот факт у меня был где-то на краю сознания, поэтому я решил проверить как перенеслась
+эта таблица.</p>
+
+<p>Правильный ответ - таблица никак не перенеслась, она просто не создалась.
+Наверняка <code>pg_restore</code> об этом
+написал, но обычно его вывод выглядит примерно так, поэтому я не заметил:</p>
+
+<p><img src="/assets/2/alarm/1.png" alt=""></p>
+
+<p>Мораль это истории такова: не стоит терять бдительность при переносе базы, мало ли что.</p>
+
+        <div style="float:right"><a href="/blog/2016/08/18/alarm/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%91%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C+%D0%BD%D0%B5+%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82+%D0%BB%D0%B8%D1%88%D0%BD%D0%B5%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F18%2Falarm%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/17/watch-the-slon/index.html">Как помыть слона</a></h1>
       
       <div class="date">August 17, 2016</div>
@@ -685,45 +712,6 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
 
         <div style="float:right"><a href="/blog/2015/01/29/ember-2-fire/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=Ember.js+-+2.+Index+%26+Show&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F29%2Fember-2-fire%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/26/flat_map/index.html">Enumerable#flat_map</a></h1>
-      
-      <div class="date">January 26, 2015</div>
-
-      <div class="img"><img src="/assets/flat_map.jpg" /></div>
-      <div class="entry">
-        <p>В Руби 1.9.2 появился класный метод <code>flat_map</code> <a href="http://ruby-doc.org/core-2.1.0/Enumerable.html#method-i-flat_map"><i class="fa fa-external-link"></i></a>,
-который я незаслуженно обходил стороной.</p>
-
-<p>Он делает все тоже самое, что обычный <code>map</code>, только объединяет возвращаемые значения
-не в массив, а друг с другом. Официальная документация описывает это так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">].</span><span class="n">flat_map</span> <span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="o">[</span><span class="n">e</span><span class="p">,</span> <span class="o">-</span><span class="n">e</span><span class="o">]</span> <span class="p">}</span> <span class="c1">#=&gt; [1, -1, 2, -2, 3, -3, 4, -4]</span>
-<span class="o">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]].</span><span class="n">flat_map</span> <span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span> <span class="o">+</span> <span class="o">[</span><span class="mi">100</span><span class="o">]</span> <span class="p">}</span> <span class="c1">#=&gt; [1, 2, 100, 3, 4, 100]</span>
-</code></pre></div>
-<p>В Рейлс же этот метод можно использовать вот так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Planet</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="n">has_many</span> <span class="ss">:countries</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">Country</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="n">has_many</span> <span class="ss">:cities</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">City</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-<span class="k">end</span>
-
-<span class="no">Planet</span><span class="o">.</span>
-  <span class="n">includes</span><span class="p">(</span><span class="ss">:countries</span> <span class="o">=&gt;</span> <span class="ss">:cities</span><span class="p">)</span><span class="o">.</span>
-  <span class="n">flat_map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:countries</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:cities</span><span class="p">)</span>
-</code></pre></div>
-<p>Руби - гениальный язык!</p>
-
-        <div style="float:right"><a href="/blog/2015/01/26/flat_map/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=Enumerable%23flat_map&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F26%2Fflat_map%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
