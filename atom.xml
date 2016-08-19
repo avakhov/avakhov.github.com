@@ -7,6 +7,33 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Лига лени в гит-конфиге</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/lazy-git/main.jpg&quot; /&gt;
+          &lt;p&gt;Чем старше я, тем ленивей становлюсь. Боюсь представить, что будет дальше.&lt;/p&gt;
+
+&lt;p&gt;Недавно в моем &lt;code&gt;.gitconfig&lt;/code&gt; появилась команда, которую я стараюсь использовать пореже... Но она такая клевая... &lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[alias]&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# перенес на несколько строк для наглядности, в оригинале она у меня в одной&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;!(git add -A . &amp;amp;&amp;amp; &lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;        git commit -amsaved_at_`date +%Y-%m-%d__%H:%M:%S` &amp;amp;&amp;amp;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;        git pull --rebase &amp;amp;&amp;amp; git push &amp;amp;&amp;amp; &lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;        echo &amp;quot;&amp;quot; &amp;amp;&amp;amp; git log -1 --stat) || git pull --rebase&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Команда комитит и пушит все что есть, а также подтягивает свежие изменения.&lt;/p&gt;
+
+&lt;!--- Я люблю регулярные сохранения, например блог сохраняю после каждой записи и почти после каждой правки, уже на автомате. А кого можно обмануть десяти командами `git -amfix` подряд? ---&gt;
+
+&lt;p&gt;Название алиаса от слова &lt;code&gt;sYnc&lt;/code&gt;. Букву &lt;code&gt;s&lt;/code&gt; я не стал использоваться, чтобы
+не путать с &lt;code&gt;git st&lt;/code&gt; =&amp;gt; &lt;code&gt;git status&lt;/code&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 19 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/19/lazy-git/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/19/lazy-git/index.html</guid>
+      </item>
+    
+      <item>
         <title>Бдительность не бывает лишней</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/alarm/main.jpg&quot; /&gt;
@@ -393,248 +420,6 @@ rps, сколько в прошлый раз выдавали двенадцат
         <pubDate>Mon, 02 Feb 2015 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2015/02/02/tsort/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2015/02/02/tsort/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Ember.js - 2. Index &amp; Show</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/ember-2-fire.jpg&quot; /&gt;
-          &lt;p&gt;Сколько раз в жизни вам нужно было сделать одностраничное приложение, которое хранит данные
-в локал сторадже наподобие TodoMVC из официального гайда Эмбера
-&lt;a href=&quot;http://emberjs.com/guides/&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;?
-Мне ни разу. Поэтому, как только я начинал делать что-то полезное,
-то сразу же возникало сотни практических вопросов, на которые гайды не отвечали.&lt;/p&gt;
-
-&lt;p&gt;Если подумать, то что представляют из себя 99% современных сайтов? Это CRUD-работа с базой.
-Предположим людям
-не
-нужен дизайн и всякая анимация, что лучше всего подходит для создания CRUD-интерфейсов?
-Конечно
-же Рейлс приложение на бутстрапе!
-Предлагаю делать бутстрап-CRUD на Эмбере,
-это будет почти также круто, как Рейлс &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Сервер&lt;/h2&gt;
-
-&lt;p&gt;Я решил, если клиент на javascript, то и сервер должен быть на javascript, а база должна быть Монго.
-С меня сошло семь потов пока я написал простенькое приложение на ноде, обрабатывающее запросы
-от REST-адаптера Эмбера. Если кратко, то запросы принимаются в виде &lt;code&gt;{record: {field1: &amp;quot;value1&amp;quot;}, ...}&lt;/code&gt; и
-возвращаются в том же виде. Более подробно можно прочитать в официальной документации &lt;a href=&quot;http://emberjs.com/guides/models/the-rest-adapter/&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// INDEX&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/api/posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// CREATE&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/api/posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;//..&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// SHOW&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/api/posts/:id&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;//..&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Вообщем такой, обычный REST. Код сервера здесь
-&lt;a href=&quot;https://github.com/avakhov/ember-demo/blob/master/server/server.js&quot;&gt;&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;. 
-Я не добавил обработку ошибок и, уверен, нарушил кучу принципов построения ноде-приложений,
-так как понятия не имею как это правильно делать, но для демонстрации работы Эмбера
-нам будет достаточно и такого сервера.&lt;/p&gt;
-
-&lt;h2&gt;Томстер, зажигай&lt;/h2&gt;
-
-&lt;p&gt;В принципе Эмбер действительно похож на Рейлс. Каждой странице соответствует свой уникальный урл.
-Определением кто будет рисовать страницу заведует раутер:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// app/router.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;posts/index&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;posts/new&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/posts/new&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;posts/show&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/posts/:id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;posts/edit&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/posts/:id/edit&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Рауты я использовал немного не канонические, но таким образом все файлы очень здорово расскладываются по
-папочкам.&lt;/p&gt;
-
-&lt;p&gt;Когда мы заходим на главную страницу, то вызывается раут &lt;code&gt;posts/index&lt;/code&gt;. В Рейлс мы можем добавить вьюху,
-а экшен в контроллере сгенерируется автоматически (хотя я так обычно не люблю делать и всегда
-добавляю пустой метод), в Эмбере принцип автоматической генерации доведен до абсолюта.
-Любой компонент в цепочке вызова после раута можно пропустить и он сгенерируется автоматически.&lt;/p&gt;
-
-&lt;p&gt;Для &lt;code&gt;posts/index&lt;/code&gt; мы определим раут явно:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// app/routes/posts/index.js&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ember&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ember&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ember&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;post&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Обратите внимания используется магия модулей ES6, запоминать синтаксис не нужно,
-заготовки файлов удобно создаются с помощью &lt;code&gt;ember-cli&lt;/code&gt;
-генераторов (в консоли &lt;code&gt;ember g route posts/index&lt;/code&gt;). Задача раута в большинстве случаев сохранить модель
-или коллекцию моделей. На первом этапе нужно придерживаться правила один урл = один раут = одна модель/коллекция моделей.
-Такое соглашение обедняет возможный функционал, но в дальнейшем мы научимся обходить
-это ограничение несколькими способами.
-Метод &lt;code&gt;model&lt;/code&gt; должен вернуть модель или промис (мы же находимся в асинхронном енвайроменте).&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;store&lt;/code&gt; - это &amp;quot;база данных&amp;quot; нашего клиентского приложения. Работой с моделями занимается специальный
-модуль Ember Data, который никак не может выйти из статуса беты. Стор частично зеркалирует данные,
-содержащиеся на сервере. То есть, если мы запросим все посты с сервера, они будут лежат
-в сторе, пока мы не запросим их заново. Мы можем добавить в стор запись и позднее ее сохранить на сервере.
-Таким образом если сильно постараться
-можно добиться приятной отзывчивости своего приложения.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;store.find&lt;/code&gt; возвращает промис
-на коллекцию моделей &lt;code&gt;post&lt;/code&gt;, которые Эмбер запрашивает с сервера, используя REST-адаптер. Чтобы система
-заработала необходимо определить собственно сам адаптер:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// app/adapters/application.js&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ember-data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;../config/environment&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RESTAdapter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;baseHost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;api&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Хост указан, чтобы при разработке мы запускали &lt;code&gt;ember-cli&lt;/code&gt; и ноде-сервер на разных портах, нейспейс
-помогает разделить запросы к API, с доставкой приложения (Эмбер хоть и одностраничное приложение, 
-при использовании history api он занимает все урлы).&lt;/p&gt;
-
-&lt;p&gt;И также описываем схему самой модели:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// app/models/post.js&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DS&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ember-data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;string&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;string&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Многообразием типов Эмбер в отличие от Рейлс не балует (да и в принципе он не стремиться 
-нас в чем-то особо баловать), однако строки, числа, даты и даже связи между моделями есть.&lt;/p&gt;
-
-&lt;p&gt;Следующим компонентом в иерархии обработки запроса идет контроллер. Задача контроллера - хранить стейт
-страницы и пробрасывать модель в темплейт. В данном случае мы оставим автосгенеренный контроллер.
-Контроллеры нам понадобятся при реализации других раутов.&lt;/p&gt;
-
-&lt;p&gt;И наконец темплейт - это реактивный хенлебар-шаблон с расширениями и разными наворотами (в прошлой записе
-я говорил, что все есть &lt;code&gt;Ember.Object&lt;/code&gt; с свойствами через &lt;code&gt;set/get&lt;/code&gt; и computed-свойствами, через
-магию Эмбера все что вы поменяется в модели, контроллере и тд автоматически отобразится во вьюхе
-наподобие React.js):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-handlebars&quot; data-lang=&quot;handlebars&quot;&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;ol class=&amp;quot;breadcrumb&amp;quot;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;  &amp;lt;li class=&amp;quot;active&amp;quot;&amp;gt;Posts&amp;lt;/li&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;&amp;lt;/ol&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;x&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;#link&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;posts/new&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;btn btn-default&amp;quot;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;New Post&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/link&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-
-&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;#each&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;  &amp;lt;h2&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;#link&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;posts/show&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;post.title&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}{{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/link&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;post.body&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;/each&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Тут все просто: бежим по &lt;code&gt;model&lt;/code&gt; (который на самом деле
-в данном случае коллекция постов) и отрисовываем. &lt;code&gt;link-to&lt;/code&gt; - 
-это хэлпер, которые делает известно что. Кстати особенностью создания ссылки в таком виде является то, что
-при нажатии на эту ссылку, хук &lt;code&gt;model&lt;/code&gt; в рауте &lt;code&gt;post/show&lt;/code&gt; вызван не будет,
-то есть не будет запроса к серверу и с главной
-страницы вы мгновенно попадете на страницу поста. Это хорошо с одной стороны, но с другой стороны
-вызывает такие нежданные баги, которым позавидует любая другая система.&lt;/p&gt;
-
-&lt;p&gt;Аналогично создаем раут для &lt;code&gt;posts/show&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// app/routes/posts/show.js&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ember&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;ember&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ember&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;post&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Здесь мы уже используем динамический раут с айдишником записи, прямо как в рейлс. Темплейт тоже
-стандартный:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-handlebars&quot; data-lang=&quot;handlebars&quot;&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;ol class=&amp;quot;breadcrumb&amp;quot;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;  &amp;lt;li&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;#link&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;posts/index&amp;#39;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;Posts&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/link&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;  &amp;lt;li class=&amp;quot;active&amp;quot;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;&amp;lt;/ol&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;x&quot;&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Хотя здесь есть один нюанс, мы используем &lt;code&gt;{{title}}&lt;/code&gt; вместо &lt;code&gt;{{model.title}}&lt;/code&gt;. Так можно делать. Здесь включается очередная магия Эмбера, которую пока можно принять просто как факт.&lt;/p&gt;
-
-&lt;h2&gt;Пару мелочей&lt;/h2&gt;
-
-&lt;p&gt;Бутстрап подключаем в &lt;code&gt;Brocfile.js&lt;/code&gt; (это штука для сборщика ассетов в &lt;code&gt;ember-cli&lt;/code&gt;):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Brocfile.js&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmberApp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;ember-cli/lib/broccoli/ember-app&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmberApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// Bootstrap&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;vendor/bootstrap-3.3.1/css/bootstrap.css&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;vendor/bootstrap-3.3.1/js/bootstrap.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fonts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&amp;quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.eot&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&amp;quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.svg&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&amp;quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.ttf&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&amp;quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.woff&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;fonts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;font&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;font&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;destDir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;fonts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toTree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Создаем в базе тестовые записи:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;rs-ds053668:PRIMARY&amp;gt; db.posts.find()
-{ &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;54c9702fce1c75040021bb37&amp;quot;), &amp;quot;title&amp;quot; : &amp;quot;First Post&amp;quot;, &amp;quot;body&amp;quot; : &amp;quot;Lorem
-ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&amp;quot; }
-{ &amp;quot;_id&amp;quot; : ObjectId(&amp;quot;54c97fc5ce1c75040021bb39&amp;quot;), &amp;quot;title&amp;quot; : &amp;quot;Second Post&amp;quot;, &amp;quot;body&amp;quot; : &amp;quot;Lorem
-ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&amp;quot; }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;ember build&lt;/code&gt; - компилирует код клиентского приложения, это можно повесить в &lt;code&gt;post-install&lt;/code&gt;, но
-для простоты я скомпилировал ассеты и положил их в репозитарий:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;client &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ember build --environment&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;production --output-path&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;../server/public
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Ахалай Махалай! Киргуду Бургуду!&lt;/p&gt;
-
-&lt;h2&gt;Результат&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/ember-2-fire/1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/ember-2-fire/2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;h2&gt;Ура!&lt;/h2&gt;
-
-&lt;p&gt;Фух. Спасибо, что домотали до конца.
-Я выкатил приложение на хероку, исходники на гитхабе. Сегодня нам получилось
-реализовать только буковку R. Буковки С, U и D реализуем в следующий раз.
-Если ничего не понятно - это нормально.
-Эмбер и не должен быть понятным. Это же Эмбер! Спасибо за внимание и до новых встреч!&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Исходники - &lt;a href=&quot;https://github.com/avakhov/ember-demo&quot;&gt;https://github.com/avakhov/ember-demo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Приложение на хероку - &lt;a href=&quot;http://ember-demo.herokuapp.com&quot;&gt;http://ember-demo.herokuapp.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        </description>
-        <pubDate>Thu, 29 Jan 2015 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2015/01/29/ember-2-fire/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2015/01/29/ember-2-fire/index.html</guid>
       </item>
     
   </channel>
