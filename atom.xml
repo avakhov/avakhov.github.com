@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Крон, Великий и Ужасный</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/cron/main.jpg&quot; /&gt;
+          &lt;p&gt;Я очень уважаю крон-задачи, это простой и надежный способ запускать регулярные
+задания.&lt;/p&gt;
+
+&lt;p&gt;Но каждый раз когда мне нужно в кроне запустить допустим руби-скрипт, я делаю это правильно минимум
+с третьего-пятого раза. Например так публикуется новый пост в блог:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;PATH=/root/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+23 7 * * 1-5 cd /root/blog &amp;amp;&amp;amp; (echo STARTED_`date &amp;quot;+\%Y-\%m-\%d__\%H-\%M-\%S&amp;quot;` &amp;amp;&amp;amp; git pull &amp;amp;&amp;amp; NOCACHE=1 ./publish next &amp;amp;&amp;amp; echo FINISHED_`date &amp;quot;+\%Y-\%m-\%d__\%H-\%M-\%S&amp;quot;`) &amp;gt;&amp;gt; /root/crontab.log 2&amp;gt;&amp;amp;1 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Успешно запустил я его только через час. Преклоняюсь перед теми, кто умеет это
+делать с первой попытки. Такие люди вообще есть?&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 24 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/24/cron/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/24/cron/index.html</guid>
+      </item>
+    
+      <item>
         <title>Большие апдейты</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/blob/main.jpg&quot; /&gt;
@@ -291,54 +312,6 @@ rps, сколько в прошлый раз выдавали двенадцат
         <pubDate>Thu, 11 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/11/regexp/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/11/regexp/index.html</guid>
-      </item>
-    
-      <item>
-        <title>И снова здравствуйте</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/reborn/main.jpg&quot; /&gt;
-          &lt;p&gt;Я много раз начинал писать блог и много раз бросал. Но природу не обманешь, нравится мне это дело, попробую еще раз.&lt;/p&gt;
-
-&lt;p&gt;Итак, представлюсь. Меня зовут Алексей Вахов. 7 лет я был C++ разработчиком разной степени
-суровости. С Руби он Рейлс меня познакомил дорогой друг &lt;a href=&quot;http://evtuhovich.ru/&quot;&gt;Иван Евтухович&lt;/a&gt;
-в 2006 году. Увлекаюсь Рейлс почти с самых первых версий и даже попал в
-&lt;a href=&quot;http://contributors.rubyonrails.org/&quot;&gt;топ-100 контрибьюторов&lt;/a&gt;. Однако профессионально занимаюсь
-веб-разработкой около 6 лет.&lt;/p&gt;
-
-&lt;p&gt;Сейчас работаю техническим директором в компании &lt;a href=&quot;https://uchi.ru&quot;&gt;Учи.ру&lt;/a&gt;.
-Мы занимаемся интересным и важным делом - учим детей математике и даже уже чуть-чуть русскому языку.
-Четыре года назад проект начинался с нуля, первых пользователей мы нашли в школе, которая находится рядом с офисом. Сегодня
-у нас 900 тысяч учеников, много продакшенов, серверов, задач, вопросов и планов.&lt;/p&gt;
-
-&lt;!--
-&lt;div class=&quot;hr&quot;&gt;&amp;middot;&amp;middot;&amp;middot;&lt;/div&gt;
-
-Я очень трепетно отношусь к копирайтам любого вида, сразу же решил, что иллюстрации к блогу буду
-рисовать сам, чтобы быть точно уверенным, что не нарушаю чужих прав.
-Также мне сложно провести границу в голове, где
-заканчиваются мои мысли и начинается коммерческая тайна. Поэтому про работу
-буду писать
-только ту информацию, в открытости которой я уверен.
---&gt;
-
-&lt;p&gt;До сих пор очень люблю Рейлс, хотя заниматься им стал конечно гораздо меньше. В настоящее время больше интересуюсь всем,
-что связано с разработкой ПО в целом: как создать комфортную среду, наладить процессы и взаимодействие
-внутри команды и вне, обеспечить стабильность приложений и их дальнейшее развитие, и так далее.&lt;/p&gt;
-
-&lt;p&gt;В блоге планирую писать про разные штуки, связанные с разработкой, работой, а также свои мысли, идеи
-и все такое. Надеюсь что-то покажется интересным и возможно даже поможет. Писать планирую регулярно
-и достаточно долгий срок. Как говаривал Будда в жизни есть 2 сложные вещи:
-начать что-то делать и продолжить
-это делать.&lt;/p&gt;
-
-&lt;p&gt;На сегодня все, спасибо за внимание и до новых встреч!&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Алексей Вахов&lt;/em&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 10 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/10/reborn/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/10/reborn/index.html</guid>
       </item>
     
   </channel>
