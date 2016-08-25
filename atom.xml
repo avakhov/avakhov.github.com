@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Маленькая тайна грепа</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/grep-it/main.jpg&quot; /&gt;
+          &lt;p&gt;Есть вещи, которые очень легко гуглятся, но иногда в голову не приходит их гуглить. Например
+я всегда считал, что такая конструкция, вполне нормальная практика:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps auxww | grep ruby | grep -v grep
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Чтобы найти процесс с руби, нужно сначала исключить процесс с грепом, который ищет процесс с руби. Ну
+вы понимаете.&lt;/p&gt;
+
+&lt;p&gt;Совершенно случайно наткнулся на изящное решение проблемы, не помню где:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;pa auxww | grep [r]uby
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;В таблице процессов отображается &lt;code&gt;grep [r]uby&lt;/code&gt;, а ищем мы регексп, в котором
+первая буква &lt;code&gt;r&lt;/code&gt; и потом строка &lt;code&gt;uby&lt;/code&gt;. Таким образом процесс самого грепа не попадает в поиск. 
+Теперь я ищу только так.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 25 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/25/grep-it/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/25/grep-it/index.html</guid>
+      </item>
+    
+      <item>
         <title>Крон, Великий и Ужасный</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/cron/main.jpg&quot; /&gt;
@@ -281,37 +305,6 @@ rps, сколько в прошлый раз выдавали двенадцат
         <pubDate>Fri, 12 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/12/doc-db/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/12/doc-db/index.html</guid>
-      </item>
-    
-      <item>
-        <title>%r{егекспы}</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/regexp/main.jpg&quot; /&gt;
-          &lt;p&gt;Недавно в канал коллега скинул ссылку &lt;a href=&quot;https://aaronlasseigne.com/2016/07/08/5-tips-for-writing-a-legible-regexp/&quot;&gt;5 Tips for Writing a Legible Regexp&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Лично мне кажется, что регекспы созданы для того, чтобы их только писать, читать их невозможно, как ни
-старайся. Однако
-совет про &lt;code&gt;%r{http://...}&lt;/code&gt; понравился, я использовал его в тот день для парсинга ссылок в
-тексте.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Зачем мне понадобилось парсить ссылки? О, это вообще другая история.
-У нас несколько десятков репозитариев, я слежу, чтобы они все были перечислены на главной странице
-в вики, сгруппированные по проектам, чтобы в случае чего было понятно
-к кому обратиться с вопросом. Простой скрипт
-на руби сравнивает список ссылок на странице с репозитариями в гитхабе и выдает разницу если она есть.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Однако &lt;code&gt;%r{}&lt;/code&gt; не единственная хитрость, которую стоит попробовать.
-В руби вообще на мой вкус самый дружелюбный синтаксис, среди всех языков, которые встречал.
-&lt;code&gt;%w[word1 word2]&lt;/code&gt;, &lt;code&gt;system %(ssh alex@host &amp;#39;grep &amp;quot;foo&amp;quot; /var/log/bar.log&amp;#39;)&lt;/code&gt;,
-&lt;code&gt;return unless ...&lt;/code&gt; и кучу других маленьких
-удобных приемов я использую каждый день.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 11 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/11/regexp/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/11/regexp/index.html</guid>
       </item>
     
   </channel>
