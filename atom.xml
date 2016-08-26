@@ -61,7 +61,7 @@
 вы понимаете.&lt;/p&gt;
 
 &lt;p&gt;Совершенно случайно наткнулся на изящное решение проблемы, не помню где:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;pa auxww | grep [r]uby
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps auxww | grep [r]uby
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;В таблице процессов отображается &lt;code&gt;grep [r]uby&lt;/code&gt;, а ищем мы регексп, в котором
 первая буква &lt;code&gt;r&lt;/code&gt; и потом строка &lt;code&gt;uby&lt;/code&gt;. Таким образом процесс самого грепа не попадает в поиск. 
