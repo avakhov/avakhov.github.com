@@ -56,6 +56,43 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/10/20/mini-rails/index.html">Мини Рейлс</a></h1>
+      
+      <div class="date">October 20, 2014</div>
+
+      <div class="img"><img src="/assets/mini-rails.jpg" /></div>
+      <div class="entry">
+        <p>Самое маленькое приложение на Рейлс, которое я могу написать, выглядит так (проверял на 4.1.6):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config.ru</span>
+<span class="nb">require</span> <span class="s2">&quot;rails&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;action_controller/railtie&quot;</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+  <span class="n">routes</span><span class="o">.</span><span class="n">append</span> <span class="k">do</span>
+    <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="s2">&quot;home#index&quot;</span>
+  <span class="k">end</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">secret_token</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span><span class="o">*</span><span class="mi">30</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="n">render</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Application</span><span class="o">.</span><span class="n">initialize!</span>
+<span class="n">run</span> <span class="no">Application</span>
+</code></pre></div>
+<p>Создайте файл <code>config.ru</code>, с указанным выше содержанием, запустите его с помощью <code>rackup</code>.
+На главной странице вы увидите &quot;Hello!&quot;.</p>
+
+        <div style="float:right"><a href="/blog/2014/10/20/mini-rails/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B8%D0%BD%D0%B8+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F20%2Fmini-rails%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/10/16/namespaces/index.html">Неймспейсы в Рейлс</a></h1>
       
       <div class="date">October 16, 2014</div>
@@ -1100,104 +1137,6 @@ gem &#39;smt_rails&#39;, &#39;&gt;= 0.2.3&#39;
 
         <div style="float:right"><a href="/blog/2012/07/10/death-illisuion/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9E%D0%BF%D0%B0%D1%81%D0%BD%D0%B0%D1%8F+%D0%B8%D0%BB%D0%BB%D1%8E%D0%B7%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F10%2Fdeath-illisuion%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/07/02/advices/index.html">Разные мелочи</a></h1>
-      
-      <div class="date">July  2, 2012</div>
-
-      
-      <div class="entry">
-        <p>3 недели в блог не писал и уже тяжело снова начинать. Так однажды я 2 года спортом не позанимался и тоже лень было возвращаться.
-Есть правда хорошое решение - нужно себя заставлять. И вот сегодня я хочу рассказать про разные мелочи,
-с которыми столкнулся в свое время.</p>
-
-<h2>Kernel.caller</h2>
-
-<p>Вы будете смеятся, но раньше, чтобы вывести стек вызова методов приложения я использовал конструкцию:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
-  <span class="k">begin</span>
-    <span class="k">raise</span> 
-  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
-    <span class="nb">p</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span> <span class="c1"># =&gt; [&quot;demo.rb:3:in `some&#39;&quot;, &quot;demo.rb:9:in `&lt;main&gt;&#39;&quot;]</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="n">some</span>
-</code></pre></div>
-<p>После C++ мне казалось, что это вполне нормально (в C++ попробуйте вывести стек приложения в лог, там не побалуешь). Но это же руби,
-здесь можно все, причем очень просто! Случайно в интернете обратил внимание на системный вызов <code>Kernel.caller</code>.
-Напечатать цепочку вызовов можно так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
-  <span class="nb">p</span> <span class="nb">caller</span> <span class="c1"># =&gt; [&quot;demo.rb:5:in `&lt;main&gt;&#39;&quot;]</span>
-<span class="k">end</span>
-
-<span class="n">some</span>
-</code></pre></div>
-<h2>Добавление ошибки валидации на :base</h2>
-
-<p>Отображая ошибки валидации с помощью стандартного <code>object.errors.full_messages</code>, мы иногда получаем такие сообщения:
-&quot;Password Укажите пожалуйста пароль&quot;. Чтобы быстро избавиться от обязательно названия атрибута в начале сообщения, можно добавлять
-ошибки валидации следующим образом: <code>object.errros.add(:base, &#39;Укажите пожалуйста пароль&#39;)</code>. <code>full_message</code> не будет
-добавлять название атрибута в этом случае - <a href="https://github.com/rails/rails/blob/91f8cf22647e2e102c0897e88faec049f606843f/activemodel/lib/active_model/errors.rb#L287">activemodel/lib/active_model/errors.rb#L287</a>.</p>
-
-<h2>Rescue в одну строку</h2>
-
-<p>Этим шаблоном я еще не воспользовался, но он интригует. Все мы используем конструкции для установки значений по умолчанию:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">some</span> <span class="o">||</span> <span class="s2">&quot;default&quot;</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">presence</span> <span class="o">||</span> <span class="s2">&quot;start&quot;</span> <span class="c1"># Rails only, обрабатывает nil? и blank?</span>
-</code></pre></div>
-<p>Оказывается можно так же легко установить дефалтовое значение, если метод вызывает исключение:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">another</span> <span class="k">rescue</span> <span class="s2">&quot;after exception&quot;</span>
-</code></pre></div>
-<p>Я обычно не вызываю эксепшенов в своем коде, которые где-то нужно обрабатывать. Но с внешними вызовами возможно пригодится.</p>
-
-<h2>IndexBy</h2>
-
-<p>Чего только не придумают руби-программисты, чтобы писать меньше кода. Недавно наткнулся на удивительный метод <a href="http://api.rubyonrails.org/classes/Enumerable.html#method-i-index_by">index_by</a> в рейлс:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Выдержка из документации:</span>
-
-<span class="c1"># Convert an enumerable to a hash:</span>
-<span class="n">people</span><span class="o">.</span><span class="n">index_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:login</span><span class="p">)</span>
-  <span class="c1"># =&gt; { &quot;nextangle&quot; =&gt; &lt;Person ...&gt;, &quot;chade-&quot; =&gt; &lt;Person ...&gt;, ...}</span>
-</code></pre></div>
-<h2>Ассерты</h2>
-
-<p>В С++ очень активно используются ассерты для проверки входных параметров, при выполнении каких-то подозрительных действий, для проверки
-возвращаемых значений и т.д. Это является частным случаем программирования по контракту. В рейлс, для собственного спокойствия,
-я тоже часто вставляю такого рода проверки. Приведу несколько типовых случаев:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 1.</span>
-<span class="c1"># не обращайте внимание на цепочку if-elseif, не могу себя</span>
-<span class="c1"># отучить в пользу case.</span>
-<span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:some</span>
-  <span class="c1"># ...</span>
-<span class="k">elsif</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:another</span>
-  <span class="c1"># ...</span>
-<span class="k">else</span>
-  <span class="k">raise</span> <span class="s2">&quot;unreacheable: </span><span class="si">#{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-
-<span class="c1"># 2.</span>
-<span class="n">options</span><span class="o">.</span><span class="n">assert_valid_keys</span><span class="p">(</span><span class="ss">:key_a</span><span class="p">,</span> <span class="ss">:key_b</span><span class="p">)</span>
-
-<span class="c1"># 3.</span>
-<span class="k">raise</span> <span class="s2">&quot;wrong </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">unless</span> <span class="sx">%w[start finish]</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-</code></pre></div>
-<p>Я обычно не заморачиваюсь внятными сообщения в эксепшенах, так как если ошибка и случится, то по трейсу всегда легко отследить
-проблему. Данные конструкции призваны подсказывать программисту, что в коде возник какой-то случай, о
-котором раньше не позаботились. Также эти конструкции легко расширяются, когда появляются новые режимы,
-ключи или состояния.</p>
-
-<p>Для первого раза думаю хватит. Рад возвращению в онлайн. Раньше мы работали над большим количеством маленьких проектов и я прежде
-всего оптимизировал скорость и стандартность разработки. Сейчас у нас есть парочку средних проектов, на несколько человеко-месяцев
-(мифических :-) каждый. При увеличении кодовой базы возникают проблемы другого сорта, с которыми я буду сталкиваться, осмыслять
-и рассказывать вам. До новых встреч!</p>
-
-        <div style="float:right"><a href="/blog/2012/07/02/advices/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%A0%D0%B0%D0%B7%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D0%BB%D0%BE%D1%87%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F02%2Fadvices%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
