@@ -7,6 +7,47 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Троешники рулят</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/tri/main.jpg&quot; /&gt;
+          &lt;p&gt;В школе я был многие годы, пожалуй, отличником. К счатью без красного диплома, но все таки в
+основном были пятерки.
+В институте в зачетке уже было 90% четверок. И только во взрослой жизни я наконец
+скатился на тройки.&lt;/p&gt;
+
+&lt;p&gt;Для меня троешник - это человек, который специализируется в одном-двух направлениях, 
+а на остальные кладет &lt;img class=&#39;emoji&#39; title=&#39;:nut_and_bolt:&#39; alt=&#39;:nut_and_bolt:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f529.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:nut_and_bolt:&#39; alt=&#39;:nut_and_bolt:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f529.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:nut_and_bolt:&#39; alt=&#39;:nut_and_bolt:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f529.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Поэтому,
+в школьных аналогиях, у него
+за год выходит
+2-3 пятерки по его любимым предметам, а остальные тройки. Такой ребенок образцово переходит
+из класса в класс, как-то там сдает русский язык с биологией и большую часть времени занимается тем,
+что ему
+нравится.&lt;/p&gt;
+
+&lt;p&gt;Сейчас у меня очень узкие интересы, каждый день читаю твиттер, пачку рсс, статьи, книги,
+на 99% вокруг IT и совершенно не интересуюсь политикой, спортом, сортами вина и многими другими
+вещами. Кино я люблю кассовое, чтобы было смешно и тупо, совершенно колхозные вкусы. На совещаниях
+частенько сижу в телефоне, рисую каракули или просто скучаю. Много раз не приходил на внутренние
+встречи, опаздывал на собеседования, пропадал в интернете и ленился. В быту
+я совершенно бесполезен, даже не буду об этом говорить.&lt;/p&gt;
+
+&lt;p&gt;Но те вещи, которые меня цепляют, сейчас это в основном всякие штуки, связанные с
+организацией разработки в целом,
+я готов делать и думать о них круглые сутки. За это, как кажется, мне
+прощают слабости в других вопросах.&lt;/p&gt;
+
+&lt;p&gt;Так жить гораздо приятнее -
+концентрироваться на интересном и спихивать все остальное, лишь бы отстали.
+Троешники рулят. Когда я стал
+троешником, я стал по настоящему счастлив.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 31 Aug 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/08/31/tri/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/31/tri/index.html</guid>
+      </item>
+    
+      <item>
         <title>Магия руби</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/ruby/main.jpg&quot; /&gt;
@@ -248,28 +289,6 @@
         <pubDate>Thu, 18 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/18/alarm/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/18/alarm/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Как помыть слона</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/watch-the-slon/main.jpg&quot; /&gt;
-          &lt;p&gt;Иногда накатывает настроение, когда кажется что все плохо, куча критичных проблем, невыполненных обещаний и непонятно за что хвататься.&lt;/p&gt;
-
-&lt;p&gt;В такие моменты обычно вспоминаю замечательную книгу &lt;a href=&quot;http://uibook2.usethics.ru&quot;&gt;Дизайн пользовательского интерфейса. Искусство мыть слона&lt;/a&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Чтобы хорошо вымыть слона, очень полезно начинать с самой
-грязной его части, иначе к концу мытья грязь успеет снова распространиться по слону.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Поэтому я выписываю все нерешенные вопросы в список, нахожу самый гнусный и стараюсь
-решить его хотя бы чуть-чуть. Обычно отпускает.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 17 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/17/watch-the-slon/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/17/watch-the-slon/index.html</guid>
       </item>
     
   </channel>

@@ -56,6 +56,91 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/04/27/prepend-routes/index.html">Таинственные гемы - Prepend Routes</a></h1>
+      
+      <div class="date">April 27, 2012</div>
+
+      
+      <div class="entry">
+        <p>Хочу поделиться интересной ситуацией, которая у меня возникла при разработке гемов. Вообще в любом случае попробуйте написать
+гем и обязательно выложите его на рубиджемс, так вы сделаете задачу придумывания имени для следующих коллег более
+интересной :)</p>
+
+<p>Если говорить серьезно, я сталкивался с дискуссиями о том, что пространство имен рубиджемс очень сильно замусоренно и
+лучше не создавать гемы для своих внутренних нужд. Мне кажется проблема надуманная. Я не выкидываю бумажки из под мороженного
+на землю на основании того, что наша планета и так замусоренная, но экономия на именах мне напоминает
+шуточною статью, которая рекомендовала беречь GUID&#39;ы, так как их осталось очень мало. (Если вы программировали под виндовс, 
+то заметили, что гуиды там используются очень активно. Это смешная шутка, правда?)</p>
+
+<p>Итак гемы. Вообще наибольший интерес для меня представляют так называемые энджины. Они эмитируют маленький рейлс-проект и позволяют
+выносить в гем контроллеры, модели, миграции, ассеты, рауты, все что захочется. Одна из проблема как раз связана с раутами.
+Вы можете добавить рауты следующим образом:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># lib/custom_gem/engine.rb</span>
+<span class="k">module</span> <span class="nn">CustomGem</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="o">::</span><span class="no">Rails</span><span class="o">::</span><span class="no">Engine</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># app/controllers/custom_controller.rb</span>
+<span class="k">class</span> <span class="nc">CustomController</span>
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># config/routes.rb</span>
+<span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="s1">&#39;custom/index&#39;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Это будет работать прекрасно во всех случаях, кроме одного, если кто-то использует
+раут со звездочкой для мэтчинга по шаблону (например
+для статических страниц о компании, контакты и т.д.):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">MyApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+  <span class="n">get</span> <span class="s1">&#39;*permalink&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;home#page&#39;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>В этом случае кастомный раут у гема будет затерт. Я столкнулся с этим в своем форке rails-footnotes, когда контроллер, который
+в девелопменте позволяет посмотреть исходный руби-файл прямо в браузере, перестал работать. Есть очень простая, но недокументированная
+возможность - метод <code>prepend</code> <a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/routing/route_set.rb#L306">action<em>dispatch/routing/route</em>set.rb#L306</a>, с помощью которого можно поместить раут на самый верх:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 1-й вариант (НЕ ПРАВИЛЬНО)</span>
+<span class="c1"># ------------</span>
+<span class="c1"># Вот этот вариант НЕ ЗАРАБОТАЛ! Не знаю почему, мне лень стало разбираться.</span>
+
+<span class="c1"># config/routes.rb</span>
+<span class="c1"># Заменяем draw на prepend</span>
+<span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">prepend</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="s1">&#39;custom/index&#39;</span>
+<span class="k">end</span>
+</code></pre></div><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 2-й вариант (рабочий)</span>
+<span class="c1"># ------------</span>
+
+<span class="c1"># config/routes.rb - удаляем вообще</span>
+
+<span class="c1"># lib/custom_gem/engine.rb</span>
+<span class="k">module</span> <span class="nn">CustomGem</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="o">::</span><span class="no">Rails</span><span class="o">::</span><span class="no">Engine</span>
+    <span class="n">initializer</span> <span class="s1">&#39;custom&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
+      <span class="no">ActiveSupport</span><span class="o">.</span><span class="n">on_load</span> <span class="ss">:after_initialize</span> <span class="k">do</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">prepend</span> <span class="k">do</span>
+          <span class="n">get</span> <span class="s1">&#39;custom/index&#39;</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>С необходимостью расширять рауты (именно расширять, а не делать маунтед-енджин) я сталкивался всего два раза. В обоих случаях я сделал
+как в варианте 2. Первый вариант выглядит привлекательнее, но у меня пока не дошли руки разобраться почему он не работает.</p>
+
+        <div style="float:right"><a href="/blog/2012/04/27/prepend-routes/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A2%D0%B0%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5+%D0%B3%D0%B5%D0%BC%D1%8B+-+Prepend+Routes&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F27%2Fprepend-routes%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/04/25/tips/index.html">Подарки</a></h1>
       
       <div class="date">April 25, 2012</div>
@@ -830,45 +915,6 @@ devise, которому нужен <code>root_path</code>) и зелеными 
 
         <div style="float:right"><a href="/blog/2012/03/13/alias-method-chain/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=Alias+Method+Chain&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F13%2Falias-method-chain%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html">Лайоут анонимного контроллера</a></h1>
-      
-      <div class="date">March  1, 2012</div>
-
-      
-      <div class="entry">
-        <p>В продолжении темы про лайоуты. Допустим вы решили создать анонимный контроллер, который
-будет поддерживать классическую цепочку поиска подходящего лайоута согласно <a href="http://api.rubyonrails.org/classes/AbstractController/Layouts.html#label-Inheritance+Examples">документации</a>.</p>
-
-<p>Например так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/routes.rb</span>
-<span class="no">WeirdRailsApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
-  <span class="n">controller</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">ApplicationController</span><span class="p">)</span> <span class="k">do</span>
-    <span class="k">def</span> <span class="nf">text</span>
-      <span class="n">render</span> <span class="ss">text</span><span class="p">:</span> <span class="s1">&#39;demo&#39;</span><span class="p">,</span> <span class="ss">layout</span><span class="p">:</span> <span class="kp">true</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="n">controller</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="ss">:text</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Я не знаю зачем вам может понадобиться написать такой код, но никогда же нельзя
-за себя ручаться, мало ли что.</p>
-
-<p>Вынужден огорчить, но в сегодняшних версиях рейлс вы получите ексепшн:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">There was no default layout for #&lt;Class:0xa1e6cd4&gt; in #&lt;ActionView::PathSet:...
-</code></pre></div>
-<p>Это происходит из-за ошибки в рейлс при поиске лайоута. К счастью я нашел этот дефект и <a href="https://github.com/rails/rails/commit/b27c29ef4a26755b8de04686241694ce5ee33724">исправил</a>. </p>
-
-<p>В рейлс 4.0 вы сможете пользоваться привычным наследованием лайоутов и для анонимных
-контроллеров тоже. Код, предложенный вверху поста, будет выполняться правильно.</p>
-
-        <div style="float:right"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B0%D0%B9%D0%BE%D1%83%D1%82+%D0%B0%D0%BD%D0%BE%D0%BD%D0%B8%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE+%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F01%2Fanonymous-controller-layout-lookup%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
