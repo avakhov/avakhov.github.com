@@ -7,6 +7,41 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Архитектура проводов</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/provod/main.jpg&quot; /&gt;
+          &lt;p&gt;В жизни есть вещи, про которые не принято говорить на
+конференциях. Простые, топорные, но крайне рабочие схемы. Одна из таких схем - 
+это архитектура проводов (название - мое &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;).&lt;/p&gt;
+
+&lt;p&gt;Думаю вы замечали, что в любом офисе, на улице, в подъездах
+и еще много где
+скапливается огромное
+количество проводов. Никто не хочет разбираться нужен ли каждый конкретный провод или нет,
+всегда проще сверху протянуть новый. Такой принцип достаточно хорошо и долго работает, хотя
+выглядит это, конечно, не очень.&lt;/p&gt;
+
+&lt;p&gt;Аналогичный подход используется в некоторых очень важных местах программного кода, когда
+ключевый метод вызывается много где, но при этом все равно продолжает развиваться и
+сохраняет обратную совместимость. В
+этом случае для поддержки нового функционала добавляют новые параметры и обкладывают
+легаси код условиями, чтобы на старых параметрах код работал как раньше.&lt;/p&gt;
+
+&lt;p&gt;Такой подход я встречал в больших и страшных C++-приложениях.
+Такой прием за четыре года разработки &lt;a href=&quot;https://uchi.ru&quot;&gt;Учи.ру&lt;/a&gt; мы использовали один раз,
+но со всей душой. Метод принимает 48 параметров (в виде ключей хэша, но все-таки).&lt;/p&gt;
+
+&lt;p&gt;Главное, при использовании архитектуры проводов, важно помнить, что в один прекрасный день
+придется срезать все провода и проложить их заново (кстати в случае нашего метода-рекордсмена
+мы как раз этим занимаемся).&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 01 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/01/provod/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/01/provod/index.html</guid>
+      </item>
+    
+      <item>
         <title>Троешники рулят</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/tri/main.jpg&quot; /&gt;
@@ -265,30 +300,6 @@
         <pubDate>Fri, 19 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/19/lazy-git/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/19/lazy-git/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Бдительность не бывает лишней</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/alarm/main.jpg&quot; /&gt;
-          &lt;p&gt;Как-то раз я копировал postgres-базу с продакшена на тестовый сервер.&lt;/p&gt;
-
-&lt;p&gt;Продакшен работал уже на версии 9.4 и там даже добавили таблицу с jsonb-колонкой, тестовый сервер был
-все еще 9.3. Этот факт у меня был где-то на краю сознания, поэтому я решил проверить как перенеслась
-эта таблица.&lt;/p&gt;
-
-&lt;p&gt;Правильный ответ - таблица никак не перенеслась, она просто не создалась.
-Наверняка &lt;code&gt;pg_restore&lt;/code&gt; об этом
-написал, но обычно его вывод выглядит примерно так, поэтому я не заметил:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/alarm/1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Мораль это истории такова: не стоит терять бдительность при переносе базы, мало ли что.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 18 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/18/alarm/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/18/alarm/index.html</guid>
       </item>
     
   </channel>
