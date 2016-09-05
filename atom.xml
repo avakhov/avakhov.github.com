@@ -7,6 +7,29 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Мифическая серебряная пуля</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/bullet/main.jpg&quot; /&gt;
+          &lt;p&gt;С одной стороны удивительно, как быстро развиваются технологии и мгновенно устаревают знания,
+с другой стороны не менее удивительно, что некоторые статьи и книги смотрятся очень актуально до
+сих пор.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%80%D0%B5%D0%B1%D1%80%D1%8F%D0%BD%D0%BE%D0%B9_%D0%BF%D1%83%D0%BB%D0%B8_%D0%BD%D0%B5%D1%82&quot;&gt;Серебряной пули нет&lt;/a&gt; написана в 1986 году, когда мне было 2 года.
+&lt;a href=&quot;https://ru.wikipedia.org/wiki/%D0%9C%D0%B8%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA%D0%BE-%D0%BC%D0%B5%D1%81%D1%8F%D1%86&quot;&gt;Мифический человеко-месяц&lt;/a&gt; - 1975!
+&lt;a href=&quot;https://ru.wikipedia.org/wiki/Design_Patterns&quot;&gt;Паттерны проектирования&lt;/a&gt; разрабатывались
+с семидисятых годов, хотя изданы только в 1994 (свежачок).&lt;/p&gt;
+
+&lt;!-- И напоследок фото первых ламберсексуалов: --&gt;
+
+&lt;!-- ![](/assets/2/bullet/Ken_n_dennis.jpg) --&gt;
+
+        </description>
+        <pubDate>Mon, 05 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/05/bullet/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/05/bullet/index.html</guid>
+      </item>
+    
+      <item>
         <title>Прожорливый JSON</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/1gb_json/main.jpg&quot; /&gt;
@@ -299,27 +322,6 @@
         <pubDate>Tue, 23 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/23/blob/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/23/blob/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Переписывать нельзя модифицировать</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/refactoring/main.jpg&quot; /&gt;
-          &lt;p&gt;В какой-то книжке прочитал, что программу дешевле переписать с нуля, если нужно модифицировать более 30% исходников.&lt;/p&gt;
-
-&lt;p&gt;С этим я согласен, но еще больше люблю
-сделать рабочий каркас в любом случае с чистого листа (в случае рейлс - это начать
-новое приложение). И потом перетаскивать куски старого кода, постоянно проверяя, что приложение запускается.
-Таким образом генеральное флоу выполнения программы оказывается под контролем и явно видны точки, где управление передается в легаси.&lt;/p&gt;
-
-&lt;p&gt;В качесте приятного бонуса половина кода теряется, как и положено при любом хорошем переезде, новое
-приложение становится
-гораздо свежее старого.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 22 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/22/refactoring/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/22/refactoring/index.html</guid>
       </item>
     
   </channel>
