@@ -7,6 +7,26 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Любви к руби пост</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/ruby2/main.jpg&quot; /&gt;
+          &lt;p&gt;Мне очень нравится как руби работает со строками, хэшами, массивами и строками.
+Каждый раз испытываю наслаждение,
+когда могу сделать что-то полезное, написав всего несколько строк.&lt;/p&gt;
+
+&lt;p&gt;Как-то раз парсил страничку нашей внутренней вики
+и в цикле сделал так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;repos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;|&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;%r{https://github.com\S*}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Подобные конструкции и гораздо более длинные пишу по несколько штук в день. Божественно.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 06 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/06/ruby2/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/06/ruby2/index.html</guid>
+      </item>
+    
+      <item>
         <title>Мифическая серебряная пуля</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/bullet/main.jpg&quot; /&gt;
@@ -287,41 +307,6 @@
         <pubDate>Wed, 24 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/24/cron/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/24/cron/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Большие апдейты</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/blob/main.jpg&quot; /&gt;
-          &lt;p&gt;Один долгий руби процесс у нас пишет логи своего выполнения в базу.&lt;/p&gt;
-
-&lt;p&gt;Сделано было просто и прямолинейно, создали колонку &lt;code&gt;log:text&lt;/code&gt; в таблице скажем &lt;code&gt;jobs&lt;/code&gt; и вот такой
-метод логирования:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Job&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;safe!&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Конструкция исправно работала пару лет и вдруг закончилось дисковое пространство на боксе с базой.
-Добавили.
-Через некоторое время снова закончилось. Начали разбираться.&lt;/p&gt;
-
-&lt;p&gt;Оказалось, что кто-то добавил отладочной информации и количество записей в лог резко выросло.
-Поле &lt;code&gt;log&lt;/code&gt; стало занимать 2-3 мегабайта, новые строки добавляются примерно раз в секунду,
-а Postgres устроен так, что UPDATE = INSERT + DELETE, DELETE же не сразу же
-освобождает место. То есть мы стали со скоростью несколько мегабайт в секунду забивать диск,
-автовакуум не успевал чистить.&lt;/p&gt;
-
-&lt;p&gt;Починили легко. Вынесли лог в отдельную модель и вместо обновления теперь создаем
-новую строку в таблице. Добавили пару индексов для скорости доступа и все стало хорошо - 
-место на диске заканчиваться перестало. Это решение успешно работает до сих пор.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 23 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/23/blob/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/23/blob/index.html</guid>
       </item>
     
   </channel>
