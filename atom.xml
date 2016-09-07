@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Соколиный глаз</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/ux/main.jpg&quot; /&gt;
+          &lt;p&gt;После нескольких лет работы в вебе, у меня появилось немного вкуса и наблюдательности. Могу различить
+несколько видов шрифтов, сразу же вижу когда забыли паддинга добавить и всякие другие штуки.
+Каждый раз удивляюсь и радуюсь этому.&lt;/p&gt;
+
+&lt;p&gt;Раньше я был суровым серверным разработчиком, с соответствующими представлениями о прекрасном.
+Первый культурный шок вызвал наш генеральный
+директор четыре года назад. Он между делом сказал:
+&amp;quot;о, у скайпа иконка поменялась, была выпуклая, а стала плоская&amp;quot;. Я
+у него спросил: &amp;quot;ты это специально высматриваешь?&amp;quot; Он ответил, что просто в глаза бросилось. &amp;quot;Что за
+неведомая магия&amp;quot; - подумал я тогда. А теперь сам вижу.&lt;/p&gt;
+
+&lt;p&gt;А вы замечаете когда у хрома закладки с прямоугольничков меняются на клинышек? Или кнопка закрытия
+вкладки была жирненькая, а стала тоненькая? Или шрифт в iOS поменялся?&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 07 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/07/ux/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/07/ux/index.html</guid>
+      </item>
+    
+      <item>
         <title>Любви к руби пост</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/ruby2/main.jpg&quot; /&gt;
@@ -286,27 +310,6 @@
         <pubDate>Thu, 25 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/25/grep-it/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/25/grep-it/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Крон, Великий и Ужасный</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/cron/main.jpg&quot; /&gt;
-          &lt;p&gt;Я очень уважаю крон-задачи, это простой и надежный способ запускать регулярные
-задания.&lt;/p&gt;
-
-&lt;p&gt;Но каждый раз когда мне нужно в кроне запустить допустим руби-скрипт, я делаю это правильно минимум
-с третьего-пятого раза. Например так публикуется новый пост в блог:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;PATH=/root/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-23 7 * * 1-5 cd /root/blog &amp;amp;&amp;amp; (echo STARTED_`date &amp;quot;+\%Y-\%m-\%d__\%H-\%M-\%S&amp;quot;` &amp;amp;&amp;amp; git pull &amp;amp;&amp;amp; NOCACHE=1 ./publish next &amp;amp;&amp;amp; echo FINISHED_`date &amp;quot;+\%Y-\%m-\%d__\%H-\%M-\%S&amp;quot;`) &amp;gt;&amp;gt; /root/crontab.log 2&amp;gt;&amp;amp;1 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Успешно запустил я его только через час. Преклоняюсь перед теми, кто умеет это
-делать с первой попытки. Такие люди вообще есть?&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 24 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/24/cron/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/24/cron/index.html</guid>
       </item>
     
   </channel>
