@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Волшебная палочка</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/progress/main.jpg&quot; /&gt;
+          &lt;p&gt;Я очень не люблю когда скрипт долго работает и ничего не выводит в консоль, хочется потыкать его
+палочкой и узнать жив ли он еще. В качестве такой палочки обычно использую что-нибудь такое:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;[&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;] processed: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;где вместо 100 подбираю параметр, при котором строка печатается раз в несколько секунд. Если
+известно общее количество записей, которые нужно обработать, еще нагляднее будет
+вывести &lt;code&gt;&amp;quot;#{count} of #{total}&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 08 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/08/progress/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/08/progress/index.html</guid>
+      </item>
+    
+      <item>
         <title>Соколиный глаз</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/ux/main.jpg&quot; /&gt;
@@ -286,30 +304,6 @@
         <pubDate>Fri, 26 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/26/beauty/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/26/beauty/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Маленькая тайна грепа</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/grep-it/main.jpg&quot; /&gt;
-          &lt;p&gt;Есть вещи, которые очень легко гуглятся, но иногда в голову не приходит их гуглить. Например
-я всегда считал, что такая конструкция, вполне нормальная практика:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps auxww | grep ruby | grep -v grep
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Чтобы найти процесс с руби, нужно сначала исключить процесс с грепом, который ищет процесс с руби. Ну
-вы понимаете.&lt;/p&gt;
-
-&lt;p&gt;Совершенно случайно наткнулся на изящное решение проблемы, не помню где:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps auxww | grep [r]uby
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;В таблице процессов отображается &lt;code&gt;grep [r]uby&lt;/code&gt;, а ищем мы регексп, в котором
-первая буква &lt;code&gt;r&lt;/code&gt; и потом строка &lt;code&gt;uby&lt;/code&gt;. Таким образом процесс самого грепа не попадает в поиск. 
-Теперь я ищу только так.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 25 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/25/grep-it/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/25/grep-it/index.html</guid>
       </item>
     
   </channel>
