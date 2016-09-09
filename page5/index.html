@@ -56,6 +56,44 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/11/20/array_find/index.html">Неведомый Array#find</a></h1>
+      
+      <div class="date">November 20, 2014</div>
+
+      <div class="img"><img src="/assets/array_find.jpg" /></div>
+      <div class="entry">
+        <p>Полагаясь на интуицию, как делаю в 90% случаев, программируя на Руби, я написал проверку
+наличия элемента в массиве <code>array.find(4) ? &#39;success&#39; : &#39;fail&#39;</code> и с удивлением
+узнал, что это не работает.</p>
+
+<p>Документация нам подсказывает <a href="http://ruby-doc.org/core-2.1.3/Enumerable.html#method-i-find"><i class="fa fa-external-link"></i></a>, что <code>find</code> вернет <code>Enumerator</code> если блок не задан.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  #&lt;Enumerator: [1, 2, 3]:find(4)&gt;</span>
+</code></pre></div>
+<p>Любой объект в руби - это <code>true</code>, поэтому конструкция из вступления будет всегда возвращать
+<code>success</code>. Есть несколько способов исправить ситуацию.</p>
+
+<p>Использовать блочную версию <code>find</code> (не очень изящно, но работает):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">}</span>  <span class="c1"># =&gt;  nil</span>
+</code></pre></div>
+<p>Использовать метод <code>index</code> или <code>include?</code> (я так делаю, когда пишу на чистом руби): </p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">index</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>     <span class="c1"># =&gt;  nil</span>
+<span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">include?</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  false</span>
+</code></pre></div>
+<p>В Рейлс (или когда просто подключен <code>ActiveSupport</code>) еще есть метод <code>#in?</code>
+<a href="http://api.rubyonrails.org/classes/Object.html#method-i-in-3F"><i class="fa fa-external-link"></i></a>,
+позволяющий иногда сделать код более читаемым:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+<span class="mi">4</span><span class="o">.</span><span class="n">in?</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>       <span class="c1"># =&gt;  false</span>
+</code></pre></div>
+<p>На один неправильный вариант использования <code>find</code>, есть много правильных.</p>
+
+        <div style="float:right"><a href="/blog/2014/11/20/array_find/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B2%D0%B5%D0%B4%D0%BE%D0%BC%D1%8B%D0%B9+Array%23find&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F20%2Farray_find%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/11/17/long-death-migtations/index.html">Почему я не меняю схему и данные в одной миграции</a></h1>
       
       <div class="date">November 17, 2014</div>
@@ -540,71 +578,6 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
       </div>
     </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/10/12/ed-editor/index.html">Ed - хардкорнее чем Vi</a></h1>
-      
-      <div class="date">October 12, 2014</div>
-
-      <div class="img"><img src="/assets/ed-editor.jpg" /></div>
-      <div class="entry">
-        <p>Однажды мне захотелось отредактировать файл прямо на Хероку,
-потянувшись за Vim с удивлением узнал, что на Хероку Vim/Vi нету. Увы.</p>
-
-<p>Интернет заботливо подсказал, что в 1970 году, симпатичный парень Кен Томпсон написал редактор <code>ed</code>,
-который точно есть абсолютно на всех unix-системах уже 40 с лишним лет.
-И точно на Хероку он есть.
-Ed - прадедушка вима и сейчас мы немного посмотрим на него поближе. </p>
-
-<p>Пересказывать мануал и википедию я не буду, лучше просто расскажу пару забавных фактов.
-Первый факт - все команды в ed состоят из одной английской буквы,
-а в случае ошибки выводится только знак вопроса. Второй факт - в ed нет подсветки синтаксиса. </p>
-
-<p>Вот пример работы работы с ed:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ed -p: <span class="c"># опция -p:, делает ed более похожим на вим</span>
-:a
-This is new file.
-Ed is the gest!
-.
-:%l
-This is new file.<span class="err">$</span>
-Ed is the gest!<span class="err">$</span>
-:1d
-:s/gest/best
-Ed is the best!
-:w demo.txt
-16
-:q
-<span class="nv">$ </span>cat demo.txt
-Ed is the best!
-</code></pre></div>
-<p>Строчки, которые начинаются с двоеточия - это команды в ed. В данном примере мы добавили в буфер 
-две строчки, вывели их, удалили первую строку, исправили опечатку и
-сохранили результат в файл <code>demo.txt</code>. При некоторой сноровке можно легко создавать
-и редактировать небольшие файлики.</p>
-
-<p>Редактор ed мне очень понравился, кроме Хероку я его использую, например,
-чтобы вставить предупреждение на вторую строчку в каждом баш скрипте:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> binary in *.sh
-<span class="k">do</span>
-ed &gt; /dev/null <span class="nv">$binary</span> <span class="s">&lt;&lt;EOF</span>
-<span class="s">1</span>
-<span class="s">a</span>
-<span class="s"># GENERATED AUTOMATICALLY. DO NOT MODIFY THIS FILE!</span>
-<span class="s">.</span>
-<span class="s">w</span>
-<span class="s">EOF</span>
-<span class="k">done</span>
-</code></pre></div>
-<p>Кстати, это Кен Томпсон - мне кажется так и должен выглядеть настоящий разработчик:</p>
-
-<p><img src="/assets/ed-editor/Ken_Thompson_02.jpg" alt=""></p>
-
-        <div style="float:right"><a href="/blog/2014/10/12/ed-editor/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=Ed+-+%D1%85%D0%B0%D1%80%D0%B4%D0%BA%D0%BE%D1%80%D0%BD%D0%B5%D0%B5+%D1%87%D0%B5%D0%BC+Vi&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F12%2Fed-editor%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
 </div>
 
 <!-- Pagination links -->
@@ -612,7 +585,7 @@ ed &gt; /dev/null <span class="nv">$binary</span> <span class="s">&lt;&lt;EOF</s
   
     <a href="/page4" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 5 of 8</span>
+  <span class="page_number ">Page: 5 of 9</span>
   
     <a href="/page6" class="next">Next</a>
   
