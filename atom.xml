@@ -7,6 +7,34 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Виму преданности пост</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/vim/main.jpg&quot; /&gt;
+          &lt;p&gt;Я серьезно работал всего в двух редакторах: Visual Studio и Vim, причем последние лет 6 -
+только вим, так как C++ уже давно
+не занимаюсь. К виму у меня особое отношение, нельзя сказать, что я его люблю или нет, просто по другому уже не могу. Слишком привыкли
+пальцы к командам, давно уже отлажены конфигурационные файлы и собран набор необходимых плагинов.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/avakhov/dotvim&quot;&gt;https://github.com/avakhov/dotvim&lt;/a&gt; - работа с любым новым компьютером начинается с запуска
+инсталяционного скрипта из ридми-файла, несколько томительных секунд, и я готов к работе (ок-ок, я работаю
+не только в виме, еще есть криптованный
+архив с файлом &lt;code&gt;install.sh&lt;/code&gt;, копирующим все необходимые дот-файлы и ключи).&lt;/p&gt;
+
+&lt;p&gt;Я пробовал и текстмейт, и саблайм, и атом, но не прижились. Не те ощущения. Более того, в глубине души я верю, что в виме код получается
+красивее, так как он весь такой цифровой и конкретный. Использование мышки в редакторе делает код более аналоговым и расхлябанным
+(аудиофилы поймут).&lt;/p&gt;
+
+&lt;p&gt;Вот он мой родной, любимый &lt;img class=&#39;emoji&#39; title=&#39;:heart:&#39; alt=&#39;:heart:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/2764.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2/vim/vim.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 12 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/12/vim/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/12/vim/index.html</guid>
+      </item>
+    
+      <item>
         <title>Не очень программист</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/too_dev/main.jpg&quot; /&gt;
@@ -268,26 +296,6 @@
         <pubDate>Tue, 30 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/30/ruby/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/30/ruby/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Новая блестящая идея</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/i_have_idea/main.jpg&quot; /&gt;
-          &lt;p&gt;Когда я придумываю новую блестящую идею (на мой вкус естественно &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;), то первым делом захожу
-в интернет и ищу статьи от тех, кто уже сделал что-то подобное.&lt;/p&gt;
-
-&lt;p&gt;Если не получается найти похожее, то практически наверняка идея не очень хорошая.
-Ну действительно, что можно в разработке придумать такого, что
-не пришло в голову кому-нибудь еще?&lt;/p&gt;
-
-&lt;p&gt;А вот реализация любой идеи - это уже дело полностью индивидуальное.
-Написать программу, даже на 100 строк, можно совершенно бесчисленно-комбинаторным числом способов.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 29 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/29/i_have_idea/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/29/i_have_idea/index.html</guid>
       </item>
     
   </channel>
