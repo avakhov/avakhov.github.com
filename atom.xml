@@ -7,6 +7,48 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Блогомашина</title>
+        <description>
+          
+          &lt;p&gt;Как говаривал Будда есть две сложные вещи: начать что-то делать и продолжить это делать регулярно. Так и
+с блогом, мне нравится его писать, нравится результат, но как сделать так чтобы не забросить?&lt;/p&gt;
+
+&lt;p&gt;Расскажу как мотивирую себя писать дальше. Вообще я решил писать блог ровно год, по посту каждый
+будний день, а потом подумать, что делать дальше (делаем ставки, продержусь или нет &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;).
+У меня нет силы воли
+в смысле &amp;quot;буду вставать в шесть утра, обливаться холодной водой, кросс, потом два поста в блог&amp;quot;. Нет.
+Скорее накануне такой здоровой новой жизни я приму пивка, будет повод 
+обязательно какой-нибудь хороший,
+и проснусь часиков в одиннадцать. Вместо силы воли - я стараюсь создать правильные условия, которые
+помогают двигаться в желаемом направлении.&lt;/p&gt;
+
+&lt;p&gt;Каждый день, после работы, делаю несколько простых вещей:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;смотрю комментарии и отвечаю если есть&lt;/li&gt;
+&lt;li&gt;вычитываю посты в очереди&lt;/li&gt;
+&lt;li&gt;пишу два новых поста&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;В тудуисте у меня есть проект с идеями для блога, который я постоянно пополняю. Потом спец-скриптом
+беру случайную идею и либо пишу пост по ней, либо выкидываю из списка. Так как идеи - штуки
+ценные, то стараюсь все-таки писать. Каждый новый пост генерируется с параметром &lt;code&gt;read = 3&lt;/code&gt;, что
+означает, что его нужно вычитать минимум три раза. При каждой вычитке я уменьшаю цифру на единицу, пока
+она не станет равной 0. Раз в неделю для всех постов в очереди отрисовываю картинки, сканирую их и
+раскрашиваю. Все. То есть такой самый настоящий конвейер.&lt;/p&gt;
+
+&lt;p&gt;Генри Форд - красавчик! Кстати &lt;a href=&quot;http://www.lookatme.ru/mag/live/wrong-beliefs/209093-ignorance-ford-assembly&quot;&gt;умные люди в интернете говорят&lt;/a&gt;,
+что &amp;quot;Форд не изобретал конвейер, а впервые организовал поточное производство&amp;quot;. Не совсем понимаю
+в чем разница &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;, но eсли бы не блог - стал бы
+я это вообще гуглить?&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 13 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/13/blogo-engine/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/13/blogo-engine/index.html</guid>
+      </item>
+    
+      <item>
         <title>Виму преданности пост</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/vim/main.jpg&quot; /&gt;
@@ -267,35 +309,6 @@
         <pubDate>Wed, 31 Aug 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/08/31/tri/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/08/31/tri/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Магия руби</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/ruby/main.jpg&quot; /&gt;
-          &lt;p&gt;Когда я изучаю что хранится в базе данных, то очень люблю использовать рейлсовые конструкции
-примерно такого вида &lt;code&gt;User.&amp;lt;...&amp;gt;.group(:region).count&lt;/code&gt;.
-Однако для рубишных массивов не знал изящного решения, как посчитать сколько раз встречается
-каждый элемент, и много раз писал примерно так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_by&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_h&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# =&amp;gt; {1=&amp;gt;2, 2=&amp;gt;1, 3=&amp;gt;1}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Выглядит не очень красиво.&lt;/p&gt;
-
-&lt;!--- &lt;div class=&quot;hr&quot;&gt;&amp;middot;&amp;middot;&amp;middot;&lt;/div&gt; ---&gt;
-
-&lt;p&gt;Наш коллега &lt;a href=&quot;https://github.com/vbelov&quot;&gt;Владислав Белов&lt;/a&gt; предложил
-отличный вариант
-(правда нужны руби &amp;gt;= 2.2):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:itself&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# =&amp;gt; {1=&amp;gt;2, 2=&amp;gt;1, 3=&amp;gt;1}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Красота &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 30 Aug 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/08/30/ruby/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/08/30/ruby/index.html</guid>
       </item>
     
   </channel>
