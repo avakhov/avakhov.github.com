@@ -71,8 +71,8 @@
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="n">config</span><span class="o">.</span><span class="n">log_tags</span> <span class="o">=</span> <span class="o">[</span>
     <span class="ss">:uuid</span><span class="p">,</span>
     <span class="ss">:remote_ip</span><span class="p">,</span>
-    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">req</span><span class="o">|</span> <span class="s2">&quot;user-</span><span class="si">#{</span><span class="n">req</span><span class="o">.</span><span class="n">cookie_jar</span><span class="o">.</span><span class="n">signed</span><span class="o">[</span><span class="ss">:uid</span><span class="o">]</span><span class="s2">&quot; || &quot;</span><span class="n">anon</span><span class="s2">&quot; }</span>
-<span class="s2">  ]</span>
+    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">req</span><span class="o">|</span> <span class="s2">&quot;user-</span><span class="si">#{</span><span class="n">req</span><span class="o">.</span><span class="n">cookie_jar</span><span class="o">.</span><span class="n">signed</span><span class="o">[</span><span class="ss">:uid</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="s2">&quot;anon&quot;</span> <span class="p">}</span>
+  <span class="o">]</span>
 </code></pre></div>
 <p>Тогда логи будут выглядет примерно так:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">[4ba12972-bf3a-4dc5-9f9e-66908966e534] [50.141.127.26] [user-21] Processing by SomeController#some as HTML
