@@ -7,6 +7,32 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Как заходить на сайт</title>
+        <description>
+          
+          &lt;p&gt;Вообще разработчик вряд ли будет профессионально знать все тонкости командной строки
+(например я каждый раз ищу в интернете, как сделать
+в цикл или проверку условия на баш-скрипте и есть подозрение, что каждый раз нахожу новый вариант),
+но некоторые хитрости знать очень полезно. Например
+как можно зайти на сайт, если кажется, что что-то работает не так.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;curl -v https://yandex.ru&lt;/code&gt; - даст много полезной информации о сертификате, заголовках, редиректах и так далее.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ab -c10 -n100 https://yandex.ru/&lt;/code&gt; - зайти громко, полезно если вы хотите увидеть факт запроса в логах (научил меня этому приему &lt;a href=http://evtuhovich.ru&gt;Иван Евтухович&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;openssl s_client -connect yandex.ru:443&lt;/code&gt; - выводит цепочку сертификатов, пригодится если есть подозрение, что установлен неправильный сертификат (из копилки непревзойденного &lt;a href=https://twitter.com/whitew1nd&gt;Юрия Игнатова&lt;/a&gt; из Express42, вообще Юра умеет писать из головы такие хитрые openssl-команды, что я даже не пытаюсь повторить).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Таким образом отладку любого ендпойнта обычно начинаю с одной из этих команд. Конечно
+еще помогает &lt;code&gt;curl&lt;/code&gt; во всех его других проявлениях, но нужные опции,
+кроме пожалуй &lt;code&gt;-H&lt;/code&gt;, &lt;code&gt;-X&lt;/code&gt; я читаю в мане или гуглю.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 19 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/19/visit/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/19/visit/index.html</guid>
+      </item>
+    
+      <item>
         <title>Поиск по логам для бедных</title>
         <description>
           
@@ -255,29 +281,6 @@ zfgrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;Completed 302&amp;#39;&lt;/span
         <pubDate>Tue, 06 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/06/ruby2/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/06/ruby2/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Мифическая серебряная пуля</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/bullet/main.jpg&quot; /&gt;
-          &lt;p&gt;С одной стороны удивительно, как быстро развиваются технологии и мгновенно устаревают знания,
-с другой стороны не менее удивительно, что некоторые статьи и книги смотрятся очень актуально до
-сих пор.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%80%D0%B5%D0%B1%D1%80%D1%8F%D0%BD%D0%BE%D0%B9_%D0%BF%D1%83%D0%BB%D0%B8_%D0%BD%D0%B5%D1%82&quot;&gt;Серебряной пули нет&lt;/a&gt; написана в 1986 году, когда мне было 2 года.
-&lt;a href=&quot;https://ru.wikipedia.org/wiki/%D0%9C%D0%B8%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA%D0%BE-%D0%BC%D0%B5%D1%81%D1%8F%D1%86&quot;&gt;Мифический человеко-месяц&lt;/a&gt; - 1975!
-&lt;a href=&quot;https://ru.wikipedia.org/wiki/Design_Patterns&quot;&gt;Паттерны проектирования&lt;/a&gt; разрабатывались
-с семидисятых годов, хотя изданы только в 1994 (свежачок).&lt;/p&gt;
-
-&lt;!-- И напоследок фото первых ламберсексуалов: --&gt;
-
-&lt;!-- ![](/assets/2/bullet/Ken_n_dennis.jpg) --&gt;
-
-        </description>
-        <pubDate>Mon, 05 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/05/bullet/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/05/bullet/index.html</guid>
       </item>
     
   </channel>
