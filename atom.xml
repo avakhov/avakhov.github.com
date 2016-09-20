@@ -7,6 +7,32 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Два принципа</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/two-principe/main.jpg&quot; /&gt;
+          &lt;p&gt;В жизни я стараюсь следовать двум принципам:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;телефон не должен звонить;&lt;/li&gt;
+&lt;li&gt;&lt;a href=https://www.artlebedev.ru/kovodstvo/sections/167/&gt;метод прогрессивного джипега&lt;/a&gt; Артемия Лебедева.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Первый принцип означает, что с работы не должно быть звонков в нерабочее время, а для этого
+нужно либо все хорошо наладить, либо, что еще надежнее, скрывать свой номер телефона. Второй способ
+у нас почему-то не одобряется, поэтому я стараюсь идти по первому пути &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ну а метод прогрессивного джипега - по-моему абсолютно гениальный способ выполнения многих дел,
+особенно в IT. Если задача сделана за пару дней с нулевой прожаркой, ее не надо согласовывать, планировать,
+утверждать и так далее. Можно просто показать и обсудить результат. Получая быстро конечные формы решения, можно
+практически полностью ускользнуть из лап бюрократии, которая есть в любой, даже самой хорошей компании.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 20 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/20/two-principe/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/20/two-principe/index.html</guid>
+      </item>
+    
+      <item>
         <title>Как заходить на сайт</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/visit/main.jpg&quot; /&gt;
@@ -261,26 +287,6 @@ zfgrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;Completed 302&amp;#39;&lt;/span
         <pubDate>Wed, 07 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/07/ux/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/07/ux/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Любви к руби пост</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/ruby2/main.jpg&quot; /&gt;
-          &lt;p&gt;Мне очень нравится как руби работает со строками, хэшами, массивами и строками.
-Каждый раз испытываю наслаждение,
-когда могу сделать что-то полезное, написав всего несколько строк.&lt;/p&gt;
-
-&lt;p&gt;Как-то раз парсил страничку нашей внутренней вики
-и в цикле сделал так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;repos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;|&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;%r{https://github.com\S*}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Подобные конструкции и гораздо более длинные пишу по несколько штук в день. Божественно.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 06 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/06/ruby2/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/06/ruby2/index.html</guid>
       </item>
     
   </channel>
