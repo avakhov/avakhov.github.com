@@ -7,6 +7,59 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Устои шатал</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/redo/main.jpg&quot; /&gt;
+          &lt;p&gt;В книге &lt;a href=https://www.ozon.ru/context/detail/id/27190925/&gt;Закон малинового варенья и еще 103 секрета консалтинга&lt;/a&gt;, которую мне
+подарил замечательный друг Андрей Рынкевич, есть глава о важности развития способности мыслить парадоксально. Найти в старом, что-то
+новое, увидеть нестандартное решение, придумать что-то свежее можно только попав в условия парадокса. Для меня парадокс граничит
+с провокацией, которая также помогает выйти за границы сложившегося, расшатать устои. Я люблю подвергать сомнению
+привычные схемы, проверяя их прочность с помощью юмора и, да что уж тут скрывать, легкого троллинга.&lt;/p&gt;
+
+&lt;p&gt;Правда иногда получается не очень хорошо. Например несколько лет назад, на выступлении в институте системного программирования
+я сказал, что мы ничего не тестируем. Эти слова с укором мне уже напомнили разные внешние люди раз 10
+(а сколько еще смолчали). Хотя на самом
+деле автоматическое тестирование реально всего лишь один из фильтров качества, к тому же не самый лучший (бац, меня
+окончательно выгоняют со всех элитных вечеринок с коктейлями).&lt;/p&gt;
+
+&lt;p&gt;Из литературы можно узнать (читал давно, со ссылками беда &lt;img class=&#39;emoji&#39; title=&#39;:disappointed:&#39; alt=&#39;:disappointed:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f61e.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;), что самый лучший фильтр качества,
+который отлавливает больше всего ошибок -
+это формальная инспекция кода. Но если мы хотим чтобы в продакшен проходило скажем 1 из 100 ошибок, нам придется ставить
+несколько фильтров: ревью, ручное тестирование, юнит-тесты, интеграционное тестирование, альфы, беты и так далее, прилично удорожая
+производство. Саппорт, мониторинг это
+тоже фильтры, но уже в продакшене. Но нигде нет правила, что нужны именно автотесты, который встроены в рейлс и другие
+веб фреймворки. Их вполне в некоторых условиям можно заменить
+чем нибудь другим (подозреваю, что выгонят даже с привокзальных вечеринок).&lt;/p&gt;
+
+&lt;p&gt;На докладе я не врал, первые версии Учи.ру действительно
+были без тестов. Мы сделали не меньше пяти разных вариантов, ходили в школы, постоянно все переделывали, тестировали
+вручную и снова в школы. И я
+рад, что мы прорвались. Компания растет, задачи все интереснее и если бы не срезали углы, не факт, что получилось бы.&lt;/p&gt;
+
+&lt;p&gt;Для меня важность наличия тестов в привычном понимании находится месте на третьем в приоритетах,
+а полный ковередж месте на десятом. Однако считаю, что CI обязательно,
+стопроцентно должен
+быть подключен в каждом продакшене с первых же комитов, чтобы если кто-то хочет написать тесты, мог это безболезненно
+сделать. На первых двух местах конечно же общая организация процессов и структура проекта. Если главный мотив реализации совпадает
+с бизнесом, кода не очень много, он прост и прямолинеен, то это прекрасный задел. Вот, что например говорит DHH, наш дорогой:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&amp;quot;A bad design with a complete test suite is still a bad design&amp;quot;, &lt;a href=&quot;https://twitter.com/richhickey&quot;&gt;@richhickey&lt;/a&gt;&lt;/p&gt;&amp;mdash; DHH (@dhh) &lt;a href=&quot;https://twitter.com/dhh/status/461212841807462400&quot;&gt;April 29, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Таким образом я и Дэвид. Или Дэвид и я, как будет менее провокационно? &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; Мы вообщем с Дэвидом считаем, что хороший дизайн приложения
+важнее покрытия тестами. А что такое хороший дизайн? Хм. Кто знает.&lt;/p&gt;
+
+&lt;p&gt;PS: Чтобы пост был не совсем бесполезным поделюсь, что мы используем &lt;a href=https://circleci.com/&gt;CirleCI&lt;/a&gt; - хороший, стабильный CI,
+есть бесплатный план с одним контейнером. Вообще я эпизодично пользовался и семафором, и трависом, и вексором, и дженкинсом,
+они сейчас все хорошие.
+Но для нас CircleCI - проверенно хорош.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 22 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/22/redo/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/22/redo/index.html</guid>
+      </item>
+    
+      <item>
         <title>Шоты</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/shots/main.jpg&quot; /&gt;
@@ -276,24 +329,6 @@ zfgrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;Completed 302&amp;#39;&lt;/span
         <pubDate>Fri, 09 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/09/too_dev/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/09/too_dev/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Волшебная палочка</title>
-        <description>
-          
-          &lt;p&gt;Я очень не люблю когда скрипт долго работает и ничего не выводит в консоль, хочется потыкать его
-палочкой и узнать жив ли он еще. В качестве такой палочки обычно использую что-нибудь такое:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;[&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;] processed: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;где вместо 100 подбираю параметр, при котором строка печатается раз в несколько секунд. Если
-известно общее количество записей, которые нужно обработать, еще нагляднее будет
-вывести &lt;code&gt;&amp;quot;#{count} of #{total}&amp;quot;&lt;/code&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 08 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/08/progress/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/08/progress/index.html</guid>
       </item>
     
   </channel>
