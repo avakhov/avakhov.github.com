@@ -9,7 +9,7 @@
       <item>
         <title>С Синатрой мне не по пути</title>
         <description>
-          
+          &lt;img src=&quot;http://vakhov.me/assets/2/sinatra/main.jpg&quot; /&gt;
           &lt;p&gt;Так получилось, что с Синатрой у меня так не сложилось. Я раз пять пробовал запускать на нем различные легкие приложения, а
 потом понимал, что что-то как-то неютно (привет, &lt;code&gt;ActiveSupport&lt;/code&gt;). Ой, и в базу нужно сходить (добавим &lt;code&gt;ActiveRecord&lt;/code&gt;). Еще недурно было бы
 пару писем отправить (ура, есть же &lt;code&gt;ActionMailer&lt;/code&gt;). В этот момент появляется первое подозрение, что что-то здесь не так.
