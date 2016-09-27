@@ -7,6 +7,37 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Когда пора комментировать</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/comments/main.jpg&quot; /&gt;
+          &lt;p&gt;Когда я работал C++-разработчиком в &lt;a href=http://www.cqg.com&gt;CQG&lt;/a&gt; у нас было забавное правило, которым пользуюсь до сих пор.
+В новом коде было необходимо документировать только классы и функции (а их нужно было документировать всегда, для большой кодовой
+базы это необходимо), но сам код практически не документировался. Потому-что новый код всегда чистенький, гладенький и в целом
+понятный. Но когда идет вставка кода в уже существующий метод, хорошим тоном было описать кто и зачем этот фрагмент
+вставил.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ... много кода &lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// av: fix of #342987. Иногда внешний сервис возвращает 1, но при этом ...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(...)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// ... еще много кода&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Формально эту информацию можно достать с помощью &lt;code&gt;git blame&lt;/code&gt; (ну не &lt;code&gt;git&lt;/code&gt; на самом деле, гита тогда еще не было),
+однако тогда приходится делать много лишних кликов, прыгать по истории и вникать во все комиты, в которых менялся данный файл.
+Фактически же такие комменарии очень
+сильно помогают разобраться в конкретном файле. И чем больше рубцов, тем более легаси код.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 27 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/27/comments/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/27/comments/index.html</guid>
+      </item>
+    
+      <item>
         <title>С Синатрой мне не по пути</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/sinatra/main.jpg&quot; /&gt;
@@ -290,48 +321,6 @@ zfgrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;Completed 302&amp;#39;&lt;/span
         <pubDate>Wed, 14 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/14/slim-coff/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/14/slim-coff/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Блогомашина</title>
-        <description>
-          
-          &lt;p&gt;Как говаривал Будда есть две сложные вещи: начать что-то делать и продолжить это делать регулярно. Так и
-с блогом, мне нравится его писать, нравится результат, но как сделать так чтобы не забросить?&lt;/p&gt;
-
-&lt;p&gt;Расскажу как мотивирую себя писать дальше. Вообще я решил писать блог ровно год, по посту каждый
-будний день, а потом подумать, что делать дальше (делаем ставки, продержусь или нет &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;).
-У меня нет силы воли
-в смысле &amp;quot;буду вставать в шесть утра, обливаться холодной водой, кросс, потом два поста в блог&amp;quot;. Нет.
-Скорее накануне такой здоровой новой жизни я приму пивка, будет повод 
-обязательно какой-нибудь хороший,
-и проснусь часиков в одиннадцать. Вместо силы воли - я стараюсь создать правильные условия, которые
-помогают двигаться в желаемом направлении.&lt;/p&gt;
-
-&lt;p&gt;Каждый день, после работы, делаю несколько простых вещей:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;смотрю комментарии и отвечаю если есть&lt;/li&gt;
-&lt;li&gt;вычитываю посты в очереди&lt;/li&gt;
-&lt;li&gt;пишу два новых поста&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;В тудуисте у меня есть проект с идеями для блога, который я постоянно пополняю. Потом спец-скриптом
-беру случайную идею и либо пишу пост по ней, либо выкидываю из списка. Так как идеи - штуки
-ценные, то стараюсь все-таки писать. Каждый новый пост генерируется с параметром &lt;code&gt;read = 3&lt;/code&gt;, что
-означает, что его нужно вычитать минимум три раза. При каждой вычитке я уменьшаю цифру на единицу, пока
-она не станет равной 0. Раз в неделю для всех постов в очереди отрисовываю картинки, сканирую их и
-раскрашиваю. Все. То есть такой самый настоящий конвейер.&lt;/p&gt;
-
-&lt;p&gt;Генри Форд - красавчик! Кстати &lt;a href=&quot;http://www.lookatme.ru/mag/live/wrong-beliefs/209093-ignorance-ford-assembly&quot;&gt;умные люди в интернете говорят&lt;/a&gt;,
-что &amp;quot;Форд не изобретал конвейер, а впервые организовал поточное производство&amp;quot;. Не совсем понимаю
-в чем разница &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;, но eсли бы не блог - стал бы
-я это вообще гуглить?&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 13 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/13/blogo-engine/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/13/blogo-engine/index.html</guid>
       </item>
     
   </channel>
