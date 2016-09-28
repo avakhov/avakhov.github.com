@@ -7,6 +7,32 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Стресс выбора из хороших решений</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/stress/main.jpg&quot; /&gt;
+          &lt;p&gt;В &lt;a href=http://www.mann-ivanov-ferber.ru/books/sse/funky-business/&gt;бизнесе в стиле фанк&lt;/a&gt; есть пример, когда ведущий журнал
+по потребительству заявил, что все марки машин технически хороши, выбирайте себе по цвету, сервису, красоте и финансовым возможностям.
+Мне кажется в веб-разработке тоже давно пора заявить, что все технологие хорошие, выбирайте те, у которых звездочек на гитхабе
+больше &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Это так и есть, современный веб можно написать в конечные сроки на любом популярном языке и фреймворке, конечно
+с разной степенью комфорта.&lt;/p&gt;
+
+&lt;p&gt;Обратной стороной этого изобилия является невротизм выбора. Читал у одного психолога, что выбор из нескольких хороших вариантов -
+это большой стресс для человека. Именно поэтому всевозможным депрессиям и расстройствам подвержены больше жители развитых обществ.
+Удивительно, что выбор есть или не есть, менее травмирующий для психики, чем выбор чего бы такого поесть и чего бы этакого купить.&lt;/p&gt;
+
+&lt;p&gt;Вопрос моды в разработке сейчас играет большую роль и порождает много споров и стресса. У нас есть даже внутренняя шутка, что поздно учить
+&amp;lt;имя технологии&amp;gt;, так как она уже у всех неделю в продакшене. Мне кажется, что выход тут такой же
+как и в потребительском стрессе, признать,
+что самые лучшие и модные ботинки, те, которые согревают ноги прямо сейчас, а самая правильная и прогрессивная технология - та, которая
+решает ваши сегодняшние задачи (но по сторонам поглядывать &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;).&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 28 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/28/stress/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/28/stress/index.html</guid>
+      </item>
+    
+      <item>
         <title>Когда пора комментировать</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/comments/main.jpg&quot; /&gt;
@@ -300,27 +326,6 @@ zfgrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;Completed 302&amp;#39;&lt;/span
         <pubDate>Thu, 15 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/15/rails-hate/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/15/rails-hate/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Slim &amp; Coffee</title>
-        <description>
-          
-          &lt;p&gt;Я очень люблю &lt;a href=&quot;http://coffeescript.org/&quot;&gt;Coffeescript&lt;/a&gt; и &lt;a href=&quot;http://slim-lang.com/&quot;&gt;Slim&lt;/a&gt; по очень простой
-причине: Coffeescript выучил из ролика Рьяна Бейтса -
-&lt;a href=&quot;http://railscasts.com/episodes/267-coffeescript-basics&quot;&gt;railscasts #267&lt;/a&gt;
-(кофескрипт сейчас сильно сдает позиции на фоне ES6, но это другая история),
-а Slim - читая главную страницу сайта. Все, больше
-никогда не учил, изредка только что-то подгугливал.&lt;/p&gt;
-
-&lt;p&gt;Конечно не все технологии можно так подать, но мне кажется к этому
-нужно стремится в современном
-разогнаном мире.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 14 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/14/slim-coff/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/14/slim-coff/index.html</guid>
       </item>
     
   </channel>
