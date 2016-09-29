@@ -7,6 +7,33 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Самая лучшая реалтайм аналитика</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/ga/main.jpg&quot; /&gt;
+          &lt;p&gt;Никогда бы не поверил, что самым лучшим инструментом проверки работоспособности сайта прямо сейчас является гугл аналитика,
+а именно вкладка &lt;code&gt;Real-Time&lt;/code&gt;.
+Более отзывчивого инструмента я не знаю, при любом подозрении в первую очередь смотрим именно туда. Начиная с некоторого
+трафика любая значительная неровность на графике на 100% означает, что с сайтом проблемы.&lt;/p&gt;
+
+&lt;p&gt;Например так выглядит добавление колонки с дефалтовым значением в достаточно большую таблицу (мониторинг завопил, команда &amp;quot;под ружье&amp;quot;,
+пока разобрались в чем проблема, начали чинить, колонка уже добавилась, но шрам остался).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2/ga/2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;В архивах также нашел такой график, не помню в чем была проблема, но чуть-чуть пользователей зацепило, помню что вовремя успели
+остановить деструктивное действие.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2/ga/3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;И вообще гугл аналитика шикарный инструмент. Там конечно много кнопочек и вкладочек, но умелые люди творят с ними просто чудеса.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 29 Sep 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/09/29/ga/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/29/ga/index.html</guid>
+      </item>
+    
+      <item>
         <title>Стресс выбора из хороших решений</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/stress/main.jpg&quot; /&gt;
@@ -304,28 +331,6 @@ zfgrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;Completed 302&amp;#39;&lt;/span
         <pubDate>Fri, 16 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/16/pure-logs/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/16/pure-logs/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Что мне не нравится в рейлс</title>
-        <description>
-          
-          &lt;p&gt;В рейлс мне не нравятся, пожалуй, две вещи: минимальный проект в любом случае состоит
-из большого количества файлов. В этом плане Node.js и Go симпатичней, можно выращивать полезный
-сервис, начав с одного файла. А иногда одного файла и хватает. Например у нас есть бот, который
-скидывает по запросу статус заббикса в слек. Он состоит всего из 130 строчек джаваскрипта.&lt;/p&gt;
-
-&lt;p&gt;И вторая вещь связана с динамической природой самого руби, которая с одной стороны помогла сделать
-выразительный, компактный и очень мощной фреймворк, с другой стороны код плохо грепается, гораздо
-хуже чем на Go или C++ например. Так как нет никакой гарантии, что кто-то не вызвал какой-нибудь метод
- с помощью &lt;code&gt;send &amp;quot;some&amp;quot; + &amp;quot;_another&amp;quot;&lt;/code&gt;. Конечно, обычно так не делают, но в общем случае
-гарантии нет. Например когда используются гемы со слишком пересахаренным интерфейсом,
-или попробуйте найти в легаси проекте все варианты построения раута (включая &lt;code&gt;form_for [:admin, @user]&lt;/code&gt;).&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 15 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/15/rails-hate/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/15/rails-hate/index.html</guid>
       </item>
     
   </channel>
