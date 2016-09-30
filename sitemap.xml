@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://vakhov.me/blog/2016/09/30/pg_pick/index.html</loc>
+    
+    <lastmod>2016-09-30T00:00:00+03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://vakhov.me/blog/2016/09/29/ga/index.html</loc>
     
     <lastmod>2016-09-29T00:00:00+03:00</lastmod>
@@ -765,21 +773,21 @@
   
   <url>
     <loc>http://vakhov.me/404.html</loc>
-    <lastmod>2016-09-29T07:23:11+03:00</lastmod>
+    <lastmod>2016-09-30T07:23:13+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/about.html</loc>
-    <lastmod>2016-09-29T07:23:11+03:00</lastmod>
+    <lastmod>2016-09-30T07:23:13+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/</loc>
-    <lastmod>2016-09-29T07:23:11+03:00</lastmod>
+    <lastmod>2016-09-30T07:23:13+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
