@@ -56,6 +56,85 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/05/24/coding-standarts/index.html">Разработка стандарта кодирования</a></h1>
+      
+      <div class="date">May 24, 2012</div>
+
+      
+      <div class="entry">
+        <p>Если вам необходимо разработать стандарт кодирования обязательно прислушайтесь к совету Герба Саттера и
+Андрея Александреску. Этот совет я нашел в книге по C++, но его можно применять к любому языку программированию
+и к жизни вообще:</p>
+
+<blockquote>
+Скажем кратко: не мелочитесь.
+<br>
+<strong>Герб Саттер, Андрей Александреску</strong>
+<br>
+<i>Стандарты программирования на&nbsp;C++ (Глава 0. Что не следует стандартизировать)</i>
+</blockquote>
+
+<p>Чтобы стало более понятно приведу еще несколько выдержек:</p>
+
+<blockquote>
+<ul>
+<li>Не следует определять конкретный размер отступа, но следует использовать отступы для подчеркивания структуры программы. Для отступа используйте то количество символов, которое вам нравится, но это количество должно быть одинаково, как минимум, в пределах файла.</li>
+<li>Не определяйте конкретную длину строки, но она должна оставлять текст удобочитаемым. Используйте ту длину строки, которая вам по душе, но не злоупотребляйте ею. Исследования показали, что легче всего воспринимается текст, в строке которого находится до десяти слов.</li>
+<li>Следует использовать непротиворечивые соглашения об именовании, не слишком мелочно регламентируя его.</li>
+</ul>
+</blockquote>
+
+<p>По правде говоря Герб и Андрей очень сильно рискуют, говоря, что количество пробелов в отступе не важно.
+Это острая тема и нужно обладать сильным духом, чтобы затронуть ее
+на вечеринке с коктелями.
+В C++ существует 3 фундаментальные школы: 8 пробелов &mdash; кернел си хакеры,
+такой огромный отступ удерживает от вложенности больше трех, 4 пробела &mdash; классика С++, 2 пробела &mdash;
+неофиты. На прошлой работе проблему размера стандартного отступа разрешили с изяществом
+Александра Македонского &mdash; отступ был 3 пробела. Для крупных проектов, где большая вложенность все же
+встречается &mdash; это на удивление удобно.</p>
+
+<p>И еще одна цитата, моя любимая (жирным выделил я):</p>
+
+<blockquote>
+<figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tbody><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="c++"><span class="line"><span class="c1">// Размещение фигурных скобок</span>
+</span><span class="line"><span class="kt">void</span> <span class="n">using_k_and_r_style</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line"><span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="kt">void</span> <span class="n">putting_each_brace_on_its_own_line</span><span class="p">()</span>
+</span><span class="line"><span class="p">{</span>
+</span><span class="line"><span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="kt">void</span> <span class="n">or_putting_each_brace_on_its_own_line_indented</span><span class="p">()</span>
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line"><span class="c1">// ...</span>
+</span><span class="line">    <span class="p">}</span>
+</span></code></pre></td></tr></tbody></table></div></figure>
+<p><strong>Все профессиональные программисты могут легко читать и писать в каждом из этих стилей без каких-либо сложностей.</strong> Но следует быть последовательным. Не размещайте скобки как придется или так, что их размещение будет скрывать вложенность областей видимости, и пытайтесь следовать стилю, принятому в том или ином файле.</p>
+</blockquote>
+
+<p>Итак, не мелочитесь!</p>
+
+<p><center><img src="/assets/old/9-face/face.png"></center></p>
+
+        <div style="float:right"><a href="/blog/2012/05/24/coding-standarts/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0+%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82%D0%B0+%D0%BA%D0%BE%D0%B4%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F05%2F24%2Fcoding-standarts%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/05/22/create-edge-application/index.html">Создание Edge Rails приложения</a></h1>
       
       <div class="date">May 22, 2012</div>
@@ -1024,95 +1103,6 @@ devise, которому нужен <code>root_path</code>) и зелеными 
 
         <div style="float:right"><a href="/blog/2012/04/13/experience-and-monkeys/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9E%D0%BF%D1%8B%D1%82+%D0%B8+%D0%B5%D0%B3%D0%BE+%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F13%2Fexperience-and-monkeys%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/04/11/dsl-and-select/index.html">DSL, select и системные методы</a></h1>
-      
-      <div class="date">April 11, 2012</div>
-
-      
-      <div class="entry">
-        <p>При работе с руби иногда встречаются ошибки, которые вызывают замешательство. Недавно я создавал
-простой DSL для своей библиотеки на остове метода <code>instance_eval</code> (метод весьма спорный, его нужно
-использовать аккуратно, но сегодня речь не об этом). Интерпретатор руби вылетал с очень странной ошибкой,
-на простом коде:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Dsl</span>
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-    <span class="vi">@fields</span> <span class="o">=</span> <span class="o">[]</span>
-    <span class="nb">instance_eval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[select text string]</span>
-
-  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-    <span class="k">if</span> <span class="no">METHODS</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="nb">method</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">args</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span>
-      <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="nb">method</span><span class="p">,</span> <span class="n">args</span><span class="o">]</span>
-    <span class="k">else</span>
-      <span class="k">super</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">Dsl</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
-  <span class="n">string</span> <span class="ss">:a</span>
-  <span class="nb">select</span> <span class="ss">:b</span>  <span class="c1"># &lt;--- BOOM!</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Трейс ошибки:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">demo.rb:20:in `select&#39;: wrong argument type Symbol (expected Array) (TypeError)
-    from demo.rb:20:in `block in &lt;main&gt;&#39;
-    from demo.rb:4:in `instance_eval&#39;
-    from demo.rb:4:in `initialize&#39;
-    from demo.rb:18:in `new&#39;
-    from demo.rb:18:in `&lt;main&gt;&#39;
-</code></pre></div>
-<p>Сейчас меня эта ошибка не удивляет, так как я знаю в чем подвох. Но тогда я очень удивился, даже безуспешно пытался отладить
-свой код.</p>
-
-<p>Секрет очень простой - в руби есть системный метод <code>select</code>
-(<a href="http://www.ruby-doc.org/core-1.9.3/Kernel.html#method-i-select">Kernel.html#method-i-select</a>) и происходит конфликт имен.
-Хорошо, что я еще не &quot;угадал&quot; аргументы, тогда бы ошибка была бы еще сложнее.</p>
-
-<p>Обойти эту проблему очень просто, необходимо объявить метод <code>select</code> в DSL явно:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># ...</span>
-
-  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[text string]</span>
-
-  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-    <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="ss">:string</span><span class="p">,</span> <span class="nb">name</span><span class="o">]</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-  <span class="c1"># ...</span>
-</code></pre></div>
-<p>Таким образом при работе с рейлс у вас в распоряжении минимум 3 различных метода <code>select</code>: </p>
-
-<ul>
-<li>хелпер метод для рисования комбобоксов;</li>
-<li>метод поиска по массиву (<code>[1, 2, 3, 4, 5].select{|a| a%2 == 0}</code>);</li>
-<li>и наш сегодняшний таинственный незнакомец.</li>
-</ul>
-
-<p>Рейлс, как и само руби, довольно плохо защищено от конфликтов имен, так как количество
-системных методов руби и внутренних методов рейлс равно бесконечности. Поэтому если
-вам кажется, что интерпретатор свихнулся, возможно вы как раз поймали ошибку аналогичную описанной.</p>
-
-<p>И еще один совет - не используйте класс <code>Config</code> в глобальном пространстве имен:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># OK</span>
-<span class="k">module</span> <span class="nn">A</span>
-  <span class="k">class</span> <span class="nc">Config</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="c1"># BAD</span>
-<span class="k">class</span> <span class="nc">Config</span> <span class="c1"># &lt;-- in `&lt;main&gt;&#39;: Config is not a class (TypeError) </span>
-<span class="k">end</span>
-</code></pre></div>
-        <div style="float:right"><a href="/blog/2012/04/11/dsl-and-select/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=DSL%2C+select+%D0%B8+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F11%2Fdsl-and-select%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
