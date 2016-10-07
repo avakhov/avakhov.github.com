@@ -7,6 +7,39 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Р - Регулярность</title>
+        <description>
+          
+          &lt;p&gt;Этим летом как-то я приуныл, работа-дом-работа-дом и решил заняться личностным ростом, вот прямо так. Окинув жизненный опыт,
+а в 32 года уже обычно есть что окидывать, нашел одну закономерность. В тех делах был приятный результат,
+где я занимался чем-то регулярно.
+Из публичный вещей, это пожалуй комиты в рейлс. Я три месяца тратил на рейлс каждый день по 2-3 часа, включая выходные. В итоге
+попал в топ-50 контрибьютеров (за три года правда скатился в топ-100).
+В принципе с тех пор рейлс больше не учил, но тогда хорошо постарался, до сих
+пор помогает.&lt;/p&gt;
+
+&lt;p&gt;Поэтому я решил попробовать заменить спонтанную регулярность, на сознательную регулярность. Ну уже кстати есть первые результаты,
+не скажу, что жизнь стала как бутон розы, но точно приятней. За два месяца я сделал две вещи: пробежал программу 5K Runner от
+&lt;a href=http://www.fitness22.com&gt;fitness22&lt;/a&gt; и решил вести технический блог не меньше года, по истории каждый рабочий день.&lt;/p&gt;
+
+&lt;p&gt;По раннеру получился пробег 114 км, прямо как спорткар с нуля до сотни за два месяца &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Просто оставлю здесь скриншоты первого
+и последнего занятий:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=/assets/2/regular/b.png width=300px&gt;
+&lt;img src=/assets/2/regular/a.png width=300px&gt;&lt;/p&gt;
+
+&lt;p&gt;Также опубликовал 42 поста с момента возрождения блога, то есть почти столько же, сколько за 3 года
+до этого в сумме. Кстати очень помогает публичный контракт с вами, я заявил сроки, регулярность, теперь не отвертеться.
+На самом деле зная себя, отвертеться можно и очень просто, но у меня еще есть серия трюков, которая, надеюсь поможет
+не сойти с трассы. При случае расскажу. До встречи &lt;img class=&#39;emoji&#39; title=&#39;:smiley_cat:&#39; alt=&#39;:smiley_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 07 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/07/regular/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/07/regular/index.html</guid>
+      </item>
+    
+      <item>
         <title>Кто пишет в базу?</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/db-optim/main.jpg&quot; /&gt;
@@ -236,44 +269,6 @@
         <pubDate>Mon, 26 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/26/sinatra/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/26/sinatra/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Емейл-маркетинг в жизни простого инженера</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/email/main.jpg&quot; /&gt;
-          &lt;p&gt;Большинство инструментов маркетинга требуют добавления в домен SPF-записи. И через некоторое
-время получается примерно такая конструкция:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;dig +short -t txt mailchimp.com
-&lt;span class=&quot;c&quot;&gt;# v=spf1 include:servers.mcsv.net include:mail.zendesk.com&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# include:_spf.google.com include:_lp.mailchimp.com ip4:50.22.164.201&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# ip4:205.201.140.14 ip4:205.201.132.14 ~all&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Однако важно помнить одну деталь - при проверки этой записи сервер по спецификации должен
-сделать не больше 10 DNS запросов (информацию легко найти в интернете по ключевым словам
-&lt;code&gt;spf: too many DNS lookups&lt;/code&gt;), иначе репутация письма будет сильно испорчена. Мы один раз
-случайно &lt;code&gt;_spf.google.com&lt;/code&gt; поставили на последнее место для одного из доменов, эта запись вылетела из лимита и письма, отправленные
-просто из gmail-интерфейса, стали часто попадать в спам.&lt;/p&gt;
-
-&lt;p&gt;Необходимое количество запросов легко посчитать вручную, раскрыв spf-запись каждого перечисленного
-адреса, или с помощью какого-нибудь скрипта. Однако самый лучшим способом проверить качество не только
-SPF-записей, а всех настроек в принципе, это отправить письмо из каждого используемого сервиса
-на специальный адрес, например который предложит &lt;a href=https://www.mail-tester.com/&gt;www.mail-tester.com&lt;/a&gt;.
-Именно
-с помощью него мы быстро вычислили свою проблему с гмейлом.&lt;/p&gt;
-
-&lt;p&gt;Конечно профессиональный маркетолог вам это все сам расскажет, но если вы продемонстрирует свои
-знания SPF и предложите проверить письма через мейл тестер, то он точно будет при встрече будет
-первым подавать руку.&lt;/p&gt;
-
-&lt;p&gt;Хорошего дня вам, высокой конверсии и нулевого баунс рейта!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/email/spam.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 23 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/23/email/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/23/email/index.html</guid>
       </item>
     
   </channel>
