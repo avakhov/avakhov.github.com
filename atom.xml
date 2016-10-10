@@ -7,6 +7,19 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Еще одна неделя без картинок</title>
+        <description>
+          
+          &lt;p&gt;Заболел &lt;img class=&#39;emoji&#39; title=&#39;:crying_cat_face:&#39; alt=&#39;:crying_cat_face:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63f.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Поэтому на этой неделе блог будет без картинок, так как сканирую я их
+(о ужас) на офисном принтере.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 10 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/10/zabolel/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/10/zabolel/index.html</guid>
+      </item>
+    
+      <item>
         <title>Длина агрумента в баш-функции</title>
         <description>
           
@@ -243,37 +256,6 @@ process out
         <pubDate>Wed, 28 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/28/stress/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/28/stress/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Когда пора комментировать</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/comments/main.jpg&quot; /&gt;
-          &lt;p&gt;Когда я работал C++-разработчиком в &lt;a href=http://www.cqg.com&gt;CQG&lt;/a&gt; у нас было забавное правило, которым пользуюсь до сих пор.
-В новом коде было необходимо документировать только классы и функции (а их нужно было документировать всегда, для большой кодовой
-базы это необходимо), но сам код практически не документировался. Потому-что новый код всегда чистенький, гладенький и в целом
-понятный. Но когда идет вставка кода в уже существующий метод, хорошим тоном было описать кто и зачем этот фрагмент
-вставил.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// ... много кода &lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// av: fix of #342987. Иногда внешний сервис возвращает 1, но при этом ...&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(...)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// ... еще много кода&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Формально эту информацию можно достать с помощью &lt;code&gt;git blame&lt;/code&gt; (ну не &lt;code&gt;git&lt;/code&gt; на самом деле, гита тогда еще не было),
-однако тогда приходится делать много лишних кликов, прыгать по истории и вникать во все комиты, в которых менялся данный файл.
-Фактически же такие комменарии очень
-сильно помогают разобраться в конкретном файле. И чем больше рубцов, тем более легаси код.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 27 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/27/comments/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/27/comments/index.html</guid>
       </item>
     
   </channel>
