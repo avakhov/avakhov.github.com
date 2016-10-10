@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Длина агрумента в баш-функции</title>
+        <description>
+          
+          &lt;p&gt;Еще один забавный момент из мира баш-программирования. Экспериментировал я тут с эластиком и передавал полученный JSON на пост-обработку в функцию, примерно так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; process &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; jq &lt;span class=&quot;s2&quot;&gt;&amp;quot;...&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;curl ...&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+process out
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Начиная с некоторого значения JSON стал приходить неполный и jq соответственно не мог его распарсить. Оказывается есть ограничение,
+нашел как обычно на &lt;a href=&quot;http://stackoverflow.com/questions/19354870/bash-command-line-and-input-limit&quot;&gt;stackoverflow&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ getconf ARG_MAX    # Get argument limit in bytes
+# =&amp;gt; 262144
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Так что не нужно передавать агрументы длиннее 260 килобайт &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 10 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/10/bash-size/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/10/bash-size/index.html</guid>
+      </item>
+    
+      <item>
         <title>Р - Регулярность</title>
         <description>
           
@@ -249,26 +274,6 @@
         <pubDate>Tue, 27 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/27/comments/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/27/comments/index.html</guid>
-      </item>
-    
-      <item>
-        <title>С Синатрой мне не по пути</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/sinatra/main.jpg&quot; /&gt;
-          &lt;p&gt;Так получилось, что с Синатрой у меня так и не сложилось. Я раз пять пробовал запускать на нем различные легкие приложения, а
-потом понимал, что что-то как-то неютно (привет, &lt;code&gt;ActiveSupport&lt;/code&gt;). Ой, и в базу нужно сходить (добавим &lt;code&gt;ActiveRecord&lt;/code&gt;). Еще недурно было бы
-пару писем отправить (ура, есть же &lt;code&gt;ActionMailer&lt;/code&gt;). В этот момент появляется первое подозрение, что что-то здесь не так.
-И потом нужно добавить пару форм, авторизацию, а сессии из коробки не работают, и csrf нет
-и вообще пора приложение переводить на рейлс и ловить кайф. Возвращаться в рейлс с других технологий - всегда в
-кайф, там все как-то просто берет и работает.&lt;/p&gt;
-
-&lt;p&gt;У нас сейчас минимум два таких приложения крутится, которые побывали синатрой и превратились в рейлс. Я общался - 
-у многих так. Говорят, что где-то там, у кого-то синатра приложения работают и все довольны, но в живой природе пока не встречал.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 26 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/26/sinatra/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/26/sinatra/index.html</guid>
       </item>
     
   </channel>

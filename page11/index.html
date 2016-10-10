@@ -56,6 +56,59 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/02/23/action-controller-helper-method/index.html">Action Controller Helper Method</a></h1>
+      
+      <div class="date">February 23, 2012</div>
+
+      
+      <div class="entry">
+        <p>Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
+необходимо сначала определить метод, а потом передать его имя в helper_method:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionControllerBase</span>
+  <span class="k">def</span> <span class="nf">current_user</span>
+    <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="n">helper_method</span> <span class="ss">:current_user</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Однако можно объявлять метод хелпером до его конкретной имплементации.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionControllerBase</span>
+  <span class="n">before_filter</span> <span class="ss">:authenticate!</span>
+  <span class="n">helper_method</span> <span class="ss">:current_user</span>
+  <span class="c1"># ...</span>
+
+  <span class="k">def</span> <span class="nf">current_user</span>
+    <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Это более красиво выносить фильтры, хэлпер методы и другие служебные объявления в начало класса.
+Я нашел эту особенность в <a href="https://github.com/rails/rails/blob/master/actionpack/lib/abstract_controller/helpers.rb#L51">реализации</a> данного метода, а также есть соответствующий пример в <a href="http://api.rubyonrails.org/classes/AbstractController/Helpers/ClassMethods.html#method-i-helper_method">документации</a>.</p>
+
+<p>Если же вернуться от рейлс к руби, то, например, метод можно сделать приватным только после его объявления:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">A</span>
+  <span class="kp">private</span> <span class="ss">:some</span> <span class="c1"># &lt;--- EXCEPTION: undefined method `some&#39; for class `A&#39;</span>
+
+  <span class="k">def</span> <span class="nf">some</span>
+    <span class="nb">puts</span> <span class="s2">&quot;some&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">B</span>
+  <span class="k">def</span> <span class="nf">another</span>
+    <span class="nb">puts</span> <span class="s2">&quot;another&quot;</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span> <span class="ss">:another</span> <span class="c1"># Ok!</span>
+<span class="k">end</span>
+</code></pre></div>
+        <div style="float:right"><a href="/blog/2012/02/23/action-controller-helper-method/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=Action+Controller+Helper+Method&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F23%2Faction-controller-helper-method%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/02/17/simple-haml-generator/index.html">Простой Haml генератор статических сайтов</a></h1>
       
       <div class="date">February 17, 2012</div>
