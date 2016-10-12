@@ -7,6 +7,46 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Автоматизация работы с проектами Селектела</title>
+        <description>
+          
+          &lt;p&gt;Я хотел бы возможно написать пафосный туториал, как автоматизировать работу в облаке Селектела, но я не умею их писать. Поэтому скажу вот так -
+в Селектеле кое-что легко автоматизировать, в некоторых местах есть хитрости, а кое-что сделать очень сложно или совсем нельзя.
+Думаю, это очень точное описание.&lt;/p&gt;
+
+&lt;p&gt;Итак, создать проект, поставить квоты, удалить проект (вот это мы не стали скриптовать, а удаляем через оболочку, где
+есть дополнительное подтверждение, так как удаляется проект очень-очень быстро и может получиться очень-очень неловко),
+добавить пользователей - все это прекрасно работает.
+Список всех вызовов есть в разделе &lt;a href=&quot;https://support.selectel.ru/vpc/docs/&quot;&gt;документации&lt;/a&gt; (нужно залогинится).&lt;/p&gt;
+
+&lt;p&gt;Далее великолепно работают все OpenStack-утилиты, как написано в &lt;a href=&quot;https://habrahabr.ru/company/selectel/blog/242001/&quot;&gt;блоге Селектела&lt;/a&gt;,
+кроме &lt;code&gt;neutron&lt;/code&gt;, он почему-то не работает &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Возможно потому-что в 2015 году у них был один регион, а сейчас два. Но нейтрон нам и не понадобится.&lt;/p&gt;
+
+&lt;p&gt;Чтобы легче работалось, 
+я завернул утилиты в &lt;a href=&quot;https://github.com/uchiru/ostack/blob/master/Dockerfile&quot;&gt;докер образ&lt;/a&gt; и теперь вызываю вот так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run --rm -it &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;nv&quot;&gt;OS_AUTH_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://api.selvpc.ru/identity/v3 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;nv&quot;&gt;OS_PROJECT_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;... &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;nv&quot;&gt;OS_USER_DOMAIN_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;... &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;nv&quot;&gt;OS_USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;... &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;nv&quot;&gt;OS_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;... &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;nv&quot;&gt;OS_REGION_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;... &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  uchiru/ostack:v2 glance image-list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;USER_DOMAIN_NAME&lt;/code&gt; - это аккаунт (номер договора), &lt;code&gt;PROJECT_ID&lt;/code&gt; - айди проекта, можно взять в панели (hex на 32 символа), &lt;code&gt;REGION_NAME&lt;/code&gt; -
+&amp;#39;ru-1&amp;#39; - Санкт-Петербург (в Питере, тире, пить), &amp;#39;ru-2&amp;#39; - Москва, &lt;code&gt;LOGIN/PASSWORD&lt;/code&gt; - 
+логин и пароль вашего пользователя в селектеле, которого нужно добавить в проект.&lt;/p&gt;
+
+&lt;p&gt;Вот. Проект вы легко создадите скриптами или через панель, а завтра расскажу,
+что с ним можно сделать дальше.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 12 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/12/selectel-new-project/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/12/selectel-new-project/index.html</guid>
+      </item>
+    
+      <item>
         <title>Пройти не оставляя следа</title>
         <description>
           
@@ -240,33 +280,6 @@ process out
         <pubDate>Fri, 30 Sep 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/09/30/pg_pick/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/09/30/pg_pick/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Самая лучшая реалтайм аналитика</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/ga/main.jpg&quot; /&gt;
-          &lt;p&gt;Никогда бы не поверил, что самым лучшим инструментом проверки работоспособности сайта прямо сейчас является гугл аналитика,
-а именно вкладка &lt;code&gt;Real-Time&lt;/code&gt;.
-Более отзывчивого инструмента я не знаю, при любом подозрении в первую очередь смотрим именно туда. Начиная с некоторого
-трафика любая значительная неровность на графике на 100% означает, что с сайтом проблемы.&lt;/p&gt;
-
-&lt;p&gt;Например так выглядит добавление колонки с дефалтовым значением в достаточно большую таблицу (мониторинг завопил, команда &amp;quot;под ружье&amp;quot;,
-пока разобрались в чем проблема, начали чинить, колонка уже добавилась, но шрам остался).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/ga/2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;В архивах также нашел такой график, не помню в чем была проблема, но чуть-чуть пользователей зацепило, помню что вовремя успели
-остановить деструктивное действие.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/ga/3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;И вообще гугл аналитика шикарный инструмент. Там конечно много кнопочек и вкладочек, но умелые люди творят с ними просто чудеса.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 29 Sep 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/09/29/ga/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/09/29/ga/index.html</guid>
       </item>
     
   </channel>
