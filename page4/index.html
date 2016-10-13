@@ -56,6 +56,56 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/09/02/1gb_json/index.html">Прожорливый JSON</a></h1>
+      
+      <div class="date">September  2, 2016</div>
+
+      <div class="img"><img src="/assets/2/1gb_json/main.jpg" /></div>
+      <div class="entry">
+        <p>Часто промежуточные результаты каких-нибудь долгих вычислений, которые нужно сделать один раз, сохраняю в JSON. Например
+могу пройтись по всем записям в большой таблице,
+посчитать серию параметров, сохранить в JSON, скачать файл
+локально и потом
+считать какие-нибудь агрегированные данные.</p>
+
+<p>Однажды, считая большой отчет, наткнулся на необычайную прожорливость <code>JSON.load</code> на сравнительно небольших данных.</p>
+
+<p>Промоделируем ситуацию (размер занимаемой памяти на вашем компьютере может отличаться, но
+я проверил на маке и на линуксе). Сгенерируем json-файл:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># =&gt; 11 MB</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="ss">key</span><span class="p">:</span> <span class="o">[</span><span class="p">{</span><span class="ss">k</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">value</span><span class="p">:</span> <span class="s2">&quot;strng&quot;</span><span class="p">}</span><span class="o">]*</span><span class="mi">2_000_000</span><span class="p">}</span>
+<span class="c1"># =&gt; 26 MB</span>
+<span class="n">t</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="c1"># =&gt; 54 MB</span>
+<span class="no">File</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;big.json&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</code></pre></div>
+<p>Теперь его прочитаем:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># =&gt; 11 MB</span>
+<span class="n">t</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;big.json&quot;</span><span class="p">)</span>
+<span class="c1"># =&gt; 57 MB</span>
+<span class="n">x</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="c1"># =&gt; 1600 MB</span>
+</code></pre></div>
+<p><img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' /> 
+<img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' /> 
+<img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' /> 
+массив, который в руби занимает 15 мегабайт, после восстановления раздувается в 100 раз (при использовании
+библиотеки <code>oj</code> в 50 раз). Самое противное в этой ситуации, что json на 1 гигабайт сохранить вы сможете,
+а прочитать уже нет - памяти не хватит. Особенно неприятно об этом узнать
+после нескольких часов вычислений.</p>
+
+<p>Чтобы обойти эту проблему можно использовать пару <code>Marshal.dump/load</code>, которая работает гораздо быстрее и не занимает лишней памяти.
+Однако marshal-файл не получится посмотреть глазами, нормально хранить в системе контроля версии или погрепать. Поэтому универсального решения не существует, все зависит от задачи. 
+Просто помните, когда сохраняете большой JSON-файл, а хватит ли
+вам духа и оперативной памяти, чтобы его прочитать?</p>
+
+        <div style="float:right"><a href="/blog/2016/09/02/1gb_json/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D0%B6%D0%BE%D1%80%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9+JSON&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F02%2F1gb_json%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/09/01/provod/index.html">Архитектура проводов</a></h1>
       
       <div class="date">September  1, 2016</div>
@@ -347,36 +397,6 @@
 
         <div style="float:right"><a href="/blog/2016/08/22/refactoring/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%B5%D1%80%D0%B5%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C+%D0%BD%D0%B5%D0%BB%D1%8C%D0%B7%D1%8F+%D0%BC%D0%BE%D0%B4%D0%B8%D1%84%D0%B8%D1%86%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F22%2Frefactoring%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/08/19/lazy-git/index.html">Лига лени в гит-конфиге</a></h1>
-      
-      <div class="date">August 19, 2016</div>
-
-      <div class="img"><img src="/assets/2/lazy-git/main.jpg" /></div>
-      <div class="entry">
-        <p>Чем старше я, тем ленивей становлюсь. Боюсь представить, что будет дальше.</p>
-
-<p>Недавно в моем <code>.gitconfig</code> появилась команда, которую я стараюсь использовать пореже... Но она такая клевая... <img class='emoji' title=':heart_eyes_cat:' alt=':heart_eyes_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63b.png' height='20' width='20' align='absmiddle' /></p>
-<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[alias]</span>
-  <span class="c1"># перенес на несколько строк для наглядности, в оригинале она у меня в одной</span>
-  <span class="na">y</span> <span class="o">=</span> <span class="s">!(git add -A . &amp;&amp; </span>
-<span class="s">        git commit -amsaved_at_`date +%Y-%m-%d__%H:%M:%S` &amp;&amp;</span>
-<span class="s">        git pull --rebase &amp;&amp; git push &amp;&amp; </span>
-<span class="s">        echo &quot;&quot; &amp;&amp; git log -1 --stat) || git pull --rebase</span>
-</code></pre></div>
-<p>Команда комитит и пушит все что есть, а также подтягивает свежие изменения.</p>
-
-<!--- Я люблю регулярные сохранения, например блог сохраняю после каждой записи и почти после каждой правки, уже на автомате. А кого можно обмануть десяти командами `git -amfix` подряд? --->
-
-<p>Название алиаса от слова <code>sYnc</code>. Букву <code>s</code> я не стал использоваться, чтобы
-не путать с <code>git st</code> =&gt; <code>git status</code>.</p>
-
-        <div style="float:right"><a href="/blog/2016/08/19/lazy-git/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B8%D0%B3%D0%B0+%D0%BB%D0%B5%D0%BD%D0%B8+%D0%B2+%D0%B3%D0%B8%D1%82-%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F19%2Flazy-git%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
