@@ -7,6 +7,36 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Delayed Job - хак или фича?</title>
+        <description>
+          
+          &lt;p&gt;Так сложилось, что мы пользуемся для всяких асинхронных задач &lt;a href=&quot;https://github.com/collectiveidea/delayed_job&quot;&gt;DelayedJob&lt;/a&gt;.
+Удобно, что этот тот же постгрес, из коробки комфортный API, разумные дефалтовые настройки (например интервалы сколько
+раз запускать упавшую задачу).&lt;/p&gt;
+
+&lt;p&gt;Однако если задуматься, то DJ - эта та еще штука и при эксплуатации нужно знать его особенности.
+Когда вы делаете
+&lt;code&gt;User.find(1).delay.send_hello&lt;/code&gt;, то в базу сериализуется объект типа &lt;code&gt;User&lt;/code&gt; и факт, что к нему нужно применить
+метод &lt;code&gt;:send_hello&lt;/code&gt;. Одноко, чтобы это работало как магия, при восстановлении &lt;code&gt;AR&lt;/code&gt;-объекта, на самом
+деле он берется прямо из базы &lt;a href=&quot;https://github.com/collectiveidea/delayed_job/blob/2014009496dd0b2af217ab322f74f91fe4e26097/lib/delayed/psych_ext.rb#L30-L65&quot;&gt;psych_ext.rb#L30-L65&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;В большинстве случаев это просто работает, но могут быть необычные сайд эффекты. 
+Если метод применяется к объекту, который
+успели уже удалить, то будет ошибка 500. Или предположим, что пользователь два раза быстро нажал на восстановление пароля, вы
+сохранили токен восстановления, письмо в очередь, потом токен перетерся новым, еще одно письмо в очередь. Если очередь затупила,
+то в зависимости от того как реализован метод отправки письма, пользователь может получить либо два письма с разным токеном (первый
+из них уже не будет работать), либо с самым свежим.&lt;/p&gt;
+
+&lt;p&gt;Вообще 99% необычного поведения DJ проявляется, если очередь не успевает обрабатываться, поэтому ее обязательно нужно мониторить. А так можно
+пользоваться. Работает.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 17 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/17/dj/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/17/dj/index.html</guid>
+      </item>
+    
+      <item>
         <title>Racket</title>
         <description>
           
@@ -394,33 +424,6 @@ process out
         <pubDate>Wed, 05 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/05/recent/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/05/recent/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Безумие баш скриптов</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/crazy-bash/main.jpg&quot; /&gt;
-          &lt;p&gt;Я люблю маленькие баш-скрипты. Это нативный, быстрой способ что-то автоматизировать, посчитать
-или сделать. Баш - полноценный язык программирования, хотя и с специфическим синтаксисом. Однако
-есть одна вещь, которая меня полностью убивает, не знаю зачем так сделано, даже гуглить не буду,
-может быть кто-нибудь в комментариях ответит.&lt;/p&gt;
-
-&lt;p&gt;Итак, интерпретатор баша исполняет скрипт строчка за строчкой и если поменять файл во время исполнения
-долгого скрипта, то эффект будет не предсказуемым. Это полностью ломает привычный шаблон разработчика,
-когда запустил программу и в этот момент меняешь код для следующего запуска. Я на этом попадался
-несколько раз и каждый раз был в шоке.&lt;/p&gt;
-
-&lt;p&gt;Самый простой пример, который смог сходу придумать:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# x.sh&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;sleep &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &amp;gt;&amp;gt; x.sh
-&lt;span class=&quot;nb&quot;&gt;echo echo &lt;/span&gt;hello &amp;gt;&amp;gt; x.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Так вот, если запустить &lt;code&gt;bash x.sh&lt;/code&gt;, то он выведет &lt;code&gt;hello&lt;/code&gt;! WTF? Не знаю.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 04 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/04/crazy-bash/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/04/crazy-bash/index.html</guid>
       </item>
     
   </channel>
