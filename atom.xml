@@ -7,6 +7,39 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Фейлы, они как файлы, только фейлы</title>
+        <description>
+          
+          &lt;p&gt;В одном из докладов великолепного Алексея Рыбака были слова, что интересны не успехи, а фейлы. И я полностью согласен, что самые
+теплые воспоминания оставляют именно события, где были тяжелые обстоятельства, да еще и сам оплошал, но в итоге
+с честью выкрутился. Ну и в принципе все разговоры на вечеринках с коктейлями именно про проблемы, легаси, костыли и синюю
+изоленту. Я не видел, чтобы два инженерами делились, какая у них большая пользовательская база, как тепло их любят пользователи,
+какие великолепные показатели и перспективы, ми-ми-ми.
+Поэтому всяким проблемам, проколам, особенно своим, я всегда уделяю самое пристальное
+внимание.&lt;/p&gt;
+
+&lt;p&gt;Итак сегодня руби и рейлс (примеры выдуманные, но основаны на реальных событиях):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 1&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calc_full_name&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;full_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# хе-хе, надо self.full_name = ...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;k&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;v&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save!&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# хо-хо, нужно user.json_will_change! или переделать&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 3&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# хы-хы, 1 а не 1.5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Это то что сходу вспомнил, чтобы написать очередной пост &lt;img class=&#39;emoji&#39; title=&#39;:smiley_cat:&#39; alt=&#39;:smiley_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Идеи то уже кончаются, а блог то еще писать не меньше 10 месяцев.
+идет.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 18 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/18/failes/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/18/failes/index.html</guid>
+      </item>
+    
+      <item>
         <title>Delayed Job - хак или фича?</title>
         <description>
           
@@ -400,30 +433,6 @@ process out
         <pubDate>Thu, 06 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/06/db-optim/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/06/db-optim/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Мне нужен recent</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/recent/main.jpg&quot; /&gt;
-          &lt;p&gt;Совсем не про программирование, а про инвентаризацию привычек. Как и любой человек старой школы я
-люблю раскладывать файлы по папкам. Я правда не очень организованный и в дропбоксе есть директории &lt;code&gt;acrhive01&lt;/code&gt;,
-&lt;code&gt;_old&lt;/code&gt;, &lt;code&gt;папка2&lt;/code&gt; и подобные, но тем не менее с какой-то периодичностью садился и пытался навести
-в файлах порядок.&lt;/p&gt;
-
-&lt;p&gt;Однако относительно недавно нашел очарование вкладки &lt;code&gt;Recent&lt;/code&gt; в гугл драйве и сортировки по дате
-создания на диске. Оказывается в подавляющем большинстве случаев мне нужен документ или файл из первой
-десятки просмотренных недавно! Теперь я просто швыряю новую папку или документ прямо в корень
-(облако, оно же резиновое)
-и не трачу силы на поиск правильного места и правильного названия. Только чуть-чуть мучает совесть, но
-жить можно.&lt;/p&gt;
-
-&lt;p&gt;Так и в профессии, стараюсь время от времени пересматривать свои взгляды и привычки, вдруг они уже устарели.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 05 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/05/recent/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/05/recent/index.html</guid>
       </item>
     
   </channel>
