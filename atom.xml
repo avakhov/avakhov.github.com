@@ -7,6 +7,26 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Утилиты, утилиты</title>
+        <description>
+          
+          &lt;p&gt;Вдруг кто не знал, но есть две прекрасные утилиты, одна полезная, а вторая от авторов Бейзкампа.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ngrok.com&quot;&gt;Ngrok&lt;/a&gt; - позволяет расшарить любой локальный порт прямо в интернет. &lt;code&gt;ngrok http 3000&lt;/code&gt; - просто запомните эту команду. Бесценно, когда
+нужно показать приложение собеседнику по чатику, потестить его на айпеде, либо отладить работу с веб-хуками.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://xip.io&quot;&gt;Xip.io&lt;/a&gt; - wildcard-доменное имя к любому IP-адресу - &lt;code&gt;*.10.0.0.1.xip.io resolves to 10.0.0.1&lt;/code&gt;. У меня пока не было ни одного кейса,
+когда бы это пригодилось, но я чувствую, что такие ситуации точно есть.&lt;/p&gt;
+
+&lt;p&gt;Какие полезные утилиты для веб-разработки используете вы?&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 19 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/19/ngrok/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/19/ngrok/index.html</guid>
+      </item>
+    
+      <item>
         <title>Фейлы, они как файлы, только фейлы</title>
         <description>
           
@@ -409,30 +429,6 @@ process out
         <pubDate>Fri, 07 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/07/regular/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/07/regular/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Кто пишет в базу?</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/db-optim/main.jpg&quot; /&gt;
-          &lt;p&gt;Если база уперлась в диск по записи, то наверняка сайт ляжет. И помимо подкрутки собственно конфигурации
-важно
-узнать куда идет запись - уменьшить ее или вынести в другую базу.
-На постгресе есть простой способ выяснить какие таблицы дают наибольшую
-нагрузку.&lt;/p&gt;
-
-&lt;p&gt;Под вашим привычным трафиком сбрасываете счетчики статистики с помощью команды
-&lt;code&gt;select pg_stat_reset()&lt;/code&gt;.
-Потом смотрите какие таблицы лидеры по записи:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;relname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_tup_ins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_tup_upd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_tup_del&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_tup_ins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_tup_upd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n_tup_del&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pg_stat_user_tables&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Скорее всего этой информации вам хватит для первой оптимизации.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 06 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/06/db-optim/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/06/db-optim/index.html</guid>
       </item>
     
   </channel>
