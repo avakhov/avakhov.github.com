@@ -7,6 +7,49 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Кто дергал этот запрос и послал его?</title>
+        <description>
+          
+          &lt;p&gt;Один из важных моментов оптимизации рейлс-приложения, на котором кстати часто вся оптимизация и заканчивается, это уменьшение количество запросов в базу.&lt;/p&gt;
+
+&lt;p&gt;Самый простой способ понять что нужно оптимизировать, пожалуй - посмотреть в ньюрелике
+под вашим штатным трафиком, какой экшен занимает больше всего времени. После этого запустить приложение локально и начать изучать
+какие строчки кода тревожат базу. Многие проблемы легко понять просто по логам. Убрав тяжелые N+1, а также большинство
+запросов &lt;code&gt;CACHE&lt;/code&gt;, вы сильно поможете приложению.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Все &lt;code&gt;СACHE&lt;/code&gt; очень рекомендую убирать (один из вариантов - смотрим и ностальгируем 
+&lt;a href=&quot;http://railscasts.com/episodes/1-caching-with-instance-variables&quot;&gt;Caching with Instance Variables&lt;/a&gt;), так как несмотря на то что запрос в базу
+не посылается, &lt;code&gt;ActiveRecord&lt;/code&gt; кэширует запрос на уровне SQL, все AR-объекты пересоздаются с нуля, что жгет CPU и негативно влияет на произодительность.&lt;/p&gt;
+
+&lt;p&gt;Также есть два удобных инструмента, которые помогут справится с задачей. Старый, добрый &lt;a href=&quot;https://github.com/josevalim/rails-footnotes&quot;&gt;rails-footnotes&lt;/a&gt; на страницах
+рисует полную информацию о всех запросах.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2/db/footnotes.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Так как футнотес наверняка будет рвать верстку, то я его обычно подключаю с помощью такой конструкции:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;defined?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Footnotes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Footnotes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;FOOTNOTES&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Теперь, чтобы включить футноты достаточно создать в корне файл &lt;code&gt;touch FOOTNOTES&lt;/code&gt;. Если его удалить, то футноты отключатся без перезагрузки сервера.
+Естественно на продакшене футноты не надо включать никогда &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+&lt;p&gt;Однако футноты не помогут, если таинственный запрос к базе в AJAX&amp;#39;е, а по коду сходу не понятно в каком колбеке или библиотеке он вызывается.
+Решение тоже есть - это &lt;code&gt;ActiveSupport::Notifications&lt;/code&gt;. В инициалайзере подписываемся на
+SQL-запросы и находим негодяя:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Notifications&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subscribe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;sql.active_record&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;caller&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;User Load&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Берегите свою базу смолоду и она вам верно прослужит многие годы &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 20 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/20/db/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/20/db/index.html</guid>
+      </item>
+    
+      <item>
         <title>Утилиты, утилиты</title>
         <description>
           
@@ -396,39 +439,6 @@ process out
         <pubDate>Mon, 10 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/10/bash-size/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/10/bash-size/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Р - Регулярность</title>
-        <description>
-          
-          &lt;p&gt;Этим летом как-то я приуныл, работа-дом-работа-дом и решил заняться личностным ростом, вот прямо так. Окинув жизненный опыт,
-а в 32 года уже обычно есть что окидывать, нашел одну закономерность. В тех делах был приятный результат,
-где я занимался чем-то регулярно.
-Из публичный вещей, это пожалуй комиты в рейлс. Я три месяца тратил на рейлс каждый день по 2-3 часа, включая выходные. В итоге
-попал в топ-50 контрибьютеров (за три года правда скатился в топ-100).
-В принципе с тех пор рейлс больше не учил, но тогда хорошо постарался, до сих
-пор помогает.&lt;/p&gt;
-
-&lt;p&gt;Поэтому я решил попробовать заменить спонтанную регулярность, на сознательную регулярность. Ну уже кстати есть первые результаты,
-не скажу, что жизнь стала как бутон розы, но точно приятней. За два месяца я сделал две вещи: пробежал программу 5K Runner от
-&lt;a href=http://www.fitness22.com&gt;fitness22&lt;/a&gt; и решил вести технический блог не меньше года, по истории каждый рабочий день.&lt;/p&gt;
-
-&lt;p&gt;По раннеру получился пробег 114 км, прямо как спорткар с нуля до сотни за два месяца &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Просто оставлю здесь скриншоты первого
-и последнего занятий:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=/assets/2/regular/b.png width=300px&gt;
-&lt;img src=/assets/2/regular/a.png width=300px&gt;&lt;/p&gt;
-
-&lt;p&gt;Также опубликовал 42 поста с момента возрождения блога, то есть почти столько же, сколько за 3 года
-до этого в сумме. Кстати очень помогает публичный контракт с вами, я заявил сроки, регулярность, теперь не отвертеться.
-На самом деле зная себя, отвертеться можно и очень просто, но у меня еще есть серия трюков, которая, надеюсь поможет
-не сойти с трассы. При случае расскажу. До встречи &lt;img class=&#39;emoji&#39; title=&#39;:smiley_cat:&#39; alt=&#39;:smiley_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 07 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/07/regular/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/07/regular/index.html</guid>
       </item>
     
   </channel>
