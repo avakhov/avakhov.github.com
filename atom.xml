@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Пару приемов при работе с JSON в консоли</title>
+        <description>
+          
+          &lt;p&gt;Если вы работаете курлом с каким-нибудь JSON-API, то кроме умения вбивать без ошибок &lt;code&gt;-H &amp;#39;Content-Type: application/json&lt;/code&gt; вам очень
+пригодятся утилиты для работы с JSON.&lt;/p&gt;
+
+&lt;p&gt;Раньше я всегда использовал питон (обычно он есть везде), чтобы красиво отрисовать результат: &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl ... &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; python -m json.tool
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Но сейчас полностью перешел на &lt;a href=&quot;https://stedolan.github.io/jq/&quot;&gt;jq&lt;/a&gt;, очень рекомендую посмотреть, если еще не видели.
+Вот так например
+в Селектеле можно найти ID проекта с именем &lt;code&gt;some-proj&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl -s -H &lt;span class=&quot;s2&quot;&gt;&amp;quot;X-token: $SELECTEL_TOKEN&amp;quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  https://api.selectel.ru/vpc/resell/v2/projects &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  jq -r &lt;span class=&quot;s1&quot;&gt;&amp;#39;.projects | map(select(.name == &amp;quot;some-proj&amp;quot;)) | .[0].id&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Раньше бы я такую штуку сделал бы на руби, но по-моему здорово уметь решать одну и ту же задачу по разному.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 21 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/21/utils/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/21/utils/index.html</guid>
+      </item>
+    
+      <item>
         <title>Кто дергал этот запрос и послал его?</title>
         <description>
           
@@ -414,31 +439,6 @@ KVM, разметка томов,
         <pubDate>Mon, 10 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/10/zabolel/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/10/zabolel/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Длина агрумента в баш-функции</title>
-        <description>
-          
-          &lt;p&gt;Еще один забавный момент из мира баш-программирования. Экспериментировал я тут с эластиком и передавал полученный JSON на пост-обработку в функцию, примерно так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; process &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; jq &lt;span class=&quot;s2&quot;&gt;&amp;quot;...&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;curl ...&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-process out
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Начиная с некоторого значения JSON стал приходить неполный и jq соответственно не мог его распарсить. Оказывается есть ограничение,
-нашел как обычно на &lt;a href=&quot;http://stackoverflow.com/questions/19354870/bash-command-line-and-input-limit&quot;&gt;stackoverflow&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ getconf ARG_MAX    # Get argument limit in bytes
-# =&amp;gt; 262144
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Так что не нужно передавать агрументы длиннее 260 килобайт &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 10 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/10/bash-size/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/10/bash-size/index.html</guid>
       </item>
     
   </channel>
