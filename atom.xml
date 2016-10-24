@@ -7,6 +7,33 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>SSH-ключи в ансибле с гитхаба</title>
+        <description>
+          
+          &lt;p&gt;Новость номер один. Любой публичный ключ с гитхаба можно узнать по ссылке &lt;a href=&quot;https://github.com/dhh.keys&quot;&gt;https://github.com/dhh.keys&lt;/a&gt;,
+где вместо &lt;code&gt;dhh&lt;/code&gt;
+нужно поставить ник нужного пользователя.&lt;/p&gt;
+
+&lt;p&gt;Новость номер два. В ансибл есть &lt;a href=&quot;http://docs.ansible.com/ansible/authorized_key_module.html&quot;&gt;модуль&lt;/a&gt;,
+который авторизует по ssh с помощью этих ключей.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;authorized_key&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;user=dhh key=https://github.com/dhh.keys validate_certs=no&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&amp;quot;Вау!&amp;quot; - подумал я и тут же накатил ssh-доступ для пользователя &lt;code&gt;vakhov&lt;/code&gt; на тестовый сервер.
+Работает на пять баллов, проблема только в том, что я - &lt;code&gt;avakhov&lt;/code&gt;. А кто такой &lt;a href=&quot;https://github.com/vakhov&quot;&gt;https://github.com/vakhov&lt;/a&gt; я не знаю &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+&lt;p&gt;Так, что вау пришлось забрать назад. Открылась большая проблема - пользователей в гитхабе много и любая опечатка в нике будет
+давать доступ постороннему человеку. Вероятность, что он попробует зайти на ваши сервера конечно изчезающе маленькая, к тому же обычно ssh прячут за VPN, но
+все равно это неприятно осознавать.&lt;/p&gt;
+
+&lt;p&gt;А вы бы воспользовались такой фичей?&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 24 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/24/ansible-keys/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/24/ansible-keys/index.html</guid>
+      </item>
+    
+      <item>
         <title>Пару приемов при работе с JSON в консоли</title>
         <description>
           
@@ -426,19 +453,6 @@ KVM, разметка томов,
         <pubDate>Tue, 11 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/11/owner/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/11/owner/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Еще одна неделя без картинок</title>
-        <description>
-          
-          &lt;p&gt;Заболел &lt;img class=&#39;emoji&#39; title=&#39;:crying_cat_face:&#39; alt=&#39;:crying_cat_face:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63f.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Поэтому на этой неделе блог будет без картинок, так как сканирую я их
-(о ужас) на офисном принтере.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 10 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/10/zabolel/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/10/zabolel/index.html</guid>
       </item>
     
   </channel>
