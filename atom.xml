@@ -7,6 +7,36 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Второй кризис блоггинга</title>
+        <description>
+          
+          &lt;p&gt;Внеочередной не технический выпуск. Как вы может быть знаете, 10 августа 2016 года я решил писать технический блог целый год, каждый
+день по рабочим днем. Мне нравится такой формат блога, он заставляет под другим углом смотреть на ежедневную деятельность, перепроверить
+знания, да и просто
+тренирует заниматься чем-то регулярно, кроме работы. Я уверен
+у каждого технического человека есть много, что рассказать, но часто это будет понятно только коллегам. Рассказывать короткие
+истори об IT, понятные широкому кругу людей - достаточно сложно. И я чувствую, что иногда справляюсь, а иногда нет. &lt;/p&gt;
+
+&lt;p&gt;Так вот кризис. Это уже второй кризис. Первый я проскочил незаметно для аудитории - заранее заготовил 10 статей с картинками
+и полторы недели не писал ничего. Сейчас второй. Пожесче, на 7 баллов из 10. Картинки не рисую, так как их сканирую
+на работе и ломает вот это все делать. Хотя с картинками внешний вид конечно веселей, но пока увы. К счастью в моем внутреннем соглашении
+нет пункта насчет этого, ничего не нарушаю, товарищ внутренний майор.&lt;/p&gt;
+
+&lt;p&gt;Немного предыстории. Готовился к перфомансу около года, собирал темы. Набрал больше 300 тезисов, начал писать, 250 почти
+сразу же выкинул, дичь какая-то или не понятно вообще к чему это я написал. Где-то каждый третий-пятый пост идет под нож, по той же
+причине. Остальное, выстраданное и выплаканное, попадает в очередной выпуск. Конечно я не жалуюсь и не ною (хотя, жалуюсь
+и ною на самом деле), но духовная практика и не может быть простой, энтузиазма обычно хватает максимум на несколько недель, а дальше
+обыденное, рутинное вьябывание, которое впрочем довольно приятное и плодотоворное, если относиться философски.&lt;/p&gt;
+
+&lt;p&gt;Но думаю прорвусь, 10 месяцев осталось, фигли там. Держусь, настроение, ммм..., хорошее! Удачи мне &lt;img class=&#39;emoji&#39; title=&#39;:neckbeard:&#39; alt=&#39;:neckbeard:&#39; src=&#39;https://assets.github.com/images/icons/emoji/neckbeard.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 27 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/27/krizis/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/27/krizis/index.html</guid>
+      </item>
+    
+      <item>
         <title>Тысяча и одно падение продакшена</title>
         <description>
           
@@ -273,71 +303,6 @@ SQL-запросы и находим негодяя:&lt;/p&gt;
         <pubDate>Mon, 17 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/17/dj/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/17/dj/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Racket</title>
-        <description>
-          
-          &lt;p&gt;Вот везде говорят, функциональное, функциональное, программирование. Я спросил в нашем чатике, а
-что в тренде? На чем я должен программировать, если пришел на вечеринку с коктейлями?&lt;/p&gt;
-
-&lt;p&gt;От Хаскеля отказался сразу, спасибо не надо. Я несколько раз пытался его понять, даже книжку
-одну прочитал до половины, они там так и не написали не строчки кода,
- и я не написал ни строчки кода. Все что знаю -
-есть монады, морфизмы и эндофункторы. Достаточно. Что тогда остается? Возможные
-лисп-диалекты: скобочки и сложение в польской записи. Ок. Из ортодоксальных показалось, что
-самый живой &lt;a href=&quot;https://clojure.org/&quot;&gt;Clojure&lt;/a&gt;,
-но &lt;a href=&quot;https://github.com/ErrorSoul&quot;&gt;Муслим&lt;/a&gt; посоветовал сначала посмотреть
-на &lt;a href=&quot;https://racket-lang.org/&quot;&gt;Racket&lt;/a&gt; - один из лиспов, который учат в школах, институтах и других
-учебных заведениях.&lt;/p&gt;
-
-&lt;p&gt;Что могу сказать - ну тоже язык. Скобочек много. Мозгу тяжело. Все как положено. Поставляется
-с забавной визуальной средой DrRacket, вот я написал пример из тьюториала:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/racket/1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Попробовал я эту красоту и сразу представил, как подходит Заказчик и говорит: &amp;quot;кружочки - отличные,
-а вот этот квадрат сделай плиз желтым&amp;quot;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/racket/2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;В руби я бы вставил бы что-нибудь типа &lt;code&gt;x == 1 &amp;amp;&amp;amp; y == 0 &amp;amp;&amp;amp; kind == &amp;quot;square&amp;quot; ? &amp;quot;yellow&amp;quot; : &amp;quot;red&amp;quot;&lt;/code&gt; и пошел
-бы дальше. Здесь же получилось захачить далеко не сразу. В итоге получилось примерно так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-racket&quot; data-lang=&quot;racket&quot;&gt;&lt;span class=&quot;kn&quot;&gt;#lang &lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;slideshow&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;square&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filled-rectangle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hc-append&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hacked_red&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eq?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;with_hacked_red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eq?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;yellow&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;cond&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eq?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hacked_red&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eq?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;green&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;define&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vc-append&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colorize&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colorize&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colorize&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mk&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))))&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;circle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;square&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;with_hacked_red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/2/racket/3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Хм. Выглядит не очень. Кто знает как сделать более красиво и правильно?&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 14 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/14/racket/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/14/racket/index.html</guid>
       </item>
     
   </channel>
