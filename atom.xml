@@ -7,6 +7,61 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Лежим красиво</title>
+        <description>
+          
+          &lt;p&gt;Как я писал на днях, падения - не стыдно, это часть жизненного цикла любого программного продукта и сегодня хочу рассказать как
+продакшен падает.&lt;/p&gt;
+
+&lt;p&gt;Если у вас в системе есть ограниченный ресурс, то когда-нибудь он обязательно кончится. Коннекшенов будет мало, процесс
+убьет OOM killer, место на диске перестанет хватать, десятиминутный крон будет выполнятся полчаса и так далее. А да, сертификат
+вы продлить забудете, домен не оплатите, кредитку заблокируют. И хотя вроде Большой Бизнес (TM) не должен допускать таких банальных ошибок,
+давайте просто вспомним, что Гугл как-то на несколько минут потерял контроль над своим доменом.
+У Инстаграмма день был просрочен
+сертификат. Стек Оверфлоу вырубил умный балансер и тяжелый регексп. 
+Там же не дураки работают? Конечно нет! Умнейшие люди! Просто
+когда нужно контролировать очень много параметров и процессов любая система
+начинает сбоить.&lt;/p&gt;
+
+&lt;p&gt;Под трафиком проявятся разнообразные гонки, конфликты, блокировки, какие только могут быть. Магия рейлс частенько дает сбой в нагруженных
+местах. Всякие constraint violation, dead locks станут обычным делом, как только нагрузка подрастет. Вообщем весело. Раскажу несколько
+случаев которые были у нас.&lt;/p&gt;
+
+&lt;p&gt;1) Бесконечный цикл. Был примерно такой же код, как в выпуске &lt;a href=&quot;http://railscasts.com/episodes/352-securing-an-api&quot;&gt;Securing an API &lt;/a&gt;
+только для генерации человеко-френдли номера класса. Естественно через пару лет метод стал сильно деградировать по перформансу, а
+потом и вообще отвалилься по таймауту.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;before_create&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:generate_number&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate_numer&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;2) Конфликт IP адресов. В Селектеле есть два вида внешних IP - Floating IP, который можно подцепить к произвольному интерфейсу, и
+публичная подсеть, IP из которой рекомендуют использовать для нагруженных проектов. Так вот, выдается подсеть &lt;code&gt;/29&lt;/code&gt;, но использовать
+из нее можно только 5 адресов, так как первый - гейтвей. Ну у нас кто-то поставил зарезервированный IP
+на бокс и сайт стал очень прикольно деградировать. Он работал
+несколько минут, а потом переставал открываться. Все это было на фоне повышенной нагрузки и сначала мы думали, что сервера
+не справляются с трафиком.&lt;/p&gt;
+
+&lt;p&gt;3) Добавление колонок с дефалтовым значением в большую таблицу, создание индекса без &lt;code&gt;CONCURRENTLY&lt;/code&gt;. Ну это вообще классика.
+Если вы не роняли продакшен тяжелой
+миграцией, то у вас впереди еще много интересного. Алексей Васильев написал прекрасную статью про эту тему
+&lt;a href=&quot;http://leopard.in.ua/2016/09/20/safe-and-unsafe-operations-postgresql&quot;&gt;Safe and unsafe operations for high volume PostgreSQL&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;4) Мутация константных хэшей. Очень мерзкий баг. Где в инициализаторах в константу грузился yml-файл и кто-то ее случайно модифицировал
+в коде с помощью bang-методов (которые зло). Поэтому часть юникорнов начинала глючить. Вот здесь конечно я позавидовал языкам, в которых
+вшита защита от таких безобразий. К счастью дефект был наглый и очень быстро проявлялся, поэтому мы его исправили в тот же день.&lt;/p&gt;
+
+&lt;p&gt;В принципе можно вспомнить много еще забавного, но пожалуй на сегодня хватит. Приключения продолжаются!&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 28 Oct 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/10/28/down/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/28/down/index.html</guid>
+      </item>
+    
+      <item>
         <title>Второй кризис блоггинга</title>
         <description>
           
@@ -273,36 +328,6 @@ SQL-запросы и находим негодяя:&lt;/p&gt;
         <pubDate>Tue, 18 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/18/failes/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/18/failes/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Delayed Job - хак или фича?</title>
-        <description>
-          
-          &lt;p&gt;Так сложилось, что мы пользуемся для всяких асинхронных задач &lt;a href=&quot;https://github.com/collectiveidea/delayed_job&quot;&gt;DelayedJob&lt;/a&gt;.
-Удобно, что этот тот же постгрес, из коробки комфортный API, разумные дефалтовые настройки (например интервалы сколько
-раз запускать упавшую задачу).&lt;/p&gt;
-
-&lt;p&gt;Однако если задуматься, то DJ - эта та еще штука и при эксплуатации нужно знать его особенности.
-Когда вы делаете
-&lt;code&gt;User.find(1).delay.send_hello&lt;/code&gt;, то в базу сериализуется объект типа &lt;code&gt;User&lt;/code&gt; и факт, что к нему нужно применить
-метод &lt;code&gt;:send_hello&lt;/code&gt;. Одноко, чтобы это работало как магия, при восстановлении &lt;code&gt;AR&lt;/code&gt;-объекта, на самом
-деле он берется прямо из базы &lt;a href=&quot;https://github.com/collectiveidea/delayed_job/blob/2014009496dd0b2af217ab322f74f91fe4e26097/lib/delayed/psych_ext.rb#L30-L65&quot;&gt;psych_ext.rb#L30-L65&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;В большинстве случаев это просто работает, но могут быть необычные сайд эффекты. 
-Если метод применяется к объекту, который
-успели уже удалить, то будет ошибка 500. Или предположим, что пользователь два раза быстро нажал на восстановление пароля, вы
-сохранили токен восстановления, письмо в очередь, потом токен перетерся новым, еще одно письмо в очередь. Если очередь затупила,
-то в зависимости от того как реализован метод отправки письма, пользователь может получить либо два письма с разным токеном (первый
-из них уже не будет работать), либо с самым свежим.&lt;/p&gt;
-
-&lt;p&gt;Вообще 99% необычного поведения DJ проявляется, если очередь не успевает обрабатываться, поэтому ее обязательно нужно мониторить. А так можно
-пользоваться. Работает.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 17 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/17/dj/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/17/dj/index.html</guid>
       </item>
     
   </channel>
