@@ -56,6 +56,44 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/11/02/right/index.html">Как вы яхту назовете</a></h1>
+      
+      <div class="date">November  2, 2016</div>
+
+      <div class="img"><img src="/assets/2/right/main.jpg" /></div>
+      <div class="entry">
+        <p>Родилась у нас как-то раз шутка, что любое решение можно выставить хорошим, просто подобрав правильный
+термин.</p>
+
+<p>Смотрите, допустим, - <strong>монолит</strong>.<br>
+- Фу-у-у.<br>
+<strong>Микросервисы</strong>!<br>
+- м-м-м, парень понимает толк в жизни.</p>
+
+<p>А теперь внимание - <strong>монорейлс</strong>!<br>
+- Вау, крутяк!<br>
+И снова мужики встают, когда вы входите в пивную.</p>
+
+<p>А чем <strong>монолит</strong> отличается от <strong>монорейлса</strong>?
+Только тем, что во втором случае придуман новый, свежий термин
+(вообще я не знаю насколько он используется, просто видел в одной статье).
+То есть это с одной стороны и шутка, а с другой и не очень шутка. Маркетинг уже
+очень прочно проник в инженерное дело, дажe в опен сорс. Сегодня оформлению идей, а не только
+содержанию, стоит уделять самое пристальное внимание. </p>
+
+<p>И мне кажется это здорово. Я вообще за доходчивость и изящество, за чистоту идей и красоту подачи.
+Наример хорошую историю,
+не приврав чуть-чуть или весьма сильно, вообще не раскажешь. Так и в профессии.
+По возможности лучше не скатываться совсем уж в булшит-бинго, но придумать какую-нибудь
+метафору или подобрать сочный, яркий термин для описании ситуации по-моему мнению всегда полезно.</p>
+
+        <div style="float:right"><a href="/blog/2016/11/02/right/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%B2%D1%8B+%D1%8F%D1%85%D1%82%D1%83+%D0%BD%D0%B0%D0%B7%D0%BE%D0%B2%D0%B5%D1%82%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F02%2Fright%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/11/01/early_monitoring/index.html">Преждевременный мониторинг</a></h1>
       
       <div class="date">November  1, 2016</div>
@@ -384,52 +422,6 @@
       </div>
     </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/20/db/index.html">Кто дергал этот запрос и послал его?</a></h1>
-      
-      <div class="date">October 20, 2016</div>
-
-      
-      <div class="entry">
-        <p>Один из важных моментов оптимизации рейлс-приложения, на котором кстати часто вся оптимизация и заканчивается, это уменьшение количество запросов в базу.</p>
-
-<p>Самый простой способ понять что нужно оптимизировать, пожалуй - посмотреть в ньюрелике
-под вашим штатным трафиком, какой экшен занимает больше всего времени. После этого запустить приложение локально и начать изучать
-какие строчки кода тревожат базу. Многие проблемы легко понять просто по логам. Убрав тяжелые N+1, а также большинство
-запросов <code>CACHE</code>, вы сильно поможете приложению.</p>
-
-<p><strong>Note:</strong> Все <code>СACHE</code> очень рекомендую убирать (один из вариантов - смотрим и ностальгируем 
-<a href="http://railscasts.com/episodes/1-caching-with-instance-variables">Caching with Instance Variables</a>), так как несмотря на то что запрос в базу
-не посылается, <code>ActiveRecord</code> кэширует запрос на уровне SQL, все AR-объекты пересоздаются с нуля, что жгет CPU и негативно влияет на произодительность.</p>
-
-<p>Также есть два удобных инструмента, которые помогут справится с задачей. Старый, добрый <a href="https://github.com/josevalim/rails-footnotes">rails-footnotes</a> на страницах
-рисует полную информацию о всех запросах.</p>
-
-<p><img src="/assets/2/db/footnotes.png" alt=""></p>
-
-<p>Так как футнотес наверняка будет рвать верстку, то я его обычно подключаю с помощью такой конструкции:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">defined?</span><span class="p">(</span><span class="no">Footnotes</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="no">Footnotes</span><span class="o">.</span><span class="n">setup</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-  <span class="n">f</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;FOOTNOTES&quot;</span><span class="p">))</span> <span class="p">}</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Теперь, чтобы включить футноты достаточно создать в корне файл <code>touch FOOTNOTES</code>. Если его удалить, то футноты отключатся без перезагрузки сервера.
-Естественно на продакшене футноты не надо включать никогда <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
-
-<p>Однако футноты не помогут, если таинственный запрос к базе в AJAX&#39;е, а по коду сходу не понятно в каком колбеке или библиотеке он вызывается.
-Решение тоже есть - это <code>ActiveSupport::Notifications</code>. В инициалайзере подписываемся на
-SQL-запросы и находим негодяя:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Notifications</span><span class="o">.</span><span class="n">subscribe</span> <span class="s2">&quot;sql.active_record&quot;</span> <span class="k">do</span> <span class="o">|*</span><span class="n">args</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="nb">caller</span> <span class="k">if</span> <span class="n">args</span><span class="o">[</span><span class="mi">4</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;User Load&quot;</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Берегите свою базу смолоду и она вам верно прослужит многие годы <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
-
-        <div style="float:right"><a href="/blog/2016/10/20/db/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%82%D0%BE+%D0%B4%D0%B5%D1%80%D0%B3%D0%B0%D0%BB+%D1%8D%D1%82%D0%BE%D1%82+%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81+%D0%B8+%D0%BF%D0%BE%D1%81%D0%BB%D0%B0%D0%BB+%D0%B5%D0%B3%D0%BE%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F20%2Fdb%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
 </div>
 
 <!-- Pagination links -->
@@ -437,7 +429,7 @@ SQL-запросы и находим негодяя:</p>
   
     <span class="previous">Previous</span>
   
-  <span class="page_number ">Page: 1 of 12</span>
+  <span class="page_number ">Page: 1 of 13</span>
   
     <a href="/page2" class="next">Next</a>
   

@@ -7,6 +7,41 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Как вы яхту назовете</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/right/main.jpg&quot; /&gt;
+          &lt;p&gt;Родилась у нас как-то раз шутка, что любое решение можно выставить хорошим, просто подобрав правильный
+термин.&lt;/p&gt;
+
+&lt;p&gt;Смотрите, допустим, - &lt;strong&gt;монолит&lt;/strong&gt;.&lt;br&gt;
+- Фу-у-у.&lt;br&gt;
+&lt;strong&gt;Микросервисы&lt;/strong&gt;!&lt;br&gt;
+- м-м-м, парень понимает толк в жизни.&lt;/p&gt;
+
+&lt;p&gt;А теперь внимание - &lt;strong&gt;монорейлс&lt;/strong&gt;!&lt;br&gt;
+- Вау, крутяк!&lt;br&gt;
+И снова мужики встают, когда вы входите в пивную.&lt;/p&gt;
+
+&lt;p&gt;А чем &lt;strong&gt;монолит&lt;/strong&gt; отличается от &lt;strong&gt;монорейлса&lt;/strong&gt;?
+Только тем, что во втором случае придуман новый, свежий термин
+(вообще я не знаю насколько он используется, просто видел в одной статье).
+То есть это с одной стороны и шутка, а с другой и не очень шутка. Маркетинг уже
+очень прочно проник в инженерное дело, дажe в опен сорс. Сегодня оформлению идей, а не только
+содержанию, стоит уделять самое пристальное внимание. &lt;/p&gt;
+
+&lt;p&gt;И мне кажется это здорово. Я вообще за доходчивость и изящество, за чистоту идей и красоту подачи.
+Наример хорошую историю,
+не приврав чуть-чуть или весьма сильно, вообще не раскажешь. Так и в профессии.
+По возможности лучше не скатываться совсем уж в булшит-бинго, но придумать какую-нибудь
+метафору или подобрать сочный, яркий термин для описании ситуации по-моему мнению всегда полезно.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 02 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/02/right/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/02/right/index.html</guid>
+      </item>
+    
+      <item>
         <title>Преждевременный мониторинг</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/early_monitoring/tonya.png&quot; /&gt;
@@ -307,49 +342,6 @@
         <pubDate>Fri, 21 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/21/utils/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/21/utils/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Кто дергал этот запрос и послал его?</title>
-        <description>
-          
-          &lt;p&gt;Один из важных моментов оптимизации рейлс-приложения, на котором кстати часто вся оптимизация и заканчивается, это уменьшение количество запросов в базу.&lt;/p&gt;
-
-&lt;p&gt;Самый простой способ понять что нужно оптимизировать, пожалуй - посмотреть в ньюрелике
-под вашим штатным трафиком, какой экшен занимает больше всего времени. После этого запустить приложение локально и начать изучать
-какие строчки кода тревожат базу. Многие проблемы легко понять просто по логам. Убрав тяжелые N+1, а также большинство
-запросов &lt;code&gt;CACHE&lt;/code&gt;, вы сильно поможете приложению.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Все &lt;code&gt;СACHE&lt;/code&gt; очень рекомендую убирать (один из вариантов - смотрим и ностальгируем 
-&lt;a href=&quot;http://railscasts.com/episodes/1-caching-with-instance-variables&quot;&gt;Caching with Instance Variables&lt;/a&gt;), так как несмотря на то что запрос в базу
-не посылается, &lt;code&gt;ActiveRecord&lt;/code&gt; кэширует запрос на уровне SQL, все AR-объекты пересоздаются с нуля, что жгет CPU и негативно влияет на произодительность.&lt;/p&gt;
-
-&lt;p&gt;Также есть два удобных инструмента, которые помогут справится с задачей. Старый, добрый &lt;a href=&quot;https://github.com/josevalim/rails-footnotes&quot;&gt;rails-footnotes&lt;/a&gt; на страницах
-рисует полную информацию о всех запросах.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/db/footnotes.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Так как футнотес наверняка будет рвать верстку, то я его обычно подключаю с помощью такой конструкции:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;defined?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Footnotes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Footnotes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;FOOTNOTES&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Теперь, чтобы включить футноты достаточно создать в корне файл &lt;code&gt;touch FOOTNOTES&lt;/code&gt;. Если его удалить, то футноты отключатся без перезагрузки сервера.
-Естественно на продакшене футноты не надо включать никогда &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-&lt;p&gt;Однако футноты не помогут, если таинственный запрос к базе в AJAX&amp;#39;е, а по коду сходу не понятно в каком колбеке или библиотеке он вызывается.
-Решение тоже есть - это &lt;code&gt;ActiveSupport::Notifications&lt;/code&gt;. В инициалайзере подписываемся на
-SQL-запросы и находим негодяя:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Notifications&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subscribe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;sql.active_record&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;caller&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;User Load&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Берегите свою базу смолоду и она вам верно прослужит многие годы &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 20 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/20/db/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/20/db/index.html</guid>
       </item>
     
   </channel>
