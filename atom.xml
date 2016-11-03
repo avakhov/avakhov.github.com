@@ -7,6 +7,33 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Неблокирующие UDP</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/udp/main.jpg&quot; /&gt;
+          &lt;p&gt;4 года назад я зажегся вот этим постом -
+&lt;a href=&quot;https://signalvnoise.com/posts/3091-pssst-your-rails-application-has-a-secret-to-tell-you&quot;&gt;Pssst... your Rails application has a secret to tell you&lt;/a&gt;
+и тут же начал отправлять метрики в &lt;a href=&quot;https://www.hostedgraphite.com/&quot;&gt;HostedGraphite&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Подключил, прямо как в &lt;a href=&quot;https://www.hostedgraphite.com/docs/languageguide/lg_ruby.html#sending-a-metric-via-udp&quot;&gt;документации&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;socket&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TCPSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;carbon.hostedgraphite.com&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2003&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;API-KEY.custom 1.2&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Но внезапно сайт стал скручивать ласты. 
+Думаю вы уже догадались, хотя UDP-сообщения неблокирующие,
+а запросы к DNS еще как блокирующие.
+У хостера начались проблемы с DNS и сайт стал тормозить даже на маленькой
+нагрузке. Так что с хостед версией графита у нас не срослось. Увы.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 03 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/03/udp/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/03/udp/index.html</guid>
+      </item>
+    
+      <item>
         <title>Как вы яхту назовете</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/right/main.jpg&quot; /&gt;
@@ -317,31 +344,6 @@
         <pubDate>Mon, 24 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/24/ansible-keys/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/24/ansible-keys/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Пару приемов при работе с JSON в консоли</title>
-        <description>
-          
-          &lt;p&gt;Если вы работаете курлом с каким-нибудь JSON-API, то кроме умения вбивать без ошибок &lt;code&gt;-H &amp;#39;Content-Type: application/json&lt;/code&gt; вам очень
-пригодятся утилиты для работы с JSON.&lt;/p&gt;
-
-&lt;p&gt;Раньше я всегда использовал питон (обычно он есть везде), чтобы красиво отрисовать результат: &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl ... &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; python -m json.tool
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Но сейчас полностью перешел на &lt;a href=&quot;https://stedolan.github.io/jq/&quot;&gt;jq&lt;/a&gt;, очень рекомендую посмотреть, если еще не видели.
-Вот так например
-в Селектеле можно найти ID проекта с именем &lt;code&gt;some-proj&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl -s -H &lt;span class=&quot;s2&quot;&gt;&amp;quot;X-token: $SELECTEL_TOKEN&amp;quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  https://api.selectel.ru/vpc/resell/v2/projects &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  jq -r &lt;span class=&quot;s1&quot;&gt;&amp;#39;.projects | map(select(.name == &amp;quot;some-proj&amp;quot;)) | .[0].id&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Раньше бы я такую штуку сделал бы на руби, но по-моему здорово уметь решать одну и ту же задачу по разному.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 21 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/21/utils/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/21/utils/index.html</guid>
       </item>
     
   </channel>
