@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Травмирован C++</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/cpp/main.jpg&quot; /&gt;
+          &lt;p&gt;В прошлой C++-жизни я программировал софт для биржи и за идею, что можно забить на обслуживание
+какого-то количества пользователей или что редкая ошибка никому не мешает, меня бы обязательно отпинали ногами.
+Поэтому первое время в вебе мне хотелось
+правильно и корректно обработать абсолютно каждый запрос.
+К счастью дальше желания дело не зашло и я довольно
+быстро (где-то за полгода) подхватил дух и букву рейлс-разработки.&lt;/p&gt;
+
+&lt;p&gt;Один момент из многих, которые меня взбесили в рейлс, я помню. Когда узнал,
+что кэширование (вот эти все сохранения вьюх и их фрагментов из Depot-приложения) реализовано
+через файл. Грхх! Сохранение файла - это
+же не атомарная операция &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:see_no_evil:&#39; alt=&#39;:see_no_evil:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f648.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:confused:&#39; alt=&#39;:confused:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f615.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;! Как же можно быть такими безответственными.&lt;/p&gt;
+
+&lt;p&gt;Мда. Вот такие вещи меня смущали тогда.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 08 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/08/cpp/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/08/cpp/index.html</guid>
+      </item>
+    
+      <item>
         <title>Устои шатал - 2</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/shatal2/main.jpg&quot; /&gt;
@@ -348,30 +372,6 @@
         <pubDate>Wed, 26 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/26/context/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/26/context/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Транзакционные письма без регистраций и СМС</title>
-        <description>
-          
-          &lt;p&gt;Если вы любите бутстрап, а если вы программируете внутренние сервисы и админки, то вы обязаны любить бутстрап, вам также
-понравятся вот эти &lt;a href=&quot;https://github.com/mailgun/transactional-email-templates&quot;&gt;бесплатные шаблоны писем от мейлгана&lt;/a&gt;.
-С помощью них вы сможете добиться не только прекрасного внешнего вида сайта (меня правда уже подташнивает
-от чистого бутстрапа, но я не знаю более быстрого и простого способа набросать несколько интерфейсов), но и будете отправлять
-очаровательные
-письма.&lt;/p&gt;
-
-&lt;p&gt;Подкючаете гем &lt;code&gt;premailer-rails&lt;/code&gt;, кидаете &lt;code&gt;styles.css&lt;/code&gt; прямо в &lt;code&gt;public&lt;/code&gt;, копируете
-любой из трех html-шаблонов во вьюху письма, исправляя ссылку к стилям прямо на &lt;code&gt;http://cdn.example.com/styles.css&lt;/code&gt;, что это значит
-не разбирался, но именно так работает гем, и &lt;code&gt;AwesomeMailer.foobar.deliver&lt;/code&gt;. Вуаля, прекрасно сверстанное письмо (кстати
-здесь без иронии, письма действительно выглядят очень прилично) оказывается у адресатов.&lt;/p&gt;
-
-&lt;p&gt;Можно конечно отправить и мейлчимповский шаблон через мендрил, но мне кажется с шаблонами мейлгана получится быстрее.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 25 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/25/mailgun/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/25/mailgun/index.html</guid>
       </item>
     
   </channel>
