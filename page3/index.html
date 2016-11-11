@@ -56,6 +56,74 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/14/racket/index.html">Racket</a></h1>
+      
+      <div class="date">October 14, 2016</div>
+
+      
+      <div class="entry">
+        <p>Вот везде говорят, функциональное, функциональное, программирование. Я спросил в нашем чатике, а
+что в тренде? На чем я должен программировать, если пришел на вечеринку с коктейлями?</p>
+
+<p>От Хаскеля отказался сразу, спасибо не надо. Я несколько раз пытался его понять, даже книжку
+одну прочитал до половины, они там так и не написали не строчки кода,
+ и я не написал ни строчки кода. Все что знаю -
+есть монады, морфизмы и эндофункторы. Достаточно. Что тогда остается? Возможные
+лисп-диалекты: скобочки и сложение в польской записи. Ок. Из ортодоксальных показалось, что
+самый живой <a href="https://clojure.org/">Clojure</a>,
+но <a href="https://github.com/ErrorSoul">Муслим</a> посоветовал сначала посмотреть
+на <a href="https://racket-lang.org/">Racket</a> - один из лиспов, который учат в школах, институтах и других
+учебных заведениях.</p>
+
+<p>Что могу сказать - ну тоже язык. Скобочек много. Мозгу тяжело. Все как положено. Поставляется
+с забавной визуальной средой DrRacket, вот я написал пример из тьюториала:</p>
+
+<p><img src="/assets/2/racket/1.png" alt=""></p>
+
+<p>Попробовал я эту красоту и сразу представил, как подходит Заказчик и говорит: &quot;кружочки - отличные,
+а вот этот квадрат сделай плиз желтым&quot;.</p>
+
+<p><img src="/assets/2/racket/2.png" alt=""></p>
+
+<p>В руби я бы вставил бы что-нибудь типа <code>x == 1 &amp;&amp; y == 0 &amp;&amp; kind == &quot;square&quot; ? &quot;yellow&quot; : &quot;red&quot;</code> и пошел
+бы дальше. Здесь же получилось захачить далеко не сразу. В итоге получилось примерно так:</p>
+<div class="highlight"><pre><code class="language-racket" data-lang="racket"><span class="kn">#lang </span><span class="nn">slideshow</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">square</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">filled-rectangle</span> <span class="n">n</span> <span class="n">n</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">series</span> <span class="n">mk</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">hc-append</span> <span class="mi">4</span> <span class="p">(</span><span class="n">mk</span> <span class="mi">5</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="n">mk</span> <span class="mi">10</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">mk</span> <span class="mi">20</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">hacked_red</span> <span class="n">i</span> <span class="n">mode</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="k">and</span> <span class="p">(</span><span class="nb">eq?</span> <span class="n">mode</span> <span class="o">&#39;</span><span class="ss">with_hacked_red</span><span class="p">)</span> <span class="p">(</span><span class="nb">eq?</span> <span class="n">i</span> <span class="mi">1</span><span class="p">))</span> <span class="s2">&quot;yellow&quot;</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">color</span> <span class="n">i</span> <span class="n">j</span> <span class="n">mode</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">cond</span>
+    <span class="p">[(</span><span class="nb">eq?</span> <span class="n">j</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="n">hacked_red</span> <span class="n">i</span> <span class="n">mode</span><span class="p">)]</span>
+    <span class="p">[(</span><span class="nb">eq?</span> <span class="n">j</span> <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;green&quot;</span><span class="p">]</span>
+    <span class="p">[</span><span class="k">else</span> <span class="s2">&quot;blue&quot;</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">logo</span> <span class="n">mk</span> <span class="n">mode</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">vc-append</span>
+   <span class="p">(</span><span class="n">series</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">sz</span> <span class="n">i</span><span class="p">)</span> <span class="p">(</span><span class="n">colorize</span> <span class="p">(</span><span class="n">mk</span> <span class="n">sz</span><span class="p">)</span> <span class="p">(</span><span class="n">color</span> <span class="n">i</span> <span class="mi">0</span> <span class="n">mode</span><span class="p">))))</span>
+   <span class="p">(</span><span class="n">series</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">sz</span> <span class="n">i</span><span class="p">)</span> <span class="p">(</span><span class="n">colorize</span> <span class="p">(</span><span class="n">mk</span> <span class="n">sz</span><span class="p">)</span> <span class="p">(</span><span class="n">color</span> <span class="n">i</span> <span class="mi">1</span> <span class="n">mode</span><span class="p">))))</span>
+   <span class="p">(</span><span class="n">series</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">sz</span> <span class="n">i</span><span class="p">)</span> <span class="p">(</span><span class="n">colorize</span> <span class="p">(</span><span class="n">mk</span> <span class="n">sz</span><span class="p">)</span> <span class="p">(</span><span class="n">color</span> <span class="n">i</span> <span class="mi">2</span> <span class="n">mode</span><span class="p">))))))</span>
+
+<span class="p">(</span><span class="n">logo</span> <span class="n">circle</span> <span class="o">&#39;</span><span class="ss">default</span><span class="p">)</span>
+<span class="p">(</span><span class="n">logo</span> <span class="n">square</span> <span class="o">&#39;</span><span class="ss">with_hacked_red</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/assets/2/racket/3.png" alt=""></p>
+
+<p>Хм. Выглядит не очень. Кто знает как сделать более красиво и правильно?</p>
+
+        <div style="float:right"><a href="/blog/2016/10/14/racket/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=Racket&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F14%2Fracket%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/13/terraform-like-a-terraformer/index.html">Терраформим Селектел</a></h1>
       
       <div class="date">October 13, 2016</div>
@@ -430,39 +498,6 @@ process out
 
         <div style="float:right"><a href="/blog/2016/10/04/crazy-bash/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%91%D0%B5%D0%B7%D1%83%D0%BC%D0%B8%D0%B5+%D0%B1%D0%B0%D1%88+%D1%81%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F04%2Fcrazy-bash%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/03/github/index.html">Хороший пул реквест</a></h1>
-      
-      <div class="date">October  3, 2016</div>
-
-      <div class="img"><img src="/assets/2/github/main.jpg" /></div>
-      <div class="entry">
-        <p>У нас есть негласное правило, что пул реквест должен хорошо выглядит
-в веб-интерфейсе гитхаба. Мне кажется это отличное соглашение, благодаря которому
-вводится несколько компромиссов,
-из-за которых иначе могут возникать споры.</p>
-
-<p>Для начала ширина кода фиксируется на 140 символов, чтобы не было горизонтального скролла. Далее устанавливается
-очень разумное ограничение на количество одновременных изменений. Я не изучал точно как работает алгоритм гитхаба, но
-при попытке изменить слишком много файлов одновременно, он покажет только часть. Также не смотрим пул реквесты,
-которые не мержатся автоматически в мастер или у которых тесты красные (мы работаем по гитхаб-флоу
-и положительное ревью означает, что код может оказаться на продакшене через несколько минут, поэтому важно чтобы он был готов).</p>
-
-<p>Более глубоким эффектом оказывается разделение рефакторинга и нового функционала. Если например меняется отступ в больших
-массивах кода, а это часто бывает при рефакторинге, то будет много красного и много зеленого. И уже не хочется в эти
-изменения что-то добавлять еще, так как пул реквест станет не читаемым. Поэтому все массивные изменения всегда идут отдельными
-пул реквестами, что сильно уменьшает влияние человеческого фактора.</p>
-
-<p>Пожалуй самое забавное, что через некоторое время
-формируется ощущение, что полностью зеленые или полностью красные пул реквесты, более безопасные, чем полосатые. К полосатым -
-всегда повышенное внимание.</p>
-
-        <div style="float:right"><a href="/blog/2016/10/03/github/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%A5%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9+%D0%BF%D1%83%D0%BB+%D1%80%D0%B5%D0%BA%D0%B2%D0%B5%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F03%2Fgithub%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
