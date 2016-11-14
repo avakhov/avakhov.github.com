@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Убить Базу Билла</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/kill-db/main.jpg&quot; /&gt;
+          &lt;p&gt;У нас каждую ночь в спец енвайроменте поднимаются все продакшены базы из бэкапов. Это приследует несколько
+целей: проверить, что в принципе из бэкапов можно восстановится, а так же аналитики делают
+некоторые ad hoc запросы без доступа на продакшен и привлечения программистов.&lt;/p&gt;
+
+&lt;p&gt;Для экономии места сохраняются две или три самых свежих базы, а остальные удаляются. Стандартный
+&lt;code&gt;dropdb&lt;/code&gt; не удалит базу, если к ней остались коннекшены, в интернетах советуют рестартить постгрес
+целиком, но это немного овер даже для тестовой базы. Решение, которое мне больше всего нравится, выглядит
+так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;psql &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt; -c&lt;span class=&quot;s1&quot;&gt;&amp;#39;SELECT pg_terminate_backend(pid) FROM pg_stat_activity&lt;/span&gt;
+&lt;span class=&quot;s1&quot;&gt;            WHERE pid &amp;lt;&amp;gt; pg_backend_pid();&amp;#39;&lt;/span&gt;
+dropdb &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Вроде работает хорошо.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 14 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/14/kill-db/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/14/kill-db/index.html</guid>
+      </item>
+    
+      <item>
         <title>Подготовка компьютера к работе</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/prepare-pc/main.jpg&quot; /&gt;
@@ -306,61 +330,6 @@
         <pubDate>Mon, 31 Oct 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/10/31/flock/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/10/31/flock/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Лежим красиво</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/down/main.jpg&quot; /&gt;
-          &lt;p&gt;Как я писал на днях, падения - не стыдно, это часть жизненного цикла любого программного продукта и сегодня хочу рассказать как
-продакшен падает.&lt;/p&gt;
-
-&lt;p&gt;Если у вас в системе есть ограниченный ресурс, то когда-нибудь он обязательно кончится. Коннекшенов будет мало, процесс
-убьет OOM killer, место на диске перестанет хватать, десятиминутный крон будет выполнятся полчаса и так далее. А да, сертификат
-вы продлить забудете, домен не оплатите, кредитку заблокируют. И хотя вроде Большой Бизнес (TM) не должен допускать таких банальных ошибок,
-давайте просто вспомним, что Гугл как-то на несколько минут потерял контроль над своим доменом.
-У Инстаграмма день был просрочен
-сертификат. Стек Оверфлоу вырубил умный балансер и тяжелый регексп. 
-Там же не дураки работают? Конечно нет! Умнейшие люди! Просто
-когда нужно контролировать очень много параметров и процессов любая система
-начинает сбоить.&lt;/p&gt;
-
-&lt;p&gt;Под трафиком проявятся разнообразные гонки, конфликты, блокировки, какие только могут быть. Магия рейлс частенько дает сбой в нагруженных
-местах. Всякие constraint violation, dead locks станут обычным делом, как только нагрузка подрастет. Вообщем весело. Раскажу несколько
-случаев которые были у нас.&lt;/p&gt;
-
-&lt;p&gt;1) Бесконечный цикл. Был примерно такой же код, как в выпуске &lt;a href=&quot;http://railscasts.com/episodes/352-securing-an-api&quot;&gt;Securing an API &lt;/a&gt;
-только для генерации человеко-френдли номера класса. Естественно через пару лет метод стал сильно деградировать по перформансу, а
-потом и вообще отвалилься по таймауту.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;before_create&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:generate_number&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate_numer&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;2) Конфликт IP адресов. В Селектеле есть два вида внешних IP - Floating IP, который можно подцепить к произвольному интерфейсу, и
-публичная подсеть, IP из которой рекомендуют использовать для нагруженных проектов. Так вот, выдается подсеть &lt;code&gt;/29&lt;/code&gt;, но использовать
-из нее можно только 5 адресов, так как первый - гейтвей. Ну у нас кто-то поставил зарезервированный IP
-на бокс и сайт стал очень прикольно деградировать. Он работал
-несколько минут, а потом переставал открываться. Все это было на фоне повышенной нагрузки и сначала мы думали, что сервера
-не справляются с трафиком.&lt;/p&gt;
-
-&lt;p&gt;3) Добавление колонок с дефалтовым значением в большую таблицу, создание индекса без &lt;code&gt;CONCURRENTLY&lt;/code&gt;. Ну это вообще классика.
-Если вы не роняли продакшен тяжелой
-миграцией, то у вас впереди еще много интересного. Алексей Васильев написал прекрасную статью про эту тему
-&lt;a href=&quot;http://leopard.in.ua/2016/09/20/safe-and-unsafe-operations-postgresql&quot;&gt;Safe and unsafe operations for high volume PostgreSQL&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;4) Мутация константных хэшей. Очень мерзкий баг. Где в инициализаторах в константу грузился yml-файл и кто-то ее случайно модифицировал
-в коде с помощью bang-методов (которые зло). Поэтому часть юникорнов начинала глючить. Вот здесь конечно я позавидовал языкам, в которых
-вшита защита от таких безобразий. К счастью дефект был наглый и очень быстро проявлялся, поэтому мы его исправили в тот же день.&lt;/p&gt;
-
-&lt;p&gt;В принципе можно вспомнить много еще забавного, но пожалуй на сегодня хватит. Приключения продолжаются!&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 28 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/28/down/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/28/down/index.html</guid>
       </item>
     
   </channel>
