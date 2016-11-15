@@ -7,6 +7,50 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Рефакторинг</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/refactoring/main.jpg&quot; /&gt;
+          &lt;p&gt;Рефакторинг тема как известно тонкая, поэтому сразу скажу - к переписыванию работающего продакшен-кода я отношусь
+отрицательно, как бы это не называлось. Правило &amp;quot;работает - не трогает&amp;quot; достаточно хорошо проверено временем.&lt;/p&gt;
+
+&lt;p&gt;Сейчас постараюсь пояснить, как мыслю. Представьте, что мы на оси времени находимся
+в точке &lt;code&gt;А&lt;/code&gt;. Единственная объективная реальность - это тот код, который сейчас находится на продакшене
+(этим кстати мне нравится гитхаб-флоу, мастер - всегда в продакшене, в ветках -
+что хочешь то и делаешь, дело личное, точка опасности - мерж пул реквеста в мастер). Так вот в точке
+&lt;code&gt;А&lt;/code&gt;, глядя на наш продакшен, мы видим проблемы кода и всегда примерно понимаем как выглядит точка &lt;code&gt;B&lt;/code&gt;, 
+в которой сегодняшний функционал был бы &amp;quot;идеально&amp;quot; выражен в коде.&lt;/p&gt;
+
+&lt;p&gt;Я уверен, что большая ошибка начинать движение в точку &lt;code&gt;B&lt;/code&gt; (в принципе это и есть рефакторинг -
+изменение кодовой базой без изменения функционала). Время то движется вперед
+и вы оказываетесь в точке &lt;code&gt;C&lt;/code&gt; с устаревшим кодом (&amp;quot;идеальным&amp;quot; кодом на момент &lt;code&gt;A&lt;/code&gt;). В процессе движения
+выяснится, что точка &lt;code&gt;B&lt;/code&gt; - тоже не совсем хороша. В голове - идея была хорошая, а в
+реализации оказалось не очень. Тогда начинаете движение в точку &lt;code&gt;B&amp;#39;&lt;/code&gt;, потом в &lt;code&gt;B&amp;#39;&amp;#39;&lt;/code&gt; и так далее. Поэтому переписывание
+продакшен кода в моей системе ценности - в большинстве случаев ошибка, это работа на прошлое.&lt;/p&gt;
+
+&lt;p&gt;Что я предлагаю вместо этого. Допустим мы продолжим пилить новые фичи как сегодня. То наш код
+шатко-валко, вместе с нами, доползет до точки &lt;code&gt;C&lt;/code&gt;. И для этого горемыки, так же будет
+&amp;quot;идеальный&amp;quot; код - точка &lt;code&gt;D&lt;/code&gt;. Естественно это не точка (как и впрочем все остальные точки - не точки), это
+облачко возможных хороших реализаций той системы, которая будет в момент &lt;code&gt;C&lt;/code&gt;.
+Так вот я твердо уверен, что &lt;strong&gt;нужно менять не сегодняшний работающий код, а менять
+привычки, которые приведут проект в более здоровую точку &lt;code&gt;D&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;У меня есть такая аналогия. Допустим человек решил привести себя в форму. Можно поступить хирургически, радикально. Быстро - но
+много побочных эффектов, жесткий отходняк. Либо человек меняет привычки: разбирается с режимом дня,
+правильно питается, регулярно занимается в зале.
+То есть
+по факту он ведет себя уже, прямо сейчас, как здоровый человек, но сегодняшнее состояние пока не очень.&lt;/p&gt;
+
+&lt;p&gt;Поэтому, как бы код не был плох, я считаю,
+что нужно прежде всего разобраться какие привычки довели его до такого состояния и что нужно поменять, чтобы привести его
+со временем в порядок.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 15 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/15/refactoring/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/15/refactoring/index.html</guid>
+      </item>
+    
+      <item>
         <title>Убить Базу Билла</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/kill-db/main.jpg&quot; /&gt;
@@ -306,30 +350,6 @@ dropdb &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;
         <pubDate>Tue, 01 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/01/early_monitoring/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/01/early_monitoring/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Запрет на кроновые пикеты</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/flock/main.jpg&quot; /&gt;
-          &lt;p&gt;Есть народная мудрость: &amp;quot;знал бы где упаду, там бы костылями подпер&amp;quot;.
-Если вы добавили в свой быстро растущий стартап крон-задачи, особенно чаще чем, скажем, раз в 10 минут,
-гарантирую, что рано или поздно они будут выполнятся дольше отведенного времени, соберутся в большую стаю и вынесут ресурсы сервера, базы или чего-нибудь еще.&lt;/p&gt;
-
-&lt;p&gt;Как всегда в линукс мире есть подходящее решение из коробки (&lt;a href=&quot;https://ma.ttias.be/prevent-cronjobs-from-overlapping-in-linux/&quot;&gt;источник&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;crontab -l
-&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; * * * * /usr/bin/flock -w &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; /path/to/cron.lock /usr/bin/php /path/to/cron.php
-&lt;span class=&quot;c&quot;&gt;# php хи-хи&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Этот хак, как и многое из моего блога, гуглится за несколько минут.
-Но честно говоря, пару лет назад я вставлял какое-то безумие в виде создания временного
-файла и проверки его существования. Если почему-то вы делаете также, то попробуйте &lt;code&gt;flock&lt;/code&gt; -
-будет гораздо изящнее.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 31 Oct 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/10/31/flock/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/10/31/flock/index.html</guid>
       </item>
     
   </channel>
