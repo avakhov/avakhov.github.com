@@ -67,9 +67,8 @@
 <p>Подключил, прямо как в <a href="https://www.hostedgraphite.com/docs/languageguide/lg_ruby.html#sending-a-metric-via-udp">документации</a>:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;socket&#39;</span>
 
-<span class="n">conn</span> <span class="o">=</span> <span class="no">TCPSocket</span><span class="o">.</span><span class="n">new</span> <span class="s1">&#39;carbon.hostedgraphite.com&#39;</span><span class="p">,</span> <span class="mi">2003</span>
-<span class="n">conn</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;API-KEY.custom 1.2</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="n">conn</span><span class="o">.</span><span class="n">close</span>
+<span class="n">sock</span> <span class="o">=</span> <span class="no">UDPSocket</span><span class="o">.</span><span class="n">new</span>
+<span class="n">sock</span><span class="o">.</span><span class="n">send</span> <span class="s2">&quot;YOUR-API-KEY.foo 1.2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;carbon.hostedgraphite.com&quot;</span><span class="p">,</span> <span class="mi">2003</span>
 </code></pre></div>
 <p>Но внезапно сайт стал скручивать ласты. 
 Думаю вы уже догадались, хотя UDP-сообщения неблокирующие,
