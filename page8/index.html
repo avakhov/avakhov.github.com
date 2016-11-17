@@ -56,6 +56,59 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/12/doc-db/index.html">Как можно документировать схему базу данных</a></h1>
+      
+      <div class="date">August 12, 2016</div>
+
+      <div class="img"><img src="/assets/2/doc-db/main.jpg" /></div>
+      <div class="entry">
+        <p>Когда проект начал расти я почувствовал, что очень сильно не хватает комментариев к схеме
+базы данных. В живом приложении появляются таинcтвенные таблицы, какие-то флаги, json-ны и
+прочие неведомые вещи, иногда хочется узнать, что они означают.</p>
+
+<p>Конечно некоторые поля в моделях очевидны, в <code>Student#name</code> в принципе очевидно что хранится,
+но какое-нибудь <code>Group#migrated_from_old_db2</code> (название вымышленое) нуждается в объяснении - кто, когда,
+зачем это мигрировал и что такое старая база (вторая). </p>
+
+<p>Я завел файл <code>doc/db.md</code>, в котором описал все таблицы и колонки, которые были на тот момент и
+попросил коллег поддерживать его. Конечно никто поддерживать не стал. И не из вредности,
+а потому-что при программировании приходится и так помнить тысячу вещей. Документирование
+изменений схемы не входило в обязательные рутины работы.</p>
+
+<div class="hr">&middot;&middot;&middot;</div>
+
+<p>Решил проблему просто - написал тест, который падает, если в файле <code>doc/db.md</code> нет описания для
+какой-нибудь колонки. Формат файла очень простой, он легко парсится и красиво выглядит в интерфейсе
+гитхаба:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># uchi.ru db schema
+
+## schools
+
+Школы.
+
+| column | description |
+|--:|--:|
+| name | Название |
+...
+</code></pre></div>
+<p>Все таблицы и колонки легко вытянуть с помощью <code>AR::Base.connection.tables</code> и 
+<code>AR::Base.connection.columns</code>. Вуаля! Мержить пул реквест на красных тестах нельзя.
+Но тесты падают, если схема обновилась, а <code>doc/db.md</code> нет!</p>
+
+<div class="hr">&middot;&middot;&middot;</div>
+
+<p>Теперь все базы данных у нас документированы, а файл <code>doc/db.md</code> в каждом репозитарии один из ключевых
+при изучении приложения с которым работаешь первый раз или давно не работал. Поддерживать
+такую документацию легко и естественно, в итоге она гораздо информативнее стандартного 
+файла <code>db/schema.rb</code>.</p>
+
+        <div style="float:right"><a href="/blog/2016/08/12/doc-db/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE+%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C+%D1%81%D1%85%D0%B5%D0%BC%D1%83+%D0%B1%D0%B0%D0%B7%D1%83+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F12%2Fdoc-db%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/11/regexp/index.html">%r{егекспы}</a></h1>
       
       <div class="date">August 11, 2016</div>
@@ -705,61 +758,6 @@ git push avakhov new-feature -u
       </div>
     </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/25/contribute/index.html">Пул реквесты в опен сорс</a></h1>
-      
-      <div class="date">December 25, 2014</div>
-
-      <div class="img"><img src="/assets/contribute.jpg" /></div>
-      <div class="entry">
-        <p>Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
-из пяти пунктов:</p>
-
-<ol>
-<li>Fork it ( https://github.com/[my-github-username]/awesome-gem/fork )</li>
-<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
-<li>Commit your changes (<code>git commit -am &#39;Add some feature&#39;</code>)</li>
-<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
-<li>Create a new Pull Request</li>
-</ol>
-
-<p>Я расскажу пару хитростей, которые можно использовать,
-чтобы сделать процесс создания пул реквестов еще приятнее и
-беззаботнее.</p>
-
-<h2>Процесс создания пул реквестов</h2>
-
-<p><em>1. Форкаем репозитарий и клонируем</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git clone git@github.com:avakhov/awesome-gem.git
-</code></pre></div>
-<p><em>2. Подцепляем оригинальный remote (я его называю papa)</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git remote add papa git@github.com:awesome/awesome-gem.git
-</code></pre></div>
-<p><em>3. Берем самую свежую версию</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git fetch papa
-get checkout papa/master
-</code></pre></div>
-<p><em>4. Создаем ветку (можно начинать имя с чисел по порядку)</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git checkout -b 2-mega-fix
-git push origin 2-mega-fix -u
-</code></pre></div>
-<p><em>5. Комитим</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git commit -m&quot;Msg&quot;
-git push
-</code></pre></div>
-<p><em>6. Посылаем пул реквест через Github!</em> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /></p>
-
-<p>Переходим к пункту 3, чтобы создать новый пул реквест.</p>
-
-<p>Такой процедуры легко придерживаться и она гарантирует, что мы всегда
-работаем с актуальным кодом (в оригинальном процесс легко форкнуться от устаревшей ревизии).</p>
-
-        <div style="float:right"><a href="/blog/2014/12/25/contribute/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%83%D0%BB+%D1%80%D0%B5%D0%BA%D0%B2%D0%B5%D1%81%D1%82%D1%8B+%D0%B2+%D0%BE%D0%BF%D0%B5%D0%BD+%D1%81%D0%BE%D1%80%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F25%2Fcontribute%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
 </div>
 
 <!-- Pagination links -->
@@ -767,7 +765,7 @@ git push
   
     <a href="/page7" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 8 of 13</span>
+  <span class="page_number ">Page: 8 of 14</span>
   
     <a href="/page9" class="next">Next</a>
   
