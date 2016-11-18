@@ -7,6 +7,59 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Тайм менеджмент</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/timeman/main.jpg&quot; /&gt;
+          &lt;p&gt;Пришло время говорить о самой важной вещи - личной продуктивности. Как и у любого уважаемого блоггера у меня
+есть свои секретики (кручусь-с как говорится &lt;img class=&#39;emoji&#39; title=&#39;:stuck_out_tongue_winking_eye:&#39; alt=&#39;:stuck_out_tongue_winking_eye:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f61c.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;). Что изучал:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GTD, Архангельский&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Обе книги - классика. Интересно, занимательного, но очень сложно. Честно говоря я вроде и не рискнул хоть что-то попробовать. Очень, очень сложно. А, есть еще жесткая жесть - система Любищева.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.ozon.ru/context/detail/id/3373340/&quot;&gt;Тайм-менеджмент для системных администраторов&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Книжка классная, мне
+понравилась. Из нее прижилось, что нужно записывать, все что обещал пока шел по офису.
+Очень здорово, что там показан тайм менеджмент не вообще в широком смысле,
+а в конкретном случае для работы, когда часто отвлекают, а надо
+еще и проекты поделать.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://pragprog.com/book/snfocus/pomodoro-technique-illustrated&quot;&gt;Pomodoro Technique Illustrated&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Честно купил электронную книгу и прочитал. Сама система никак не прижилась, хотя регулярные перерывы я, конечно, стараюсь
+делать. Запомнил оттуда бинарный тудулист. Это тудулист в котором одна задача (или ноль). Вспоминаю
+эту идею в минуты когда не знаю, что делать прямо сейчас.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Максим Дорофеев - &lt;a href=&quot;http://mnogosdelal.ru/slidecasts/dovedenie-del-do-kontsa/&quot;&gt;Доводить дела до конца&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Честно говоря все видосы я не досмотрел до конца, хотя хотел &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;, но мне очень понравился докладчик и три принципа
+(формулировки, списки,
+регулярные обзоры) я использую. Действительно удобно держать список крупных задач, но не разбивать их на 100 мелких сразу же,
+а отколоть одну задачку, потому вторую и так потихоньку двигаться.&lt;/p&gt;
+
+&lt;p&gt;В качестве софтовой поддержки своей системы эффективности уже два года использую &lt;a href=&quot;https://todoist.com&quot;&gt;тудуист&lt;/a&gt; и нещадно
+троллю Тимура. Когда я спросил какую тудушницу скачать, он сказал, что конечно вундерлист,
+но есть еще тудуист, там функционал плохой. Я выбрал
+тудуист и всегда говорю, что Тимур посоветовал.&lt;/p&gt;
+
+&lt;p&gt;Но вообще эффективно получается работать, когда нравится то, что делаешь, и неэффективно когда не нравится.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 18 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/18/timeman/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/18/timeman/index.html</guid>
+      </item>
+    
+      <item>
         <title>Кладовка и натянутый трос</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/kladovka/main.jpg&quot; /&gt;
@@ -289,32 +342,6 @@ dropdb &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;
         <pubDate>Mon, 07 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/07/shatal2/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/07/shatal2/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Неблокирующие UDP</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/udp/main.jpg&quot; /&gt;
-          &lt;p&gt;4 года назад я зажегся вот этим постом -
-&lt;a href=&quot;https://signalvnoise.com/posts/3091-pssst-your-rails-application-has-a-secret-to-tell-you&quot;&gt;Pssst... your Rails application has a secret to tell you&lt;/a&gt;
-и тут же начал отправлять метрики в &lt;a href=&quot;https://www.hostedgraphite.com/&quot;&gt;HostedGraphite&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Подключил, прямо как в &lt;a href=&quot;https://www.hostedgraphite.com/docs/languageguide/lg_ruby.html#sending-a-metric-via-udp&quot;&gt;документации&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;socket&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UDPSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;YOUR-API-KEY.foo 1.2&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;carbon.hostedgraphite.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2003&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Но внезапно сайт стал скручивать ласты. 
-Думаю вы уже догадались, хотя UDP-сообщения неблокирующие,
-а запросы к DNS еще как блокирующие.
-У хостера начались проблемы с DNS и сайт стал тормозить даже на маленькой
-нагрузке. Так что с хостед версией графита у нас не срослось. Увы.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 03 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/03/udp/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/03/udp/index.html</guid>
       </item>
     
   </channel>
