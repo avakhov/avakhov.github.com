@@ -84,7 +84,8 @@
 <div class="highlight"><pre><code class="language-slim" data-lang="slim"><span class="p">=</span> <span class="n">bootstrap_form_for</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
   <span class="p">=</span> <span class="n">f</span><span class="o">.</span><span class="n">select</span> <span class="ss">:owner_ids</span><span class="p">,</span> <span class="no">User</span><span class="o">.</span><span class="n">all</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span><span class="ss">class</span><span class="p">:</span> <span class="s2">&quot;select2&quot;</span><span class="p">,</span> <span class="ss">multiple</span><span class="p">:</span> <span class="kp">true</span><span class="p">}</span>
 </code></pre></div>
-<p>Честно скажу, я не вижу ничего особо криминального так делать даже в серьезном продакшене. Но у меня уже большая деформация,
+<p>Честно скажу, я не вижу ничего особо криминального так делать даже в серьезном продакшене (если джойны не нужны и таблицы маленькие).
+Но у меня уже большая деформация,
 так как рейлс-фич уже давно не писал, а разобраться могу, если жизнь заставит, практически в любом коде. В вопросах стиля себе
 уже не доверяю. Но написать такой many-to-many в режиме хакантона имхо проще классического (у нас давно работает в одной утилитке).
 Прокатит это или нет - 50 на 50.</p>
