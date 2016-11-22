@@ -7,6 +7,43 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Array True</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/array_true/main.jpg&quot; /&gt;
+          &lt;p&gt;Я читаю довольно много блогов и разных статей, обычно авторы описывают как делать правильно и красиво, поэтому я люблю
+рассказывать
+как делать не правильно, но быстро и эффективно. Писать про костыли и хаки - совершенно безконкурентное занятие.
+Когда мне говорят, что это испортит кодовую базу, я отвечаю, что всегда
+нужно рассматривать еще вариант, а вдруг не испортит. Нужно быть оптимистом &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Ну и потроллить маленько всегда
+приятно, это расширяет сознание.&lt;/p&gt;
+
+&lt;p&gt;Так вот, в рейлс many-to-many в принципе принято делать через доп-таблицу. Но если вы отважный хакер, без стыда и совести,
+то можно сделать так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;products&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;owner_ids&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;ss&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;В модели:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;owners&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@owners&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner_ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_a&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Во вьюхе формы:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-slim&quot; data-lang=&quot;slim&quot;&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bootstrap_form_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:owner_ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;select2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;multiple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Честно скажу, я не вижу ничего особо криминального так делать даже в серьезном продакшене. Но у меня уже большая деформация,
+так как рейлс-фич уже давно не писал, а разобраться могу, если жизнь заставит, практически в любом коде. В вопросах стиля себе
+уже не доверяю. Но написать такой many-to-many в режиме хакантона имхо проще классического (у нас давно работает в одной утилитке).
+Прокатит это или нет - 50 на 50.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 22 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/22/array_true/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/22/array_true/index.html</guid>
+      </item>
+    
+      <item>
         <title>Управляем «Виртуальным приватным облаком» с помощью Terraform</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/terraform_plus_selectel/main.jpg&quot; /&gt;
@@ -283,30 +320,6 @@ dropdb &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;
         <pubDate>Wed, 09 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/09/ansible-jet-black/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/09/ansible-jet-black/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Травмирован C++</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/cpp/main.jpg&quot; /&gt;
-          &lt;p&gt;В прошлой C++-жизни я программировал софт для биржи и за идею, что можно забить на обслуживание
-какого-то количества пользователей или что редкая ошибка никому не мешает, меня бы обязательно отпинали ногами.
-Поэтому первое время в вебе мне хотелось
-правильно и корректно обработать абсолютно каждый запрос.
-К счастью дальше желания дело не зашло и я довольно
-быстро (где-то за полгода) подхватил дух и букву рейлс-разработки.&lt;/p&gt;
-
-&lt;p&gt;Один момент из многих, которые меня взбесили в рейлс, я помню. Когда узнал,
-что кэширование (вот эти все сохранения вьюх и их фрагментов из Depot-приложения) реализовано
-через файл. Грхх! Сохранение файла - это
-же не атомарная операция &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:see_no_evil:&#39; alt=&#39;:see_no_evil:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f648.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:confused:&#39; alt=&#39;:confused:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f615.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;! Как же можно быть такими безответственными.&lt;/p&gt;
-
-&lt;p&gt;Мда. Вот такие вещи меня смущали тогда.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 08 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/08/cpp/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/08/cpp/index.html</guid>
       </item>
     
   </channel>
