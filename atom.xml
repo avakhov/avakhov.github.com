@@ -7,6 +7,37 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>ConcourseCI - отличная идея, подозрительная реализация</title>
+        <description>
+          
+          &lt;p&gt;По совету коллеги изучил СoncourseCI, CI нового поколения. Идея - просто бомба, пайплайны, которые 
+собираются в модных yaml-файлах (кстати у ямл-файлов второе рождение, в рейлс они помню были
+очень давно, потом все захватил JSON и вот снова ямл, который на самом деле включает
+в себя JSON) и позволяют делать потенциально любые операции с вашими
+исходниками: релизить, версионировать, деплоить, выкладывать на S3 и все остальное, что может пригодится
+для CI/CD. &lt;/p&gt;
+
+&lt;p&gt;Но вот реализация, уж на что я спокоен ко всякому, но это, друзья, перебор. Докер контейнер, в котором
+бинарь на го в 250 мегабайт, который при установки выстреливает из себя пучок других бинарей и докер
+демон, который запускает докеры, в которых собираются докеры. Ну вообщем эта вся конструкция
+без проблем запускается, прилично работает на тестовых примерах и
+в принципе собрал пару пайплайнов, которые потенциально могли бы нам
+пригодится, но психологически работать с такой системой не очень приятно. Не понятно как подлезть к
+конкретному контейнеру когда что-то пойдет не так, невнятная работа с кэшированием.
+Можно, конечно, все решить, если жизнь заставит,
+но добровольно пока в это ввязываться не хочу.&lt;/p&gt;
+
+&lt;p&gt;СoncourseCI, уверен, - будущее, и поиграть с ним точно стоит, освежает мышление. С внедрением
+спешить не будут, подожду 
+более простую реализацию или попробую еще раз попозднее.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 28 Nov 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/11/28/cc/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/28/cc/index.html</guid>
+      </item>
+    
+      <item>
         <title>Процессы для обычных людей</title>
         <description>
           
@@ -296,30 +327,6 @@
         <pubDate>Tue, 15 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/15/refactoring/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/15/refactoring/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Убить Базу Билла</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/kill-db/main.jpg&quot; /&gt;
-          &lt;p&gt;У нас каждую ночь в спец енвайроменте поднимаются все продакшены базы из бэкапов. Это приследует несколько
-целей: проверить, что в принципе из бэкапов можно восстановится, а так же аналитики делают
-некоторые ad hoc запросы без доступа на продакшен и привлечения программистов.&lt;/p&gt;
-
-&lt;p&gt;Для экономии места сохраняются две или три самых свежих базы, а остальные удаляются. Стандартный
-&lt;code&gt;dropdb&lt;/code&gt; не удалит базу, если к ней остались коннекшены, в интернетах советуют рестартить постгрес
-целиком, но это немного овер даже для тестовой базы. Решение, которое мне больше всего нравится, выглядит
-так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;psql &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt; -c&lt;span class=&quot;s1&quot;&gt;&amp;#39;SELECT pg_terminate_backend(pid) FROM pg_stat_activity&lt;/span&gt;
-&lt;span class=&quot;s1&quot;&gt;            WHERE pid &amp;lt;&amp;gt; pg_backend_pid();&amp;#39;&lt;/span&gt;
-dropdb &lt;span class=&quot;nv&quot;&gt;$db&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Вроде работает хорошо.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 14 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/14/kill-db/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/14/kill-db/index.html</guid>
       </item>
     
   </channel>

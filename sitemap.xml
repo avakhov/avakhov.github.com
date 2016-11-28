@@ -3,6 +3,14 @@
   
   
   <url>
+    <loc>http://vakhov.me/blog/2016/11/28/cc/index.html</loc>
+    
+    <lastmod>2016-11-28T00:00:00+03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://vakhov.me/blog/2016/11/25/slab/index.html</loc>
     
     <lastmod>2016-11-25T00:00:00+03:00</lastmod>
@@ -1101,28 +1109,28 @@
   
   <url>
     <loc>http://vakhov.me/404.html</loc>
-    <lastmod>2016-11-25T07:23:13+03:00</lastmod>
+    <lastmod>2016-11-28T07:23:12+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/about.html</loc>
-    <lastmod>2016-11-25T07:23:13+03:00</lastmod>
+    <lastmod>2016-11-28T07:23:12+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/</loc>
-    <lastmod>2016-11-25T07:23:13+03:00</lastmod>
+    <lastmod>2016-11-28T07:23:12+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/external/terraform.html</loc>
-    <lastmod>2016-11-25T07:23:13+03:00</lastmod>
+    <lastmod>2016-11-28T07:23:12+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
