@@ -56,6 +56,29 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/19/ngrok/index.html">Утилиты, утилиты</a></h1>
+      
+      <div class="date">October 19, 2016</div>
+
+      
+      <div class="entry">
+        <p>Вдруг кто не знал, но есть две прекрасные утилиты, одна полезная, а вторая от авторов Бейзкампа.</p>
+
+<p><a href="https://ngrok.com">Ngrok</a> - позволяет расшарить любой локальный порт прямо в интернет. <code>ngrok http 3000</code> - просто запомните эту команду. Бесценно, когда
+нужно показать приложение собеседнику по чатику, потестить его на айпеде, либо отладить работу с веб-хуками.</p>
+
+<p><a href="http://xip.io">Xip.io</a> - wildcard-доменное имя к любому IP-адресу - <code>*.10.0.0.1.xip.io resolves to 10.0.0.1</code>. У меня пока не было ни одного кейса,
+когда бы это пригодилось, но я чувствую, что такие ситуации точно есть.</p>
+
+<p>Какие полезные утилиты для веб-разработки используете вы?</p>
+
+        <div style="float:right"><a href="/blog/2016/10/19/ngrok/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A3%D1%82%D0%B8%D0%BB%D0%B8%D1%82%D1%8B%2C+%D1%83%D1%82%D0%B8%D0%BB%D0%B8%D1%82%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F19%2Fngrok%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/18/failes/index.html">Фейлы, они как файлы, только фейлы</a></h1>
       
       <div class="date">October 18, 2016</div>
@@ -483,33 +506,6 @@ process out
 
         <div style="float:right"><a href="/blog/2016/10/07/regular/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%A0+-+%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D0%BE%D1%81%D1%82%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F07%2Fregular%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/06/db-optim/index.html">Кто пишет в базу?</a></h1>
-      
-      <div class="date">October  6, 2016</div>
-
-      <div class="img"><img src="/assets/2/db-optim/main.jpg" /></div>
-      <div class="entry">
-        <p>Если база уперлась в диск по записи, то наверняка сайт ляжет. И помимо подкрутки собственно конфигурации
-важно
-узнать куда идет запись - уменьшить ее или вынести в другую базу.
-На постгресе есть простой способ выяснить какие таблицы дают наибольшую
-нагрузку.</p>
-
-<p>Под вашим привычным трафиком сбрасываете счетчики статистики с помощью команды
-<code>select pg_stat_reset()</code>.
-Потом смотрите какие таблицы лидеры по записи:</p>
-<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">relname</span><span class="p">,</span> <span class="n">n_tup_ins</span><span class="p">,</span> <span class="n">n_tup_upd</span><span class="p">,</span> <span class="n">n_tup_del</span><span class="p">,</span> <span class="n">n_tup_ins</span> <span class="o">+</span> <span class="n">n_tup_upd</span> <span class="o">+</span> <span class="n">n_tup_del</span> <span class="k">AS</span> <span class="n">score</span>
-<span class="k">FROM</span> <span class="n">pg_stat_user_tables</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">score</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">7</span><span class="p">;</span>
-</code></pre></div>
-<p>Скорее всего этой информации вам хватит для первой оптимизации.</p>
-
-        <div style="float:right"><a href="/blog/2016/10/06/db-optim/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%82%D0%BE+%D0%BF%D0%B8%D1%88%D0%B5%D1%82+%D0%B2+%D0%B1%D0%B0%D0%B7%D1%83%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F06%2Fdb-optim%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
