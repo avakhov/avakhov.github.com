@@ -7,6 +7,29 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>5 дисков</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/5disk/main.jpg&quot; /&gt;
+          &lt;p&gt;Недавно во время переноса проекта в другой регион похоронил 5 дисков и устроил себе пару приятных ночных часов по накатыванию
+серверов с нуля и восстановлению из бэкапов. Сделал это с помощью своего любимого терраформа, утилиты, как я уже много раз говорил,
+крайне шустрой и опасной. Гарантирую, что вручную вы так быстро раскурочить живой проект никогда не сможете, обязательно нужно воспользоваться
+для этого правильными инструментами.&lt;/p&gt;
+
+&lt;p&gt;Так вот, плохой, плохой Хашикорп дал вредный совет как подключать опенстек-диски. Вот он, пожалуйста, &lt;a href=&quot;https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html&quot;&gt;compute_instance_v2&lt;/a&gt;, раздел &lt;code&gt;Boot From an Existing Volume&lt;/code&gt;, зловредная опция -
+&lt;code&gt;delete_on_termination = true&lt;/code&gt;. Запомните ее. Если удалить сервера (которые на самом деле пустышки,
+которые можно спокойно сноcить и восстанавлить, главное прописывать IP
+жестко), созданные, как рекомендуется в документации c &lt;code&gt;delete_on_termination = true&lt;/code&gt;, то диску будет тоже секир башка.&lt;/p&gt;
+
+&lt;p&gt;Опасность этой опции мы выяснили еще во время тестировании, закрепили, что ее ни в коем случае не надо использовать, но видимо она проникла
+в несколько старых серверов и сработала как надо - диски исчезли в момент. Ну чтож, зато бэкапы проверили.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 02 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/02/5disk/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/02/5disk/index.html</guid>
+      </item>
+    
+      <item>
         <title>Питон и емакс</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/python/main.jpg&quot; /&gt;
@@ -281,59 +304,6 @@ bash - да, zsh - нет.&lt;/p&gt;
         <pubDate>Mon, 21 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/21/terraform_plus_selectel/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/21/terraform_plus_selectel/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Тайм менеджмент</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/timeman/main.jpg&quot; /&gt;
-          &lt;p&gt;Пришло время говорить о самой важной вещи - личной продуктивности. Как и у любого уважаемого блоггера у меня
-есть свои секретики (кручусь-с как говорится &lt;img class=&#39;emoji&#39; title=&#39;:stuck_out_tongue_winking_eye:&#39; alt=&#39;:stuck_out_tongue_winking_eye:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f61c.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;). Что изучал:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GTD, Архангельский&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Обе книги - классика. Интересно, занимательного, но очень сложно. Честно говоря я вроде и не рискнул хоть что-то попробовать. Очень, очень сложно. А, есть еще жесткая жесть - система Любищева.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.ozon.ru/context/detail/id/3373340/&quot;&gt;Тайм-менеджмент для системных администраторов&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Книжка классная, мне
-понравилась. Из нее прижилось, что нужно записывать, все что обещал пока шел по офису.
-Очень здорово, что там показан тайм менеджмент не вообще в широком смысле,
-а в конкретном случае для работы, когда часто отвлекают, а надо
-еще и проекты поделать.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://pragprog.com/book/snfocus/pomodoro-technique-illustrated&quot;&gt;Pomodoro Technique Illustrated&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Честно купил электронную книгу и прочитал. Сама система никак не прижилась, хотя регулярные перерывы я, конечно, стараюсь
-делать. Запомнил оттуда бинарный тудулист. Это тудулист в котором одна задача (или ноль). Вспоминаю
-эту идею в минуты когда не знаю, что делать прямо сейчас.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Максим Дорофеев - &lt;a href=&quot;http://mnogosdelal.ru/slidecasts/dovedenie-del-do-kontsa/&quot;&gt;Доводить дела до конца&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Честно говоря все видосы я не досмотрел до конца, хотя хотел &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;, но мне очень понравился докладчик и три принципа
-(формулировки, списки,
-регулярные обзоры) я использую. Действительно удобно держать список крупных задач, но не разбивать их на 100 мелких сразу же,
-а отколоть одну задачку, потому вторую и так потихоньку двигаться.&lt;/p&gt;
-
-&lt;p&gt;В качестве софтовой поддержки своей системы эффективности уже два года использую &lt;a href=&quot;https://todoist.com&quot;&gt;тудуист&lt;/a&gt; и нещадно
-троллю Тимура. Когда я спросил какую тудушницу скачать, он сказал, что конечно вундерлист,
-но есть еще тудуист, там функционал плохой. Я выбрал
-тудуист и всегда говорю, что Тимур посоветовал.&lt;/p&gt;
-
-&lt;p&gt;Но вообще эффективно получается работать, когда нравится то, что делаешь, и неэффективно когда не нравится.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 18 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/18/timeman/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/18/timeman/index.html</guid>
       </item>
     
   </channel>
