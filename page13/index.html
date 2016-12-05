@@ -56,6 +56,104 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/07/02/advices/index.html">Разные мелочи</a></h1>
+      
+      <div class="date">July  2, 2012</div>
+
+      
+      <div class="entry">
+        <p>3 недели в блог не писал и уже тяжело снова начинать. Так однажды я 2 года спортом не позанимался и тоже лень было возвращаться.
+Есть правда хорошое решение - нужно себя заставлять. И вот сегодня я хочу рассказать про разные мелочи,
+с которыми столкнулся в свое время.</p>
+
+<h2>Kernel.caller</h2>
+
+<p>Вы будете смеятся, но раньше, чтобы вывести стек вызова методов приложения я использовал конструкцию:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
+  <span class="k">begin</span>
+    <span class="k">raise</span> 
+  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+    <span class="nb">p</span> <span class="n">e</span><span class="o">.</span><span class="n">backtrace</span> <span class="c1"># =&gt; [&quot;demo.rb:3:in `some&#39;&quot;, &quot;demo.rb:9:in `&lt;main&gt;&#39;&quot;]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">some</span>
+</code></pre></div>
+<p>После C++ мне казалось, что это вполне нормально (в C++ попробуйте вывести стек приложения в лог, там не побалуешь). Но это же руби,
+здесь можно все, причем очень просто! Случайно в интернете обратил внимание на системный вызов <code>Kernel.caller</code>.
+Напечатать цепочку вызовов можно так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">some</span>
+  <span class="nb">p</span> <span class="nb">caller</span> <span class="c1"># =&gt; [&quot;demo.rb:5:in `&lt;main&gt;&#39;&quot;]</span>
+<span class="k">end</span>
+
+<span class="n">some</span>
+</code></pre></div>
+<h2>Добавление ошибки валидации на :base</h2>
+
+<p>Отображая ошибки валидации с помощью стандартного <code>object.errors.full_messages</code>, мы иногда получаем такие сообщения:
+&quot;Password Укажите пожалуйста пароль&quot;. Чтобы быстро избавиться от обязательно названия атрибута в начале сообщения, можно добавлять
+ошибки валидации следующим образом: <code>object.errros.add(:base, &#39;Укажите пожалуйста пароль&#39;)</code>. <code>full_message</code> не будет
+добавлять название атрибута в этом случае - <a href="https://github.com/rails/rails/blob/91f8cf22647e2e102c0897e88faec049f606843f/activemodel/lib/active_model/errors.rb#L287">activemodel/lib/active_model/errors.rb#L287</a>.</p>
+
+<h2>Rescue в одну строку</h2>
+
+<p>Этим шаблоном я еще не воспользовался, но он интригует. Все мы используем конструкции для установки значений по умолчанию:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">some</span> <span class="o">||</span> <span class="s2">&quot;default&quot;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">presence</span> <span class="o">||</span> <span class="s2">&quot;start&quot;</span> <span class="c1"># Rails only, обрабатывает nil? и blank?</span>
+</code></pre></div>
+<p>Оказывается можно так же легко установить дефалтовое значение, если метод вызывает исключение:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">a</span> <span class="o">=</span> <span class="n">another</span> <span class="k">rescue</span> <span class="s2">&quot;after exception&quot;</span>
+</code></pre></div>
+<p>Я обычно не вызываю эксепшенов в своем коде, которые где-то нужно обрабатывать. Но с внешними вызовами возможно пригодится.</p>
+
+<h2>IndexBy</h2>
+
+<p>Чего только не придумают руби-программисты, чтобы писать меньше кода. Недавно наткнулся на удивительный метод <a href="http://api.rubyonrails.org/classes/Enumerable.html#method-i-index_by">index_by</a> в рейлс:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Выдержка из документации:</span>
+
+<span class="c1"># Convert an enumerable to a hash:</span>
+<span class="n">people</span><span class="o">.</span><span class="n">index_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:login</span><span class="p">)</span>
+  <span class="c1"># =&gt; { &quot;nextangle&quot; =&gt; &lt;Person ...&gt;, &quot;chade-&quot; =&gt; &lt;Person ...&gt;, ...}</span>
+</code></pre></div>
+<h2>Ассерты</h2>
+
+<p>В С++ очень активно используются ассерты для проверки входных параметров, при выполнении каких-то подозрительных действий, для проверки
+возвращаемых значений и т.д. Это является частным случаем программирования по контракту. В рейлс, для собственного спокойствия,
+я тоже часто вставляю такого рода проверки. Приведу несколько типовых случаев:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># 1.</span>
+<span class="c1"># не обращайте внимание на цепочку if-elseif, не могу себя</span>
+<span class="c1"># отучить в пользу case.</span>
+<span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:some</span>
+  <span class="c1"># ...</span>
+<span class="k">elsif</span> <span class="n">mode</span> <span class="o">==</span> <span class="ss">:another</span>
+  <span class="c1"># ...</span>
+<span class="k">else</span>
+  <span class="k">raise</span> <span class="s2">&quot;unreacheable: </span><span class="si">#{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+
+<span class="c1"># 2.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">assert_valid_keys</span><span class="p">(</span><span class="ss">:key_a</span><span class="p">,</span> <span class="ss">:key_b</span><span class="p">)</span>
+
+<span class="c1"># 3.</span>
+<span class="k">raise</span> <span class="s2">&quot;wrong </span><span class="si">#{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">unless</span> <span class="sx">%w[start finish]</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div>
+<p>Я обычно не заморачиваюсь внятными сообщения в эксепшенах, так как если ошибка и случится, то по трейсу всегда легко отследить
+проблему. Данные конструкции призваны подсказывать программисту, что в коде возник какой-то случай, о
+котором раньше не позаботились. Также эти конструкции легко расширяются, когда появляются новые режимы,
+ключи или состояния.</p>
+
+<p>Для первого раза думаю хватит. Рад возвращению в онлайн. Раньше мы работали над большим количеством маленьких проектов и я прежде
+всего оптимизировал скорость и стандартность разработки. Сейчас у нас есть парочку средних проектов, на несколько человеко-месяцев
+(мифических :-) каждый. При увеличении кодовой базы возникают проблемы другого сорта, с которыми я буду сталкиваться, осмыслять
+и рассказывать вам. До новых встреч!</p>
+
+        <div style="float:right"><a href="/blog/2012/07/02/advices/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A0%D0%B0%D0%B7%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D0%BB%D0%BE%D1%87%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F02%2Fadvices%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/06/05/rules-and-comfort/index.html">Правила и комфорт</a></h1>
       
       <div class="date">June  5, 2012</div>
@@ -838,136 +936,6 @@ cookies.signed[:user_id] # =&gt; 123
 
         <div style="float:right"><a href="/blog/2012/04/27/prepend-routes/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%A2%D0%B0%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5+%D0%B3%D0%B5%D0%BC%D1%8B+-+Prepend+Routes&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F27%2Fprepend-routes%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/04/25/tips/index.html">Подарки</a></h1>
-      
-      <div class="date">April 25, 2012</div>
-
-      
-      <div class="entry">
-        <p>Сенека в письмах Луцилию в каждое письмо старался вставить цитату древних мыслителей, он называл это подарком.
-К сожалению цитаты древних программистов выглядят так, как на рисунке в начале статьи и я не могу воспользоваться этим же способом.
-Вместо этого в каждую запись я стараюсь включить код или случай из своей практики.</p>
-
-<p>Сегодня обилие информации в открытом доступе
-потенциально позволяет любому специалисту создать проект любого уровня, тайных знаний практически нет. Самым дефицитным
-ресурсом является личное время. И если вы потратите целый день на поиск какой-нибудь ошибки, то выпуск проекта мечты также отложится
-на этот самый день. Но чем больше случаев из практики вы знаете, тем больше вероятность, что в повседневной деятельности вы распознаете
-ошибку или особенность и сэкономите драгоценное время. Сегодняшний пост я хочу посвятить различным мелочам, которые у меня накопились и
-может быть что-то вам тоже пригодиться.</p>
-
-<h2>Упасть на первом сломанном спеке</h2>
-
-<p>Когда я мечтал пропатчить <code>test/unit</code>, чтобы он падал на первом сломанном тесте. Так как скучно смотреть
-на множество ошибок, которые часто вызваны одной причиной. В <code>rSpec</code> такая возможность есть в
-стандартной поставке, ничего патчить не нужно:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">rspec --fail-fast
-rspec --fail-fast -b # -b(--backtrace) - еще и вывести полный трейс ошибки
-</code></pre></div>
-<h2>Блоки текста с красивыми отступами</h2>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="k">class</span> <span class="nc">A</span>
-    <span class="k">def</span> <span class="nf">do_some</span>
-      <span class="n">cmd</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">CMD</span>
-<span class="sh">rake db:migrate</span>
-<span class="sh">rake db:test:prepare</span>
-<span class="no">CMD</span>
-      <span class="nb">system</span> <span class="n">cmd</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-</code></pre></div>
-<p>Раньше я делал примерно так, когда мне нужно было вставить большие куски текста. Коллега подсказал метод <a href="http://api.rubyonrails.org/classes/String.html#method-i-strip_heredoc">strip_heredoc</a> из рейлс, который позволяет вернуть коду необходимую красоту:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="k">class</span> <span class="nc">A</span>
-    <span class="k">def</span> <span class="nf">do_some</span>
-      <span class="n">cmd</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">CMD</span><span class="o">.</span><span class="n">strip_heredoc</span>
-<span class="sh">        rake db:migrate</span>
-<span class="sh">        rake db:test:prepare</span>
-<span class="no">      CMD</span>
-      <span class="nb">system</span> <span class="n">cmd</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-</code></pre></div>
-<h2>Фильтры в контроллерах запускаются в области видимости контроллера</h2>
-
-<p>Мне кажется, что я где-то прочитал, что блочные фильтры в контроллере нужно писать так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="n">before_filter</span> <span class="k">do</span> <span class="o">|</span><span class="n">controller</span><span class="o">|</span>
-    <span class="k">raise</span> <span class="s2">&quot;Access Denied&quot;</span> <span class="k">if</span> <span class="n">controller</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">port</span> <span class="o">==</span> <span class="mi">3000</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Но оказывается параметр <code>controller</code> не нужен. Из-за особенностей реализации фильтров через AS-колбеки <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/callbacks.rb#L337">activesupport/lib/active_support/callbacks.rb#L337</a> код вызывается как обычный
-метод, поэтому можно написать так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="n">before_filter</span> <span class="k">do</span>
-    <span class="k">raise</span> <span class="s2">&quot;Access Denied&quot;</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">port</span> <span class="o">==</span> <span class="mi">3000</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<h2>Параметр size в image_tag</h2>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">image_tag</span><span class="p">(</span><span class="s1">&#39;image.jpg&#39;</span><span class="p">,</span> <span class="ss">size</span><span class="p">:</span> <span class="s1">&#39;70x25&#39;</span><span class="p">)</span>
-    <span class="c1"># =&gt; &lt;img alt=&quot;Image&quot; height=&quot;25&quot; src=&quot;/assets/image.jpg&quot; width=&quot;70&quot; /&gt;</span>
-</code></pre></div>
-<p>Это штришок тоже почему-то ускользнул от меня, я долгое время использовал явные <code>:width</code> и <code>:height</code> (кстати вы всегда 
-&#39;ширина&#39; и &#39;высота&#39; пишете правильно с первой попытки? :-))</p>
-
-<h2>Использование хэлпер методов вне контроллера</h2>
-
-<p>Не всегда удается развести всю логику строго по MVC, поэтому всегда можно подхачить, например вот так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="n">attr_accessible</span> <span class="ss">:first</span><span class="p">,</span> <span class="ss">:second</span>
-
-  <span class="n">delegate</span> <span class="ss">:content_tag</span><span class="p">,</span> <span class="ss">:safe_join</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="s1">&#39;ApplicationController.helpers&#39;</span>
-  <span class="k">def</span> <span class="nf">full_name</span>
-    <span class="c1"># Конечно заносить элементы оформления в модель не очень хорошо,</span>
-    <span class="c1"># я бы даже сказал совсем не хорошо. Но для этого нам и нужны</span>
-    <span class="c1"># интуиция, опыт и лень, чтобы отличить добро от зла.</span>
-    <span class="n">safe_join</span> <span class="o">[</span><span class="n">content_tag</span><span class="p">(</span><span class="ss">:b</span><span class="p">,</span> <span class="n">first</span><span class="p">),</span> <span class="n">second</span><span class="o">]</span><span class="p">,</span> <span class="s1">&#39; &amp;mdash; &#39;</span><span class="o">.</span><span class="n">html_safe</span> 
-  <span class="k">end</span> 
-<span class="k">end</span>
-</code></pre></div><div class="highlight"><pre><code class="language-haml" data-lang="haml"><span class="nt">%p</span><span class="p">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">full_name</span>  <span class="c1"># =&gt; &lt;p&gt;&lt;b&gt;Alexey&lt;/b&gt; &amp;mdash; Vakhov&lt;/p&gt;</span>
-</code></pre></div>
-<p>Вообще я поддерживаю разумные хаки. Бизнес-логику обязательно нужно хачить. Я всегда сначала во вьюхе буду создавать длинную
-колбаску <code>@products.rejected(&amp;:disabled?).select{|p| p.price &gt; 1000}.reverse</code>. И только когда она станет совсем неприличной,
-я вынесу ее с длинным, стремным именем в <code>ApplicationHelper</code> и начну мусорить там. Возможно это и нарушает академические
-стандарты, но зато все скажут спасибо при поддержке. Так как, чтобы поправить вьюху, нужно будет заглянуть всего в один файл.</p>
-
-<p>А если вы увидите что-нибудь типа <code>@products.render_me(self)</code>, в контроллере окажется, что <code>@products</code> это декоратор, в декораторе
-<code>render_me</code> реализован через родительский класс и пачку миксинов. Вообщем после 4-го уровня абстракции кэш вашей
-памяти переполнится окончательно. К тому же руби все равно не переплюнуть C++ в плане абстракции. Простой код должен
-выглядеть просто, сложный - сложно.</p>
-
-<h2>Обход двух и более массивов одного размера</h2>
-
-<p>Глубинный эстетизм кода мне тоже не чужд, поэтому когда мне пришлось написать пару раз что-то похожее на:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array_a</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
-<span class="n">array_b</span> <span class="o">=</span> <span class="o">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="o">]</span>
-
-<span class="k">if</span> <span class="n">array_a</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">array_b</span><span class="o">.</span><span class="n">size</span>
-  <span class="n">array_a</span><span class="o">.</span><span class="n">each_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">ind</span><span class="o">|</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">array_b</span><span class="o">[</span><span class="n">ind</span><span class="o">]</span>
-    <span class="c1"># do something with a &amp; b</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>несимметричность данного решения меня раздражала. И в рейлс я случайно заметил кусочек, который почему-то не пришел в голову раньше:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="n">array_a</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">array_b</span><span class="o">.</span><span class="n">size</span>
-  <span class="n">array_a</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">ind</span><span class="o">|</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">array_a</span><span class="o">[</span><span class="n">ind</span><span class="o">]</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">array_b</span><span class="o">[</span><span class="n">ind</span><span class="o">]</span>
-    <span class="c1"># do something with a &amp; b</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Второй вариант мне нравится сильно больше. Не удивлюсь, если в руби есть еще более
-симметричный способ обойти несколько массивов одновременно,
-ведь API руби - безгранично.</p>
-
-        <div style="float:right"><a href="/blog/2012/04/25/tips/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%B4%D0%B0%D1%80%D0%BA%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F25%2Ftips%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   

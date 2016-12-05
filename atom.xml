@@ -7,6 +7,43 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Селектел Скриптинг Солюшен</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/selectel_sol/main.jpg&quot; /&gt;
+          &lt;p&gt;Просто похвастаюсь. Оценит тот, кому приходится часто управлять квотами в Селектеле вручную. У нас есть магический
+руби-скрипт (а настоящия магия возникает только в руби-скриптах, написанных только в виме, как мы все прекрасно
+знаем &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;), который умеет управлять квотами.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Стандартное флоу 1.&lt;/strong&gt; Так, нам нужно еще 8 гигабайт оперативной памяти. Лезем в панель, оу, 26624 мегабайт уже есть, запускаем
+&lt;code&gt;irb&lt;/code&gt; (или что у вас в роли калькулятора), вбиваем &lt;code&gt;26624 + 8*1024&lt;/code&gt;, ентер, копируем результат в окошечко. Повторяем для всех остальных
+параметров.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Стандартное флоу 2.&lt;/strong&gt; Накручиваем квот от души, побольше-побольше, с запасом. Так как много дисков, памяти и ядер стоят
+дешево, если пользоваться ими не долго. После создания всех необходимых cерверов нажимаем кнопки &amp;quot;оптимизировать квоты&amp;quot;, которая подгоняет
+все параметры под реально используемые.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Магическое флоу руби-волшеников, работающих в виме.&lt;/strong&gt; Спец скрипт, которое через resell-api Селектела узнает сколько квот в каком
+регионе используется сейчас, парсит tf-файлы и выдирает значения, которые вам будут нужны после &lt;code&gt;terraform apply&lt;/code&gt;, устанавливает
+большие:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2/selectel_sol/t.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Вообще у нас много классных штук, которыми хотелось бы поделиться с сообществом, но они довольно
+узкоспециализированные, заточенные под наши задачи, поэтому я пока не знаю как. Например скриптец
+из данной статьи это увесистый руби-файл на 400 строк, который умеет много всего хорошего. Но то, что
+хорошо носить дома, не очень правильно надевать на прогулку или в публичное место, со скриптами
+похожая история, поэтому мы пока
+только присматриваемся.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2/selectel_sol/1.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 05 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/05/selectel_sol/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/05/selectel_sol/index.html</guid>
+      </item>
+    
+      <item>
         <title>5 дисков</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/5disk/main.jpg&quot; /&gt;
@@ -284,26 +321,6 @@ bash - да, zsh - нет.&lt;/p&gt;
         <pubDate>Tue, 22 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/22/array_true/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/22/array_true/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Управляем «Виртуальным приватным облаком» с помощью Terraform</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/terraform_plus_selectel/main.jpg&quot; /&gt;
-          &lt;p&gt;По предложению сотрудников Селектела написал &lt;a href=&quot;https://blog.selectel.ru/gostevoj-post-upravlyaem-virtualnym-privatnym-oblakom-s-pomoshhyu-terraform/&quot;&gt;гостевой пост про терраформ&lt;/a&gt;. Уф, непросто это было, не помню когда в последний раз что-то подобное по объему писал.
-Потратил около 15-20 часов и еще время, которые потратили сотрудники на правку и вычитку. Спасибо 
-&lt;a href=&quot;https://blog.selectel.ru/author/yemelianov/&quot;&gt;Андрею Емельянову&lt;/a&gt;, за помощь в
-оформлении статьи как по целостности и стилю, так и по грамотности.&lt;/p&gt;
-
-&lt;p&gt;Терраформ, как вы уже заметили, сейчас мой фаворит, но как и с любым другим инструментом 5% времени нужно потратить на его
-изучение и 95% - на внедрение в повседневные процессы компании. У нас, я считаю, мы уже внедрили, даже провели внутреннюю мини-конферецию
-по использованию. Есть еще серия хитростей, как можно облегчить использование, которые я не успел раскрыть в статье, буду потихоньку
-рассказывать.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 21 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/21/terraform_plus_selectel/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/21/terraform_plus_selectel/index.html</guid>
       </item>
     
   </channel>
