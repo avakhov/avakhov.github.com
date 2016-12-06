@@ -7,6 +7,42 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ансибл не гони, ансибл погоди</title>
+        <description>
+          &lt;img src=&quot;http://vakhov.me/assets/2/ansible/main.jpg&quot; /&gt;
+          &lt;p&gt;Так получилось, что у нас большинство проектов настроены с помощью ансибла 2.0 и у всех он был установлен и все работало.
+Однако где-то понадобились фичи из 2.1, поставили 2.2 и старые рецепты естественно работать перестали. В принципе они
+легко фиксятся, но есть два способа, как можно обойтись без исправления: один рабочий, а второй на докере &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+&lt;p&gt;С удивлением узнал (коллеги подсказали), что &lt;code&gt;brew&lt;/code&gt; умеет переключать версии:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;brew switch ansible 2.0.1.0
+brew switch ansible 2.2.0.0_1 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Белиссимо! Этим способом я пока и пользуюсь. &lt;/p&gt;
+
+&lt;p&gt;Второй способ пока не использовал, только запустил один раз. Уже давно в голове крутится идея,
+что докер же должен стать идеальным для консервации
+старых версий утилит. В принципе такая команда запускается (если ssh-ключ без пароля) и работает ожидаемо:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run -v&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;:/ansible -v&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.ssh:/root/.ssh &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  hypoport/ansible:2.0.2.0 ansible-playbook node.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;То есть можно положить в репо какой-нибудь sh-файл, который сделает алиасы нужных докеризированных версий утилит или еще что-нибудь
+придумать. Идейно по-моему очень круто, но есть две засады. Вывод команды не цветной, пока не смотрел можно ли это как-то пофиксить.
+И вторая проблема хуже, докер в маке работает медленно, рецепт, который прогоняется через brew-версию за одну минуту, в контейнере
+пыхтел четыре с половиной &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. В убунту такой проблемы насколько я знаю нет, докер унижает только любителей смузи.&lt;/p&gt;
+
+&lt;p&gt;По факту у нас пожалуй плывут версии всего двух утилит - ansible (редко) и терраформ (чаще). Так-то особо проблемы нет, но может вы
+знаете изящный способ консервировать версию утилиты на веки вечные?&lt;/p&gt;
+
+&lt;p&gt;PS. Писал этот пост и подумал, а может вагрант?! Ммм?&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 06 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/06/ansible/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/06/ansible/index.html</guid>
+      </item>
+    
+      <item>
         <title>Селектел Скриптинг Солюшен</title>
         <description>
           &lt;img src=&quot;http://vakhov.me/assets/2/selectel_sol/main.jpg&quot; /&gt;
@@ -283,44 +319,6 @@ bash - да, zsh - нет.&lt;/p&gt;
         <pubDate>Wed, 23 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/23/4_tela/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/23/4_tela/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Array True</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/array_true/main.jpg&quot; /&gt;
-          &lt;p&gt;Я читаю довольно много блогов и разных статей, обычно авторы описывают как делать правильно и красиво, поэтому я люблю
-рассказывать
-как делать не правильно, но быстро и эффективно. Писать про костыли и хаки - совершенно безконкурентное занятие.
-Когда мне говорят, что это испортит кодовую базу, я отвечаю, что всегда
-нужно рассматривать еще вариант, а вдруг не испортит. Нужно быть оптимистом &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Ну и потроллить маленько всегда
-приятно, это расширяет сознание.&lt;/p&gt;
-
-&lt;p&gt;Так вот, в рейлс many-to-many в принципе принято делать через доп-таблицу. Но если вы отважный хакер, без стыда и совести,
-то можно сделать так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;products&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&amp;quot;owner_ids&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;ss&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;В модели:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;owners&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@owners&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;owner_ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_a&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Во вьюхе формы:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-slim&quot; data-lang=&quot;slim&quot;&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bootstrap_form_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:owner_ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;select2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;multiple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Честно скажу, я не вижу ничего особо криминального так делать даже в серьезном продакшене (если джойны не нужны и таблицы маленькие).
-Но у меня уже большая деформация,
-так как рейлс-фич уже давно не писал, а разобраться могу, если жизнь заставит, практически в любом коде. В вопросах стиля себе
-уже не доверяю. Но написать такой many-to-many в режиме хакантона имхо проще классического (у нас давно работает в одной утилитке).
-Прокатит это или нет - 50 на 50.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 22 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/22/array_true/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/22/array_true/index.html</guid>
       </item>
     
   </channel>
