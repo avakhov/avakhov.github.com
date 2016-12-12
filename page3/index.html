@@ -56,6 +56,33 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/11/14/kill-db/index.html">Убить Базу Билла</a></h1>
+      
+      <div class="date">November 14, 2016</div>
+
+      <div class="img"><img src="/assets/2/kill-db/main.jpg" /></div>
+      <div class="entry">
+        <p>У нас каждую ночь в спец енвайроменте поднимаются все продакшены базы из бэкапов. Это приследует несколько
+целей: проверить, что в принципе из бэкапов можно восстановится, а так же аналитики делают
+некоторые ad hoc запросы без доступа на продакшен и привлечения программистов.</p>
+
+<p>Для экономии места сохраняются две или три самых свежих базы, а остальные удаляются. Стандартный
+<code>dropdb</code> не удалит базу, если к ней остались коннекшены, в интернетах советуют рестартить постгрес
+целиком, но это немного овер даже для тестовой базы. Решение, которое мне больше всего нравится, выглядит
+так:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">psql <span class="nv">$db</span> -c<span class="s1">&#39;SELECT pg_terminate_backend(pid) FROM pg_stat_activity</span>
+<span class="s1">            WHERE pid &lt;&gt; pg_backend_pid();&#39;</span>
+dropdb <span class="nv">$db</span>
+</code></pre></div>
+<p>Вроде работает хорошо.</p>
+
+        <div style="float:right"><a href="/blog/2016/11/14/kill-db/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A3%D0%B1%D0%B8%D1%82%D1%8C+%D0%91%D0%B0%D0%B7%D1%83+%D0%91%D0%B8%D0%BB%D0%BB%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F14%2Fkill-db%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/11/11/prepare-pc/index.html">Подготовка компьютера к работе</a></h1>
       
       <div class="date">November 11, 2016</div>
@@ -379,64 +406,6 @@
 
         <div style="float:right"><a href="/blog/2016/10/31/flock/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%97%D0%B0%D0%BF%D1%80%D0%B5%D1%82+%D0%BD%D0%B0+%D0%BA%D1%80%D0%BE%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5+%D0%BF%D0%B8%D0%BA%D0%B5%D1%82%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F31%2Fflock%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/28/down/index.html">Лежим красиво</a></h1>
-      
-      <div class="date">October 28, 2016</div>
-
-      <div class="img"><img src="/assets/2/down/main.jpg" /></div>
-      <div class="entry">
-        <p>Как я писал на днях, падения - не стыдно, это часть жизненного цикла любого программного продукта и сегодня хочу рассказать как
-продакшен падает.</p>
-
-<p>Если у вас в системе есть ограниченный ресурс, то когда-нибудь он обязательно кончится. Коннекшенов будет мало, процесс
-убьет OOM killer, место на диске перестанет хватать, десятиминутный крон будет выполнятся полчаса и так далее. А да, сертификат
-вы продлить забудете, домен не оплатите, кредитку заблокируют. И хотя вроде Большой Бизнес (TM) не должен допускать таких банальных ошибок,
-давайте просто вспомним, что Гугл как-то на несколько минут потерял контроль над своим доменом.
-У Инстаграмма день был просрочен
-сертификат. Стек Оверфлоу вырубил умный балансер и тяжелый регексп. 
-Там же не дураки работают? Конечно нет! Умнейшие люди! Просто
-когда нужно контролировать очень много параметров и процессов любая система
-начинает сбоить.</p>
-
-<p>Под трафиком проявятся разнообразные гонки, конфликты, блокировки, какие только могут быть. Магия рейлс частенько дает сбой в нагруженных
-местах. Всякие constraint violation, dead locks станут обычным делом, как только нагрузка подрастет. Вообщем весело. Раскажу несколько
-случаев которые были у нас.</p>
-
-<p>1) Бесконечный цикл. Был примерно такой же код, как в выпуске <a href="http://railscasts.com/episodes/352-securing-an-api">Securing an API </a>
-только для генерации человеко-френдли номера класса. Естественно через пару лет метод стал сильно деградировать по перформансу, а
-потом и вообще отвалилься по таймауту.</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">before_create</span> <span class="ss">:generate_number</span>
-<span class="k">def</span> <span class="nf">generate_numer</span>
-  <span class="k">begin</span>
-    <span class="nb">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span>
-  <span class="k">end</span> <span class="k">while</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="ss">number</span><span class="p">:</span> <span class="n">number</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>2) Конфликт IP адресов. В Селектеле есть два вида внешних IP - Floating IP, который можно подцепить к произвольному интерфейсу, и
-публичная подсеть, IP из которой рекомендуют использовать для нагруженных проектов. Так вот, выдается подсеть <code>/29</code>, но использовать
-из нее можно только 5 адресов, так как первый - гейтвей. Ну у нас кто-то поставил зарезервированный IP
-на бокс и сайт стал очень прикольно деградировать. Он работал
-несколько минут, а потом переставал открываться. Все это было на фоне повышенной нагрузки и сначала мы думали, что сервера
-не справляются с трафиком.</p>
-
-<p>3) Добавление колонок с дефалтовым значением в большую таблицу, создание индекса без <code>CONCURRENTLY</code>. Ну это вообще классика.
-Если вы не роняли продакшен тяжелой
-миграцией, то у вас впереди еще много интересного. Алексей Васильев написал прекрасную статью про эту тему
-<a href="http://leopard.in.ua/2016/09/20/safe-and-unsafe-operations-postgresql">Safe and unsafe operations for high volume PostgreSQL</a>.</p>
-
-<p>4) Мутация константных хэшей. Очень мерзкий баг. Где в инициализаторах в константу грузился yml-файл и кто-то ее случайно модифицировал
-в коде с помощью bang-методов (которые зло). Поэтому часть юникорнов начинала глючить. Вот здесь конечно я позавидовал языкам, в которых
-вшита защита от таких безобразий. К счастью дефект был наглый и очень быстро проявлялся, поэтому мы его исправили в тот же день.</p>
-
-<p>В принципе можно вспомнить много еще забавного, но пожалуй на сегодня хватит. Приключения продолжаются!</p>
-
-        <div style="float:right"><a href="/blog/2016/10/28/down/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B5%D0%B6%D0%B8%D0%BC+%D0%BA%D1%80%D0%B0%D1%81%D0%B8%D0%B2%D0%BE&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F28%2Fdown%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   

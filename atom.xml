@@ -7,6 +7,36 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Маленькая пакость от терраформа</title>
+        <description>
+          
+          &lt;p&gt;В моем любимом терраформе есть неочевидное поведение, которое, будь я более сильным духом, конечно
+бы зарепортил или даже лучше попробовал пофиксить.&lt;/p&gt;
+
+&lt;p&gt;Интерполирование строк 
+в &lt;code&gt;tf&lt;/code&gt;-файлах происходит
+через конструкцию &lt;code&gt;some-${var.VARNAME}&lt;/code&gt;, но если забыть ключевое слово &lt;code&gt;var&lt;/code&gt;, то терраформ
+молча заменит строку на пустую!&lt;/p&gt;
+
+&lt;p&gt;Поэтому если вы хотите, например, создать такую днс запись:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;resource &lt;span class=&quot;s2&quot;&gt;&amp;quot;dnsimple_record&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;internal-page&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;microsoft.com&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;google-hate-page-${REGION}&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;value&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;1.1.1.1&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;A&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;то &lt;code&gt;terraform apply&lt;/code&gt; молча добавит A-запись с IP &lt;code&gt;1.1.1.1&lt;/code&gt;! Крайне неприятно.&lt;/p&gt;
+
+&lt;p&gt;Терраформ, я &lt;img class=&#39;emoji&#39; title=&#39;:eyes:&#39; alt=&#39;:eyes:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f440.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; за тобой.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 12 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/12/small_pak/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/12/small_pak/index.html</guid>
+      </item>
+    
+      <item>
         <title>33.3%</title>
         <description>
           
@@ -294,37 +324,6 @@ bash - да, zsh - нет.&lt;/p&gt;
         <pubDate>Tue, 29 Nov 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/11/29/kach/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/11/29/kach/index.html</guid>
-      </item>
-    
-      <item>
-        <title>ConcourseCI - отличная идея, подозрительная реализация</title>
-        <description>
-          
-          &lt;p&gt;По совету коллеги изучил СoncourseCI, CI нового поколения. Идея - просто бомба, пайплайны, которые 
-собираются в модных yaml-файлах (кстати у ямл-файлов второе рождение, в рейлс они помню были
-очень давно, потом все захватил JSON и вот снова ямл, который на самом деле включает
-в себя JSON) и позволяют делать потенциально любые операции с вашими
-исходниками: релизить, версионировать, деплоить, выкладывать на S3 и все остальное, что может пригодится
-для CI/CD. &lt;/p&gt;
-
-&lt;p&gt;Но вот реализация, уж на что я спокоен ко всякому, но это, друзья, перебор. Докер контейнер, в котором
-бинарь на го в 250 мегабайт, который при установки выстреливает из себя пучок других бинарей и докер
-демон, который запускает докеры, в которых собираются докеры. Ну вообщем эта вся конструкция
-без проблем запускается, прилично работает на тестовых примерах и
-в принципе собрал пару пайплайнов, которые потенциально могли бы нам
-пригодится, но психологически работать с такой системой не очень приятно. Не понятно как подлезть к
-конкретному контейнеру когда что-то пойдет не так, невнятная работа с кэшированием.
-Можно, конечно, все решить, если жизнь заставит,
-но добровольно пока в это ввязываться не хочу.&lt;/p&gt;
-
-&lt;p&gt;СoncourseCI, уверен, - будущее, и поиграть с ним точно стоит, освежает мышление. С внедрением
-спешить не будут, подожду 
-более простую реализацию или попробую еще раз попозднее.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 28 Nov 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/11/28/cc/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/11/28/cc/index.html</guid>
       </item>
     
   </channel>
