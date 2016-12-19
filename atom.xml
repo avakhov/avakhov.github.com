@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Кастомные метрики прометея</title>
+        <description>
+          
+          &lt;p&gt;Красота концепций прометея такая, что режет глаза. В &lt;a href=&quot;https://github.com/prometheus/node_exporter#textfile-collector&quot;&gt;документации&lt;/a&gt; написано, что для
+ использования кастомных метрик в экпортере, просто положите их в файл:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;my_batch_job_completion_time &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;date +%s&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &amp;gt; /path/to/directory/my_batch_job.prom.&lt;span class=&quot;nv&quot;&gt;$$&lt;/span&gt;
+mv /path/to/directory/my_batch_job.prom.&lt;span class=&quot;nv&quot;&gt;$$&lt;/span&gt; /path/to/directory/my_batch_job.prom
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&amp;quot;WTF?&amp;quot; - подумал я и протер глаза. &amp;quot;Как они из собирают? Неужели они трекают изменения файлов? Как они это делают кроссплатформенно?&amp;quot; - глаза
+я протирал несколько дней. Пока вдруг не понял! Там же настраивается опрос метрик из центра, поэтому файлик будет спокойненько себе
+лежать, пока ноду не опросят в очередной раз! Трюк с &lt;code&gt;$$&lt;/code&gt; нужен просто для атомарности файла.&lt;/p&gt;
+
+&lt;p&gt;Конечно, таким образом не получится измерять
+очень часто меняющийся параметр, но это и не надо для системы мониторинга. Восторг, три котика 
+&lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; 
+&lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; 
+&lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;!&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 19 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/19/static_prom/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/19/static_prom/index.html</guid>
+      </item>
+    
+      <item>
         <title>Высадка на луну</title>
         <description>
           
@@ -267,43 +292,6 @@ brew switch ansible 2.2.0.0_1
         <pubDate>Tue, 06 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/06/ansible/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/06/ansible/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Селектел Скриптинг Солюшен</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/selectel_sol/main.jpg&quot; /&gt;
-          &lt;p&gt;Просто похвастаюсь. Оценит тот, кому приходится часто управлять квотами в Селектеле вручную. У нас есть магический
-руби-скрипт (а настоящия магия возникает только в руби-скриптах, написанных только в виме, как мы все прекрасно
-знаем &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;), который умеет управлять квотами.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Стандартное флоу 1.&lt;/strong&gt; Так, нам нужно еще 8 гигабайт оперативной памяти. Лезем в панель, оу, 26624 мегабайт уже есть, запускаем
-&lt;code&gt;irb&lt;/code&gt; (или что у вас в роли калькулятора), вбиваем &lt;code&gt;26624 + 8*1024&lt;/code&gt;, ентер, копируем результат в окошечко. Повторяем для всех остальных
-параметров.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Стандартное флоу 2.&lt;/strong&gt; Накручиваем квот от души, побольше-побольше, с запасом. Так как много дисков, памяти и ядер стоят
-дешево, если пользоваться ими не долго. После создания всех необходимых cерверов нажимаем кнопки &amp;quot;оптимизировать квоты&amp;quot;, которая подгоняет
-все параметры под реально используемые.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Магическое флоу руби-волшеников, работающих в виме.&lt;/strong&gt; Спец скрипт, которое через resell-api Селектела узнает сколько квот в каком
-регионе используется сейчас, парсит tf-файлы и выдирает значения, которые вам будут нужны после &lt;code&gt;terraform apply&lt;/code&gt;, устанавливает
-большие:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/selectel_sol/t.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Вообще у нас много классных штук, которыми хотелось бы поделиться с сообществом, но они довольно
-узкоспециализированные, заточенные под наши задачи, поэтому я пока не знаю как. Например скриптец
-из данной статьи это увесистый руби-файл на 400 строк, который умеет много всего хорошего. Но то, что
-хорошо носить дома, не очень правильно надевать на прогулку или в публичное место, со скриптами
-похожая история, поэтому мы пока
-только присматриваемся.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/2/selectel_sol/1.gif&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 05 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/05/selectel_sol/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/05/selectel_sol/index.html</guid>
       </item>
     
   </channel>
