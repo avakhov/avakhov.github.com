@@ -7,6 +7,29 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Идеальный программист</title>
+        <description>
+          
+          &lt;p&gt;После очередной статьи на хабре &lt;a href=&quot;https://habrahabr.ru/post/317312/&quot;&gt;Идеальный программист. Часть 1&lt;/a&gt; делюсь эмоциями в уютненьком бложике.
+Конечно, я читал, и Совершенный код, и Код Да Винчи, и книгу из статьи, и Программиста-прагматика, и кучу еще всего. Но честно говоря
+эти списки из еще семидесяти и семи вещей, которые обязан знать и уметь каждый, кто хочет называть себя программистом (а кто вообще есть программист? -
+справедливо возмущался я несколько постов назад).&lt;/p&gt;
+
+&lt;p&gt;А где правила для ленивых, для тугих, для тех, кто постоянно делает не то, кто не читает документацию (а что кто-то читает? &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;)?
+В современном мире изобилия, пресыщенности и потребительского счастья требовать от людей, чтобы они соответствовали каким-то бесконечным списком
+(которые на 100% истинны, но who cares?), хм, моветон.&lt;/p&gt;
+
+&lt;p&gt;Я твердо уверен, что в 21 веке весь технологический стек, от сервера до последнего селектора в css, должны сделать шаг к людям.
+А люди? А люди - пьют
+смузи &lt;img class=&#39;emoji&#39; title=&#39;:cocktail:&#39; alt=&#39;:cocktail:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f378.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 20 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/20/shiva/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/20/shiva/index.html</guid>
+      </item>
+    
+      <item>
         <title>Кастомные метрики прометея</title>
         <description>
           
@@ -256,42 +279,6 @@ Continuous Integration.&lt;/p&gt;
         <pubDate>Wed, 07 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/07/procent/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/07/procent/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Ансибл не гони, ансибл погоди</title>
-        <description>
-          &lt;img src=&quot;http://vakhov.me/assets/2/ansible/main.jpg&quot; /&gt;
-          &lt;p&gt;Так получилось, что у нас большинство проектов настроены с помощью ансибла 2.0 и у всех он был установлен и все работало.
-Однако где-то понадобились фичи из 2.1, поставили 2.2 и старые рецепты естественно работать перестали. В принципе они
-легко фиксятся, но есть два способа, как можно обойтись без исправления: один рабочий, а второй на докере &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-&lt;p&gt;С удивлением узнал (коллеги подсказали), что &lt;code&gt;brew&lt;/code&gt; умеет переключать версии:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;brew switch ansible 2.0.1.0
-brew switch ansible 2.2.0.0_1 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Белиссимо! Этим способом я пока и пользуюсь. &lt;/p&gt;
-
-&lt;p&gt;Второй способ пока не использовал, только запустил один раз. Уже давно в голове крутится идея,
-что докер же должен стать идеальным для консервации
-старых версий утилит. В принципе такая команда запускается (если ssh-ключ без пароля) и работает ожидаемо:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run -v&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;:/ansible -v&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.ssh:/root/.ssh &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  hypoport/ansible:2.0.2.0 ansible-playbook node.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;То есть можно положить в репо какой-нибудь sh-файл, который сделает алиасы нужных докеризированных версий утилит или еще что-нибудь
-придумать. Идейно по-моему очень круто, но есть две засады. Вывод команды не цветной, пока не смотрел можно ли это как-то пофиксить.
-И вторая проблема хуже, докер в маке работает медленно, рецепт, который прогоняется через brew-версию за одну минуту, в контейнере
-пыхтел четыре с половиной &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. В убунту такой проблемы насколько я знаю нет, докер унижает только любителей смузи.&lt;/p&gt;
-
-&lt;p&gt;По факту у нас пожалуй плывут версии всего двух утилит - ansible (редко) и терраформ (чаще). Так-то особо проблемы нет, но может вы
-знаете изящный способ консервировать версию утилиты на веки вечные?&lt;/p&gt;
-
-&lt;p&gt;PS. Писал этот пост и подумал, а может вагрант?! Ммм?&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 06 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/06/ansible/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/06/ansible/index.html</guid>
       </item>
     
   </channel>
