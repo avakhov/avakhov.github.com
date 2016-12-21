@@ -7,6 +7,33 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Корпорации</title>
+        <description>
+          
+          &lt;p&gt;Недавно решил сделать сервис маленький на Node.js, привычно потянулся к &lt;code&gt;jade-&lt;/code&gt;шаблонам, и что вы думали? Это уже
+&lt;a href=&quot;https://pugjs.org/api/getting-started.html&quot;&gt;&lt;code&gt;pug-&lt;/code&gt;шаблоны&lt;/a&gt;! Какой-то очередной корпортивный Тим Кук (не по профессионализму,
+а по ориентации) отжал имя у бедного опен-сорс проекта. И по этому поводу вспомнил волну своего удивления по поводу
+&lt;a href=&quot;http://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/&quot;&gt;библиотеки &lt;code&gt;kik&lt;/code&gt;&lt;/a&gt;. Да, в режиме слоупока, но тогда
+у меня не было бложика, куда можно изливать волны.&lt;/p&gt;
+
+&lt;p&gt;Так вот, в той истории меня больше всего позабавило, не то-что корпораты отжали что-то, это их сущность, и даже
+не причитания, что люди ради 11 строк кода подключают библиотеку (а почему бы и нет?), а один маленький нюанс. Крупная, большая
+компания решила сделать опенсорс и ей понадобилось назвать этот единственный кусок опенсорса своим именем! Вообще вы себе
+представляете, что скачиваете себе гем &lt;code&gt;google&lt;/code&gt;? Или пакет &lt;code&gt;microsoft&lt;/code&gt;? &lt;code&gt;apt-get install github&lt;/code&gt;? Что они делают?
+И почему вы их ищете по имени компании?&lt;/p&gt;
+
+&lt;p&gt;Все библиотеки и пакеты ищутся исключительно в поисковике и строка установки копипастится со страницы - &lt;code&gt;npm install kik-fucking-library --save&lt;/code&gt;.
+А как сама библиотека называются &lt;code&gt;kik-js&lt;/code&gt;, &lt;code&gt;video-manager&lt;/code&gt; или еще как-то - совершенно неважно.
+Главное что библиотека живая, звездочек много, пацаны делают
+модные и функционал нужный.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 21 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/21/pug/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/21/pug/index.html</guid>
+      </item>
+    
+      <item>
         <title>Идеальный программист</title>
         <description>
           
@@ -255,30 +282,6 @@ mv /path/to/directory/my_batch_job.prom.&lt;span class=&quot;nv&quot;&gt;$$&lt;/
         <pubDate>Thu, 08 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/08/load/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/08/load/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Повседневное</title>
-        <description>
-          
-          &lt;p&gt;Я практик и мне результат важнее правильного термина, но в принципе для любой разумной деятельности
-всегда можно подобрать нужные слова, найти продукты и целые компании, которые занимаются только этим.&lt;/p&gt;
-
-&lt;p&gt;Вот, например, если вы готовите базы для тестовых енвайроментов и разработчиков (а куда деваться,
-если база не помещается на обычный компьютер), то вы вовлечены в Test Data Management, как любезно
-подсказал Иван Евтухович в &lt;a href=&quot;http://evtuhovich.ru/life/2016/11/30/banya/&quot;&gt;ржевских банях&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Рейлс сайтик, который обращается к базе, выполняет OLTP-запросы, а вот если вас попросили
-выгрузить активность за месяц - это уже OLAP. &lt;code&gt;cap production deploy&lt;/code&gt; - 
-билет в мир Continuous Delivery, CircleCI, подключенный одним кликом к гитхабу, - это
-Continuous Integration.&lt;/p&gt;
-
-&lt;p&gt;Будни каждого IT-специалиста проходят в пафосе терминов и технологий &lt;img class=&#39;emoji&#39; title=&#39;:star2:&#39; alt=&#39;:star2:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f31f.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:yum:&#39; alt=&#39;:yum:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f60b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 07 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/07/procent/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/07/procent/index.html</guid>
       </item>
     
   </channel>
