@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Бабочка, трость и котелок</title>
+        <description>
+          
+          &lt;p&gt;Пользователи айфона, мака, поздравляю - вы олдскул. Да-да, никогда бы не подумал, что это так, но это же так, смотрите.&lt;/p&gt;
+
+&lt;p&gt;Айфон и мак. Они не меняются черти знает сколько. Все привычки, которые у меня сформировались четыре года назад, когда на работе выдали эир, так и остались актуальными. Ну маленько флета где-то добавили, чего-то ещё по мелочи, однако, по факту, в OS X все осталось по старому. Винду я давно не видел, но по-моему она меняется гораздо более кардинально.&lt;/p&gt;
+
+&lt;p&gt;Айфон - тоже самое. С курсом доллара он опять превратился в пафосную вещицу (50к, хоспади,
+за телефон, блин-блин-блин, я 20к отдать больше полугода готовился). Но в принципе там тоже ничего не поменялось.
+Ну жест справа налево заменили на слева направо и обратно. Добавили флета и умный дом, который владельцам
+тупых домом по барабану. Я недавно достал свой айпод тач с ios6 на тёплом ламповом скевоморфизме. Ничего не поменялось.&lt;/p&gt;
+
+&lt;p&gt;Эпл - сегодня гавань любителей классики, которые сформировали свои привычки и не хотели бы их менять (если абстрагироваться от курса доллара).&lt;/p&gt;
+
+&lt;p&gt;PS. На самом деле у меня 5 цэ, желтенький (цэ как цэ), после того как поменял экран - г* полное. Сенсор работает через раз, какие-то левые нажатия и, на закузку, при небольшом минусе
+телефон вырубается при 50-70% заряда. Грхыы.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 26 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/26/bab/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/26/bab/index.html</guid>
+      </item>
+    
+      <item>
         <title>Буря в пустыне</title>
         <description>
           
@@ -232,36 +256,6 @@ mv /path/to/directory/my_batch_job.prom.&lt;span class=&quot;nv&quot;&gt;$$&lt;/
         <pubDate>Tue, 13 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/13/3magic/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/13/3magic/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Маленькая пакость от терраформа</title>
-        <description>
-          
-          &lt;p&gt;В моем любимом терраформе есть неочевидное поведение, которое, будь я более сильным духом, конечно
-бы зарепортил или даже лучше попробовал пофиксить.&lt;/p&gt;
-
-&lt;p&gt;Интерполирование строк 
-в &lt;code&gt;tf&lt;/code&gt;-файлах происходит
-через конструкцию &lt;code&gt;some-${var.VARNAME}&lt;/code&gt;, но если забыть ключевое слово &lt;code&gt;var&lt;/code&gt;, то терраформ
-молча заменит строку на пустую!&lt;/p&gt;
-
-&lt;p&gt;Поэтому если вы хотите, например, создать такую днс запись:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;resource &lt;span class=&quot;s2&quot;&gt;&amp;quot;dnsimple_record&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;internal-page&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;microsoft.com&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;google-hate-page-${REGION}&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;value&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;1.1.1.1&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;A&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;то &lt;code&gt;terraform apply&lt;/code&gt; молча добавит A-запись с IP &lt;code&gt;1.1.1.1&lt;/code&gt;! Крайне неприятно.&lt;/p&gt;
-
-&lt;p&gt;Терраформ, я &lt;img class=&#39;emoji&#39; title=&#39;:eyes:&#39; alt=&#39;:eyes:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f440.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; за тобой.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 12 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/12/small_pak/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/12/small_pak/index.html</guid>
       </item>
     
   </channel>
