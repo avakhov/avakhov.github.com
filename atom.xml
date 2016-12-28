@@ -7,6 +7,22 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Хоббиты</title>
+        <description>
+          
+          &lt;p&gt;Недавно, наконец, прочитал книгу &amp;quot;Хоббит, или Туда и обратно&amp;quot;. Мне очень понравилось, продолжу читать дальше. 
+Так как мой блог технический, скажу, что Толкин также крут как DHH и Матц.&lt;/p&gt;
+
+&lt;p&gt;Вообще любая классика, она и есть классика. Не понимаю как это работает, но не вспомню, чтобы меня хоть что-то разочаровало
+из того что значительная часть людей признает значимым и важным. Скорее я ещё не ко всему готов (типа балета или оперы например).&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 28 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/28/tolken/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/28/tolken/index.html</guid>
+      </item>
+    
+      <item>
         <title>Дедушке</title>
         <description>
           
@@ -217,31 +233,6 @@ mv /path/to/directory/my_batch_job.prom.&lt;span class=&quot;nv&quot;&gt;$$&lt;/
         <pubDate>Thu, 15 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/15/stepeni/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/15/stepeni/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Восходящая звезда прометея</title>
-        <description>
-          
-          &lt;p&gt;Мы медленно дрейфуем с заббикса на прометей, в одном продакшене запущены оба, сравниваем. Что я могу
-сказать - вещь! Думаю скоро станет еще одним моим любимым инструментов.
-Очень нравится софт с яркими и простыми концепциями.&lt;/p&gt;
-
-&lt;p&gt;Технически, как обычно, один го бинарь, легко ставится, сразу заводится. Нет понятия хостов,
-вместо этого - точки мониторинга, которые опрашиваются с центра раз в N секунд. Под это дело даже
-подведена теория &lt;a href=&quot;http://www.boxever.com/push-vs-pull-for-monitoring&quot;&gt;Push vs Pull for Monitoring&lt;/a&gt;, я
-сначала не обратил внимания, но потом понял, что концепция опроса с центра действительно удобная.
-Каждая точка мониторинга - обычный http-ендпойнт на который можно зайти браузером и посмотреть
-какие метрики собираются и какие их последние значения.&lt;/p&gt;
-
-&lt;p&gt;Пока присматриваемся, написали пару руби-скриптов для оптимизации, но первые ощущения очень хорошие.
-В начале года, рассчитываю,
-переведем все продакшены на него. Буду делится впечатлениями.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 14 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/14/start/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/14/start/index.html</guid>
       </item>
     
   </channel>
