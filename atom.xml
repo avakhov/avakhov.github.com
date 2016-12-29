@@ -7,6 +7,22 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Омакасе маза фака</title>
+        <description>
+          
+          &lt;p&gt;Как известно рейлс - это &lt;a href=&quot;http://rubyonrails.org/doctrine/#omakase&quot;&gt;омакасе&lt;/a&gt; поэтому знакомство с любым рейлс приложением происходит в считанные минуты. Смотрим &lt;code&gt;config/routes.rb&lt;/code&gt;, модели, контроллеры, список гемов, пробегаемся по остальным папочкам и вуаля, все знаем.&lt;/p&gt;
+
+&lt;p&gt;В омакасе - это так. В не омакасе - это не так.&lt;/p&gt;
+
+&lt;p&gt;PS. Сегодня был пост для тех, кто в мыслях уже готовит оливьешечку.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 29 Dec 2016 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2016/12/29/omakasi/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/29/omakasi/index.html</guid>
+      </item>
+    
+      <item>
         <title>Хоббиты</title>
         <description>
           
@@ -210,29 +226,6 @@ mv /path/to/directory/my_batch_job.prom.&lt;span class=&quot;nv&quot;&gt;$$&lt;/
         <pubDate>Fri, 16 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/16/luna/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/16/luna/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Степени свободы</title>
-        <description>
-          
-          &lt;p&gt;В каком-то древнем журнале читал, что робототизированные руки, чем больше содержат звеньев, тем у них хуже с точностью,
-так как больше
-ошибок накапливается в системе. А у человека наоборот, в мозгу как-то хорошо с обратной
-связью и он может очень ловко делать точные движения руками
-(особенно если руки растут
-откуда надо - этого не было в статье, но мне кажется уместно добавить), хотя у рук много степеней свободы.&lt;/p&gt;
-
-&lt;p&gt;В принципе действительно закон, чем проще система, чем короче цепочка, тем надежнее система вроде
-как само очевиден. Так, да не совсем. Например цепочка &amp;quot;админ - сервер&amp;quot; теперь удлиняется до
-&amp;quot;админ - терраформ - ансибл - сервер&amp;quot;, вводится два лишних звена, достаточно сложных,
-в каждом из них добавляются свои
-ошибки. Но система становится надежнее. Парадокс.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 15 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/15/stepeni/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/15/stepeni/index.html</guid>
       </item>
     
   </channel>
