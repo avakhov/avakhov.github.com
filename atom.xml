@@ -7,6 +7,42 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Не всякий лодаш одинаково хорош</title>
+        <description>
+          
+          &lt;p&gt;При работе с JavaScript всегда подключал привычно &lt;a href=&quot;http://underscorejs.org/&quot;&gt;Underscore.js&lt;/a&gt;, но всегда
+помнил идею, что &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - тоже самое только гораздо лучше по каким-то там
+параметрам. Именно так писали про Лодаш, когда он появился (а если я правильно помню, то
+Андескор появился раньше).&lt;/p&gt;
+
+&lt;p&gt;Недавно, балуясь с нодой, подключил &lt;code&gt;const _ = require(&amp;quot;lodash&amp;quot;)&lt;/code&gt; и очень быстро нашел отличие. В андескоре
+есть три варианта вызова методов:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;consts&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;underscore&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// два вида записи одного и того же:&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// и специальный синтаксис для колбас:&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; [&amp;#39;1&amp;#39;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;В лодаш же так (хотя &lt;code&gt;_.chain&lt;/code&gt; тоже работает скорее всего для совместимости):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;consts&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;lodash&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Хм. В Андескоре привычнее, так как пользовался много лет, но в Лодаш, пожалуй, логичнее.&lt;/p&gt;
+
+&lt;p&gt;PS. Документацию не читал, нашел разницу экспериментально.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 16 Jan 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/01/16/lodash/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/16/lodash/index.html</guid>
+      </item>
+    
+      <item>
         <title>Магия цифр</title>
         <description>
           
@@ -197,29 +233,6 @@
         <pubDate>Wed, 21 Dec 2016 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2016/12/21/pug/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2016/12/21/pug/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Идеальный программист</title>
-        <description>
-          
-          &lt;p&gt;После очередной статьи на хабре &lt;a href=&quot;https://habrahabr.ru/post/317312/&quot;&gt;Идеальный программист. Часть 1&lt;/a&gt; делюсь эмоциями в уютненьком бложике.
-Конечно, я читал, и Совершенный код, и Код Да Винчи, и книгу из статьи, и Программиста-прагматика, и кучу еще всего. Но честно говоря
-эти списки из еще семидесяти и семи вещей, которые обязан знать и уметь каждый, кто хочет называть себя программистом (а кто вообще есть программист? -
-справедливо возмущался я несколько постов назад).&lt;/p&gt;
-
-&lt;p&gt;А где правила для ленивых, для тугих, для тех, кто постоянно делает не то, кто не читает документацию (а что кто-то читает? &lt;img class=&#39;emoji&#39; title=&#39;:trollface:&#39; alt=&#39;:trollface:&#39; src=&#39;https://assets.github.com/images/icons/emoji/trollface.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;)?
-В современном мире изобилия, пресыщенности и потребительского счастья требовать от людей, чтобы они соответствовали каким-то бесконечным списком
-(которые на 100% истинны, но who cares?), хм, моветон.&lt;/p&gt;
-
-&lt;p&gt;Я твердо уверен, что в 21 веке весь технологический стек, от сервера до последнего селектора в css, должны сделать шаг к людям.
-А люди? А люди - пьют
-смузи &lt;img class=&#39;emoji&#39; title=&#39;:cocktail:&#39; alt=&#39;:cocktail:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f378.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 20 Dec 2016 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2016/12/20/shiva/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2016/12/20/shiva/index.html</guid>
       </item>
     
   </channel>
