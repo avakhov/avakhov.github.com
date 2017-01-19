@@ -7,7 +7,7 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Terraform + GCE = &lt;3</title>
+        <title>Terraform + GCE = &amp;hearts;</title>
         <description>
           
           &lt;p&gt;Мы потратили несколько месяцев пока приручили Селектел с Терраформом и перевели все сервера
