@@ -56,6 +56,30 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/24/cron/index.html">Крон, Великий и Ужасный</a></h1>
+      
+      <div class="date">August 24, 2016</div>
+
+      <div class="img"><img src="/assets/2/cron/main.jpg" /></div>
+      <div class="entry">
+        <p>Я очень уважаю крон-задачи, это простой и надежный способ запускать регулярные
+задания.</p>
+
+<p>Но каждый раз когда мне нужно в кроне запустить допустим руби-скрипт, я делаю это правильно минимум
+с третьего-пятого раза. Например так публикуется новый пост в блог:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">PATH=/root/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+23 7 * * 1-5 cd /root/blog &amp;&amp; (echo STARTED_`date &quot;+\%Y-\%m-\%d__\%H-\%M-\%S&quot;` &amp;&amp; git pull &amp;&amp; NOCACHE=1 ./publish next &amp;&amp; echo FINISHED_`date &quot;+\%Y-\%m-\%d__\%H-\%M-\%S&quot;`) &gt;&gt; /root/crontab.log 2&gt;&amp;1 
+</code></pre></div>
+<p>Успешно запустил я его только через час. Преклоняюсь перед теми, кто умеет это
+делать с первой попытки. Такие люди вообще есть?</p>
+
+        <div style="float:right"><a href="/blog/2016/08/24/cron/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%80%D0%BE%D0%BD%2C+%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%B8%D0%B9+%D0%B8+%D0%A3%D0%B6%D0%B0%D1%81%D0%BD%D1%8B%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F24%2Fcron%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/23/blob/index.html">Большие апдейты</a></h1>
       
       <div class="date">August 23, 2016</div>
@@ -365,57 +389,6 @@ rps, сколько в прошлый раз выдавали двенадцат
 
         <div style="float:right"><a href="/blog/2016/08/11/regexp/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%25r%7B%D0%B5%D0%B3%D0%B5%D0%BA%D1%81%D0%BF%D1%8B%7D&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F11%2Fregexp%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/08/10/reborn/index.html">И снова здравствуйте</a></h1>
-      
-      <div class="date">August 10, 2016</div>
-
-      <div class="img"><img src="/assets/2/reborn/main.jpg" /></div>
-      <div class="entry">
-        <p>Я много раз начинал писать блог и много раз бросал. Но природу не обманешь, нравится мне это дело, попробую еще раз.</p>
-
-<p>Итак, представлюсь. Меня зовут Алексей Вахов. 7 лет я был C++ разработчиком разной степени
-суровости. С Руби он Рейлс меня познакомил дорогой друг <a href="http://evtuhovich.ru/">Иван Евтухович</a>
-в 2006 году. Увлекаюсь Рейлс почти с самых первых версий и даже попал в
-<a href="http://contributors.rubyonrails.org/">топ-100 контрибьюторов</a>. Однако профессионально занимаюсь
-веб-разработкой около 6 лет.</p>
-
-<p>Сейчас работаю техническим директором в компании <a href="https://uchi.ru">Учи.ру</a>.
-Мы занимаемся интересным и важным делом - учим детей математике и даже уже чуть-чуть русскому языку.
-Четыре года назад проект начинался с нуля, первых пользователей мы нашли в школе, которая находится рядом с офисом. Сегодня
-у нас 900 тысяч учеников, много продакшенов, серверов, задач, вопросов и планов.</p>
-
-<!--
-<div class="hr">&middot;&middot;&middot;</div>
-
-Я очень трепетно отношусь к копирайтам любого вида, сразу же решил, что иллюстрации к блогу буду
-рисовать сам, чтобы быть точно уверенным, что не нарушаю чужих прав.
-Также мне сложно провести границу в голове, где
-заканчиваются мои мысли и начинается коммерческая тайна. Поэтому про работу
-буду писать
-только ту информацию, в открытости которой я уверен.
--->
-
-<p>До сих пор очень люблю Рейлс, хотя заниматься им стал конечно гораздо меньше. В настоящее время больше интересуюсь всем,
-что связано с разработкой ПО в целом: как создать комфортную среду, наладить процессы и взаимодействие
-внутри команды и вне, обеспечить стабильность приложений и их дальнейшее развитие, и так далее.</p>
-
-<p>В блоге планирую писать про разные штуки, связанные с разработкой, работой, а также свои мысли, идеи
-и все такое. Надеюсь что-то покажется интересным и возможно даже поможет. Писать планирую регулярно
-и достаточно долгий срок. Как говаривал Будда в жизни есть 2 сложные вещи:
-начать что-то делать и продолжить
-это делать.</p>
-
-<p>На сегодня все, спасибо за внимание и до новых встреч!</p>
-
-<p><em>Алексей Вахов</em></p>
-
-        <div style="float:right"><a href="/blog/2016/08/10/reborn/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%98+%D1%81%D0%BD%D0%BE%D0%B2%D0%B0+%D0%B7%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F10%2Freborn%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
