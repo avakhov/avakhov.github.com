@@ -56,6 +56,46 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/12/05/selectel_sol/index.html">Селектел Скриптинг Солюшен</a></h1>
+      
+      <div class="date">December  5, 2016</div>
+
+      <div class="img"><img src="/assets/2/selectel_sol/main.jpg" /></div>
+      <div class="entry">
+        <p>Просто похвастаюсь. Оценит тот, кому приходится часто управлять квотами в Селектеле вручную. У нас есть магический
+руби-скрипт (а настоящия магия возникает только в руби-скриптах, написанных только в виме, как мы все прекрасно
+знаем <img class='emoji' title=':trollface:' alt=':trollface:' src='https://assets.github.com/images/icons/emoji/trollface.png' height='20' width='20' align='absmiddle' />), который умеет управлять квотами.</p>
+
+<p><strong>Стандартное флоу 1.</strong> Так, нам нужно еще 8 гигабайт оперативной памяти. Лезем в панель, оу, 26624 мегабайт уже есть, запускаем
+<code>irb</code> (или что у вас в роли калькулятора), вбиваем <code>26624 + 8*1024</code>, ентер, копируем результат в окошечко. Повторяем для всех остальных
+параметров.</p>
+
+<p><strong>Стандартное флоу 2.</strong> Накручиваем квот от души, побольше-побольше, с запасом. Так как много дисков, памяти и ядер стоят
+дешево, если пользоваться ими не долго. После создания всех необходимых cерверов нажимаем кнопки &quot;оптимизировать квоты&quot;, которая подгоняет
+все параметры под реально используемые.</p>
+
+<p><strong>Магическое флоу руби-волшеников, работающих в виме.</strong> Спец скрипт, которое через resell-api Селектела узнает сколько квот в каком
+регионе используется сейчас, парсит tf-файлы и выдирает значения, которые вам будут нужны после <code>terraform apply</code>, устанавливает
+большие:</p>
+
+<p><img src="/assets/2/selectel_sol/t.png" alt=""></p>
+
+<p>Вообще у нас много классных штук, которыми хотелось бы поделиться с сообществом, но они довольно
+узкоспециализированные, заточенные под наши задачи, поэтому я пока не знаю как. Например скриптец
+из данной статьи это увесистый руби-файл на 400 строк, который умеет много всего хорошего. Но то, что
+хорошо носить дома, не очень правильно надевать на прогулку или в публичное место, со скриптами
+похожая история, поэтому мы пока
+только присматриваемся.</p>
+
+<p><img src="/assets/2/selectel_sol/1.gif" alt=""></p>
+
+        <div style="float:right"><a href="/blog/2016/12/05/selectel_sol/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%B5%D0%BB+%D0%A1%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D0%B8%D0%BD%D0%B3+%D0%A1%D0%BE%D0%BB%D1%8E%D1%88%D0%B5%D0%BD&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F05%2Fselectel_sol%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/02/5disk/index.html">5 дисков</a></h1>
       
       <div class="date">December  2, 2016</div>
@@ -358,29 +398,6 @@ bash - да, zsh - нет.</p>
 
         <div style="float:right"><a href="/blog/2016/11/22/array_true/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=Array+True&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F22%2Farray_true%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/21/terraform_plus_selectel/index.html">Управляем «Виртуальным приватным облаком» с помощью Terraform</a></h1>
-      
-      <div class="date">November 21, 2016</div>
-
-      <div class="img"><img src="/assets/2/terraform_plus_selectel/main.jpg" /></div>
-      <div class="entry">
-        <p>По предложению сотрудников Селектела написал <a href="https://blog.selectel.ru/gostevoj-post-upravlyaem-virtualnym-privatnym-oblakom-s-pomoshhyu-terraform/">гостевой пост про терраформ</a>. Уф, непросто это было, не помню когда в последний раз что-то подобное по объему писал.
-Потратил около 15-20 часов и еще время, которые потратили сотрудники на правку и вычитку. Спасибо 
-<a href="https://blog.selectel.ru/author/yemelianov/">Андрею Емельянову</a>, за помощь в
-оформлении статьи как по целостности и стилю, так и по грамотности.</p>
-
-<p>Терраформ, как вы уже заметили, сейчас мой фаворит, но как и с любым другим инструментом 5% времени нужно потратить на его
-изучение и 95% - на внедрение в повседневные процессы компании. У нас, я считаю, мы уже внедрили, даже провели внутреннюю мини-конферецию
-по использованию. Есть еще серия хитростей, как можно облегчить использование, которые я не успел раскрыть в статье, буду потихоньку
-рассказывать.</p>
-
-        <div style="float:right"><a href="/blog/2016/11/21/terraform_plus_selectel/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D1%8F%D0%B5%D0%BC+%C2%AB%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%BC+%D0%BF%D1%80%D0%B8%D0%B2%D0%B0%D1%82%D0%BD%D1%8B%D0%BC+%D0%BE%D0%B1%D0%BB%D0%B0%D0%BA%D0%BE%D0%BC%C2%BB+%D1%81+%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E+Terraform&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F21%2Fterraform_plus_selectel%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   

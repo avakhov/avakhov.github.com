@@ -56,6 +56,36 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/24/ansible-keys/index.html">SSH-ключи в ансибле с гитхаба</a></h1>
+      
+      <div class="date">October 24, 2016</div>
+
+      
+      <div class="entry">
+        <p>Новость номер один. Любой публичный ключ с гитхаба можно узнать по ссылке <a href="https://github.com/dhh.keys">https://github.com/dhh.keys</a>,
+где вместо <code>dhh</code>
+нужно поставить ник нужного пользователя.</p>
+
+<p>Новость номер два. В ансибл есть <a href="http://docs.ansible.com/ansible/authorized_key_module.html">модуль</a>,
+который авторизует по ssh с помощью этих ключей.</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">authorized_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">user=dhh key=https://github.com/dhh.keys validate_certs=no</span>
+</code></pre></div>
+<p>&quot;Вау!&quot; - подумал я и тут же накатил ssh-доступ для пользователя <code>vakhov</code> на тестовый сервер.
+Работает на пять баллов, проблема только в том, что я - <code>avakhov</code>. А кто такой <a href="https://github.com/vakhov">https://github.com/vakhov</a> я не знаю <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
+
+<p>Так, что вау пришлось забрать назад. Открылась большая проблема - пользователей в гитхабе много и любая опечатка в нике будет
+давать доступ постороннему человеку. Вероятность, что он попробует зайти на ваши сервера конечно изчезающе маленькая, к тому же обычно ssh прячут за VPN, но
+все равно это неприятно осознавать.</p>
+
+<p>А вы бы воспользовались такой фичей?</p>
+
+        <div style="float:right"><a href="/blog/2016/10/24/ansible-keys/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=SSH-%D0%BA%D0%BB%D1%8E%D1%87%D0%B8+%D0%B2+%D0%B0%D0%BD%D1%81%D0%B8%D0%B1%D0%BB%D0%B5+%D1%81+%D0%B3%D0%B8%D1%82%D1%85%D0%B0%D0%B1%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F24%2Fansible-keys%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/21/utils/index.html">Пару приемов при работе с JSON в консоли</a></h1>
       
       <div class="date">October 21, 2016</div>
@@ -500,22 +530,6 @@ KVM, разметка томов,
 
         <div style="float:right"><a href="/blog/2016/10/11/owner/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D0%B9%D1%82%D0%B8+%D0%BD%D0%B5+%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D1%8F%D1%8F+%D1%81%D0%BB%D0%B5%D0%B4%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F11%2Fowner%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/10/zabolel/index.html">Еще одна неделя без картинок</a></h1>
-      
-      <div class="date">October 10, 2016</div>
-
-      
-      <div class="entry">
-        <p>Заболел <img class='emoji' title=':crying_cat_face:' alt=':crying_cat_face:' src='https://assets.github.com/images/icons/emoji/unicode/1f63f.png' height='20' width='20' align='absmiddle' />. Поэтому на этой неделе блог будет без картинок, так как сканирую я их
-(о ужас) на офисном принтере.</p>
-
-        <div style="float:right"><a href="/blog/2016/10/10/zabolel/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%95%D1%89%D0%B5+%D0%BE%D0%B4%D0%BD%D0%B0+%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D1%8F+%D0%B1%D0%B5%D0%B7+%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BE%D0%BA&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F10%2Fzabolel%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
