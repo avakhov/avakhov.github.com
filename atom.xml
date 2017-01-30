@@ -7,6 +7,40 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Дебаты</title>
+        <description>
+          
+          &lt;p&gt;Посмотрел тут дебаты Навального и Лебедева, про фактическую сторону уже написали многие, а что
+меня позабавило, это же были классический спор между менеджером и специалистом!&lt;/p&gt;
+
+&lt;p&gt;Очень грубо карьеру в IT можно разделить на две ветки: техническую и административную. В CQG меня даже
+спрашивали, что мне ближе: стать техлидом, архитектором или тимлидом, пиэмом. Там не стал никем из
+вышеперечисленных, но тут дело в другом. Один из моментов, который мне кажется четко делит эти
+два направления - это риторика. Менеджер будет говорить, про сроки, рынки, ресурсы, деньги, оставаясь
+в поле, понятном широкому кругу людей, а специалист с самого начала, как начнет про сокеты и 
+протоколы, так и будет всю жизнь.&lt;/p&gt;
+
+&lt;p&gt;Публичные политики, в такой трактовке, считаю, принадлежат к менеджерскому крылу. &amp;quot;140 миллионов, рабочие
+места, пенсии, дух закона&amp;quot; - очень понятные и греющие душу каждому слова. &amp;quot;Апельсиновые дольки,
+знак рубля, мы сделали свою работу&amp;quot; - явные слова специалиста. И естественно широким массам очень 
+понятны 140 миллионов рублей (это же такая ядреная куча баблища) и не совсем понятны причины
+радости по поводу производства сладостей и кофе (детский сад какой-то).&lt;/p&gt;
+
+&lt;p&gt;Мне ближе дорога специалиста,
+но надо понимать, что в глазах обывателей специалист
+всегда будет чудаком и людей, которые поймут его переживания и радости, будет очень мало.
+Уверен, что Игорь Сысоев, когда едет на работу на метро и читает книгу с телефона, как он
+рассказывал в интервью, врядли найдет поддержку у соседей по вагону (про него пишет Форбс,
+однако он
+едет на метро и даже наверняка не ведет инстаграмм со сказочного Бали - чудак, чего с него взять).&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 30 Jan 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/01/30/deba/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/30/deba/index.html</guid>
+      </item>
+    
+      <item>
         <title>Миграция с 9.3 на 9.6</title>
         <description>
           
@@ -259,42 +293,6 @@
         <pubDate>Tue, 17 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/17/prichina/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/17/prichina/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Не всякий лодаш одинаково хорош</title>
-        <description>
-          
-          &lt;p&gt;При работе с JavaScript всегда подключал привычно &lt;a href=&quot;http://underscorejs.org/&quot;&gt;Underscore.js&lt;/a&gt;, но всегда
-помнил идею, что &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - тоже самое только гораздо лучше по каким-то там
-параметрам. Именно так писали про Лодаш, когда он появился (а если я правильно помню, то
-Андескор появился раньше).&lt;/p&gt;
-
-&lt;p&gt;Недавно, балуясь с нодой, подключил &lt;code&gt;const _ = require(&amp;quot;lodash&amp;quot;)&lt;/code&gt; и очень быстро нашел отличие. В андескоре
-есть три варианта вызова методов:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;consts&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;underscore&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// два вида записи одного и того же:&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// и специальный синтаксис для колбас:&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;chain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; [&amp;#39;1&amp;#39;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;В лодаш же так (хотя &lt;code&gt;_.chain&lt;/code&gt; тоже работает скорее всего для совместимости):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;consts&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;lodash&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;groupBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; {&amp;#39;1&amp;#39;: [1]}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Хм. В Андескоре привычнее, так как пользовался много лет, но в Лодаш, пожалуй, логичнее.&lt;/p&gt;
-
-&lt;p&gt;PS. Документацию не читал, нашел разницу экспериментально.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 16 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/16/lodash/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/16/lodash/index.html</guid>
       </item>
     
   </channel>
