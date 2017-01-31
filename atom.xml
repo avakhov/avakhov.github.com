@@ -7,6 +7,28 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Получи свой сервер, друг</title>
+        <description>
+          
+          &lt;p&gt;Когда создаешь сервер терраформом, то бывает, ломишься на него, а там &lt;code&gt;ssh&lt;/code&gt; еще не запустился,
+бесит. Есть простой трюк - добавить пустой провизионер, который как раз дождется полного старта
+сервера, например так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;resource &amp;quot;digitalocean_droplet&amp;quot; &amp;quot;mylittleserver&amp;quot; {
+  // ...
+  provisioner &amp;quot;remote-exec&amp;quot; {
+    inline = [&amp;quot;echo&amp;quot;]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Если вы используете уже провизию (мы просто нет), то у вас магия уже есть.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 31 Jan 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/01/31/terr-echo/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/31/terr-echo/index.html</guid>
+      </item>
+    
+      <item>
         <title>Дебаты</title>
         <description>
           
@@ -270,29 +292,6 @@
         <pubDate>Wed, 18 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/18/yarn/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/18/yarn/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Первая причина это ты, а вторая все твои мечты</title>
-        <description>
-          
-          &lt;p&gt;Где-то давно услышал одну очень глубокую мысль, которую использую часто и в жизни, и в работе.
-Причина (в терминах логики) - всегда одна, остальное поводы, вот их может быть много.
-Если яблоко висело на дерево и упало,
-то причина падения - гравитация, а ветер, или что-то кто-то потряс ствол, - это поводы. Более
-того, когда про причины говорят во множественном числе, наверняка лукавят.&lt;/p&gt;
-
-&lt;p&gt;Поэтому каждый раз, когда вижу любое перечисление чего-нибудь (особенно если есть ключевое
-слово &amp;quot;причины&amp;quot;), стараюсь найти то единственно важное, что могло бы заменить список. Очень
-забавное упражнение и мощный инструмент анализа. &lt;/p&gt;
-
-&lt;p&gt;Например в моей голове &amp;quot;N причин почему PHP хуже руби&amp;quot; прекрасно сжимается в один тезис - &amp;quot;руби я знаю, а PHP - нет&amp;quot;. А великолепная статья, ссылку на которую на днях прислал коллега, &lt;a href=&quot;http://eax.me/kolkhoz-doctrine/&quot;&gt;Колхозная доктрина, или десять простых правил, которым беспрекословно должны следовать все разработчики&lt;/a&gt; у
-меня превратилась в &amp;quot;будь проще и люди потянутся тебе&amp;quot;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 17 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/17/prichina/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/17/prichina/index.html</guid>
       </item>
     
   </channel>
