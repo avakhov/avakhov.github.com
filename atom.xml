@@ -7,6 +7,26 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Как в ансибл добавить строчку в конфиг</title>
+        <description>
+          
+          &lt;p&gt;Обычно в ансибл-ролях перетирают конфиг целиком, конфигурируя его с помощью параметров, но иногда может понадобится
+добавить несколько строк в уже существующий файл. Например, баловался не помню с чем, и решил добавить несколько
+записей в &lt;code&gt;/etc/hosts&lt;/code&gt;, чтобы не зависеть от прихоти DNS. Ансибл может и это:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;lineinfile&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;dest=/etc/hosts regexp=&amp;#39;.*$&amp;#39; line=&amp;quot;&amp;quot; state=present&lt;/span&gt;
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;with_items&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; 
+    &lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;10.0.0.5 awesome.host&lt;/span&gt;
+    &lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;10.0.0.6 gorgeous.host&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Такая штука может пригодиться, если нужно фиксить уже генеренные файлы (например те, которые выдает облачный провайдер).&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 02 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/02/etc/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/02/etc/index.html</guid>
+      </item>
+    
+      <item>
         <title>Крейсерский режим</title>
         <description>
           
@@ -275,23 +295,6 @@
         <pubDate>Fri, 20 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/20/mail/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/20/mail/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Terraform + GCE = &amp;hearts;</title>
-        <description>
-          
-          &lt;p&gt;Мы потратили несколько месяцев пока приручили Селектел с Терраформом и перевели все сервера
-на него. И оно стоило того! По-мимо того, что инфраструктура стала на порядок контролируемее, недавно
-мы получили еще один подарок. Понадобилось развернуть один продакшен на Google Cloud Engine -
-берешь и разворачиваешь &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Нашему девопсу пришлось чуть-чуть разобраться как там устроена сеть,
-как собирать сервера - и вжух, новый продакшен готов. Даже не пришлось разбираться с UI (а потыкать
-там есть где, не Амазон конечно, но все-таки).&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 19 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/19/terraform_gce/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/19/terraform_gce/index.html</guid>
       </item>
     
   </channel>
