@@ -56,6 +56,29 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/09/06/ruby2/index.html">Любви к руби пост</a></h1>
+      
+      <div class="date">September  6, 2016</div>
+
+      <div class="img"><img src="/assets/2/ruby2/main.jpg" /></div>
+      <div class="entry">
+        <p>Мне очень нравится как руби работает со строками, хэшами, массивами и строками.
+Каждый раз испытываю наслаждение,
+когда могу сделать что-то полезное, написав всего несколько строк.</p>
+
+<p>Как-то раз парсил страничку нашей внутренней вики
+и в цикле сделал так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">repos</span> <span class="o">+=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span><span class="o">[</span><span class="mi">8</span><span class="o">].</span><span class="n">scan</span><span class="p">(</span><span class="sr">%r{https://github.com\S*}</span><span class="p">)</span>
+</code></pre></div>
+<p>Подобные конструкции и гораздо более длинные пишу по несколько штук в день. Божественно.</p>
+
+        <div style="float:right"><a href="/blog/2016/09/06/ruby2/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%9B%D1%8E%D0%B1%D0%B2%D0%B8+%D0%BA+%D1%80%D1%83%D0%B1%D0%B8+%D0%BF%D0%BE%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F06%2Fruby2%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/09/05/bullet/index.html">Мифическая серебряная пуля</a></h1>
       
       <div class="date">September  5, 2016</div>
@@ -361,44 +384,6 @@
 
         <div style="float:right"><a href="/blog/2016/08/24/cron/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%80%D0%BE%D0%BD%2C+%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%B8%D0%B9+%D0%B8+%D0%A3%D0%B6%D0%B0%D1%81%D0%BD%D1%8B%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F24%2Fcron%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/08/23/blob/index.html">Большие апдейты</a></h1>
-      
-      <div class="date">August 23, 2016</div>
-
-      <div class="img"><img src="/assets/2/blob/main.jpg" /></div>
-      <div class="entry">
-        <p>Один долгий руби процесс у нас пишет логи своего выполнения в базу.</p>
-
-<p>Сделано было просто и прямолинейно, создали колонку <code>log:text</code> в таблице скажем <code>jobs</code> и вот такой
-метод логирования:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Job</span>
-  <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-    <span class="nb">self</span><span class="o">.</span><span class="n">log</span> <span class="o">+=</span> <span class="n">msg</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="n">safe!</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Конструкция исправно работала пару лет и вдруг закончилось дисковое пространство на боксе с базой.
-Добавили.
-Через некоторое время снова закончилось. Начали разбираться.</p>
-
-<p>Оказалось, что кто-то добавил отладочной информации и количество записей в лог резко выросло.
-Поле <code>log</code> стало занимать 2-3 мегабайта, новые строки добавляются примерно раз в секунду,
-а Postgres устроен так, что UPDATE = INSERT + DELETE, DELETE же не сразу же
-освобождает место. То есть мы стали со скоростью несколько мегабайт в секунду забивать диск,
-автовакуум не успевал чистить.</p>
-
-<p>Починили легко. Вынесли лог в отдельную модель и вместо обновления теперь создаем
-новую строку в таблице. Добавили пару индексов для скорости доступа и все стало хорошо - 
-место на диске заканчиваться перестало. Это решение успешно работает до сих пор.</p>
-
-        <div style="float:right"><a href="/blog/2016/08/23/blob/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%B8%D0%B5+%D0%B0%D0%BF%D0%B4%D0%B5%D0%B9%D1%82%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F23%2Fblob%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   

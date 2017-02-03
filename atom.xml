@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Верю в будущих людей</title>
+        <description>
+          
+          &lt;p&gt;33 года и уже суставы предсказывают перемену погоды (ок, еще не предсказывают, но готовь сани летом
+как говорится) и пора бы начать брюзжать, что раньше горы были выше, а реки глубже, но нет. 99%
+изменений в IT мне однозначно нравятся.&lt;/p&gt;
+
+&lt;p&gt;И даже если предположить, что программисты стали глупее (хотя это не так), инструменты и практики
+стали однозначно лучше. Сравните:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;PGPASSWORD=secret psql -U user -h host -p 5432 db
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;супротив богомерзкой монго (хотя коннекшен стринг я увидел в первый раз именно там, а теперь
+большинство библиотек умеет коннектится так):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mongo mongodb://user:pass@host:2500/db
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Матерый программист, потратит месяц чтобы выучить все ключики, и разобраться почему &lt;code&gt;ps auxww&lt;/code&gt;, а &lt;code&gt;ls -al&lt;/code&gt;,
+а молодой уже получит свой первый раунд инвестиций.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 03 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/03/perstar/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/03/perstar/index.html</guid>
+      </item>
+    
+      <item>
         <title>Как в ансибл добавить строчку в конфиг</title>
         <description>
           
@@ -272,29 +297,6 @@
         <pubDate>Mon, 23 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/23/mail2/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/23/mail2/index.html</guid>
-      </item>
-    
-      <item>
-        <title>BCC</title>
-        <description>
-          
-          &lt;p&gt;Как говорят мудрейшие, жизнь нужно прожить не отправив письма с BCC. Все случаи использования Blind Carbon Copy,
-про которые я слышал - обычно вещи разной степени грусности. В переписке
-с другим отделом ставить своего руководителя в BCC и потом джага-джага. Или письмо со сканом уходит с BCC к безопаснику и джага
-джага. И разные другие кейсы непременно с половым исходом.&lt;/p&gt;
-
-&lt;p&gt;Один раз я был в треде с типом, который отправлял все ответы с BCC к своему, скажем так наставнику (хотя можно было его включить
-и в открытую, там просто рабочие моменты были). И потом наставник сдал своего протеже, ответив в интересном ему месте Reply All.
-Преступление и наказание в 21 веке выглядит именно так.&lt;/p&gt;
-
-&lt;p&gt;Я знаю всего один вариант легального использования BCC, правда не встречал в живой природе. Если вы хотите перестать
-утомлять кого-нибудь в большом емейл треде, то пишите &amp;quot;исключаю Василия Ивановича из копии, поставив его в BCC&amp;quot; и
-ставите его в BCC &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. Красивый ход.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 20 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/20/mail/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/20/mail/index.html</guid>
       </item>
     
   </channel>
