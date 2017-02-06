@@ -7,6 +7,26 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Опечатка в JavaScript</title>
+        <description>
+          
+          &lt;p&gt;Простая опечатка в коде открыла мне новый синтаксис хэшей в джаваскрипте. Я не знаю какой это стандарт,
+какие браузеры и тд, джаваскрипт это вообще такая вещь, живая, но в ноде шестой работает:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//=&amp;gt; {a: 3, b: 4}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//=&amp;gt; {a: 3, b: 4}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Если у вас название переменной совпадает с ключем, как часто бывает, то можно писать такие симпатичные конструкции, причем
+смешанный вариант &lt;code&gt;{a, b: 4}&lt;/code&gt; тоже правильный.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 06 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/06/misprint/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/06/misprint/index.html</guid>
+      </item>
+    
+      <item>
         <title>Верю в будущих людей</title>
         <description>
           
@@ -271,32 +291,6 @@
         <pubDate>Tue, 24 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/24/avant/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/24/avant/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Почты поток</title>
-        <description>
-          
-          &lt;p&gt;Сочиняя прошлый пост про BCC, заметил одну любопытную штуку с почтой. 10 лет назад я работал самым обычным программистом и получал
-100-200 и больше писем в день. Сколько получали писем руководители даже не хочу думать. Человека, который выходил из отпуска, в этот
-день не трогали, он проверял почту.&lt;/p&gt;
-
-&lt;p&gt;Вообще это была мощная страшилка, почты становилось все больше и больше, и как
-урбанисты 19-го века боялись, что крупные города будут полностью завалены конским навозом, так и офисные работники 20-го века
-считали, что скоро они будет тратить на почту весь рабочий день.&lt;/p&gt;
-
-&lt;p&gt;Что ж, 2017 год, и я искренне могу сказать тем, кто за нас переживал - а мы молодцы, мы не утонули в почте.
-Я сегодня получаю писем гораздо меньше, чем 10 лет
-назад и нет ощущения, что трачу на емейлы хоть сколько-то значительное время.&lt;/p&gt;
-
-&lt;p&gt;Много общения перешло в мессенджеры, трекеры, где можно потусоваться, а можно отключиться и реагировать только на меншены. Интерфейсы
-стали гораздо лучше, разработчики Google Inbox, считаю, очень хорошо постарались.
-Активности &amp;quot;я проверяю почту&amp;quot; в моей жизни больше практически нет.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 23 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/23/mail2/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/23/mail2/index.html</guid>
       </item>
     
   </channel>
