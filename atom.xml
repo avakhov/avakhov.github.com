@@ -7,6 +7,38 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Знания нулевой ценности</title>
+        <description>
+          
+          &lt;p&gt;В программировании есть много вещей, которые я последнее время вполне осознанно стараюсь избегать. Это какие-то очень
+конкретные вещи, которые исчезнут в ближайший год, два, три или уже исчезли. Сейчас приведу примеры, чтобы стало понятно:&lt;/p&gt;
+
+&lt;p&gt;На одном из серверов у нас почему-то поставился пермишен &lt;code&gt;777&lt;/code&gt; на папку &lt;code&gt;.gems&lt;/code&gt; и руби интерпретатор начинает выдавать &lt;code&gt;Insecure world writable dir...&lt;/code&gt; что-то там, ошибка легко гуглится. Скриптец на руби, который выдает &lt;code&gt;JSON&lt;/code&gt;, стал давать невалидный результат, так как первая
+строка стала ворнингом. Пермишен поправили - ошибка ушла. Я уверен, что это длинный хост ошибок и мы с ней никогда больше не
+встретимся.&lt;/p&gt;
+
+&lt;p&gt;Или вот гайд по &lt;a href=&quot;https://webpack.js.org/guides/hmr-react/&quot;&gt;Hot Module Replacement - React&lt;/a&gt;. Там предлагается поставить:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install .. react-hot-loader@3.0.0-beta.6 webpack@2.1.0-beta.25 ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Вот именно так, какие-то очень конкретные версии пакетов. И это не зря, если брать свежие версии пакетов, то HMR не работает.
+И мне лень разбираться почему, так как это все умрет. (Мой любимый пакет &lt;code&gt;react-hot-loader@3.0.0-beta.6&lt;/code&gt;, вообще стабильная
+версия &lt;code&gt;1.1.3&lt;/code&gt;, есть пучок альф &lt;code&gt;2.*&lt;/code&gt; и вот шестая бета третьей версии. Все пользуются, хорошая &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;)&lt;/p&gt;
+
+&lt;p&gt;Я когда-то знал отличия Visual Studio 6, от 2013-й (2013 наконец-то стала поддерживать почти полностью шаблоны, как в стандарте,
+а 6-я была шустрая и ламповая) - и вот зачем мне это сейчас? Поэтому, сегодня, стараюсь проскользнуть мимо отличий ансибла
+2.0 и 2.2 (у нас часть рецептов собирается только одной версией, часть только другой, надо фиксить, но это другая история), я ни хочу
+вникать в чем разница &lt;code&gt;es6&lt;/code&gt; от &lt;code&gt;es7&lt;/code&gt;, или где проходит граница руби и рейлс на каждой версии того и другого.
+В современном мире это все не очень важно.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PS:&lt;/strong&gt; Почему-то пост не опубликовался утром, хотя хук сработал! Залил пост вручную только в 13:40. Спасибо &lt;a href=http://evtuhovich.ru&gt;Ивану&lt;/a&gt; за бдительность, &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;!&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 09 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/09/zero/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/09/zero/index.html</guid>
+      </item>
+    
+      <item>
         <title>3 течения ноды</title>
         <description>
           
@@ -215,59 +247,6 @@
         <pubDate>Fri, 27 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/27/93_96/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/27/93_96/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Оптимизация одного скрипта</title>
-        <description>
-          
-          &lt;p&gt;Руби дарит нам радость, а взамен жрет память и CPU. Руководствуясь этим тезисом, оптимизирую
-руби код очень редко. Однако недавно столкнулся в любопытной штукой, когда изменение в одной
-строчки уменьшило время выполнения c 10 секунд до долей секунды.&lt;/p&gt;
-
-&lt;p&gt;У нас есть набор скриптов, которые запускаем вручную для проверки целостности
-различных параметров инфраструктуры,
-и там есть примерно такая строчка, которая выполняется навскидку 60 тысяч раз за один прогон:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;-\d{4}-\d{2}-\d{2}__\d{2}_\d{2}_\d{2}/&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Оказалось что создавать регексп на лету -  весьма и весьма медленно, лучше создать его один раз и использовать столько
-раз, сколько надо:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;RE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;-\d{4}-\d{2}-\d{2}__\d{2}_\d{2}_\d{2}/&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RE&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Простой бенчмарк показывает, что разница по времени исполнения почти в два порядка,
-причем в важном для комфорта
-диапазоне:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;benchmark&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60_000&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;head&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;-tail-\d{4}-\d{2}/&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;head-tail-2012-12&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-
-&lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;-tail-\d{4}-\d{2}/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;-tail-\d{4}/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;-tail/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;i: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;#  user     system      total        real&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 1.340000   0.020000   1.360000 (  1.373314)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 0.820000   0.010000   0.830000 (  0.843216)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 0.390000   0.020000   0.410000 (  0.406644)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 0.020000   0.000000   0.020000 (  0.035978)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# i: 240000&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Так что обычно на руби можно писать как угодно, но иногда нельзя.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 26 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/26/regex/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/26/regex/index.html</guid>
       </item>
     
   </channel>
