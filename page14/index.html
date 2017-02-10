@@ -56,6 +56,73 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2015/01/15/hub/index.html">Hub и Git</a></h1>
+      
+      <div class="date">January 15, 2015</div>
+
+      <div class="img"><img src="/assets/hub.jpg" /></div>
+      <div class="entry">
+        <p>Привет! Легкая посленовогодняя разминка для лица:</p>
+
+<p><img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':open_mouth:' alt=':open_mouth:' src='https://assets.github.com/images/icons/emoji/unicode/1f62e.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':flushed:' alt=':flushed:' src='https://assets.github.com/images/icons/emoji/unicode/1f633.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':stuck_out_tongue_closed_eyes:' alt=':stuck_out_tongue_closed_eyes:' src='https://assets.github.com/images/icons/emoji/unicode/1f61d.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':yum:' alt=':yum:' src='https://assets.github.com/images/icons/emoji/unicode/1f60b.png' height='20' width='20' align='absmiddle' /> Yo!
+Теперь хорошо, можно работать дальше.</p>
+
+<p>25 декабря прошлого года я описал свой процесс отправки пул реквестов <a href="/blog/2014/12/25/contribute/index.html"><i class="fa fa-external-link"></i></a>
+и буквально на следующий день наткнулся на утилиту hub <a href="https://hub.github.com/"><i class="fa fa-external-link"></i></a> - makes git better with GitHub. С ее помощью (и кстати и без ее помощи) можно сделать процесс
+контрибьюторства совсем приятным.</p>
+
+<h3>Более правильный процесс</h3>
+
+<p>1 - Клонируем оригинальный репозитарий (лучше через протокол <code>git://</code> - Гитхаб не разрешает пушить через него и поэтому
+вы случайно не отправите код, даже если у вас есть права на запись в репозитарий <code>awesome/awesome</code>)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone git://github.com/awesome/awesome.git
+</code></pre></div>
+<p>2 - Подцепляем наш форк через дополнительный ремоут (вот здесь пригодиться <code>hub</code>)</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">hub fork
+</code></pre></div>
+<p>3 - Пушим ветки в ориджин <code>username</code></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git checkout -b new-feature
+...
+git push avakhov new-feature -u
+</code></pre></div>
+<p>То есть вместо клонирования форка забираем оригинальный репозитарий, подцепляя все что нужно
+через ремоуты. Так работать гораздо проще и естественнее, удивительно, что я об этом не знал.</p>
+
+<h3>На работе мы отправляем пул реквесты через ветки, без форков</h3>
+
+<p>В это случае полезны три алиаса, которыми я пользуюсь регулярно:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># ~/.gitconfig
+[user]
+  name = Alexey Vakhov
+  email = vakhov@gmail.com
+[alias]
+  o = !hub browse # раньше здесь был замысловатый код,
+                  # пока я не знал про hub
+  pushup = !git push origin `git symbolic-ref HEAD --short` -u
+  cleanup = !git checkout master &amp;&amp; git pull --rebase &amp;&amp; \
+    git remote prune origin &amp;&amp; git branch --merged | \
+    grep -v &quot;\\*&quot; | xargs -n 1 git branch -d
+</code></pre></div>
+<p><code>git o</code> - открыть страницу репозитария.</p>
+
+<p><code>git pushup</code> - отправить текущую, свежесозданную ветку в <code>origin</code>.</p>
+
+<p><code>git cleanup</code> - почистить локальный репозитарий от разных старых, уже смерженных в мастер веток.</p>
+
+        <div style="float:right"><a href="/blog/2015/01/15/hub/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=Hub+%D0%B8+Git&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F15%2Fhub%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/12/29/new-year/index.html">Year += 1</a></h1>
       
       <div class="date">December 29, 2014</div>
@@ -482,41 +549,6 @@ jQuery UI Sortable, не нарушая реактивности системы.
 
         <div style="float:right"><a href="/blog/2014/12/01/500-it/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C+%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D1%83+500+%D0%BD%D0%B0+%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%BA%D1%88%D0%B5%D0%BD%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F01%2F500-it%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/11/27/react-todo/index.html">Генератор вкусных рецептов на React.js</a></h1>
-      
-      <div class="date">November 27, 2014</div>
-
-      <div class="img"><img src="/assets/react-todo.jpg" /></div>
-      <div class="entry">
-        <p>Чтобы продемонстрировать библиотеку React.js, которая мне очень нравится, я сделал простой
-интерфейс для создания вкусных пошаговых рецептов.</p>
-
-<p>По ссылке находится живая дема <a href="http://bl.ocks.org/avakhov/raw/9b5db69c4d4b40444a6f/"><i class="fa fa-external-link"></i></a>, исходники на Гитхабе <a href="https://gist.github.com/avakhov/9b5db69c4d4b40444a6f"><i class="fa fa-external-link"></i></a> и ниже можно посмотреть результат работы:</p>
-
-<p><img src="/assets/react-todo/screen.png" alt=""></p>
-
-<p>В React.js интересно обрабатываются действия пользователя. У объекта <code>Item</code> что-то меняется
-(в нашем случае пользователь нажал
-на кнопку удаления). <code>Item</code> рапортует об изменении
-родителю, который в свою очередь передает информацию главному объекту,
-и он уже помечает изменение в состоянии с помощью <code>this.setState</code>.
-Далее реактивная магия обновляет виртуальный и реальный DOM без нашего участия в удобное для
-себя время.</p>
-
-<p><img src="/assets/react-todo/s.png" alt=""></p>
-
-<p>Хотя каждый компонент может содержать в себе состояние, у меня почему-то
-вся изменяемая часть всегда собирается в главном объекте. Он из-за этого распухает,
-но все равно мне кажется, что код на React.js
-гораздо легче писать и поддерживать, чем аналогичное решение, допустим, на jQuery.</p>
-
-        <div style="float:right"><a href="/blog/2014/11/27/react-todo/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80+%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D1%85+%D1%80%D0%B5%D1%86%D0%B5%D0%BF%D1%82%D0%BE%D0%B2+%D0%BD%D0%B0+React.js&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F27%2Freact-todo%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
