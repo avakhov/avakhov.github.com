@@ -7,6 +7,34 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Порт 5000</title>
+        <description>
+          
+          &lt;p&gt;Запустил тут рейлс сервер в &lt;a href=&quot;https://github.com/ddollar/foreman&quot;&gt;форемане&lt;/a&gt; и удивился, что сервер
+запускается на порту 5000 вместо привычного 3000. Довольно быстро, понял, что фореман
+выдает порты своим приложениям, переопределяя переменную окружения &lt;code&gt;PORT&lt;/code&gt;. То есть такой прокфайл:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# Procfile
+web: rails s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;запустит приложение на порту 5000, а такой:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;web: PORT=3000 rails s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;вернет сервер на привычные 3000.&lt;/p&gt;
+
+&lt;p&gt;В этой всей истории меня смутило, почему я раньше эту штуку не видел. Поковырявшишь в истории
+комитов, нашел нужный &lt;a href=&quot;https://github.com/rails/rails/commit/306c14c4113&quot;&gt;306c14c4113&lt;/a&gt;, поддержка &lt;code&gt;PORT&lt;/code&gt; была добавлена
+только в рейлс 5, поэтому и не видел. Душевное равновесие восстановлено.&lt;/p&gt;
+
+&lt;p&gt;PS. Переменная &lt;code&gt;PORT&lt;/code&gt; стандартная для хероку, но пока рейлс не обращал внимания на эту переменную, вопрос решался магией
+билдпаков &lt;a href=&quot;https://github.com/heroku/heroku-buildpack-ruby/blob/master/lib/language_pack/rails4.rb#L27&quot;&gt;rails4.rb&lt;/a&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 13 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/13/5000/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/13/5000/index.html</guid>
+      </item>
+    
+      <item>
         <title>50%</title>
         <description>
           
@@ -223,40 +251,6 @@
         <pubDate>Tue, 31 Jan 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/01/31/terr-echo/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/01/31/terr-echo/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Дебаты</title>
-        <description>
-          
-          &lt;p&gt;Посмотрел тут дебаты Навального и Лебедева, про фактическую сторону уже написали многие, а что
-меня позабавило, это же были классический спор между менеджером и специалистом!&lt;/p&gt;
-
-&lt;p&gt;Очень грубо карьеру в IT можно разделить на две ветки: техническую и административную. В CQG меня даже
-спрашивали, что мне ближе: стать техлидом, архитектором или тимлидом, пиэмом. Там не стал никем из
-вышеперечисленных, но тут дело в другом. Один из моментов, который мне кажется четко делит эти
-два направления - это риторика. Менеджер будет говорить, про сроки, рынки, ресурсы, деньги, оставаясь
-в поле, понятном широкому кругу людей, а специалист с самого начала, как начнет про сокеты и 
-протоколы, так и будет всю жизнь.&lt;/p&gt;
-
-&lt;p&gt;Публичные политики, в такой трактовке, считаю, принадлежат к менеджерскому крылу. &amp;quot;140 миллионов, рабочие
-места, пенсии, дух закона&amp;quot; - очень понятные и греющие душу каждому слова. &amp;quot;Апельсиновые дольки,
-знак рубля, мы сделали свою работу&amp;quot; - явные слова специалиста. И естественно широким массам очень 
-понятны 140 миллионов рублей (это же такая ядреная куча баблища) и не совсем понятны причины
-радости по поводу производства сладостей и кофе (детский сад какой-то).&lt;/p&gt;
-
-&lt;p&gt;Мне ближе дорога специалиста,
-но надо понимать, что в глазах обывателей специалист
-всегда будет чудаком и людей, которые поймут его переживания и радости, будет очень мало.
-Уверен, что Игорь Сысоев, когда едет на работу на метро и читает книгу с телефона, как он
-рассказывал в интервью, врядли найдет поддержку у соседей по вагону (про него пишет Форбс,
-однако он
-едет на метро и даже наверняка не ведет инстаграмм со сказочного Бали - чудак, чего с него взять).&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 30 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/30/deba/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/30/deba/index.html</guid>
       </item>
     
   </channel>
