@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>DevOpsDays Moscow</title>
+        <description>
+          
+          &lt;p&gt;Собрался тут выступить на
+&lt;a href=&quot;https://www.devopsdays.org/events/2017-moscow/program/vakhov/&quot;&gt;DevOpsDays Moscow&lt;/a&gt;,
+буду рассказывать, как Учи.ру выросла с одного маленького рейлс приложения до весьма развесистого
+сервиса на 1М+ пользователей.&lt;/p&gt;
+
+&lt;p&gt;По ТТХ у нас рабочая нагрузка 600-800 запросов в секунду на главных продакшенах,
+100+ серверов (суммарно для всех проектов), база гигов на 200. То есть
+размах относительно умеренный для индустрии, но достаточный для того чтобы столкнутся с большим
+количеством разнообразных проблем.&lt;/p&gt;
+
+&lt;p&gt;Задачи, которые возникали при быстром росте, постоянно
+увеличивающейся сложность системы, инструменты и подходы, которые мы пробовали и к какому стеку в
+конечном счете пришли, вот про это все и буду рассказывать. Буду рад встрече, если кто пойдет &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;,
+кодовое слово: &amp;quot;блог&amp;quot;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 14 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/14/ddd/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/14/ddd/index.html</guid>
+      </item>
+    
+      <item>
         <title>Порт 5000</title>
         <description>
           
@@ -229,28 +254,6 @@ web: rails s
         <pubDate>Wed, 01 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/01/shtatno/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/01/shtatno/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Получи свой сервер, друг</title>
-        <description>
-          
-          &lt;p&gt;Когда создаешь сервер терраформом, то бывает, ломишься на него, а там &lt;code&gt;ssh&lt;/code&gt; еще не запустился,
-бесит. Есть простой трюк - добавить пустой провизионер, который как раз дождется полного старта
-сервера, например так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;resource &amp;quot;digitalocean_droplet&amp;quot; &amp;quot;mylittleserver&amp;quot; {
-  // ...
-  provisioner &amp;quot;remote-exec&amp;quot; {
-    inline = [&amp;quot;echo&amp;quot;]
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Если вы используете уже провизию (мы просто нет), то у вас магия уже есть.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 31 Jan 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/01/31/terr-echo/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/01/31/terr-echo/index.html</guid>
       </item>
     
   </channel>
