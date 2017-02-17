@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ансибл потек</title>
+        <description>
+          
+          &lt;p&gt;На днях нашел забавный дефект в ансибл. В официальном образе консула &lt;a href=&quot;https://github.com/hashicorp/docker-consul/blob/master/0.X/docker-entrypoint.sh#L48&quot;&gt;есть возможность&lt;/a&gt; передать
+конфигурацию в переменной окружения:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;docker_container&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;consul&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;agent -server&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; 
+      &lt;span class=&quot;l-Scalar-Plain&quot;&gt;CONSUL_LOCAL_CONFIG&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;{&amp;quot;skip_leave_on_interrupt&amp;quot;:true,...}&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Это хорошо работает, но если передать в конфиг переменную
+&lt;code&gt;CONSUL_LOCAL_CONFIG: &amp;#39;{&amp;quot;bind&amp;quot;:&amp;quot;&amp;#123;{ip}}&amp;quot;,...}&amp;#39;&lt;/code&gt;, то ансибл в окружение
+контейнера передает строку с одинарными кавычками вместо двойных
+и естественно консул не запускается, так-как &lt;code&gt;{&amp;#39;bind&amp;#39;:&amp;#39;...&lt;/code&gt; - это уже не JSON. Что-то
+где-то там внутри замыкает.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 17 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/17/ansible/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/17/ansible/index.html</guid>
+      </item>
+    
+      <item>
         <title>Rails + PostgreSQL = крутота</title>
         <description>
           
@@ -233,31 +258,6 @@ web: rails s
         <pubDate>Mon, 06 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/06/misprint/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/06/misprint/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Верю в будущих людей</title>
-        <description>
-          
-          &lt;p&gt;33 года и уже суставы предсказывают перемену погоды (ок, еще не предсказывают, но готовь сани летом
-как говорится) и пора бы начать брюзжать, что раньше горы были выше, а реки глубже, но нет. 99%
-изменений в IT мне однозначно нравятся.&lt;/p&gt;
-
-&lt;p&gt;И даже если предположить, что программисты стали глупее (хотя это не так), инструменты и практики
-стали однозначно лучше. Сравните:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;PGPASSWORD=secret psql -U user -h host -p 5432 db
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;супротив богомерзкой монго (хотя коннекшен стринг я увидел в первый раз именно там, а теперь
-большинство библиотек умеет коннектится так):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mongo mongodb://user:pass@host:2500/db
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Матерый программист, потратит месяц чтобы выучить все ключики, и разобраться почему &lt;code&gt;ps auxww&lt;/code&gt;, а &lt;code&gt;ls -al&lt;/code&gt;,
-а молодой уже получит свой первый раунд инвестиций.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 03 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/03/perstar/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/03/perstar/index.html</guid>
       </item>
     
   </channel>

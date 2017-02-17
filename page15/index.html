@@ -56,6 +56,48 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/12/15/timestamps/index.html">Сравниваем таймстемпы</a></h1>
+      
+      <div class="date">December 15, 2014</div>
+
+      <div class="img"><img src="/assets/timestamps.jpg" /></div>
+      <div class="entry">
+        <p>Как то раз я нашел ошибку в сервисе <a href="https://github.com/noahhl/batsd">Batsd</a>, написанным Noah Lorang из компании тогда еще 37signals.
+И очень обрадовался, найти у ошибку у таких парней - очень почетно.</p>
+
+<p>Batsd - это штука для хранения агрегированных метрик на подобии statsd, только на руби. В коде я увидел строчку,
+где берутся таймстемпы из текстового файла и сравниваются как строки, без конвертации в число <a href="https://github.com/noahhl/batsd/blob/3cc5e016ed1424aab0fd7d7b06bad5b2076ef4ca/lib/batsd/diskstore.rb#L56-L58"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">        <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span> 
+          <span class="k">while</span> <span class="p">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">gets</span><span class="p">)</span>
+            <span class="n">ts</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span>
+            <span class="k">if</span> <span class="n">ts</span> <span class="o">&gt;=</span> <span class="n">start_ts</span> <span class="o">&amp;&amp;</span> <span class="n">ts</span> <span class="o">&lt;=</span> <span class="n">end_ts</span>    <span class="c1"># &lt;--- ЗДЕСЬ!</span>
+              <span class="n">datapoints</span> <span class="o">&lt;&lt;</span> <span class="p">{</span><span class="ss">timestamp</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span> <span class="ss">value</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">to_f</span><span class="p">}</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+          <span class="n">file</span><span class="o">.</span><span class="n">close</span>
+        <span class="k">end</span>
+</code></pre></div>
+<p>Вот оно! - подумал я, но оказалось было рано праздновать победу. </p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">004</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">13</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">19</span> <span class="o">+</span><span class="mo">0300</span><span class="p">,</span> <span class="mi">1418638219</span><span class="o">]</span>
+
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">2001</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">09</span> <span class="mo">05</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">40</span> <span class="o">+</span><span class="mo">0400</span>
+
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">9_999_999_999</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="mi">2286</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">20</span> <span class="mi">20</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">39</span> <span class="o">+</span><span class="mo">0300</span>
+</code></pre></div>
+<p>Сейчас таймстемп 10-ти значный и даты, начиная c конца 2001 года, можно безболезненно сравнивать как строки.</p>
+
+<p>Это конечно хак, но хак забавный.</p>
+
+        <div style="float:right"><a href="/blog/2014/12/15/timestamps/index.html#disqus_thread">0 Comments</a></div>
+        <a href="https://twitter.com/intent/tweet?text=%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+%D1%82%D0%B0%D0%B9%D0%BC%D1%81%D1%82%D0%B5%D0%BC%D0%BF%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F15%2Ftimestamps%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/12/11/react-sortable/index.html">React.js + jQuery UI Sortable</a></h1>
       
       <div class="date">December 11, 2014</div>
@@ -456,57 +498,6 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 
         <div style="float:right"><a href="/blog/2014/11/13/disqus-orient/index.html#disqus_thread">0 Comments</a></div>
         <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B8+%D0%94%D0%B8%D1%81%D0%BA%D1%83%D1%81%D0%B0+%D0%BD%D0%B0+%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F13%2Fdisqus-orient%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/11/10/rackup-ru/index.html">Что означает расширение .ru для конфига rack-приложения</a></h1>
-      
-      <div class="date">November 10, 2014</div>
-
-      <div class="img"><img src="/assets/rackup-ru.jpg" /></div>
-      <div class="entry">
-        <p>Я задумался, что означает расширение <code>.ru</code> у файла <code>config.ru</code> и
-почему приложение не запустится, если поменять расширение на <code>.rb</code>.</p>
-
-<p>Christian Neukirchen, автор оригинального кода запуска rack-приложения, сказал, что это
-сокрашение от <code>Rack Up</code>. Отдельное расширение он завел, чтобы люди не пытались запустить
-конфиг с помощью обычного руби. </p>
-
-<p>Так же, изучая исходники, я узнал несколько других секретов rack.</p>
-
-<h2>Параметры по умолчанию в config.ru</h2>
-
-<p>В файле <code>config.ru</code> можно указать параметры по умолчанию, начав первую строку с символов <code>#\</code>.</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#\ -p 3000</span>
-<span class="n">run</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">env</span><span class="o">|</span> <span class="o">[</span> <span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span> <span class="o">]</span> <span class="p">}</span>
-</code></pre></div>
-<p>Такое rack-приложение запустится на 3000-м порту, вместо 9292.</p>
-
-<h2>Что такое метод run в config.ru</h2>
-
-<p><code>#run</code> это метод класса <code>Rack::Builder</code> <a href="https://github.com/rack/rack/blob/9269d22c56762076e3b775ea65ec1d40494d2402/lib/rack/builder.rb#L103"><i class="fa fa-external-link"></i></a>,
-так как конфиг файла для <code>rackup</code> исполняется
-в контексте <code>Rack::Builder</code> c помощью <code>eval</code> <a href="https://github.com/rack/rack/blob/9269d22c56762076e3b775ea65ec1d40494d2402/lib/rack/builder.rb#L48-L51"><i class="fa fa-external-link"></i></a>.</p>
-
-<h2>Что будет если передать rackup обычный rb-файл</h2>
-
-<p><code>Rackup</code> возьмет класс, который совпадает с именем файла и запустит его как rack-приложение <a href="https://github.com/rack/rack/blob/9269d22c56762076e3b775ea65ec1d40494d2402/lib/rack/builder.rb#L43"><i class="fa fa-external-link"></i></a>.</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app.rb</span>
-<span class="c1"># </span>
-<span class="c1"># Usage: rackup app.rb</span>
-
-<span class="k">class</span> <span class="nc">App</span>
-  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-    <span class="o">[</span> <span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/plain&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span> <span class="o">]</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Теперь файл <code>config.ru</code>, который лежит в корне каждого Рейлс проекта, больше не вызывает у меня вопросов.</p>
-
-        <div style="float:right"><a href="/blog/2014/11/10/rackup-ru/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=%D0%A7%D1%82%D0%BE+%D0%BE%D0%B7%D0%BD%D0%B0%D1%87%D0%B0%D0%B5%D1%82+%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D0%B5+.ru+%D0%B4%D0%BB%D1%8F+%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D0%B0+rack-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F10%2Frackup-ru%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   
