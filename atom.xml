@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Консул</title>
+        <description>
+          
+          &lt;p&gt;Архитектура &lt;a href=&quot;http://consul.io&quot;&gt;консула&lt;/a&gt; мне очень сильно напоминает организацию современной IT-компании. В каждом датацентре (продукте), есть 3 сервера (например техлид, главный дизайнер и пиэм), задача которых входить в кворум (договариваться друг с другом)
+и держать
+каталог (быть источником правды). Cервера разных ДЦ общаются между собой, реализуя сермяжную правду, ценность и миссию организации.&lt;/p&gt;
+
+&lt;p&gt;В Учи.ру, мы медленно дрейфуем в сторону докеров, оркестрации, вот этого всего
+и скоро отрапортую о блестящей
+победе или сокрушительном поражении, или о невнятной ничье.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 20 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/20/teams/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/20/teams/index.html</guid>
+      </item>
+    
+      <item>
         <title>Ансибл потек</title>
         <description>
           
@@ -238,26 +256,6 @@ web: rails s
         <pubDate>Tue, 07 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/07/durov/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/07/durov/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Опечатка в JavaScript</title>
-        <description>
-          
-          &lt;p&gt;Простая опечатка в коде открыла мне новый синтаксис хэшей в джаваскрипте. Я не знаю какой это стандарт,
-какие браузеры и тд, джаваскрипт это вообще такая вещь, живая, но в ноде шестой работает:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//=&amp;gt; {a: 3, b: 4}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//=&amp;gt; {a: 3, b: 4}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Если у вас название переменной совпадает с ключем, как часто бывает, то можно писать такие симпатичные конструкции, причем
-смешанный вариант &lt;code&gt;{a, b: 4}&lt;/code&gt; тоже правильный.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 06 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/06/misprint/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/06/misprint/index.html</guid>
       </item>
     
   </channel>
