@@ -7,6 +7,52 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Учи.ру - Руби он Рейлс разработчик</title>
+        <description>
+          
+          &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; реклама, за пост сказано щедрое спасибо.&lt;/p&gt;
+
+&lt;p&gt;В рамках очередного расширения наши великолепные эйчары попросили прорекламировать ваканcию Руби он Рейлс
+разработчика, что с удовольствием и делаю.
+&lt;a href=&quot;https://hh.ru/vacancy/19665067&quot;&gt;Здесь можно посмотреть официальную версию&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;Про социальную часть наших продуктов лучше узнать на сайте,
+в разделе &lt;a href=&quot;https://uchi.ru/smi-o-nas&quot;&gt;СМИ о нас&lt;/a&gt;, 
+либо зарегистрироваться на сайте и позаниматься самостоятельно, либо поинтересоваться
+у детей школьного возраста из вашего окружения, возможно, они уже занимаются на Учи.ру или
+принимали участие в наших онлайн-олимпиадах.&lt;/p&gt;
+
+&lt;p&gt;Компания действительно социально заряженная, я бы об этом мог много рассказать,
+но лучше опишу профиль работы с
+технической точки зрения.
+Прежде всего это, конечно, Рейлс, сегодня он составляет 99% нашего бэкенда (и оставшийся 1% - тоже он). Но
+на другие технологии тоже смотрим очень внимательно. Мы не гонимся за самым свежим день в день,
+скорее держимся во второй-третьей волне прогресса, и точно не внедряем технологий только
+потому, что они модные, прикольные и у всех уже три дня в продакшене.&lt;/p&gt;
+
+&lt;p&gt;Итак, что у нас есть:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Актуальные версии рейлс, руби, постгрес, эластик на сервере.&lt;/li&gt;
+&lt;li&gt;Бутстрап, реакт, вебпак и прочее в разнообразных комбинациях, приправленные jQuery на клиенте.&lt;/li&gt;
+&lt;li&gt;Потрясающие дизайнеры и иллюстраторы, профессиональные верстальщики и фронты (верстать самому можно, только если вы сами очень сильно захотите).&lt;/li&gt;
+&lt;li&gt;Приличные нагрузки в 500-800 запросов в секунду на продакшенах, то есть сверхтонкие оптимизации проводить нам пока еще не нужно, но мощь трафика и размеры баз будете ощущать очень хорошо.&lt;/li&gt;
+&lt;li&gt;Работа в компактных, самодостаточных командах, где вы сами выбираете уровень вовлеченности в процесс. Можно настроить продакшен самостоятельно с помощью терраформа и ансибла или же сконцентрироваться только на коде и задачах бизнеса. В рамках наших открытых уроков и мероприятий очень рекомендую сходить в школу и
+посмотреть, как работает продукт в реальных условиях и кто наши пользователи.&lt;/li&gt;
+&lt;li&gt;Мы продуктовая компания, у нас нет разработки &amp;quot;в стол&amp;quot; или для галочки, каждую вашу фичу увидят сотни и тысячи детей, учителей, родителей, причем очень быстро. &lt;a href=&quot;https://guides.github.com/introduction/flow/&quot;&gt;Гитхаб флоу&lt;/a&gt; великолепен! Ветка, автоматически выкатывается шот, тестирование, ревью, апрув от бизнеса, мерж и продакшен!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Присылайте свои резюме, комментарии и вопросы
+Евгении Христолюбской &lt;a href=&quot;mailto:christolubskaya@uchi.ru&quot;&gt;christolubskaya@uchi.ru&lt;/a&gt;.
+Буду рад новым коллегам &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 21 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/21/vacancy/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/21/vacancy/index.html</guid>
+      </item>
+    
+      <item>
         <title>Количество запросов</title>
         <description>
           
@@ -261,26 +307,6 @@ web: rails s
         <pubDate>Thu, 09 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/09/zero/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/09/zero/index.html</guid>
-      </item>
-    
-      <item>
-        <title>3 течения ноды</title>
-        <description>
-          
-          &lt;p&gt;В ноде я нашел 3 фундаментальных течения (а скорее всего их больше) при работе с асинхронностью:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Старая школа: колбеки и библиотека &lt;a href=&quot;https://github.com/caolan/async&quot;&gt;async&lt;/a&gt; соответственно.&lt;/li&gt;
-&lt;li&gt;Новая школа: промисы (и целый пучок стандартных и внешних реализаций).&lt;/li&gt;
-&lt;li&gt;Ультрановая школа: async/await и es7.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Не знаю, что и добавить, но вообще это немного наркомания &lt;img class=&#39;emoji&#39; title=&#39;:pill:&#39; alt=&#39;:pill:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f48a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 08 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/08/seme4ki/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/08/seme4ki/index.html</guid>
       </item>
     
   </channel>
