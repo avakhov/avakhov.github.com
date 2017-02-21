@@ -56,6 +56,81 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/11/17/long-death-migtations/index.html">Почему я не меняю схему и данные в одной миграции</a></h1>
+      
+      <div class="date">November 17, 2014</div>
+
+      <div class="img"><img src="/assets/long-death-migtations.jpg" /></div>
+      <div class="entry">
+        <p>В Рейлс есть метод <code>#reset_column_information</code>, который я больше никогда не использую.</p>
+
+<h2>История</h2>
+
+<p>Допустим мы добавили колонку в таблицу <code>users</code> и тут же решили ее посчитать.
+А пользователей у нас много, и расчеты сложны (миграция написана как предлагается в документации
+<a href="http://api.rubyonrails.org/classes/ActiveRecord/ModelSchema/ClassMethods.html#method-i-reset_column_information"><i class="fa fa-external-link"></i></a>):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">SlowMigration</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">up</span>
+    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:some_awesome_column</span><span class="p">,</span> <span class="ss">:string</span>
+
+    <span class="no">User</span><span class="o">.</span><span class="n">reset_column_information</span>
+
+    <span class="no">User</span><span class="o">.</span><span class="n">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+      <span class="n">user</span><span class="o">.</span><span class="n">some_awesome_column</span> <span class="o">=</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="c1"># Сложные вычисления</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Далее деплоим новую версию приложения на хероку <code>git push heroku master</code>, юникорны начали перегружаться, и
+следом запускаем миграции <code>heroku run rake db:migrate</code>.
+Каждая миграция выполняется в отдельной транзакции, <code>add column</code> превратится в
+<code>ALTER TABLE</code>. Опуская детали, процесс выполнения миграции выглядит так:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SQL: BEGIN      # &lt;-- начало транзакции
+
+== 20141112130023 SlowMigration: migrating =========================
+-- add_column(:users, :some_awesome_column, :string)
+
+# новая колонка
+SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character varying(255)
+
+   -&gt; 0.0024s
+
+# &lt;-- здесь мы долго обновляем всех пользователей
+</code></pre></div>
+<p>Теперь на наш свежеперезапущенные юникорны приходят пользователи, у которых мы проверяем
+авторизацию <code>User.find...</code>. Чтобы работала магия ActiveRecord при первом обращении
+к модели запрашивается схема таблицы <code>users</code>.
+В Postgresql используется следующий запрос <a href="https://github.com/rails/rails/blob/v4.1.6/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L975"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">attname</span><span class="p">,</span> <span class="n">format_type</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">atttypid</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">atttypmod</span><span class="p">),</span>
+  <span class="n">pg_get_expr</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">adbin</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">adrelid</span><span class="p">),</span> <span class="n">a</span><span class="p">.</span><span class="n">attnotnull</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">atttypid</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">atttypmod</span>
+<span class="k">FROM</span> <span class="n">pg_attribute</span> <span class="n">a</span> <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">pg_attrdef</span> <span class="n">d</span>
+  <span class="k">ON</span> <span class="n">a</span><span class="p">.</span><span class="n">attrelid</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">adrelid</span> <span class="k">AND</span> <span class="n">a</span><span class="p">.</span><span class="n">attnum</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">adnum</span>
+<span class="k">WHERE</span> <span class="n">a</span><span class="p">.</span><span class="n">attrelid</span> <span class="o">=</span> <span class="s1">&#39;&quot;users&quot;&#39;</span><span class="p">::</span><span class="n">regclass</span>
+  <span class="k">AND</span> <span class="n">a</span><span class="p">.</span><span class="n">attnum</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">AND</span> <span class="k">NOT</span> <span class="n">a</span><span class="p">.</span><span class="n">attisdropped</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">a</span><span class="p">.</span><span class="n">attnum</span>
+</code></pre></div>
+<p>Запрос жутковатый, однако для нас важно то, что он будет ждать окончании транзакции, которая меняет схему таблицы <code>users</code>.</p>
+
+<p><img src="/assets/long-death-migtations/con.png" alt=""></p>
+
+<p>Я промоделировал проблему в консоли, но рейлс приложение залипает абсолютно так же.</p>
+
+<h2>Выводы</h2>
+
+<p>Метод <code>#reset_column_information</code> сам по себе хороший, но шаблон использования, который он
+предлагает, может испортить выкатку на Хероку. Поэтому я больше не меняю схему и данные в одной транзакции.</p>
+
+        
+        <div style="float:right"><a href="/blog/2014/11/17/long-death-migtations/index.html#disqus_thread">0 Comments</a></div>
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D1%87%D0%B5%D0%BC%D1%83+%D1%8F+%D0%BD%D0%B5+%D0%BC%D0%B5%D0%BD%D1%8F%D1%8E+%D1%81%D1%85%D0%B5%D0%BC%D1%83+%D0%B8+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5+%D0%B2+%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9+%D0%BC%D0%B8%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F17%2Flong-death-migtations%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/11/13/disqus-orient/index.html">Комментарии Дискуса на телефоне</a></h1>
       
       <div class="date">November 13, 2014</div>
@@ -73,7 +148,9 @@
 
 <p><img src="/assets/disqus-orient/ip.png" alt=""></p>
 
+        
         <div style="float:right"><a href="/blog/2014/11/13/disqus-orient/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B8+%D0%94%D0%B8%D1%81%D0%BA%D1%83%D1%81%D0%B0+%D0%BD%D0%B0+%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F13%2Fdisqus-orient%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -124,7 +201,9 @@
 </code></pre></div>
 <p>Теперь файл <code>config.ru</code>, который лежит в корне каждого Рейлс проекта, больше не вызывает у меня вопросов.</p>
 
+        
         <div style="float:right"><a href="/blog/2014/11/10/rackup-ru/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%A7%D1%82%D0%BE+%D0%BE%D0%B7%D0%BD%D0%B0%D1%87%D0%B0%D0%B5%D1%82+%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D0%B5+.ru+%D0%B4%D0%BB%D1%8F+%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D0%B0+rack-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F10%2Frackup-ru%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -172,7 +251,9 @@
 
 <p>Симпатично.</p>
 
+        
         <div style="float:right"><a href="/blog/2014/11/06/pretty-bash-prompt/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Bash+Prompt%2C+%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B5%D0%BC&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F06%2Fpretty-bash-prompt%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -254,7 +335,9 @@
 <code>AuthenticateUser.call(cookies, @user)</code>, сразу догадываюсь, что это сервисный объект,
 у которого одна единственная обязанность - логинить пользователя. Не заглядывая в код ясно, что там все в порядке.</p>
 
+        
         <div style="float:right"><a href="/blog/2014/10/30/oaas/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Object+as+a+Service&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F30%2Foaas%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -292,7 +375,9 @@
 
 <p>Как и в любой хорошем приеме, здесь нужна мера. Если блокировать базу часто и надолго, то производительность упадет сильно.</p>
 
+        
         <div style="float:right"><a href="/blog/2014/10/27/record-lock/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%BE%D0%BA+%D0%BD%D0%B0+%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F27%2Frecord-lock%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -343,7 +428,9 @@
 </code></pre></div>
 <p>Снимаю шляпу перед очередной экзотической штучкой мира руби.</p>
 
+        
         <div style="float:right"><a href="/blog/2014/10/23/sinatra-embed-views/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%A1%D0%B8%D0%BD%D0%B0%D1%82%D1%80%D0%B0+%D0%B8%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D1%82%D0%B5%D0%BC%D0%BF%D0%BB%D0%B5%D0%B9%D1%82%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F23%2Fsinatra-embed-views%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -380,7 +467,9 @@
 <p>Создайте файл <code>config.ru</code>, с указанным выше содержанием, запустите его с помощью <code>rackup</code>.
 На главной странице вы увидите &quot;Hello!&quot;.</p>
 
+        
         <div style="float:right"><a href="/blog/2014/10/20/mini-rails/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B8%D0%BD%D0%B8+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F20%2Fmini-rails%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -462,7 +551,9 @@
       <span class="n">into</span><span class="o">.</span><span class="n">const_set</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">mod</span>
 <span class="c1"># ...</span>
 </code></pre></div>
+        
         <div style="float:right"><a href="/blog/2014/10/16/namespaces/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B9%D0%BC%D1%81%D0%BF%D0%B5%D0%B9%D1%81%D1%8B+%D0%B2+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F16%2Fnamespaces%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -527,111 +618,10 @@ ed &gt; /dev/null <span class="nv">$binary</span> <span class="s">&lt;&lt;EOF</s
 
 <p><img src="/assets/ed-editor/Ken_Thompson_02.jpg" alt=""></p>
 
+        
         <div style="float:right"><a href="/blog/2014/10/12/ed-editor/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Ed+-+%D1%85%D0%B0%D1%80%D0%B4%D0%BA%D0%BE%D1%80%D0%BD%D0%B5%D0%B5+%D1%87%D0%B5%D0%BC+Vi&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F12%2Fed-editor%2Findex.html" class="twitter-share-button">Tweet</a>
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/11/28/say-hello-4-times/index.html">4 способа сказать миру привет</a></h1>
-      
-      <div class="date">November 28, 2012</div>
-
-      
-      <div class="entry">
-        <p>Сегодня я расскажу как сделать несколько простых http-серверов на руби, каждый из которых можно использовать
-для решения тех или иных задач.</p>
-
-<h2>Hello Sinatra</h2>
-
-<p>Самый высокоуровневый вариант. Sinatra-приложения идеально подходят для написания небольших API, простое приложение пишется
-очень быстро:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
-
-<span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="mi">8000</span>
-
-<span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
-  <span class="s1">&#39;Hello&#39;</span>
-<span class="k">end</span>
-</code></pre></div>
-<h2>Hallo Rack</h2>
-
-<p>Подавляющее большинство современных руби-фреймворков (в том числе синатра и рейлс) используют гем <code>rack</code>,
-который реализует низкоуровневые http-интерфейсы.
-Простой веб-сервер можно написать и на чистом rack:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-<span class="nb">require</span> <span class="s1">&#39;rack&#39;</span>
-
-<span class="no">Rack</span><span class="o">::</span><span class="no">Server</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
-  <span class="ss">app</span><span class="p">:</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="o">|</span>
-    <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s1">&#39;Hello&#39;</span><span class="o">]]</span>
-  <span class="p">},</span>
-  <span class="ss">Port</span><span class="p">:</span> <span class="mi">8000</span>
-<span class="p">)</span>
-</code></pre></div>
-<h2>Salut Webrick</h2>
-
-<p>Слово вебрик я знаю еще со времен рейлс 1, когда я первый раз узнал про фреймворк, но для меня стало открытием,
-что вебрик оказывается включен в стандартные библиотеки руби. Вот он, родной:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;webrick&#39;</span>
-
-<span class="no">WEBrick</span><span class="o">::</span><span class="no">HTTPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:Port</span> <span class="o">=&gt;</span> <span class="mi">8000</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
-  <span class="n">server</span><span class="o">.</span><span class="n">mount_proc</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">req</span><span class="p">,</span> <span class="n">res</span><span class="o">|</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
-  <span class="k">end</span>
-  <span class="nb">trap</span><span class="p">(</span><span class="s1">&#39;INT&#39;</span><span class="p">){</span> <span class="n">server</span><span class="o">.</span><span class="n">shutdown</span> <span class="p">}</span>
-  <span class="n">server</span><span class="o">.</span><span class="n">start</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Кстати, лог, который выдает данный скрипт, до боли знакомый:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">~/proj/avakhov.github.com(1.9.3-p194)[source]$ ruby salut_webrick.rb 
-[2012-12-26 10:21:52] INFO  WEBrick 1.3.1
-[2012-12-26 10:21:52] INFO  ruby 1.9.3 (2012-04-20) [x86_64-darwin11.4.2]
-[2012-12-26 10:21:52] INFO  WEBrick::HTTPServer#start: pid=28642 port=8000
-localhost - - [26/Dec/2012:10:21:58 MSK] &quot;GET / HTTP/1.1&quot; 200 5
-- -&gt; /
-^C[2012-12-26 10:22:05] INFO  going to shutdown ...
-[2012-12-26 10:22:05] INFO  WEBrick::HTTPServer#start done.
-</code></pre></div>
-<h2>Привет TCP сервер</h2>
-
-<p>Как то раз я изучал проблему с сайтом, который на каждый 2-3 клик залипал на 30 секунд и отрывался по таймауту.
-В чем была причина я уже не помню, однако в процессе исследований я познакомился с замечательной утилитой <code>tcpdump</code> (ничего
-более похожего на Матрицу я еще пока не видел), а также запускал примитивные веб-серверы на руби. В процессе исследования кода
-руби нашел еще более низкоуровневый веб сервер, чем вебрик, он уже по настоящему прекрасен:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;socket&#39;</span>
-
-<span class="no">TCPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
-  <span class="kp">loop</span> <span class="k">do</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span>
-    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">client</span><span class="o">.</span><span class="n">addr</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">while</span> <span class="n">line</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">gets</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!~</span> <span class="sr">/^\s*$/</span>
-      <span class="nb">puts</span> <span class="n">line</span>
-    <span class="k">end</span>
-    <span class="nb">puts</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="n">resp</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
-
-    <span class="n">headers</span> <span class="o">=</span> <span class="o">[</span>
-      <span class="s2">&quot;http/1.1 200 ok&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;date: tue, 14 jan 1984 12:48:00 UTC+3&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;server: Ruby TCPServer&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;content-type: text/html; charset=utf-8&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;content-length: </span><span class="si">#{</span><span class="n">resp</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="o">].</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="o">]</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">write</span> <span class="n">headers</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">write</span> <span class="n">resp</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">close</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Если вдруг станет скучно на работе, вы всегда можете написать какой-нибудь простой http-сервер на руби, возможно это
-вас развеселит. Хороших праздников!</p>
-
-        <div style="float:right"><a href="/blog/2012/11/28/say-hello-4-times/index.html#disqus_thread">0 Comments</a></div>
-        <a href="https://twitter.com/intent/tweet?text=4+%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%B0+%D1%81%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C+%D0%BC%D0%B8%D1%80%D1%83+%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F11%2F28%2Fsay-hello-4-times%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
   

@@ -56,6 +56,97 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/04/11/dsl-and-select/index.html">DSL, select и системные методы</a></h1>
+      
+      <div class="date">April 11, 2012</div>
+
+      
+      <div class="entry">
+        <p>При работе с руби иногда встречаются ошибки, которые вызывают замешательство. Недавно я создавал
+простой DSL для своей библиотеки на остове метода <code>instance_eval</code> (метод весьма спорный, его нужно
+использовать аккуратно, но сегодня речь не об этом). Интерпретатор руби вылетал с очень странной ошибкой,
+на простом коде:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Dsl</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="vi">@fields</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="nb">instance_eval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[select text string]</span>
+
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">if</span> <span class="no">METHODS</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="nb">method</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">args</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span>
+      <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="nb">method</span><span class="p">,</span> <span class="n">args</span><span class="o">]</span>
+    <span class="k">else</span>
+      <span class="k">super</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Dsl</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+  <span class="n">string</span> <span class="ss">:a</span>
+  <span class="nb">select</span> <span class="ss">:b</span>  <span class="c1"># &lt;--- BOOM!</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Трейс ошибки:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">demo.rb:20:in `select&#39;: wrong argument type Symbol (expected Array) (TypeError)
+    from demo.rb:20:in `block in &lt;main&gt;&#39;
+    from demo.rb:4:in `instance_eval&#39;
+    from demo.rb:4:in `initialize&#39;
+    from demo.rb:18:in `new&#39;
+    from demo.rb:18:in `&lt;main&gt;&#39;
+</code></pre></div>
+<p>Сейчас меня эта ошибка не удивляет, так как я знаю в чем подвох. Но тогда я очень удивился, даже безуспешно пытался отладить
+свой код.</p>
+
+<p>Секрет очень простой - в руби есть системный метод <code>select</code>
+(<a href="http://www.ruby-doc.org/core-1.9.3/Kernel.html#method-i-select">Kernel.html#method-i-select</a>) и происходит конфликт имен.
+Хорошо, что я еще не &quot;угадал&quot; аргументы, тогда бы ошибка была бы еще сложнее.</p>
+
+<p>Обойти эту проблему очень просто, необходимо объявить метод <code>select</code> в DSL явно:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># ...</span>
+
+  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[text string]</span>
+
+  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="ss">:string</span><span class="p">,</span> <span class="nb">name</span><span class="o">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="c1"># ...</span>
+</code></pre></div>
+<p>Таким образом при работе с рейлс у вас в распоряжении минимум 3 различных метода <code>select</code>: </p>
+
+<ul>
+<li>хелпер метод для рисования комбобоксов;</li>
+<li>метод поиска по массиву (<code>[1, 2, 3, 4, 5].select{|a| a%2 == 0}</code>);</li>
+<li>и наш сегодняшний таинственный незнакомец.</li>
+</ul>
+
+<p>Рейлс, как и само руби, довольно плохо защищено от конфликтов имен, так как количество
+системных методов руби и внутренних методов рейлс равно бесконечности. Поэтому если
+вам кажется, что интерпретатор свихнулся, возможно вы как раз поймали ошибку аналогичную описанной.</p>
+
+<p>И еще один совет - не используйте класс <code>Config</code> в глобальном пространстве имен:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># OK</span>
+<span class="k">module</span> <span class="nn">A</span>
+  <span class="k">class</span> <span class="nc">Config</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># BAD</span>
+<span class="k">class</span> <span class="nc">Config</span> <span class="c1"># &lt;-- in `&lt;main&gt;&#39;: Config is not a class (TypeError) </span>
+<span class="k">end</span>
+</code></pre></div>
+        
+        <div style="float:right"><a href="/blog/2012/04/11/dsl-and-select/index.html#disqus_thread">0 Comments</a></div>
+        
+        <a href="https://twitter.com/intent/tweet?text=DSL%2C+select+%D0%B8+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F11%2Fdsl-and-select%2Findex.html" class="twitter-share-button">Tweet</a>
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/04/04/require/index.html">Require, Load и Rails</a></h1>
       
       <div class="date">April  4, 2012</div>
@@ -130,7 +221,9 @@
 с тем, что globalize2 сильно тек в девелопменте, где-то я уже об этом писал. Ошибки такого класса тяжело поймать и тяжело исправить,
 но мне кажется, что в девелопмент режиме небольшие утечки - не редкость. Поразмышляю об этом на досуге.</em></p>
 
+        
         <div style="float:right"><a href="/blog/2012/04/04/require/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Require%2C+Load+%D0%B8+Rails&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F04%2Frequire%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -202,7 +295,9 @@
 <img src="/assets/old/3-podcast/ya.jpg">
 </p>
 
+        
         <div style="float:right"><a href="/blog/2012/03/29/rubynoname-podcast/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Ruby+NoName+%D0%BF%D0%BE%D0%B4%D0%BA%D0%B0%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F29%2Frubynoname-podcast%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -241,7 +336,9 @@
 
 <span class="n">redirect_to</span> <span class="vi">@post</span> <span class="ow">and</span> <span class="k">return</span>
 </code></pre></div>
+        
         <div style="float:right"><a href="/blog/2012/03/28/and-or-and/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=And+%D0%B8%D0%BB%D0%B8+%26amp%3B%26amp%3B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F28%2Fand-or-and%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -295,7 +392,9 @@
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
+        
         <div style="float:right"><a href="/blog/2012/03/24/automigration/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D0%BC%D0%B8%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F24%2Fautomigration%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -352,7 +451,9 @@
 используется в <code>ActiveSupport::Deprecation</code>
 <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/deprecation/method_wrappers.rb#L13"><code>active_support/deprecation/method_wrappers.rb#L13</code></a>. Для того и была <a href="https://github.com/rails/rails/commit/643571ca25bc2fcc701e6def0975f56fe10a732f">создана</a>.</p>
 
+        
         <div style="float:right"><a href="/blog/2012/03/13/alias-method-chain/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Alias+Method+Chain&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F13%2Falias-method-chain%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -391,7 +492,9 @@
 <p>В рейлс 4.0 вы сможете пользоваться привычным наследованием лайоутов и для анонимных
 контроллеров тоже. Код, предложенный вверху поста, будет выполняться правильно.</p>
 
+        
         <div style="float:right"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B0%D0%B9%D0%BE%D1%83%D1%82+%D0%B0%D0%BD%D0%BE%D0%BD%D0%B8%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE+%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F01%2Fanonymous-controller-layout-lookup%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -420,7 +523,9 @@
 <p>Я не помню насколько это хорошо документировано в методе render, но данное поведение обеспечивает
 <a href="https://github.com/rails/rails/blob/v3.2.1/actionpack/lib/abstract_controller/layouts.rb#L421">одна строчка</a> из абстракт-контроллера.</p>
 
+        
         <div style="float:right"><a href="/blog/2012/02/28/render-text-layout/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B0%D0%B9%D0%BE%D1%83%D1%82+%D0%B4%D0%BB%D1%8F+%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F28%2Frender-text-layout%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -473,7 +578,9 @@
   <span class="kp">private</span> <span class="ss">:another</span> <span class="c1"># Ok!</span>
 <span class="k">end</span>
 </code></pre></div>
+        
         <div style="float:right"><a href="/blog/2012/02/23/action-controller-helper-method/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=Action+Controller+Helper+Method&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F23%2Faction-controller-helper-method%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
@@ -570,7 +677,9 @@ rsync -aP --del _site/ server:/www/site
 <li><a href="http://stasis.me/">http://stasis.me/</a></li>
 </ul>
 
+        
         <div style="float:right"><a href="/blog/2012/02/17/simple-haml-generator/index.html#disqus_thread">0 Comments</a></div>
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9+Haml+%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80+%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85+%D1%81%D0%B0%D0%B9%D1%82%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F17%2Fsimple-haml-generator%2Findex.html" class="twitter-share-button">Tweet</a>
       </div>
     </article>
