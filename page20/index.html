@@ -33,6 +33,14 @@
   </head>
 
   <body onorientationchange="if(DISQUS) DISQUS.reset({reload: true});">
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
@@ -149,7 +157,9 @@ rsync -aP --del _site/ server:/www/site
         
         <div style="float:right"><a href="/blog/2012/02/17/simple-haml-generator/index.html#disqus_thread">0 Comments</a></div>
         
+        
         <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9+Haml+%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80+%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85+%D1%81%D0%B0%D0%B9%D1%82%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F17%2Fsimple-haml-generator%2Findex.html" class="twitter-share-button">Tweet</a>
+        
       </div>
     </article>
   

@@ -33,6 +33,14 @@
   </head>
 
   <body onorientationchange="if(DISQUS) DISQUS.reset({reload: true});">
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
@@ -83,7 +91,9 @@
 <p><b>Update:</b> <a href=http://leopard.in.ua/>Алексей</a> показал как вызвать 500 на любом урле Рейлс-сайта,
 для этого достаточно добавить <code>?%28t%B3odei%29</code> в конец. Я проверил, получается <code>ArgumentError: invalid byte sequence in UTF-8</code>, очень забавно, на вызов Ктулху похоже :-)</p>
 
+    
     <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </div>
 </article>

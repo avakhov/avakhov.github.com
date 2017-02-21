@@ -33,6 +33,14 @@
   </head>
 
   <body onorientationchange="if(DISQUS) DISQUS.reset({reload: true});">
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
@@ -104,7 +112,9 @@
 используется в <code>ActiveSupport::Deprecation</code>
 <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/deprecation/method_wrappers.rb#L13"><code>active_support/deprecation/method_wrappers.rb#L13</code></a>. Для того и была <a href="https://github.com/rails/rails/commit/643571ca25bc2fcc701e6def0975f56fe10a732f">создана</a>.</p>
 
+    
     <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </div>
 </article>
