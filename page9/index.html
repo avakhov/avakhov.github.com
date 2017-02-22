@@ -64,6 +64,38 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/21/utils/index.html">Пару приемов при работе с JSON в консоли</a></h1>
+      
+      <div class="date">October 21, 2016</div>
+
+      
+      <div class="entry">
+        <p>Если вы работаете курлом с каким-нибудь JSON-API, то кроме умения вбивать без ошибок <code>-H &#39;Content-Type: application/json</code> вам очень
+пригодятся утилиты для работы с JSON.</p>
+
+<p>Раньше я всегда использовал питон (обычно он есть везде), чтобы красиво отрисовать результат: </p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl ... <span class="p">|</span> python -m json.tool
+</code></pre></div>
+<p>Но сейчас полностью перешел на <a href="https://stedolan.github.io/jq/">jq</a>, очень рекомендую посмотреть, если еще не видели.
+Вот так например
+в Селектеле можно найти ID проекта с именем <code>some-proj</code>.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -s -H <span class="s2">&quot;X-token: $SELECTEL_TOKEN&quot;</span> <span class="se">\</span>
+  https://api.selectel.ru/vpc/resell/v2/projects <span class="p">|</span> <span class="se">\</span>
+  jq -r <span class="s1">&#39;.projects | map(select(.name == &quot;some-proj&quot;)) | .[0].id&#39;</span>
+</code></pre></div>
+<p>Раньше бы я такую штуку сделал бы на руби, но по-моему здорово уметь решать одну и ту же задачу по разному.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/10/21/utils/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%B0%D1%80%D1%83+%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%BE%D0%B2+%D0%BF%D1%80%D0%B8+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5+%D1%81+JSON+%D0%B2+%D0%BA%D0%BE%D0%BD%D1%81%D0%BE%D0%BB%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F21%2Futils%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/20/db/index.html">Кто дергал этот запрос и послал его?</a></h1>
       
       <div class="date">October 20, 2016</div>
@@ -531,38 +563,6 @@ KVM, разметка томов,
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%95%D1%89%D0%B5+%D0%BE%D0%B4%D0%BD%D0%B0+%D0%BD%D0%B5%D0%B4%D0%B5%D0%BB%D1%8F+%D0%B1%D0%B5%D0%B7+%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BE%D0%BA&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F10%2Fzabolel%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/10/bash-size/index.html">Длина агрумента в баш-функции</a></h1>
-      
-      <div class="date">October 10, 2016</div>
-
-      
-      <div class="entry">
-        <p>Еще один забавный момент из мира баш-программирования. Экспериментировал я тут с эластиком и передавал полученный JSON на пост-обработку в функцию, примерно так:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">function</span> process <span class="o">{</span>
-  <span class="nb">echo</span> <span class="nv">$1</span> <span class="p">|</span> jq <span class="s2">&quot;...&quot;</span>
-<span class="o">}</span>
-
-<span class="nv">out</span><span class="o">=</span><span class="sb">`</span>curl ...<span class="sb">`</span>
-process out
-</code></pre></div>
-<p>Начиная с некоторого значения JSON стал приходить неполный и jq соответственно не мог его распарсить. Оказывается есть ограничение,
-нашел как обычно на <a href="http://stackoverflow.com/questions/19354870/bash-command-line-and-input-limit">stackoverflow</a>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ getconf ARG_MAX    # Get argument limit in bytes
-# =&gt; 262144
-</code></pre></div>
-<p>Так что не нужно передавать агрументы длиннее 260 килобайт <img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' />.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/10/bash-size/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%94%D0%BB%D0%B8%D0%BD%D0%B0+%D0%B0%D0%B3%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0+%D0%B2+%D0%B1%D0%B0%D1%88-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F10%2Fbash-size%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

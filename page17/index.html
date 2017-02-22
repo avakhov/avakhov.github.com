@@ -64,6 +64,92 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/10/16/namespaces/index.html">Неймспейсы в Рейлс</a></h1>
+      
+      <div class="date">October 16, 2014</div>
+
+      <div class="img"><img src="/assets/namespaces.jpg" /></div>
+      <div class="entry">
+        <p>В Рейлс очень удобно организовывать код по неймспейсам.</p>
+
+<p>Допустим есть файл <code>app/components/api/command.rb</code>, со следующим содержанием:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app/components/api/command.rb</span>
+<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Command</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Рейлс сам создаст промежуточный модуль <code>Api</code>, который в обычном руби приходится объявлять так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Api</span>
+  <span class="k">class</span> <span class="nc">Command</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Как же это работает?</p>
+
+<p>Каждое Рейлс приложение - это <code>Rails::Engine</code>, который при инициализации вызывает
+серию хуков, один из которых устанавливает пути автозагрузки
+<a href="https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine/configuration.rb#L37"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Rails</span>
+  <span class="k">class</span> <span class="nc">Engine</span>
+<span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">paths</span>
+      <span class="vi">@paths</span> <span class="o">||=</span> <span class="k">begin</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Paths</span><span class="o">::</span><span class="no">Root</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@root</span><span class="p">)</span>
+
+        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>                 <span class="ss">eager_load</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">glob</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app/assets&quot;</span><span class="p">,</span>          <span class="ss">glob</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app/controllers&quot;</span><span class="p">,</span>     <span class="ss">eager_load</span><span class="p">:</span> <span class="kp">true</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p>Строчка <code>paths.add &quot;app&quot;, ..., glob: &quot;*&quot;</code> ищет все папки из <code>app</code> (в нашем
+случае это <code>app/components</code>).</p>
+
+<p>Далее пути добавляются в <code>ActiveSupport::Dependencies</code> <a href="https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine.rb#L559"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Rails</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="no">Railtie</span>
+<span class="c1"># ...</span>
+    <span class="n">initializer</span> <span class="ss">:set_autoload_paths</span><span class="p">,</span> <span class="ss">before</span><span class="p">:</span> <span class="ss">:bootstrap_hook</span> <span class="k">do</span>
+      <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">autoload_paths</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="o">*</span><span class="n">_all_autoload_paths</span><span class="p">)</span>
+      <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">autoload_once_paths</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="o">*</span><span class="n">_all_autoload_once_paths</span><span class="p">)</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p><code>ActiveSupport::Dependencies</code> расширяет все модули с помощью специального внутреннего модуля <code>ModuleConstMissing</code> <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L290"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ActiveSupport</span> <span class="c1">#:nodoc:</span>
+  <span class="k">module</span> <span class="nn">Dependencies</span> <span class="c1">#:nodoc:</span>
+<span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">hook!</span>
+      <span class="no">Object</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">Loadable</span> <span class="p">}</span>
+      <span class="no">Module</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">ModuleConstMissing</span> <span class="p">}</span>
+      <span class="no">Exception</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">Blamable</span> <span class="p">}</span>
+    <span class="k">end</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p><code>ModuleConstMissing</code> в свою очередь, используя <code>const_missing</code>, перехватает все обращения к неизвестным константам и загружает 
+необходимые файлы <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L458"><i class="fa fa-external-link"></i></a>, считая что раз в путях поиска (<code>app/*</code> в нашем примере) есть файл <code>api/command.rb</code>, то класс <code>Api::Command</code> должен находится именно там.</p>
+
+<p>Ах да, модуль <code>Api</code>, с которого мы начали наш разговор, создается в методе <code>ActiveSupport::Dependencies#autoload_module!</code> <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L420"><i class="fa fa-external-link"></i></a>) при первой попытке
+разрезолвить полное имя класса <code>Api::Command</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ActiveSupport</span> <span class="c1">#:nodoc:</span>
+  <span class="k">module</span> <span class="nn">Dependencies</span> <span class="c1">#:nodoc:</span>
+<span class="c1"># ...</span>
+    <span class="k">def</span> <span class="nf">autoload_module!</span><span class="p">(</span><span class="n">into</span><span class="p">,</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">qualified_name</span><span class="p">,</span> <span class="n">path_suffix</span><span class="p">)</span>
+      <span class="k">return</span> <span class="kp">nil</span> <span class="k">unless</span> <span class="n">base_path</span> <span class="o">=</span> <span class="n">autoloadable_module?</span><span class="p">(</span><span class="n">path_suffix</span><span class="p">)</span>
+      <span class="n">mod</span> <span class="o">=</span> <span class="no">Module</span><span class="o">.</span><span class="n">new</span>
+      <span class="n">into</span><span class="o">.</span><span class="n">const_set</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">mod</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+        
+        <div style="float:right"><a href="/blog/2014/10/16/namespaces/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B9%D0%BC%D1%81%D0%BF%D0%B5%D0%B9%D1%81%D1%8B+%D0%B2+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F16%2Fnamespaces%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/10/12/ed-editor/index.html">Ed - хардкорнее чем Vi</a></h1>
       
       <div class="date">October 12, 2014</div>
@@ -1159,70 +1245,6 @@ gem &#39;smt_rails&#39;, &#39;&gt;= 0.2.3&#39;
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%A0%D0%B0%D0%B7%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D0%BB%D0%BE%D1%87%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F02%2Fadvices%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/06/05/rules-and-comfort/index.html">Правила и комфорт</a></h1>
-      
-      <div class="date">June  5, 2012</div>
-
-      
-      <div class="entry">
-        <p>Добрый день, дорогие читатели! Я сейчас в отпуске и не в курсе последних рейлс-новостей, поэтому хочу написать пост на тему,
-не связанную с программированием.</p>
-
-<p>Однако, чтобы оправдывать тематику блога, отмечу про выход рейлс 3.2.5 из-за двух критических
-уязвимостей. Я пробовал их применить на наших проектах, но у меня не получилось их сломать, хакер из меня некудышный, но Егору
-Хомякову эти уязвимости нравятся. А раз он доволен - обязательно нужно обновляться, особенно если вы поддерживаете какой-нибудь
-крупный проект :) Ну вот про рейлс на сегодня все.</p>
-
-<p>Я люблю размышлять про смысл жизни и все такое, благо профессия программиста позволяет сохранять силы на размышления и обеспечивает
-материально. Живя в Москве, особенно остро ощущаю насколько сильно, искусственно разогнана жизнь современных людей. Мне нравится
-следующая аналогия - мне даже кажется, что я ее придумал сам.</p>
-
-<p>Представьте какой-нибудь ограниченный ресурс, допустим комнату, в которой четыре стула,
-и на них хотят отдохнуть пять людей. В первом случае люди заходят степенно, никуда не спешат, но одному человеку придется стоять.
-Однако в такой благоприятной обстановке, кто-нибудь, возможно, уступит ему место или предложит сидеть по очереди. Во втором случае люди
-пытаются захватить стул как можно быстрее. Математически понятно, что одному человеку все равно места не хватит. А в процессе потасовки
-возможно еще один стул сломают, и уже два человека останутся без места. Уровень агрессивности и дискомфорта
-будет гораздо выше, но результат такой же, даже хуже.</p>
-
-<p>Реклама, социальное давление провоцируют нас на поведение по второму сценарию, но по-человечески гораздо симпатичнее первый вариант.
-Почему же он так редко встречается? Главный недостаток данного сценария, что он очень уязвим для жуликов. Ушлый человек
-из второй группы, находясь в первом варианте, будет сидеть на стуле всегда, а то и на двух, посмеивась над остальными. Думаю,
-такое поведение вам прекрасно знакомо. Проще всего данную ситуацию проиллюстрировать известным
-рисунком про равновесие, первый вариант конечно лучше, но он слишком неустойчивый:</p>
-
-<p><img src="/assets/old/11-rules/ravn.png" alt=""></p>
-
-<p>Я мало был в других странах, но, по ощущениям, уровень комфорта и спокойствия в европейских странах выше. Мне кажется, местных жителей
-силой, для их же блага, загоняют и удерживают в первом сценарии. Однажды в Дрездене мы перешли дорогу на красный цвет.
-Машин не было в обе стороны настолько, насколько в принципе позволяет увидеть зрение. Вообще сложно представить более пустую дорогу.
-Неприятное, скажу я вам, ощущение переходить, когда все остальные 20 или 30 человек остались ждать зеленого сигнала. Они соблюдали
-правила.</p>
-
-<p>Я фанат правил и считаю, что именно они обеспечивают весь прогресс и комфорт. В гипотетической ситуации со стульями достаточно
-четырех правил и их соблюдения: не шумите, не спешите, не ломайте мебель, уступайте место. В С++ вообще 2 правила: чтите
-Страуструпа и не разыименовывайте нулевые указатели.</p>
-
-<p>В профессиональной деятельности я тоже стараюсь ответственно относится
-к правилам и самоограничениям. Вначале я маньячил и работал с утра до позднего вечера, в будни и выходные. Очевидно, что человек,
-который работает по 12 часов в день успевает больше, чем тот, который работает стандартные 8. Но таким образом поднимается
-общая планка (и подрывается здоровье), поэтому я сейчас в выходные отдыхаю, а в будни стараюсь работать не больше, чем в офисе. К сожалению,
-в этот отпуск мне не удалось отказаться от компьютера, я все равно раз в день, в два выхожу в интернет, проверяю
-почту, что-то поправляю. Но это показатель, что у нас еще плохо налажена система. Надеюсь, что в следующий отпуск я буду отдыхать
-как положено, по правилам.</p>
-
-<p>Желаю вам комфортной и спокойной жизни!</p>
-
-        
-        <div style="float:right"><a href="/blog/2012/06/05/rules-and-comfort/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0+%D0%B8+%D0%BA%D0%BE%D0%BC%D1%84%D0%BE%D1%80%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F06%2F05%2Frules-and-comfort%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

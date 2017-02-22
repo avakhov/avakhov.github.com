@@ -7,6 +7,38 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Няшно</title>
+        <description>
+          
+          &lt;p&gt;В одной книге был приведен эксперимент (сорри, что не помню книг и авторов, так
+как записывать цитаты я еще не дорос, а запоминать - почему-то часто не запоминается), когда
+людям предлагалось проделать какую-то осмысленную операцию на красивом, &amp;quot;дизайнерском&amp;quot;
+банкомате и на страшненьком. На красивом получалось побыстрее, но самое важное, что
+люди, не считали, что потеряли время! То
+есть они получили удовольствие, делая какую-то скучную финансовую операцию!&lt;/p&gt;
+
+&lt;p&gt;Мне кажется это очень важный фактором в современной работе. В принципе любой софт
+сейчас хорош, но если есть возможность выбирать - нужно брать красивый. Тогда время,
+проведенное за решением задач, будет одновременно приятным и полезным.&lt;/p&gt;
+
+&lt;p&gt;Например, я очень люблю терраформ + ансибл (когда роли чистые). Мы храним
+инфраструктуры изолированно, поэтому в каждом проекте есть небольшой линейный списочек боксов.
+Можно
+переименовать файл &lt;code&gt;dev01.tf =&amp;gt; dev01.tf.b&lt;/code&gt;, &lt;code&gt;terraform apply&lt;/code&gt; - сервер удалится,
+&lt;code&gt;dev01.tf.b =&amp;gt; dev01.tf&lt;/code&gt;, &lt;code&gt;terraform apply&lt;/code&gt;, &lt;code&gt;ansible-playbook dev.yml&lt;/code&gt; - сервер создастся и
+запровизится.
+Когда все токены настроены, то такой процесс отладки новой роли, не сложный в целом, удивительно
+приятный, чистый IT-дзен.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/18/vim.png&quot;&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 22 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/22/pri/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/22/pri/index.html</guid>
+      </item>
+    
+      <item>
         <title>Учи.ру - Руби он Рейлс разработчик</title>
         <description>
           
@@ -277,38 +309,6 @@ web: rails s
         <pubDate>Fri, 10 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/10/50/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/10/50/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Знания нулевой ценности</title>
-        <description>
-          
-          &lt;p&gt;В программировании есть много вещей, которые я последнее время вполне осознанно стараюсь избегать. Это какие-то очень
-конкретные вещи, которые исчезнут в ближайший год, два, три или уже исчезли. Сейчас приведу примеры, чтобы стало понятно:&lt;/p&gt;
-
-&lt;p&gt;На одном из серверов у нас почему-то поставился пермишен &lt;code&gt;777&lt;/code&gt; на папку &lt;code&gt;.gems&lt;/code&gt; и руби интерпретатор начинает выдавать &lt;code&gt;Insecure world writable dir...&lt;/code&gt; что-то там, ошибка легко гуглится. Скриптец на руби, который выдает &lt;code&gt;JSON&lt;/code&gt;, стал давать невалидный результат, так как первая
-строка стала ворнингом. Пермишен поправили - ошибка ушла. Я уверен, что это длинный хвост ошибок и мы с ней никогда больше не
-встретимся.&lt;/p&gt;
-
-&lt;p&gt;Или вот гайд по &lt;a href=&quot;https://webpack.js.org/guides/hmr-react/&quot;&gt;Hot Module Replacement - React&lt;/a&gt;. Там предлагается поставить:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;npm install .. react-hot-loader@3.0.0-beta.6 webpack@2.1.0-beta.25 ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Вот именно так, какие-то очень конкретные версии пакетов. И это не зря, если брать свежие версии пакетов, то HMR не работает.
-И мне лень разбираться почему, так как это все умрет. (Мой любимый пакет &lt;code&gt;react-hot-loader@3.0.0-beta.6&lt;/code&gt;, вообще стабильная
-версия &lt;code&gt;1.1.3&lt;/code&gt;, есть пучок альф &lt;code&gt;2.*&lt;/code&gt; и вот шестая бета третьей версии. Все пользуются, хорошая &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;)&lt;/p&gt;
-
-&lt;p&gt;Я когда-то знал отличия Visual Studio 6, от 2013-й (2013 наконец-то стала поддерживать почти полностью шаблоны, как в стандарте,
-а 6-я была шустрая и ламповая) - и вот зачем мне это сейчас? Поэтому, сегодня, стараюсь проскользнуть мимо отличий ансибла
-2.0 и 2.2 (у нас часть рецептов собирается только одной версией, часть только другой, надо фиксить, но это другая история), я ни хочу
-вникать в чем разница &lt;code&gt;es6&lt;/code&gt; от &lt;code&gt;es7&lt;/code&gt;, или где проходит граница руби и рейлс на каждой версии того и другого.
-В современном мире это все не очень важно.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;PS:&lt;/strong&gt; Почему-то пост не опубликовался утром, хотя хук сработал! Залил пост вручную только в 13:40. Спасибо &lt;a href=http://evtuhovich.ru&gt;Ивану&lt;/a&gt; за бдительность, &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;!&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 09 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/09/zero/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/09/zero/index.html</guid>
       </item>
     
   </channel>
