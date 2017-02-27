@@ -64,6 +64,42 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/30/ruby/index.html">Магия руби</a></h1>
+      
+      <div class="date">August 30, 2016</div>
+
+      <div class="img"><img src="/assets/2/ruby/main.jpg" /></div>
+      <div class="entry">
+        <p>Когда я изучаю что хранится в базе данных, то очень люблю использовать рейлсовые конструкции
+примерно такого вида <code>User.&lt;...&gt;.group(:region).count</code>.
+Однако для рубишных массивов не знал изящного решения, как посчитать сколько раз встречается
+каждый элемент, и много раз писал примерно так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">].</span><span class="n">group_by</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="p">}</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="o">[</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">count</span><span class="o">]</span> <span class="p">}</span><span class="o">.</span><span class="n">to_h</span>
+<span class="c1"># =&gt; {1=&gt;2, 2=&gt;1, 3=&gt;1}</span>
+</code></pre></div>
+<p>Выглядит не очень красиво.</p>
+
+<!--- <div class="hr">&middot;&middot;&middot;</div> --->
+
+<p>Наш коллега <a href="https://github.com/vbelov">Владислав Белов</a> предложил
+отличный вариант
+(правда нужны руби &gt;= 2.2):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">].</span><span class="n">group_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:itself</span><span class="p">)</span><span class="o">.</span><span class="n">transform_values</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:count</span><span class="p">)</span>
+<span class="c1"># =&gt; {1=&gt;2, 2=&gt;1, 3=&gt;1}</span>
+</code></pre></div>
+<p>Красота <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /></p>
+
+        
+        <div style="float:right"><a href="/blog/2016/08/30/ruby/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B0%D0%B3%D0%B8%D1%8F+%D1%80%D1%83%D0%B1%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F30%2Fruby%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/29/i_have_idea/index.html">Новая блестящая идея</a></h1>
       
       <div class="date">August 29, 2016</div>
@@ -358,41 +394,6 @@
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%BF%D0%BE%D0%BC%D1%8B%D1%82%D1%8C+%D1%81%D0%BB%D0%BE%D0%BD%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F17%2Fwatch-the-slon%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/08/16/back-tick/index.html">Коварный backtick или как определить размер используемой памяти</a></h1>
-      
-      <div class="date">August 16, 2016</div>
-
-      <div class="img"><img src="/assets/2/back-tick/main.jpg" /></div>
-      <div class="entry">
-        <p>В одном жирненьком руби-воркере мы логировали размер памяти, которую расходует процесс, с
-помощью команды <code>&#96;ps -o rss -p #{$$}&#96;</code>. Такой способ легко найти в интернете и он обычно работает.</p>
-
-<p>Однако сам <code>Kernel#`</code> сделан так, что он форкает руби процесс,
-соответственно на доли секунды резервируя еще столько же памяти, сколько
-процесс занимает уже. Наш воркер в ходе работы раздувался до 2.5-3GB и начал падать на 4GB оперативной памяти.</p>
-
-<p>Я подсмотрел как сделано в ньюрелике (файл <code>new_relic/agent/samplers/memory_sampler.rb</code>):</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">proc_status_file</span> <span class="o">=</span> <span class="s2">&quot;/proc/</span><span class="si">#{</span><span class="vg">$$</span><span class="si">}</span><span class="s2">/status&quot;</span>
-<span class="n">proc_status</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">proc_status_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">read_nonblock</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span> <span class="p">}</span>
-<span class="n">proc_status</span> <span class="o">=~</span> <span class="sr">/RSS:\s*(\d+) kB/i</span>
-<span class="n">rss</span> <span class="o">=</span> <span class="vg">$1</span><span class="o">.</span><span class="n">to_f</span> 
-</code></pre></div>
-<p>На линуксе вместо запуска <code>ps</code> лучше использовать информацию из раздела <code>/proc</code>.
-Такой способ не требует
-избыточной памяти и работает у нас
-по сей день.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/08/16/back-tick/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%B2%D0%B0%D1%80%D0%BD%D1%8B%D0%B9+backtick+%D0%B8%D0%BB%D0%B8+%D0%BA%D0%B0%D0%BA+%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C+%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80+%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D1%83%D0%B5%D0%BC%D0%BE%D0%B9+%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F16%2Fback-tick%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
