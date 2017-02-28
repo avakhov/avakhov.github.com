@@ -64,6 +64,28 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/02/28/token/index.html">Токены в API</a></h1>
+      
+      <div class="date">February 28, 2017</div>
+
+      
+      <div class="entry">
+        <p>Обычно встречаются два способа подписывать API-запросы, прямо в урл <code>?token=abc</code>, либо
+в специальных заголовках к запросу. Я разницы между ними раньше не видел, но сейчас считаю, что
+с заголовком лучше, так как иначе токен будет лежать в логах веб-сервера и сервера приложения, что
+в общем случае не хорошо.</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/02/28/token/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%A2%D0%BE%D0%BA%D0%B5%D0%BD%D1%8B+%D0%B2+API&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F28%2Ftoken%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/02/27/ping/index.html">ping 10.4</a></h1>
       
       <div class="date">February 27, 2017</div>
@@ -380,41 +402,6 @@
         
         
         <a href="https://twitter.com/intent/tweet?text=DevOpsDays+Moscow&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F14%2Fddd%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/02/13/5000/index.html">Порт 5000</a></h1>
-      
-      <div class="date">February 13, 2017</div>
-
-      
-      <div class="entry">
-        <p>Запустил тут рейлс сервер в <a href="https://github.com/ddollar/foreman">форемане</a> и удивился, что сервер
-запускается на порту 5000 вместо привычного 3000. Довольно быстро, понял, что фореман
-выдает порты своим приложениям, переопределяя переменную окружения <code>PORT</code>. То есть такой прокфайл:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># Procfile
-web: rails s
-</code></pre></div>
-<p>запустит приложение на порту 5000, а такой:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">web: PORT=3000 rails s
-</code></pre></div>
-<p>вернет сервер на привычные 3000.</p>
-
-<p>В этой всей истории меня смутило, почему я раньше эту штуку не видел. Поковырявшишь в истории
-комитов, нашел нужный <a href="https://github.com/rails/rails/commit/306c14c4113">306c14c4113</a>, поддержка <code>PORT</code> была добавлена
-только в рейлс 5, поэтому и не видел. Душевное равновесие восстановлено.</p>
-
-<p>PS. Переменная <code>PORT</code> стандартная для хероку, но пока рейлс не обращал внимания на эту переменную, вопрос решался магией
-билдпаков <a href="https://github.com/heroku/heroku-buildpack-ruby/blob/master/lib/language_pack/rails4.rb#L27">rails4.rb</a>.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/02/13/5000/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D1%80%D1%82+5000&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F13%2F5000%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

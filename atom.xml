@@ -7,6 +7,21 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Токены в API</title>
+        <description>
+          
+          &lt;p&gt;Обычно встречаются два способа подписывать API-запросы, прямо в урл &lt;code&gt;?token=abc&lt;/code&gt;, либо
+в специальных заголовках к запросу. Я разницы между ними раньше не видел, но сейчас считаю, что
+с заголовком лучше, так как иначе токен будет лежать в логах веб-сервера и сервера приложения, что
+в общем случае не хорошо.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 28 Feb 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/02/28/token/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/28/token/index.html</guid>
+      </item>
+    
+      <item>
         <title>ping 10.4</title>
         <description>
           
@@ -267,34 +282,6 @@
         <pubDate>Tue, 14 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/14/ddd/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/14/ddd/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Порт 5000</title>
-        <description>
-          
-          &lt;p&gt;Запустил тут рейлс сервер в &lt;a href=&quot;https://github.com/ddollar/foreman&quot;&gt;форемане&lt;/a&gt; и удивился, что сервер
-запускается на порту 5000 вместо привычного 3000. Довольно быстро, понял, что фореман
-выдает порты своим приложениям, переопределяя переменную окружения &lt;code&gt;PORT&lt;/code&gt;. То есть такой прокфайл:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# Procfile
-web: rails s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;запустит приложение на порту 5000, а такой:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;web: PORT=3000 rails s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;вернет сервер на привычные 3000.&lt;/p&gt;
-
-&lt;p&gt;В этой всей истории меня смутило, почему я раньше эту штуку не видел. Поковырявшишь в истории
-комитов, нашел нужный &lt;a href=&quot;https://github.com/rails/rails/commit/306c14c4113&quot;&gt;306c14c4113&lt;/a&gt;, поддержка &lt;code&gt;PORT&lt;/code&gt; была добавлена
-только в рейлс 5, поэтому и не видел. Душевное равновесие восстановлено.&lt;/p&gt;
-
-&lt;p&gt;PS. Переменная &lt;code&gt;PORT&lt;/code&gt; стандартная для хероку, но пока рейлс не обращал внимания на эту переменную, вопрос решался магией
-билдпаков &lt;a href=&quot;https://github.com/heroku/heroku-buildpack-ruby/blob/master/lib/language_pack/rails4.rb#L27&quot;&gt;rails4.rb&lt;/a&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 13 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/13/5000/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/13/5000/index.html</guid>
       </item>
     
   </channel>

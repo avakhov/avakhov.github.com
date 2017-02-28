@@ -64,6 +64,49 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/12/06/ansible/index.html">Ансибл не гони, ансибл погоди</a></h1>
+      
+      <div class="date">December  6, 2016</div>
+
+      <div class="img"><img src="/assets/2/ansible/main.jpg" /></div>
+      <div class="entry">
+        <p>Так получилось, что у нас большинство проектов настроены с помощью ансибла 2.0 и у всех он был установлен и все работало.
+Однако где-то понадобились фичи из 2.1, поставили 2.2 и старые рецепты естественно работать перестали. В принципе они
+легко фиксятся, но есть два способа, как можно обойтись без исправления: один рабочий, а второй на докере <img class='emoji' title=':trollface:' alt=':trollface:' src='https://assets.github.com/images/icons/emoji/trollface.png' height='20' width='20' align='absmiddle' />.</p>
+
+<p>С удивлением узнал (коллеги подсказали), что <code>brew</code> умеет переключать версии:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">brew switch ansible 2.0.1.0
+brew switch ansible 2.2.0.0_1 
+</code></pre></div>
+<p>Белиссимо! Этим способом я пока и пользуюсь. </p>
+
+<p>Второй способ пока не использовал, только запустил один раз. Уже давно в голове крутится идея,
+что докер же должен стать идеальным для консервации
+старых версий утилит. В принципе такая команда запускается (если ssh-ключ без пароля) и работает ожидаемо:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -v<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:/ansible -v<span class="nv">$HOME</span>/.ssh:/root/.ssh <span class="se">\</span>
+  hypoport/ansible:2.0.2.0 ansible-playbook node.yml
+</code></pre></div>
+<p>То есть можно положить в репо какой-нибудь sh-файл, который сделает алиасы нужных докеризированных версий утилит или еще что-нибудь
+придумать. Идейно по-моему очень круто, но есть две засады. Вывод команды не цветной, пока не смотрел можно ли это как-то пофиксить.
+И вторая проблема хуже, докер в маке работает медленно, рецепт, который прогоняется через brew-версию за одну минуту, в контейнере
+пыхтел четыре с половиной <img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' />. В убунту такой проблемы насколько я знаю нет, докер унижает только любителей смузи.</p>
+
+<p>По факту у нас пожалуй плывут версии всего двух утилит - ansible (редко) и терраформ (чаще). Так-то особо проблемы нет, но может вы
+знаете изящный способ консервировать версию утилиты на веки вечные?</p>
+
+<p>PS. Писал этот пост и подумал, а может вагрант?! Ммм?</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/12/06/ansible/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%90%D0%BD%D1%81%D0%B8%D0%B1%D0%BB+%D0%BD%D0%B5+%D0%B3%D0%BE%D0%BD%D0%B8%2C+%D0%B0%D0%BD%D1%81%D0%B8%D0%B1%D0%BB+%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F06%2Fansible%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/05/selectel_sol/index.html">Селектел Скриптинг Солюшен</a></h1>
       
       <div class="date">December  5, 2016</div>
@@ -400,51 +443,6 @@ bash - да, zsh - нет.</p>
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%A7%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D0%B5+%D1%82%D0%B5%D0%BB%D0%BE&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F23%2F4_tela%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/22/array_true/index.html">Array True</a></h1>
-      
-      <div class="date">November 22, 2016</div>
-
-      <div class="img"><img src="/assets/2/array_true/main.jpg" /></div>
-      <div class="entry">
-        <p>Я читаю довольно много блогов и разных статей, обычно авторы описывают как делать правильно и красиво, поэтому я люблю
-рассказывать
-как делать не правильно, но быстро и эффективно. Писать про костыли и хаки - совершенно безконкурентное занятие.
-Когда мне говорят, что это испортит кодовую базу, я отвечаю, что всегда
-нужно рассматривать еще вариант, а вдруг не испортит. Нужно быть оптимистом <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />. Ну и потроллить маленько всегда
-приятно, это расширяет сознание.</p>
-
-<p>Так вот, в рейлс many-to-many в принципе принято делать через доп-таблицу. Но если вы отважный хакер, без стыда и совести,
-то можно сделать так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">create_table</span> <span class="s2">&quot;products&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-  <span class="n">t</span><span class="o">.</span><span class="n">integer</span>  <span class="s2">&quot;owner_ids&quot;</span><span class="p">,</span>    <span class="ss">default</span><span class="p">:</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">array</span><span class="p">:</span> <span class="kp">true</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>В модели:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">owners</span>
-  <span class="vi">@owners</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">owner_ids</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Во вьюхе формы:</p>
-<div class="highlight"><pre><code class="language-slim" data-lang="slim"><span class="p">=</span> <span class="n">bootstrap_form_for</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-  <span class="p">=</span> <span class="n">f</span><span class="o">.</span><span class="n">select</span> <span class="ss">:owner_ids</span><span class="p">,</span> <span class="no">User</span><span class="o">.</span><span class="n">all</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span><span class="ss">class</span><span class="p">:</span> <span class="s2">&quot;select2&quot;</span><span class="p">,</span> <span class="ss">multiple</span><span class="p">:</span> <span class="kp">true</span><span class="p">}</span>
-</code></pre></div>
-<p>Честно скажу, я не вижу ничего особо криминального так делать даже в серьезном продакшене (если джойны не нужны и таблицы маленькие).
-Но у меня уже большая деформация,
-так как рейлс-фич уже давно не писал, а разобраться могу, если жизнь заставит, практически в любом коде. В вопросах стиля себе
-уже не доверяю. Но написать такой many-to-many в режиме хакантона имхо проще классического (у нас давно работает в одной утилитке).
-Прокатит это или нет - 50 на 50.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/11/22/array_true/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=Array+True&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F22%2Farray_true%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
