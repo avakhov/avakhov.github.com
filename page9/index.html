@@ -64,6 +64,41 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/26/context/index.html">Контекст важен</a></h1>
+      
+      <div class="date">October 26, 2016</div>
+
+      
+      <div class="entry">
+        <p>Контекст важен. И чем старше я становлюсь, тем отчетливее это понимаю. Вот например, смотрите: 
+&quot;Руби - гамно&quot;. В зависимости
+от окружения и от автора этого высказывания - это может быть глупостью, бахвальством или глубоким
+пониманием конкретной ситуации и задачи (выраженное тем не менее достаточно вульгарно).</p>
+
+<p>В жизни я относительно легко разбираюсь в контексте инженеров, и что они вкладывает в те или иные фразы.
+А вот
+в интернете мне гораздо сложнее. Пожалуй интернет использую просто как большой справочник, я очень
+мало здесь общаюсь. Остро не хватает пометок &quot;умный, глубокие знания A, B и C, любит
+тонкий троллинг и неоднозначные высказывания&quot; или &quot;глуповат, нет чувства юмора, заносчив, обходить
+стороной&quot;.</p>
+
+<p>Мне кажется, что в ЖЖ такие пометки есть, можно создавать каждому комментару персональный
+контект и его историю. Вроде Лебедев такими пользуется, при выращивании своей аудиторию. Если
+есть цель именно ухаживать за деревом комментариев, наверное это даже удобно...</p>
+
+<p>Вообщем все сложно.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/10/26/context/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%BD%D1%82%D0%B5%D0%BA%D1%81%D1%82+%D0%B2%D0%B0%D0%B6%D0%B5%D0%BD&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F26%2Fcontext%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/25/mailgun/index.html">Транзакционные письма без регистраций и СМС</a></h1>
       
       <div class="date">October 25, 2016</div>
@@ -517,53 +552,6 @@ resource &quot;dnsimple_record&quot; &quot;box&quot; {
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%A2%D0%B5%D1%80%D1%80%D0%B0%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D0%BC+%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%B5%D0%BB&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F13%2Fterraform-like-a-terraformer%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/12/selectel-new-project/index.html">Автоматизация работы с проектами Селектела</a></h1>
-      
-      <div class="date">October 12, 2016</div>
-
-      
-      <div class="entry">
-        <p>Я хотел бы возможно написать пафосный туториал, как автоматизировать работу в облаке Селектела, но я не умею их писать. Поэтому скажу вот так -
-в Селектеле кое-что легко автоматизировать, в некоторых местах есть хитрости, а кое-что сделать очень сложно или совсем нельзя.
-Думаю, это очень точное описание.</p>
-
-<p>Итак, создать проект, поставить квоты, удалить проект (вот это мы не стали скриптовать, а удаляем через оболочку, где
-есть дополнительное подтверждение, так как удаляется проект очень-очень быстро и может получиться очень-очень неловко),
-добавить пользователей - все это прекрасно работает.
-Список всех вызовов есть в разделе <a href="https://support.selectel.ru/vpc/docs/">документации</a> (нужно залогинится).</p>
-
-<p>Далее великолепно работают все OpenStack-утилиты, как написано в <a href="https://habrahabr.ru/company/selectel/blog/242001/">блоге Селектела</a>,
-кроме <code>neutron</code>, он почему-то не работает <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />. Возможно потому-что в 2015 году у них был один регион, а сейчас два. Но нейтрон нам и не понадобится.</p>
-
-<p>Чтобы легче работалось, 
-я завернул утилиты в <a href="https://github.com/uchiru/ostack/blob/master/Dockerfile">докер образ</a> и теперь вызываю вот так:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run --rm -it <span class="se">\</span>
-  -e <span class="nv">OS_AUTH_URL</span><span class="o">=</span>https://api.selvpc.ru/identity/v3 <span class="se">\</span>
-  -e <span class="nv">OS_PROJECT_ID</span><span class="o">=</span>... <span class="se">\</span>
-  -e <span class="nv">OS_USER_DOMAIN_NAME</span><span class="o">=</span>... <span class="se">\</span>
-  -e <span class="nv">OS_USERNAME</span><span class="o">=</span>... <span class="se">\</span>
-  -e <span class="nv">OS_PASSWORD</span><span class="o">=</span>... <span class="se">\</span>
-  -e <span class="nv">OS_REGION_NAME</span><span class="o">=</span>... <span class="se">\</span>
-  uchiru/ostack:v2 glance image-list
-</code></pre></div>
-<p><code>USER_DOMAIN_NAME</code> - это аккаунт (номер договора), <code>PROJECT_ID</code> - айди проекта, можно взять в панели (hex на 32 символа), <code>REGION_NAME</code> -
-&#39;ru-1&#39; - Санкт-Петербург (в Питере, тире, пить), &#39;ru-2&#39; - Москва, <code>LOGIN/PASSWORD</code> - 
-логин и пароль вашего пользователя в селектеле, которого нужно добавить в проект.</p>
-
-<p>Вот. Проект вы легко создадите скриптами или через панель, а завтра расскажу,
-что с ним можно сделать дальше.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/12/selectel-new-project/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B+%D1%81+%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0%D0%BC%D0%B8+%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%B5%D0%BB%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F12%2Fselectel-new-project%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

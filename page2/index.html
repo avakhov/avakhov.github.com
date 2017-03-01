@@ -64,6 +64,38 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/02/14/ddd/index.html">DevOpsDays Moscow</a></h1>
+      
+      <div class="date">February 14, 2017</div>
+
+      
+      <div class="entry">
+        <p>Собрался тут выступить на
+<a href="https://www.devopsdays.org/events/2017-moscow/program/vakhov/">DevOpsDays Moscow</a>,
+буду рассказывать, как Учи.ру выросла с одного маленького рейлс приложения до весьма развесистого
+сервиса на 1М+ пользователей.</p>
+
+<p>По ТТХ у нас рабочая нагрузка 600-800 запросов в секунду на главных продакшенах,
+100+ серверов (суммарно для всех проектов), база гигов на 200. То есть
+размах относительно умеренный для индустрии, но достаточный для того чтобы столкнутся с большим
+количеством разнообразных проблем.</p>
+
+<p>Задачи, которые возникали при быстром росте, постоянно
+увеличивающейся сложность системы, инструменты и подходы, которые мы пробовали и к какому стеку в
+конечном счете пришли, вот про это все и буду рассказывать. Буду рад встрече, если кто пойдет <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' />,
+кодовое слово: &quot;блог&quot;.</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/02/14/ddd/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=DevOpsDays+Moscow&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F14%2Fddd%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/02/13/5000/index.html">Порт 5000</a></h1>
       
       <div class="date">February 13, 2017</div>
@@ -346,35 +378,6 @@ web: rails s
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%80%D0%B5%D0%B9%D1%81%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B9+%D1%80%D0%B5%D0%B6%D0%B8%D0%BC&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F01%2Fshtatno%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/01/31/terr-echo/index.html">Получи свой сервер, друг</a></h1>
-      
-      <div class="date">January 31, 2017</div>
-
-      
-      <div class="entry">
-        <p>Когда создаешь сервер терраформом, то бывает, ломишься на него, а там <code>ssh</code> еще не запустился,
-бесит. Есть простой трюк - добавить пустой провизионер, который как раз дождется полного старта
-сервера, например так:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">resource &quot;digitalocean_droplet&quot; &quot;mylittleserver&quot; {
-  // ...
-  provisioner &quot;remote-exec&quot; {
-    inline = [&quot;echo&quot;]
-  }
-}
-</code></pre></div>
-<p>Если вы используете уже провизию (мы просто нет), то у вас магия уже есть.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/01/31/terr-echo/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8+%D1%81%D0%B2%D0%BE%D0%B9+%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C+%D0%B4%D1%80%D1%83%D0%B3&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F01%2F31%2Fterr-echo%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

@@ -7,6 +7,28 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Скелет презентации</title>
+        <description>
+          
+          &lt;p&gt;Я сейчас активно готовлюсь к ДевОпсДейс с помощью прекрасной книги по презентациям от
+Глеба Шулишова &lt;a href=&quot;http://www.prostopreza.ru/pages/book&quot;&gt;Скелет презентации&lt;/a&gt;. Она небольшая и
+мне кажется ее стоит почитать, даже если вам не нужно в ближайшее время делать никаких презентаций вообще.&lt;/p&gt;
+
+&lt;p&gt;Глеб делит презентации на два типа:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=/18/Graphic2.png&gt;&lt;/p&gt;
+
+&lt;p&gt;Я конечно буду стараться сделать офигенную презентацию, но так как Новый Год в моей жизни пока бывает
+чаще публичных выступлений, то как минумум ставлю задачу заглянуть в бизнес-класс, за вот эту занавесочку
+и стибрить там вилку и плед.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 01 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/01/gleb/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/01/gleb/index.html</guid>
+      </item>
+    
+      <item>
         <title>Токены в API</title>
         <description>
           
@@ -257,31 +279,6 @@
         <pubDate>Wed, 15 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/15/plastik/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/15/plastik/index.html</guid>
-      </item>
-    
-      <item>
-        <title>DevOpsDays Moscow</title>
-        <description>
-          
-          &lt;p&gt;Собрался тут выступить на
-&lt;a href=&quot;https://www.devopsdays.org/events/2017-moscow/program/vakhov/&quot;&gt;DevOpsDays Moscow&lt;/a&gt;,
-буду рассказывать, как Учи.ру выросла с одного маленького рейлс приложения до весьма развесистого
-сервиса на 1М+ пользователей.&lt;/p&gt;
-
-&lt;p&gt;По ТТХ у нас рабочая нагрузка 600-800 запросов в секунду на главных продакшенах,
-100+ серверов (суммарно для всех проектов), база гигов на 200. То есть
-размах относительно умеренный для индустрии, но достаточный для того чтобы столкнутся с большим
-количеством разнообразных проблем.&lt;/p&gt;
-
-&lt;p&gt;Задачи, которые возникали при быстром росте, постоянно
-увеличивающейся сложность системы, инструменты и подходы, которые мы пробовали и к какому стеку в
-конечном счете пришли, вот про это все и буду рассказывать. Буду рад встрече, если кто пойдет &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;,
-кодовое слово: &amp;quot;блог&amp;quot;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 14 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/14/ddd/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/14/ddd/index.html</guid>
       </item>
     
   </channel>

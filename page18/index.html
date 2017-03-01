@@ -64,6 +64,98 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/07/17/the-history-of-a-comma/index.html">История одной запятой</a></h1>
+      
+      <div class="date">July 17, 2012</div>
+
+      
+      <div class="entry">
+        <p>Программисты в повседневной практике часто работают с различными перечислениями. Это могут быть элементы массива,
+пары ключ-значения или, например, параметры метода. Существует одна хитрость при определении таких перечислений, которую я
+использую уже очень давно и сегодня хочу поделиться с вами.</p>
+
+<p>В C++ мы использовали следующую запись конструкторов:</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">SomeClass</span><span class="o">::</span><span class="n">SomeClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">i_value</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">i_string</span><span class="p">)</span>
+  <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">i_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_value</span><span class="p">(</span><span class="n">i_value</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_string</span><span class="p">(</span><span class="n">i_string</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">m_float</span><span class="p">()</span>
+  <span class="p">,</span> <span class="n">m_storage</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Мы использовали явные вызовы конструкторов каждого члена класса, даже там где это можно было опустить, чтобы лучше контролировать
+деятельность классов. Часто приходится жертвовать теоретическим изяществом ради достижения практических целей. Однако главное
+не в этом. Обратите внимание на оформление запятых. Такая конструкция позволяет легко менять инициализаторы
+местами и добавлять новые, не боясь получить синтаксическую ошибку. Это экономит немного времени и чуть-чуть нервных клетов.</p>
+
+<p>В мире рейлс дела с перечислениями обстоят еще лучше, так как интерпретатор руби не такой строгий, как компилятор C++.
+Можно объявлять массивы:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="s1">&#39;value1&#39;</span><span class="p">,</span>
+  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- внимание, запятая!</span>
+<span class="o">]</span>
+</code></pre></div>
+<p>хэши:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">key</span><span class="p">:</span> <span class="ss">:value</span><span class="p">,</span>
+  <span class="ss">anohter</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="c1"># &lt;-- опять запятая!  </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>и вызывать методы:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">some</span><span class="p">(</span>
+  <span class="s1">&#39;abc&#39;</span><span class="p">,</span>
+  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- и снова она!</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>добавляя запятую в конце последнего члена перечисления. Возможно это синтаксически не совсем изящно, но работает
+как ожидается и экономит время на длинных конструкциях.</p>
+
+<p>В кофе-скрипт дела идут настолько замечательно, что запятых не нужно вообще:</p>
+<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">some_method</span><span class="p">(</span>
+  <span class="mi">1</span>
+  <span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="nv">array = </span><span class="p">[</span>
+  <span class="mi">4</span>
+  <span class="mi">5</span>
+  <span class="mi">6</span>
+<span class="p">]</span>
+
+<span class="nv">hash = </span><span class="p">{</span>
+  <span class="nv">a: </span><span class="mi">1</span>
+  <span class="nv">b: </span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Джаваскрипт-интерпретатор в Хроме и Файерфоксе работает достойно:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">array</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="mi">4</span><span class="p">,</span>
+  <span class="mi">5</span><span class="p">,</span>
+  <span class="mi">6</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nx">hash</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>И наконец джаваскрипт в интернет-эксплорере выдает ошибку:</p>
+
+<p><img src="/assets/old/13-comma/ie.png" alt=""></p>
+
+        
+        <div style="float:right"><a href="/blog/2012/07/17/the-history-of-a-comma/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F+%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9+%D0%B7%D0%B0%D0%BF%D1%8F%D1%82%D0%BE%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F17%2Fthe-history-of-a-comma%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/07/10/death-illisuion/index.html">Опасная иллюзия</a></h1>
       
       <div class="date">July 10, 2012</div>
@@ -913,59 +1005,6 @@ cookies.signed[:user_id] # =&gt; 123
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%93%D0%B5%D0%BC%D1%8B+-+require+%D0%B8+bundler&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F05%2F04%2Fgems-require%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/05/02/gem-github-option/index.html">Экономим в честь дня труда</a></h1>
-      
-      <div class="date">May  2, 2012</div>
-
-      
-      <div class="entry">
-        <p>Оказывается в гем-файле при указании репозитариев из гитхаба можно использовать краткую форму:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Тоже самое</span>
-<span class="n">gem</span> <span class="s1">&#39;rack-test&#39;</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span> <span class="s2">&quot;git://github.com/brynary/rack-test.git&quot;</span>
-<span class="n">gem</span> <span class="s1">&#39;rack-test&#39;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s2">&quot;brynary/rack-test&quot;</span>
-</code></pre></div>
-<p>Узнал из вчерашнего комита Петра: <a href="https://github.com/rails/rails/commit/17f2958d853ef0dbee1aa6fa6d7b89d1ca3d4352">17f2958d85</a>.
-После насыщенных праздников в честь дня труда экономия нажатий кнопок очень актуальна.</p>
-
-<p>Более того если имя пользователя и название репозитария совпадают можно использовать еще более краткую форму:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Тоже самое</span>
-<span class="n">gem</span> <span class="s2">&quot;rails&quot;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s2">&quot;rails/rails&quot;</span>
-<span class="n">gem</span> <span class="s2">&quot;rails&quot;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s2">&quot;rails&quot;</span>
-</code></pre></div>
-<p>При указании источника гемов раньше приходилось выбирать один из 4-х вариантов:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
-<span class="n">source</span> <span class="ss">:gemcutter</span>
-<span class="n">source</span> <span class="ss">:rubyforge</span>
-<span class="n">source</span> <span class="ss">:rubygems</span>
-</code></pre></div>
-<p>Естественно я бы посоветовал использовать <code>sourсe :rubygems</code>, так как в нем меньше всего букв. Но в свежей версии
-бандлера 1.1.0 можно не указывать явно рубиджемс и гем-файл может состоять только из определений зависимых гемов:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Абсолютно правильный гем-файл</span>
-<span class="n">gem</span> <span class="s1">&#39;sqlite3&#39;</span>
-</code></pre></div>
-<p>Сегодня хороший день перейти полностью на руби 1.9, если вы это до сих пор не сделали. Так как экономия на каждой
-паре ключ-значение достигает 3 символа:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">{</span><span class="ss">:key</span> <span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">}</span> <span class="c1"># 17 символов.</span>
-<span class="p">{</span><span class="ss">key</span><span class="p">:</span> <span class="s1">&#39;value&#39;</span><span class="p">}</span>    <span class="c1"># 14 символов!</span>
-</code></pre></div>
-<p>И наконец самый мудрый и важный совет от мэтра С++:</p>
-
-<blockquote>
-<strong>24.2.4. Отказ от программирования</strong><br>Программирование дорого и непредсказуемо по сравнению со многими другими видами деятельности, и полученная программа часто не на 100% надежна. Программирование трудоемко, и &mdash; по многим причинам &mdash; многие серьезные проекты задерживаются из-за неготовности кода. Так почему бы программирование как род деятельности совсем не устранить из процесса?
-<i>Бьерн Страуструп, Язык программирования С++ (Третье издание)<i>
-</blockquote>
-
-        
-        <div style="float:right"><a href="/blog/2012/05/02/gem-github-option/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D0%BC+%D0%B2+%D1%87%D0%B5%D1%81%D1%82%D1%8C+%D0%B4%D0%BD%D1%8F+%D1%82%D1%80%D1%83%D0%B4%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F05%2F02%2Fgem-github-option%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
