@@ -64,6 +64,62 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/09/16/pure-logs/index.html">Поиск по логам для бедных</a></h1>
+      
+      <div class="date">September 16, 2016</div>
+
+      
+      <div class="entry">
+        <p>Очень здорово когда логи собираются в централизованном месте и есть какой-то удобный интерфейс для
+их поиска. Однако так бывает не всегда и на самом деле не все интерфейсы удобны.</p>
+
+<p>В самом простом случае логи сохраняются прямо на диске и регулярно ротируются. И если поиск по логам
+осуществляется редко,  то вполне можно справится
+стандартными линукс утилитами.</p>
+
+<p>Для начала очень рекомендую добавить в <code>production.rb</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="n">config</span><span class="o">.</span><span class="n">log_tags</span> <span class="o">=</span> <span class="o">[</span>
+    <span class="ss">:uuid</span><span class="p">,</span>
+    <span class="ss">:remote_ip</span><span class="p">,</span>
+    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">req</span><span class="o">|</span> <span class="s2">&quot;user-</span><span class="si">#{</span><span class="n">req</span><span class="o">.</span><span class="n">cookie_jar</span><span class="o">.</span><span class="n">signed</span><span class="o">[</span><span class="ss">:uid</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="s2">&quot;anon&quot;</span> <span class="p">}</span>
+  <span class="o">]</span>
+</code></pre></div>
+<p>Тогда логи будут выглядет примерно так:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[4ba12972-bf3a-4dc5-9f9e-66908966e534] [50.141.127.26] [user-21] Processing by SomeController#some as HTML
+[4ba12972-bf3a-4dc5-9f9e-66908966e534] [50.141.127.26] [user-21] Completed 200 OK in 16ms
+</code></pre></div>
+<p>и будут прекрасно грепаться.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">fgrep <span class="s1">&#39;[user-21]&#39;</span> *.log
+zfgrep <span class="s1">&#39;[user-21]&#39;</span> *.gz
+zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
+</code></pre></div>
+<p>У грепа есть разновидности: <code>fgrep</code> - ищет точные вхождения подстроки, не пытаясь использовать
+регекспы, <code>zfgrep</code> - делает тоже самое, но уже по сжатым файлам.</p>
+
+<p>В рейлс логи многострочные, поэтому когда нашли интересный кейс, часто хочется
+узнать логи для данных запросов целиком. В этом случае опять поможет греп.
+У каждого запроса есть уникальный <code>uuid</code> (при
+условии что вы добавили <code>log_tags</code>), в этому случае можно склеить любым
+удобным способом греп команду и получить уже полный листинг запросов для исследования:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">grep &#39;10a15a85-1216-47b2-b2c0-8ddb38c97ae2\|2424e9f8-c0cb-411a-8057-6c6308e5f7f6&#39; production.log
+</code></pre></div>
+<p>Когда поиск сужен можно уже пройтись рубями или любым другим скриптовым языком (ковырять с помощью
+руби гигабайтные файлы тоже можно, если жизнь заставит, но будет не очень быстро).</p>
+
+<p>Так что если поиск по логам не входит
+в ежедневные рабочие рутины, в большинстве случаев можно обойтись подручными средствами.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/09/16/pure-logs/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA+%D0%BF%D0%BE+%D0%BB%D0%BE%D0%B3%D0%B0%D0%BC+%D0%B4%D0%BB%D1%8F+%D0%B1%D0%B5%D0%B4%D0%BD%D1%8B%D1%85&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F16%2Fpure-logs%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/09/15/rails-hate/index.html">Что мне не нравится в рейлс</a></h1>
       
       <div class="date">September 15, 2016</div>
@@ -346,60 +402,6 @@
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B8%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F+%D1%81%D0%B5%D1%80%D0%B5%D0%B1%D1%80%D1%8F%D0%BD%D0%B0%D1%8F+%D0%BF%D1%83%D0%BB%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F05%2Fbullet%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/09/02/1gb_json/index.html">Прожорливый JSON</a></h1>
-      
-      <div class="date">September  2, 2016</div>
-
-      <div class="img"><img src="/assets/2/1gb_json/main.jpg" /></div>
-      <div class="entry">
-        <p>Часто промежуточные результаты каких-нибудь долгих вычислений, которые нужно сделать один раз, сохраняю в JSON. Например
-могу пройтись по всем записям в большой таблице,
-посчитать серию параметров, сохранить в JSON, скачать файл
-локально и потом
-считать какие-нибудь агрегированные данные.</p>
-
-<p>Однажды, считая большой отчет, наткнулся на необычайную прожорливость <code>JSON.load</code> на сравнительно небольших данных.</p>
-
-<p>Промоделируем ситуацию (размер занимаемой памяти на вашем компьютере может отличаться, но
-я проверил на маке и на линуксе). Сгенерируем json-файл:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># =&gt; 11 MB</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="ss">key</span><span class="p">:</span> <span class="o">[</span><span class="p">{</span><span class="ss">k</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">value</span><span class="p">:</span> <span class="s2">&quot;strng&quot;</span><span class="p">}</span><span class="o">]*</span><span class="mi">2_000_000</span><span class="p">}</span>
-<span class="c1"># =&gt; 26 MB</span>
-<span class="n">t</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="c1"># =&gt; 54 MB</span>
-<span class="no">File</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;big.json&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-</code></pre></div>
-<p>Теперь его прочитаем:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># =&gt; 11 MB</span>
-<span class="n">t</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;big.json&quot;</span><span class="p">)</span>
-<span class="c1"># =&gt; 57 MB</span>
-<span class="n">x</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="c1"># =&gt; 1600 MB</span>
-</code></pre></div>
-<p><img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' /> 
-<img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' /> 
-<img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' /> 
-массив, который в руби занимает 15 мегабайт, после восстановления раздувается в 100 раз (при использовании
-библиотеки <code>oj</code> в 50 раз). Самое противное в этой ситуации, что json на 1 гигабайт сохранить вы сможете,
-а прочитать уже нет - памяти не хватит. Особенно неприятно об этом узнать
-после нескольких часов вычислений.</p>
-
-<p>Чтобы обойти эту проблему можно использовать пару <code>Marshal.dump/load</code>, которая работает гораздо быстрее и не занимает лишней памяти.
-Однако marshal-файл не получится посмотреть глазами, нормально хранить в системе контроля версии или погрепать. Поэтому универсального решения не существует, все зависит от задачи. 
-Просто помните, когда сохраняете большой JSON-файл, а хватит ли
-вам духа и оперативной памяти, чтобы его прочитать?</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/09/02/1gb_json/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D0%B6%D0%BE%D1%80%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9+JSON&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F02%2F1gb_json%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

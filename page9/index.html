@@ -64,6 +64,52 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/27/1001/index.html">Тысяча и одно падение продакшена</a></h1>
+      
+      <div class="date">October 27, 2016</div>
+
+      
+      <div class="entry">
+        <p>Есть одна тема, которую я прямо чувствую, что не принято обсуждать - это падения продакшена. Причем, хотя не падают только те проекты,
+которыми никто не пользуется или которые еще не написаны (идеальный софт бывает только в голове),
+но почему-то все равно стыдно.</p>
+
+<p>99% падений, чего уж там скрывать, вызваны
+именно ошибками инженеров, человеческим фактором, незнанием каких-то тонкостей и особенностей системы и так далее.
+Скорее всего поэтому тема падений неудобная, так как люди считают, что признание
+своих ошибок подрывает их профессионализм. Но я с таким подходом категорически не согласен. Как программные дефекты - это часть
+процесса управления разработкой, так и разнообразные нештатные ситуации - это часть процесса управления эксплуатации систем.
+Бизнес интегрити
+и все дела.</p>
+
+<p>Чтобы еще более успокоить, приведу цитату из книги Питера Друкера &quot;Эффективный управляющий&quot; (вообще книга хороша, хочется процититировать
+ее почти целиком, выделение жирным - мое):</p>
+
+<blockquote>
+Любой, кто так или иначе был связан с кампанией безопасности 
+движения - автомобильная промышленность, автоинспекция, автоклубы и страховые 
+компании, - <b>считали, что признание вероятности происшествий является чуть ли не 
+подстрекательством опасного вождения</b>, аналогично тому, как поколение моего деда 
+считало, что врач, лечащий венерическое заболевание, потворствует аморальному 
+поведению. Это типичное свойство человеческой натуры <b>путать вероятность с моральной 
+стороной вопроса и является причиной опасных ошибок</b>, которые бывает трудно 
+исправить.  
+</blockquote>
+
+<p>Так что падения - это нормально, значит у вас есть живой сервис. Падение под трафиком - это вообще прекрасно, значит у вас есть трафик. Падение из-за неправильных действий - чудесно, значит вы что-то делаете.
+И так далее <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/10/27/1001/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%A2%D1%8B%D1%81%D1%8F%D1%87%D0%B0+%D0%B8+%D0%BE%D0%B4%D0%BD%D0%BE+%D0%BF%D0%B0%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5+%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%BA%D1%88%D0%B5%D0%BD%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F27%2F1001%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/26/context/index.html">Контекст важен</a></h1>
       
       <div class="date">October 26, 2016</div>
@@ -416,142 +462,6 @@ SQL-запросы и находим негодяя:</p>
         
         
         <a href="https://twitter.com/intent/tweet?text=Racket&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F14%2Fracket%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/13/terraform-like-a-terraformer/index.html">Терраформим Селектел</a></h1>
-      
-      <div class="date">October 13, 2016</div>
-
-      
-      <div class="entry">
-        <p>Научился терраформить Селетел я далеко не сразу, пришлось даже немного его подебажить и
-openstack-утилиты. Кстати будете дебажить терраформ, сначала попробуйте запустить его с
-<code>TF_LOG=1</code>, может быть
-поможет, так как компилируется он довольно долго, хоть и написан на Го.</p>
-
-<p>Вообще, <a href="https://www.terraform.io/">терраформ</a> - это волшебная утилита для первичного
-создания серверов, настройки DNS, всевозможных штук в Амазоне и прочих вещей. Это такой ансибл для
-инфраструктуры, с отличной идеологией. Вы пишите в скрипте: &quot;хочу: чтобы у меня были два таких бокса,
-соответсвующие днс-записи и бакет на амозоне&quot;, терраформ смотрит что у вас есть сейчас и добавляет
-необходимо, либо удаляет избыточное. Там конечно немного нужно приноровится, но штука совершенно
-космическая.</p>
-
-<p>Так вот заводите аккаунт в селектеле, добавляете туда проект и вперед:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">provider &quot;dnsimple&quot; {
-    email = &quot;${var.DNSIMPLE_EMAIL}&quot;
-    token = &quot;${var.DNSIMPLE_TOKEN}&quot;
-}
-
-provider &quot;openstack&quot; {         
-  auth_url  = &quot;https://api.selvpc.ru/identity/v3&quot;
-  domain_name = &quot;${var.DOMAIN_NAME}&quot;
-  tenant_name = &quot;${var.PROJECT_ID}&quot;
-  tenant_id = &quot;${var.PROJECT_ID}&quot;
-  user_name  = &quot;${var.USER}&quot;
-  password  = &quot;${var.PASSWORD}&quot;
-}
-
-variable &quot;external_gateway&quot; {
-  default = &quot;ab2264dd-bde8-4a97-b0da-5fea63191019&quot; # hardcoded gw for selectel
-}
-
-resource &quot;openstack_networking_network_v2&quot; &quot;network&quot; {
-  name = &quot;network&quot;           
-  admin_state_up = &quot;true&quot;      
-  region = &quot;${var.REGION}&quot;
-}
-
-resource &quot;openstack_networking_subnet_v2&quot; &quot;subnet&quot; {
-  name = &quot;subnet&quot;            
-  network_id = &quot;${openstack_networking_network_v2.network.id}&quot;
-  cidr = &quot;10.0.0.0/24&quot;
-  ip_version = 4               
-  region = &quot;${var.REGION}&quot;              
-}
-
-resource &quot;openstack_networking_router_v2&quot; &quot;router&quot; {
-  name = &quot;router&quot;
-  admin_state_up = &quot;true&quot;
-  region = &quot;${var.REGION}&quot;              
-  external_gateway = &quot;${var.external_gateway}&quot;
-}
-
-resource &quot;openstack_networking_router_interface_v2&quot; &quot;router&quot; {
-  router_id = &quot;${openstack_networking_router_v2.router.id}&quot;
-  subnet_id = &quot;${openstack_networking_subnet_v2.subnet.id}&quot;
-  region = &quot;${var.REGION}&quot;              
-}
-
-resource &quot;openstack_compute_keypair_v2&quot; &quot;vakhov&quot; {
-  region = &quot;${var.REGION}&quot;              
-  name = &quot;vakhov&quot;
-  public_key = &quot;...&quot;
-}
-
-resource &quot;openstack_blockstorage_volume_v1&quot; &quot;box01&quot; {
-  name = &quot;disk-for-box01&quot;
-  region = &quot;${var.REGION}&quot;
-  size = 150
-  image_id = &quot;${var.IMAGE_ID}&quot;
-  volume_type = &quot;basic.${var.REGION}a&quot;
-}
-
-resource &quot;openstack_compute_instance_v2&quot; &quot;box01&quot; {
-  name = &quot;box01&quot;
-  flavor_name = &quot;${var.FLAVOR}&quot;
-  region = &quot;${var.REGION}&quot;
-  key_pair = &quot;vakhov&quot;
-
-  network {
-    uuid = &quot;${openstack_networking_network_v2.network.id}&quot;
-    floating_ip = &quot;${var.BOX_01_FLOATING_IP}&quot;
-  }
-
-  metadata = {
-    &quot;x_sel_server_default_addr&quot;=&quot;{\&quot;ipv4\&quot;:\&quot;\&quot;}&quot;
-  }
-
-  block_device {
-    boot_index = 0
-    uuid = &quot;${openstack_blockstorage_volume_v1.box01.id}&quot;
-    source_type = &quot;volume&quot;
-    destination_type = &quot;volume&quot;
-  }
-}
-
-resource &quot;dnsimple_record&quot; &quot;box&quot; {
-  domain = &quot;${var.DOMAIN}&quot;
-  name = &quot;mega-box&quot;
-  value = &quot;${openstack_compute_instance_v2.box01.network.0.floating_ip}&quot;
-  type = &quot;A&quot;
-  ttl = 600
-}
-</code></pre></div>
-<p>Сорри, что без ката, но по-моему это божественно. Если вы натыкали хотя бы 10 проектов ручками, то
-оцените <img class='emoji' title=':heart_eyes_cat:' alt=':heart_eyes_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63b.png' height='20' width='20' align='absmiddle' />. Конфигурировать таким образом инфраструктуру не только быстрее, но и гораздо
-надежнее.</p>
-
-<p>В Селектеле есть несколько хитростей, которые его отличают от стандатного опенстека, описанного
-в документации:</p>
-
-<ol>
-<li>авторизоваться нужно именно так, как в моем примере;</li>
-<li>флеворы в Селектеле создаются под каждый бокс отдельно (можно использовать один флевор для нескольких серверов) и они бездисковые, их можно создать заблаговременно с помощью <code>nova flavor-create</code> как описано <a href="https://habrahabr.ru/company/selectel/blog/242001/">здесь</a>;</li>
-<li>айдишники образов можно взять с помощью <code>glance image-list</code> или из панели;</li>
-<li>и самое главное, добавьте в мета-информацию сервера поле <code>x_sel_server_default_addr = {&quot;ipv4&quot;:&quot;&quot;}</code>, не спрашивайте зачем, так надо, иначе не будет работать сеть.</li>
-</ol>
-
-<p>Вуаля. Теперь вы можете легко терраформить Селектел как вам нравится. А как вы создаете свою инфраструктуру?</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/13/terraform-like-a-terraformer/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%A2%D0%B5%D1%80%D1%80%D0%B0%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D0%BC+%D0%A1%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D0%B5%D0%BB&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F13%2Fterraform-like-a-terraformer%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

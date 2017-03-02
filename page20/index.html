@@ -64,6 +64,64 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/03/24/automigration/index.html">Автоматические миграции</a></h1>
+      
+      <div class="date">March 24, 2012</div>
+
+      
+      <div class="entry">
+        <p>Мне всегда немного не нравились миграции тем, что они разрастаются и описание моделей становится
+размазанным. К тому же я часто забываю добавить какую-нибудь колонку или путаю тип.
+Ради каждой из таких операций создавать отдельную миграцию довольно утомительно.
+Во всех своих проектах мы используем авто-миграции, которые я недавно опубликовал как
+<a href="https://github.com/boshie/automigration">отдельный гем</a>. </p>
+
+<p>Инсталяция - классическая: добавить <tt>gem &#39;automigration&#39;</tt> в <tt>Gemfile</tt> и <tt>bundle install</tt>.</p>
+
+<p>Теперь добавьте описание колонок моделей прямо в модели:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_fields</span> <span class="k">do</span>
+    <span class="n">string</span> <span class="ss">:name</span>
+    <span class="n">integer</span> <span class="ss">:login_count</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>и запустите миграции:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">rake db:create db:migrate
+</code></pre></div>
+<p>Гем автоматически создает необходимые таблицы, удаляет устаревшие, добавляет/удаляет/обновляет колонки,
+описанные в моделях. После этого запускаются классические миграции. Таким образом количество
+необходимых миграций сильно сокращается.</p>
+
+<h2>Известные недостатки</h2>
+
+<p>Сейчас есть несколько известных дефектов и неточностей:</p>
+
+<ul>
+<li>Сложности при переименовании колонки. По умолчанию авто-миграции удалят старую колонку и создадут новую. Если нужно при этом сохранить старый контент, то необходимо либо сделать это вручную, либо создать временную миграцию, которая перенесет информацию. Но такая ситуация довольно редкая.</li>
+<li>Гем работает только с PostgreSQL. Возможно он работает и с другими базами, никогда не проверял.</li>
+<li>Миграции из гемов-енджинов будет работать неправильно. Это я исправлю.</li>
+<li>Для того, чтобы подцепились модели из гемов-енджинов необходимо указать путь до папки с моделями (используется только при исполнении задачи rake db:migration):</li>
+</ul>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Custom</span>
+  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Engine</span>
+    <span class="n">initializer</span> <span class="s1">&#39;custom&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
+      <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">automigration</span><span class="o">.</span><span class="n">model_paths</span> <span class="o">&lt;&lt;</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../../../app/models&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+        
+        <div style="float:right"><a href="/blog/2012/03/24/automigration/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D0%BC%D0%B8%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F24%2Fautomigration%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/03/13/alias-method-chain/index.html">Alias Method Chain</a></h1>
       
       <div class="date">March 13, 2012</div>

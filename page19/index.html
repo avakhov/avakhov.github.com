@@ -64,6 +64,130 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/05/04/gems-require/index.html">Гемы - require и bundler</a></h1>
+      
+      <div class="date">May  4, 2012</div>
+
+      
+      <div class="entry">
+        <p>Мне не хватит духу написать подробное руководство как создать гем, к тому же я сам не эксперт в этом вопросе, лучше
+расскажу сегодня про еще одну ошибку, на которую я потратил пару часов, дойдя даже до отладки. Она
+настолько глупая, что не хочется, чтобы еще кто-то терял свое время. Точнее говоря, это даже не ошибка, а заблуждение.</p>
+
+<p>В одном гемспеке я прописал зависимость от хамла:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### secret.gemspec</span>
+<span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">gem</span><span class="o">|</span>
+  <span class="n">gem</span><span class="o">.</span><span class="n">authors</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;Alexey Vakhov&quot;</span><span class="o">]</span>
+  <span class="c1"># ..</span>
+
+  <span class="n">gem</span><span class="o">.</span><span class="n">add_dependency</span> <span class="s1">&#39;haml&#39;</span>
+</code></pre></div>
+<p>Этот гем является энджином, в нем есть контроллеры и вьюхи. Все прекрасно работало на тестовом приложении, но когда я прикрутил
+его к новому проекту, то хамл-вьюхи перестали подцеплятся. Я заглядывал в Gemfile.lock файл и видел зависимость от хамла, но вьюхи
+не работали, не находился обработчик хамл. Так как я был совершенно уверен, что эта схема правильная, то мне пришлось потратить
+довольно много времени, чтобы разобраться.</p>
+
+<p>Думаю, вы уже поняли в чем была проблема. Я уже настолько привык к магии бандлера в рейлс, что не задумывался,
+как это работает. Однако, когда мы используем бандлер вне рейлс, то написав гем-файл и вставив <code>require &quot;bundler/setup&quot;</code>
+мы просто ограничиваем область видимости для <code>require</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">&quot;rubygems&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;bundler/setup&quot;</span>
+
+<span class="no">Nokorigi</span> <span class="c1"># =&gt; uninitialized constant Nokogiri (NameError)</span>
+
+<span class="c1"># require your gems as usual (Nokorigi прописан в гем-файле)</span>
+<span class="nb">require</span> <span class="s2">&quot;nokogiri&quot;</span>
+
+<span class="no">Nokorigi</span> <span class="c1"># =&gt; OK</span>
+
+<span class="nb">require</span> <span class="s2">&quot;unicorn&quot;</span> <span class="c1"># =&gt; cannot load such file -- unicorn (LoadError)</span>
+</code></pre></div>
+<p>Это пример взят с <a href="http://gembundler.com/">официального сайта бандлера</a>. Рейлс идет дальше и автоматически включает
+все гемы из гем-файла (ориентируясь на енвайромент) в проект с помощью <code>Bundler.require</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/application.rb чистого проекта</span>
+
+<span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Bundler</span><span class="p">)</span>
+  <span class="no">Bundler</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="o">*</span><span class="no">Rails</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="ss">:assets</span> <span class="o">=&gt;</span> <span class="sx">%w(development test)</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Таким образом в моем проекте бандлер включил по умолчанию мой гем, но не включил хамл, так как он не был прописан в гем-файле проекта, 
+а была только зависимость!
+Гемспек используется при установке и в данном случае игнорируется бандлером. В тестовом приложении, на котором я разрабатывал гем,
+хамл был включен в гем-файл и поэтому ошибки не было. Чтобы бы больше не попадаться в эту ловушку, во всех гемах я явно включаю
+все зависимости в главном файле:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### secret.gemspec</span>
+<span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">gem</span><span class="o">|</span>
+  <span class="n">gem</span><span class="o">.</span><span class="n">authors</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;Alexey Vakhov&quot;</span><span class="o">]</span>
+  <span class="c1"># ..</span>
+
+  <span class="n">gem</span><span class="o">.</span><span class="n">add_dependency</span> <span class="s1">&#39;haml&#39;</span>
+  <span class="n">gem</span><span class="o">.</span><span class="n">add_dependency</span> <span class="s1">&#39;modularity&#39;</span>
+  <span class="n">gem</span><span class="o">.</span><span class="n">add_dependency</span> <span class="s1">&#39;nokorigi&#39;</span>
+<span class="k">end</span>
+
+<span class="c1">### lib/secret.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;haml&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;modularity&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;nokorigi&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;secret/version&#39;</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p>Практика показывает, что сначала нужно искать ошибки в своем коде, потом в фреймворке, потом в компиляторе, потом в железе, потом ... хм, в мироздании наверное :) Из сложных ситуаций, я ловил один раз крэш руби на домашнем компьютере из-за немного битой памяти. Руби - прожорливый язык и когда залезал в сбойные ячейки, то падал. Я догадался запустить мемтест, хотя никогда с таким не сталкивался. К слову сказать и сама система вела себя немного станно. </p>
+
+<p>Второй случай, может быть вы поможете в нем разобраться. Я все собираюсь запустить что-нибудь в
+продакшн на JRuby с мультитредовым рейлс. В MRI пугают GIL (у-у-у-у, страшно. Не знаю что это, но похоже какая-то пакость, которая
+не позволяет параллелить программу на несколько ядер) и плохими тредами. Поэтому готовлюсь заранее.</p>
+
+<p>Насколько я понимаю, чтобы
+ничего не шлепнулось, необходимо избегать использовать члены класса. Я обернул код из статьи <a href="http://coderrr.wordpress.com/2008/04/10/lets-stop-polluting-the-threadcurrent-hash/">Let’s stop polluting the Thread.current hash</a> в
+гем <a href="https://github.com/avakhov/thread_local_accessor">thread<em>local</em>accessor</a>, но он (хвала travis-ci) падал на руби 1.9.3-p125
+(на p0 работал хорошо) на конструкции <code>ObjectSpace.define_finalizer Thread.current, FINALIZER</code>. Видимо в p125 нельзя прилеплять
+финалайзер к <code>Thread.current</code> (я нахожусь на чертовско тонком льду понятий, которые очень слабо понимаю,
+поэтому могу сморозить что-нибудь не то).</p>
+
+<p>Я переписал код таким образом, что вроде он должен быть потоко-безопасным и
+работает на всех версиях руби. Сейчас проверяю эту библиотеку на живых проектах, пока в однопоточном режиме:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># https://github.com/avakhov/thread_local_accessor/blob/master/lib/thread_local_accessor.rb</span>
+
+<span class="k">class</span> <span class="nc">Class</span>
+  <span class="k">def</span> <span class="nf">thread_local_accessor</span> <span class="nb">name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="no">Module</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">module_eval</span> <span class="sx">%{</span>
+<span class="sx">      def </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        k = ((Class === self ? self : self.class).object_id.to_s + &#39;_</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">&#39;).to_sym</span>
+<span class="sx">        if Thread.current.key?(k)</span>
+<span class="sx">          Thread.current[k]</span>
+<span class="sx">        else</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">options</span><span class="o">[</span><span class="ss">:default</span><span class="o">].</span><span class="n">inspect</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        end</span>
+<span class="sx">      end</span>
+
+<span class="sx">      def </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">=(val)</span>
+<span class="sx">        k = ((Class === self ? self : self.class).object_id.to_s + &#39;_</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">&#39;).to_sym</span>
+<span class="sx">        Thread.current[k] = val</span>
+<span class="sx">      end</span>
+<span class="sx">    }</span>
+
+    <span class="nb">class_eval</span> <span class="k">do</span>
+      <span class="kp">include</span> <span class="n">m</span>
+      <span class="kp">extend</span> <span class="n">m</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Вы знаете почему падал предыдущий код и, как вы думаете, новый подход нормальный?</p>
+
+        
+        <div style="float:right"><a href="/blog/2012/05/04/gems-require/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%93%D0%B5%D0%BC%D1%8B+-+require+%D0%B8+bundler&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F05%2F04%2Fgems-require%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/05/02/gem-github-option/index.html">Экономим в честь дня труда</a></h1>
       
       <div class="date">May  2, 2012</div>
@@ -896,64 +1020,6 @@ devise, которому нужен <code>root_path</code>) и зелеными 
         
         
         <a href="https://twitter.com/intent/tweet?text=And+%D0%B8%D0%BB%D0%B8+%26amp%3B%26amp%3B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F28%2Fand-or-and%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/24/automigration/index.html">Автоматические миграции</a></h1>
-      
-      <div class="date">March 24, 2012</div>
-
-      
-      <div class="entry">
-        <p>Мне всегда немного не нравились миграции тем, что они разрастаются и описание моделей становится
-размазанным. К тому же я часто забываю добавить какую-нибудь колонку или путаю тип.
-Ради каждой из таких операций создавать отдельную миграцию довольно утомительно.
-Во всех своих проектах мы используем авто-миграции, которые я недавно опубликовал как
-<a href="https://github.com/boshie/automigration">отдельный гем</a>. </p>
-
-<p>Инсталяция - классическая: добавить <tt>gem &#39;automigration&#39;</tt> в <tt>Gemfile</tt> и <tt>bundle install</tt>.</p>
-
-<p>Теперь добавьте описание колонок моделей прямо в модели:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="n">has_fields</span> <span class="k">do</span>
-    <span class="n">string</span> <span class="ss">:name</span>
-    <span class="n">integer</span> <span class="ss">:login_count</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>и запустите миграции:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">rake db:create db:migrate
-</code></pre></div>
-<p>Гем автоматически создает необходимые таблицы, удаляет устаревшие, добавляет/удаляет/обновляет колонки,
-описанные в моделях. После этого запускаются классические миграции. Таким образом количество
-необходимых миграций сильно сокращается.</p>
-
-<h2>Известные недостатки</h2>
-
-<p>Сейчас есть несколько известных дефектов и неточностей:</p>
-
-<ul>
-<li>Сложности при переименовании колонки. По умолчанию авто-миграции удалят старую колонку и создадут новую. Если нужно при этом сохранить старый контент, то необходимо либо сделать это вручную, либо создать временную миграцию, которая перенесет информацию. Но такая ситуация довольно редкая.</li>
-<li>Гем работает только с PostgreSQL. Возможно он работает и с другими базами, никогда не проверял.</li>
-<li>Миграции из гемов-енджинов будет работать неправильно. Это я исправлю.</li>
-<li>Для того, чтобы подцепились модели из гемов-енджинов необходимо указать путь до папки с моделями (используется только при исполнении задачи rake db:migration):</li>
-</ul>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Custom</span>
-  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Engine</span>
-    <span class="n">initializer</span> <span class="s1">&#39;custom&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
-      <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">automigration</span><span class="o">.</span><span class="n">model_paths</span> <span class="o">&lt;&lt;</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../../../app/models&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-        
-        <div style="float:right"><a href="/blog/2012/03/24/automigration/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D0%BC%D0%B8%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F24%2Fautomigration%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

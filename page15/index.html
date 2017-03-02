@@ -64,6 +64,255 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2015/01/29/ember-2-fire/index.html">Ember.js - 2. Index & Show</a></h1>
+      
+      <div class="date">January 29, 2015</div>
+
+      <div class="img"><img src="/assets/ember-2-fire.jpg" /></div>
+      <div class="entry">
+        <p>Сколько раз в жизни вам нужно было сделать одностраничное приложение, которое хранит данные
+в локал сторадже наподобие TodoMVC из официального гайда Эмбера
+<a href="http://emberjs.com/guides/"><i class="fa fa-external-link"></i></a>?
+Мне ни разу. Поэтому, как только я начинал делать что-то полезное,
+то сразу же возникало сотни практических вопросов, на которые гайды не отвечали.</p>
+
+<p>Если подумать, то что представляют из себя 99% современных сайтов? Это CRUD-работа с базой.
+Предположим людям
+не
+нужен дизайн и всякая анимация, что лучше всего подходит для создания CRUD-интерфейсов?
+Конечно
+же Рейлс приложение на бутстрапе!
+Предлагаю делать бутстрап-CRUD на Эмбере,
+это будет почти также круто, как Рейлс <img class='emoji' title=':trollface:' alt=':trollface:' src='https://assets.github.com/images/icons/emoji/trollface.png' height='20' width='20' align='absmiddle' />.</p>
+
+<h2>Сервер</h2>
+
+<p>Я решил, если клиент на javascript, то и сервер должен быть на javascript, а база должна быть Монго.
+С меня сошло семь потов пока я написал простенькое приложение на ноде, обрабатывающее запросы
+от REST-адаптера Эмбера. Если кратко, то запросы принимаются в виде <code>{record: {field1: &quot;value1&quot;}, ...}</code> и
+возвращаются в том же виде. Более подробно можно прочитать в официальной документации <a href="http://emberjs.com/guides/models/the-rest-adapter/"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// INDEX</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/api/posts&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s2">&quot;posts&quot;</span><span class="p">).</span><span class="nx">find</span><span class="p">().</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// CREATE</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/api/posts&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//..</span>
+<span class="p">});</span>
+
+<span class="c1">// SHOW</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/api/posts/:id&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//..</span>
+<span class="p">});</span>
+
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>Вообщем такой, обычный REST. Код сервера здесь
+<a href="https://github.com/avakhov/ember-demo/blob/master/server/server.js"><i class="fa fa-external-link"></i></a>. 
+Я не добавил обработку ошибок и, уверен, нарушил кучу принципов построения ноде-приложений,
+так как понятия не имею как это правильно делать, но для демонстрации работы Эмбера
+нам будет достаточно и такого сервера.</p>
+
+<h2>Томстер, зажигай</h2>
+
+<p>В принципе Эмбер действительно похож на Рейлс. Каждой странице соответствует свой уникальный урл.
+Определением кто будет рисовать страницу заведует раутер:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/router.js</span>
+<span class="nx">Router</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/index&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/new&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/new&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/show&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/:id&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/edit&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/:id/edit&#39;</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Рауты я использовал немного не канонические, но таким образом все файлы очень здорово расскладываются по
+папочкам.</p>
+
+<p>Когда мы заходим на главную страницу, то вызывается раут <code>posts/index</code>. В Рейлс мы можем добавить вьюху,
+а экшен в контроллере сгенерируется автоматически (хотя я так обычно не люблю делать и всегда
+добавляю пустой метод), в Эмбере принцип автоматической генерации доведен до абсолюта.
+Любой компонент в цепочке вызова после раута можно пропустить и он сгенерируется автоматически.</p>
+
+<p>Для <code>posts/index</code> мы определим раут явно:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/routes/posts/index.js</span>
+<span class="kr">import</span> <span class="nx">Ember</span> <span class="nx">from</span> <span class="s1">&#39;ember&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Обратите внимания используется магия модулей ES6, запоминать синтаксис не нужно,
+заготовки файлов удобно создаются с помощью <code>ember-cli</code>
+генераторов (в консоли <code>ember g route posts/index</code>). Задача раута в большинстве случаев сохранить модель
+или коллекцию моделей. На первом этапе нужно придерживаться правила один урл = один раут = одна модель/коллекция моделей.
+Такое соглашение обедняет возможный функционал, но в дальнейшем мы научимся обходить
+это ограничение несколькими способами.
+Метод <code>model</code> должен вернуть модель или промис (мы же находимся в асинхронном енвайроменте).</p>
+
+<p><code>store</code> - это &quot;база данных&quot; нашего клиентского приложения. Работой с моделями занимается специальный
+модуль Ember Data, который никак не может выйти из статуса беты. Стор частично зеркалирует данные,
+содержащиеся на сервере. То есть, если мы запросим все посты с сервера, они будут лежат
+в сторе, пока мы не запросим их заново. Мы можем добавить в стор запись и позднее ее сохранить на сервере.
+Таким образом если сильно постараться
+можно добиться приятной отзывчивости своего приложения.</p>
+
+<p><code>store.find</code> возвращает промис
+на коллекцию моделей <code>post</code>, которые Эмбер запрашивает с сервера, используя REST-адаптер. Чтобы система
+заработала необходимо определить собственно сам адаптер:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/adapters/application.js</span>
+<span class="kr">import</span> <span class="nx">DS</span> <span class="nx">from</span> <span class="s1">&#39;ember-data&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">config</span> <span class="nx">from</span> <span class="s1">&#39;../config/environment&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">RESTAdapter</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">host</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">baseHost</span><span class="p">,</span>
+  <span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;api&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Хост указан, чтобы при разработке мы запускали <code>ember-cli</code> и ноде-сервер на разных портах, нейспейс
+помогает разделить запросы к API, с доставкой приложения (Эмбер хоть и одностраничное приложение, 
+при использовании history api он занимает все урлы).</p>
+
+<p>И также описываем схему самой модели:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/models/post.js</span>
+<span class="kr">import</span> <span class="nx">DS</span> <span class="nx">from</span> <span class="s1">&#39;ember-data&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">),</span>
+  <span class="nx">body</span><span class="o">:</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Многообразием типов Эмбер в отличие от Рейлс не балует (да и в принципе он не стремиться 
+нас в чем-то особо баловать), однако строки, числа, даты и даже связи между моделями есть.</p>
+
+<p>Следующим компонентом в иерархии обработки запроса идет контроллер. Задача контроллера - хранить стейт
+страницы и пробрасывать модель в темплейт. В данном случае мы оставим автосгенеренный контроллер.
+Контроллеры нам понадобятся при реализации других раутов.</p>
+
+<p>И наконец темплейт - это реактивный хенлебар-шаблон с расширениями и разными наворотами (в прошлой записе
+я говорил, что все есть <code>Ember.Object</code> с свойствами через <code>set/get</code> и computed-свойствами, через
+магию Эмбера все что вы поменяется в модели, контроллере и тд автоматически отобразится во вьюхе
+наподобие React.js):</p>
+<div class="highlight"><pre><code class="language-handlebars" data-lang="handlebars"><span class="x">&lt;ol class=&quot;breadcrumb&quot;&gt;</span>
+<span class="x">  &lt;li class=&quot;active&quot;&gt;Posts&lt;/li&gt;</span>
+<span class="x">&lt;/ol&gt;</span>
+
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span><span class="nf">#link</span><span class="err">-</span><span class="nv">to</span> <span class="s2">&quot;posts/new&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s2">&quot;btn btn-default&quot;</span><span class="cp">}}</span><span class="x">New Post</span><span class="cp">{{</span><span class="nf">/link</span><span class="err">-</span><span class="nv">to</span><span class="cp">}}</span><span class="x"></span>
+
+<span class="cp">{{</span><span class="k">#each</span> <span class="nv">post</span> <span class="k">in</span> <span class="nv">model</span><span class="cp">}}</span><span class="x"></span>
+<span class="x">  &lt;h2&gt;</span><span class="cp">{{</span><span class="nf">#link</span><span class="err">-</span><span class="nv">to</span> <span class="s2">&quot;posts/show&quot;</span> <span class="nv">post</span><span class="cp">}}{{</span><span class="nv">post.title</span><span class="cp">}}{{</span><span class="nf">/link</span><span class="err">-</span><span class="nv">to</span><span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">  </span><span class="cp">{{</span><span class="nv">post.body</span><span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span><span class="k">/each</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
+<p>Тут все просто: бежим по <code>model</code> (который на самом деле
+в данном случае коллекция постов) и отрисовываем. <code>link-to</code> - 
+это хэлпер, которые делает известно что. Кстати особенностью создания ссылки в таком виде является то, что
+при нажатии на эту ссылку, хук <code>model</code> в рауте <code>post/show</code> вызван не будет,
+то есть не будет запроса к серверу и с главной
+страницы вы мгновенно попадете на страницу поста. Это хорошо с одной стороны, но с другой стороны
+вызывает такие нежданные баги, которым позавидует любая другая система.</p>
+
+<p>Аналогично создаем раут для <code>posts/show</code>.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// app/routes/posts/show.js</span>
+<span class="kr">import</span> <span class="nx">Ember</span> <span class="nx">from</span> <span class="s1">&#39;ember&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Здесь мы уже используем динамический раут с айдишником записи, прямо как в рейлс. Темплейт тоже
+стандартный:</p>
+<div class="highlight"><pre><code class="language-handlebars" data-lang="handlebars"><span class="x">&lt;ol class=&quot;breadcrumb&quot;&gt;</span>
+<span class="x">  &lt;li&gt;</span><span class="cp">{{</span><span class="nf">#link</span><span class="err">-</span><span class="nv">to</span> <span class="s1">&#39;posts/index&#39;</span><span class="cp">}}</span><span class="x">Posts</span><span class="cp">{{</span><span class="nf">/link</span><span class="err">-</span><span class="nv">to</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">  &lt;li class=&quot;active&quot;&gt;</span><span class="cp">{{</span><span class="nv">title</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">&lt;/ol&gt;</span>
+
+<span class="x">&lt;h2&gt;</span><span class="cp">{{</span><span class="nv">title</span><span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
+<span class="cp">{{</span><span class="nv">body</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
+<p>Хотя здесь есть один нюанс, мы используем <code>{{title}}</code> вместо <code>{{model.title}}</code>. Так можно делать. Здесь включается очередная магия Эмбера, которую пока можно принять просто как факт.</p>
+
+<h2>Пару мелочей</h2>
+
+<p>Бутстрап подключаем в <code>Brocfile.js</code> (это штука для сборщика ассетов в <code>ember-cli</code>):</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Brocfile.js</span>
+
+<span class="kd">var</span> <span class="nx">EmberApp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ember-cli/lib/broccoli/ember-app&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmberApp</span><span class="p">();</span>
+
+<span class="c1">// Bootstrap</span>
+<span class="nx">app</span><span class="p">.</span><span class="kr">import</span><span class="p">(</span><span class="s2">&quot;vendor/bootstrap-3.3.1/css/bootstrap.css&quot;</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="kr">import</span><span class="p">(</span><span class="s2">&quot;vendor/bootstrap-3.3.1/js/bootstrap.js&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">fonts</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.eot&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.svg&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.ttf&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;vendor/bootstrap-3.3.1/fonts/glyphicons-halflings-regular.woff&quot;</span>
+<span class="p">];</span>
+<span class="nx">fonts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">font</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">app</span><span class="p">.</span><span class="kr">import</span><span class="p">(</span><span class="nx">font</span><span class="p">,</span> <span class="p">{</span><span class="nx">destDir</span><span class="o">:</span> <span class="s2">&quot;fonts&quot;</span><span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">toTree</span><span class="p">();</span>
+</code></pre></div>
+<p>Создаем в базе тестовые записи:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">rs-ds053668:PRIMARY&gt; db.posts.find()
+{ &quot;_id&quot; : ObjectId(&quot;54c9702fce1c75040021bb37&quot;), &quot;title&quot; : &quot;First Post&quot;, &quot;body&quot; : &quot;Lorem
+ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;54c97fc5ce1c75040021bb39&quot;), &quot;title&quot; : &quot;Second Post&quot;, &quot;body&quot; : &quot;Lorem
+ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot; }
+</code></pre></div>
+<p><code>ember build</code> - компилирует код клиентского приложения, это можно повесить в <code>post-install</code>, но
+для простоты я скомпилировал ассеты и положил их в репозитарий:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd </span>client <span class="o">&amp;&amp;</span> ember build --environment<span class="o">=</span>production --output-path<span class="o">=</span>../server/public
+</code></pre></div>
+<p>Ахалай Махалай! Киргуду Бургуду!</p>
+
+<h2>Результат</h2>
+
+<p><img src="/assets/ember-2-fire/1.png" alt=""></p>
+
+<p><img src="/assets/ember-2-fire/2.png" alt=""></p>
+
+<h2>Ура!</h2>
+
+<p>Фух. Спасибо, что домотали до конца.
+Я выкатил приложение на хероку, исходники на гитхабе. Сегодня нам получилось
+реализовать только буковку R. Буковки С, U и D реализуем в следующий раз.
+Если ничего не понятно - это нормально.
+Эмбер и не должен быть понятным. Это же Эмбер! Спасибо за внимание и до новых встреч!</p>
+
+<ul>
+<li>Исходники - <a href="https://github.com/avakhov/ember-demo">https://github.com/avakhov/ember-demo</a></li>
+<li>Приложение на хероку - <a href="http://ember-demo.herokuapp.com">http://ember-demo.herokuapp.com</a></li>
+</ul>
+
+        
+        <div style="float:right"><a href="/blog/2015/01/29/ember-2-fire/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=Ember.js+-+2.+Index+%26+Show&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F29%2Fember-2-fire%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2015/01/26/flat_map/index.html">Enumerable#flat_map</a></h1>
       
       <div class="date">January 26, 2015</div>
@@ -551,53 +800,6 @@ jQuery UI Sortable, не нарушая реактивности системы.
         
         
         <a href="https://twitter.com/intent/tweet?text=React.js+%2B+jQuery+UI+Sortable&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F11%2Freact-sortable%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/08/2-small-things/index.html">Пару руби-мелочей</a></h1>
-      
-      <div class="date">December  8, 2014</div>
-
-      <div class="img"><img src="/assets/2-small-things.jpg" /></div>
-      <div class="entry">
-        <p>Накопилось пару мелочей, о которых хочу сегодня написать.</p>
-
-<h2>Array#to_h</h2>
-
-<p>Ровно сто тысяч раз я писал примерно так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ages</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">[</span> <span class="n">users</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
-  <span class="o">[</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">age</span><span class="o">]</span>
-<span class="p">}</span><span class="o">]</span>
-</code></pre></div>
-<p>Боги увидели мои страдания и послали человека с именем
-<a href="https://github.com/marcandre">Marc-André Lafortune</a>, который добавил в транк метод <code>#to_h</code> <a href="https://github.com/ruby/ruby/commit/dc215dcd9f96620b7c06a25a741d13b19c2f130b"><i class="fa fa-external-link"></i></a>
-около года назад.
-Изменения появились в руби 2.1, я все время забываю, что этим уже можно и нужно пользоваться:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ages</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
-  <span class="o">[</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">age</span><span class="o">]</span>
-<span class="p">}</span><span class="o">.</span><span class="n">to_h</span>
-</code></pre></div>
-<h2>Интерполяция без {}</h2>
-
-<p>Где-то в исходниках я увидел как выводять пид процесса</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="s2">&quot;PID: #$$&quot;</span>
-</code></pre></div>
-<p>&quot;Что же это такое?&quot; - подумал я. Я знаю только только вариант <code>puts &quot;PID: #{$$}&quot;</code>. Оказываетcя в руби
-глобальные переменные можно интерполировать без кавычек:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$name</span> <span class="o">=</span> <span class="s2">&quot;Alexey&quot;</span>
-<span class="nb">puts</span> <span class="s2">&quot;I&#39;m </span><span class="si">#{</span><span class="vg">$name</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c1"># =&gt; I&#39;m Alexey</span>
-<span class="nb">puts</span> <span class="s2">&quot;I&#39;m </span><span class="si">#$name</span><span class="s2">&quot;</span>     <span class="c1"># =&gt; I&#39;m Alexey</span>
-</code></pre></div>
-<p><img class='emoji' title=':fire:' alt=':fire:' src='https://assets.github.com/images/icons/emoji/unicode/1f525.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':fire:' alt=':fire:' src='https://assets.github.com/images/icons/emoji/unicode/1f525.png' height='20' width='20' align='absmiddle' /></p>
-
-        
-        <div style="float:right"><a href="/blog/2014/12/08/2-small-things/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%B0%D1%80%D1%83+%D1%80%D1%83%D0%B1%D0%B8-%D0%BC%D0%B5%D0%BB%D0%BE%D1%87%D0%B5%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F08%2F2-small-things%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
