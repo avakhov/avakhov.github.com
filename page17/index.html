@@ -64,6 +64,58 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/11/06/pretty-bash-prompt/index.html">Bash Prompt, проверенный временем</a></h1>
+      
+      <div class="date">November  6, 2014</div>
+
+      <div class="img"><img src="/assets/pretty-bash-prompt.jpg" /></div>
+      <div class="entry">
+        <p>Подозреваю, что многие меняли внешний вид строки приглашения
+(так же переводится prompt, правильно?) в консоли много-много раз.</p>
+
+<p>После долгих экспериментов я остановился на таком:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># http://stackoverflow.com/a/1862762</span>
+<span class="k">function</span> timer_start <span class="o">{</span>
+  <span class="nv">timer</span><span class="o">=</span><span class="k">${</span><span class="nv">timer</span><span class="k">:-</span><span class="nv">$SECONDS</span><span class="k">}</span>
+<span class="o">}</span>
+<span class="k">function</span> timer_stop <span class="o">{</span>
+  <span class="nv">timer_show</span><span class="o">=</span><span class="k">$((</span><span class="nv">$SECONDS</span> <span class="o">-</span> <span class="nv">$timer</span><span class="k">))</span>
+  <span class="nb">unset </span>timer
+<span class="o">}</span>
+<span class="nb">trap</span> <span class="s1">&#39;timer_start&#39;</span> DEBUG
+<span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="k">${</span><span class="nv">PROMPT_COMMAND</span><span class="k">}</span>timer_stop<span class="p">;</span>
+
+<span class="c">## http://railstips.org/blog/archives/2009/02/02/bedazzle-your-bash-prompt-with-git-info/</span>
+<span class="k">function</span> parse_git_branch <span class="o">{</span>
+  <span class="nv">ref</span><span class="o">=</span><span class="k">$(</span>git symbolic-ref HEAD 2&gt; /dev/null<span class="k">)</span> <span class="o">||</span> <span class="nb">exit</span>
+<span class="nb">  echo</span> <span class="s2">&quot;[&quot;</span><span class="k">${</span><span class="nv">ref</span><span class="p">#refs/heads/</span><span class="k">}</span><span class="s2">&quot;]&quot;</span>
+<span class="o">}</span>
+
+<span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;\[\e[0;33m\]\w\[\e[0m\]{\${timer_show}}(\$(ruby -v | cut -d&#39; &#39; -f2))\$(parse_git_branch)$ &quot;</span>
+</code></pre></div>
+<p>Данное приглашение состоит из текущей директории, времени запуска последней команды в секундах,
+версии руби и текущей git-ветки. Версию руби и ветку я видел у многих, а время запуска последней
+команды вживую не встречал. Однако это очень удобно. Допустим у вас в консоли что-то долго работало
+(например восстановление дампа базы), узнав время выполнения этой операции, вы сможете
+лучше запланировать время в будущем.</p>
+
+<p>В собранном виде это выглядит так:</p>
+
+<p><img src="/assets/pretty-bash-prompt/ps.png" alt=""></p>
+
+<p>Симпатично.</p>
+
+        
+        <div style="float:right"><a href="/blog/2014/11/06/pretty-bash-prompt/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=Bash+Prompt%2C+%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B5%D0%BC&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F06%2Fpretty-bash-prompt%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/10/30/oaas/index.html">Object as a Service</a></h1>
       
       <div class="date">October 30, 2014</div>
@@ -843,220 +895,6 @@ localhost - - [26/Dec/2012:10:21:58 MSK] &quot;GET / HTTP/1.1&quot; 200 5
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%BA%D0%B0%D0%B6%D0%B8+%D1%81%D0%B2%D0%BE%D0%B9+Monkey+Patch&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F11%2F16%2Fshow-me-your-monkey-patch-file%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/11/06/javascript-testing/index.html">3 способа автоматического тестирования Javascript</a></h1>
-      
-      <div class="date">November  6, 2012</div>
-
-      
-      <div class="entry">
-        <p>С++ я уважал за мощь и строгость, Руби обожаю за работу с строками, массивами и хэшами, но к Javascript всегда относился и продолжаю
-относится холодно. Мне не нравится как осуществляется работа с <code>this</code>, смущает обилие операторов и зарезервированных
-слов <code>undefined</code>, <code>null</code>, <code>Infinite</code>, <code>Nan</code>, <code>==</code>, <code>===</code>, а также я плохо ориентируются в колбеках. Кроме того, я не прочитал
-ни одной книги по Javascript, что конечно же не способствует установлению приятельских отношений с этим языком.</p>
-
-<p>Однако в ближайшие лет 5 вряд ли появится альтернатива для разработки на стороне клиента, поэтому с javascript придется работать еще
-очень долго. В проекте, в котором я сейчас работаю, накопилось достаточно большое количество клиентского кода и пришла пора его тестировать
-автоматически. Так как тема для меня новая, то я провел несколько эспериментов и
-сегодня хочу предложить вашему вниманию 3 простых способа сделать ваш javascript более надежным.</p>
-
-<p>Оговорюсь, что у нас простой интерфейс, однако есть сложные алгоритмические куски кода на javascript. Поэтому наши задачи идеально
-подходят под классическое юнит-тестирование, про которое я буду рассказывать сегодня. Как тестировать сложный UI я
-пока не знаю, так как с такой задачей еще не сталкивался.</p>
-
-<h2>Способ 1. ExecJS</h2>
-
-<p>Предположим, что нам нужно протестировать функцию, которая удаляет все элементы массива, совпадающие с заданным:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Удаляет все элементы e из массива</span>
-<span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-      <span class="nx">i</span><span class="o">--</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>Автоматические тесты запускаются на сервере после каждого комита, поэтому желательно, что бы js-тесты встроились в этот процесс.
-К счастью в любом рейлс-приложении у нас уже есть все необходимые компоненты.
-Гем <a href="https://github.com/sstephenson/execjs">execjs</a>, который используется при компилиции coffee-ассетов, можно использовать
-для выполнения произвольного кода на сервере.</p>
-
-<p>Добавляем <code>execjs</code> в секцию <code>test</code>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
-  <span class="n">gem</span> <span class="s1">&#39;execjs&#39;</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Создаем спек для тестирования:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
-
-<span class="n">describe</span> <span class="s2">&quot;array.js&quot;</span> <span class="k">do</span>
-  <span class="n">it</span> <span class="s2">&quot;implements Array#remove method&quot;</span> <span class="k">do</span>
-    <span class="c1"># Тестовые случаи</span>
-    <span class="n">spec</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">JS</span>
-<span class="sh">      var r1 = [1, 2, 2, 3].remove(2)</span>
-<span class="sh">      var r2 = [1, 1, 1, 1].remove(1)</span>
-<span class="sh">      // ...</span>
-<span class="no">    JS</span>
-
-    <span class="c1"># Создаем контекст</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/assets/javascripts/array.js&#39;</span><span class="p">))</span>
-    <span class="n">js_context</span> <span class="o">=</span> <span class="no">ExecJS</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">src</span> <span class="o">+</span> <span class="n">spec</span><span class="p">)</span>
-
-    <span class="c1"># Проверка ожиданий</span>
-    <span class="n">js_context</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;r1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
-    <span class="n">js_context</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;r2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="o">[]</span>
-    <span class="c1"># ...</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Запускаем спеки:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">~/proj/blog-2-js-testing<span class="o">(</span>1.9.3-p194<span class="o">)[</span>master<span class="o">]</span><span class="nv">$ </span>rspec
-..
-
-Finished in 0.32502 seconds
-<span class="m">1</span> example, <span class="m">0</span> failures
-</code></pre></div>
-<p>Вуаля, работает! Таким образом уже можно писать простые спеки.</p>
-
-<p>Если файл, который нужно протестировать, написан на coffee-скрипте, то его можно скомпилировать с помощью гема <code>coffee-script</code>,
-который также подключен к каждому рейлс-приложению:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
-  <span class="n">gem</span> <span class="s1">&#39;execjs&#39;</span>
-  <span class="n">gem</span> <span class="s1">&#39;coffee-script&#39;</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>компилируем его следующим образом:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="n">coffee</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;app/assets/javascripts/array.js&#39;</span><span class="p">))</span>
-  <span class="n">src</span> <span class="o">=</span> <span class="no">CoffeeScript</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">coffee</span><span class="p">)</span>
-  <span class="n">js_context</span> <span class="o">=</span> <span class="no">ExecJS</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-</code></pre></div>
-<p>Конечно такого рода код для работы с js-файлами лучше выделить в отдельное место, но для проверки технологии можно оставить и так.</p>
-
-<p>У данного метода тестирования есть много недостатков, главными из которых на мой взгляд являются: смешение js- и руби-кода в одном
-файле, а также возможная потеря информации на границе ruby и скрипта (<code>undefined</code>, <code>null</code>, <code>Infinite</code> все перейдут в <code>nil</code>, кроме того
-можно проверить только json-совместимые результаты). Главный положительный момент - тестирование органично встраивается
-в регулярный прогон тестов и не требует никаких дополнительных настроек.</p>
-
-<h2>Способ 2. Jasmine + ExecJS</h2>
-
-<p>Я слышал положительные отзывы о библиотеке <a href="http://pivotal.github.com/jasmine/">jasmine</a>. Синтаксис выглядит приятно и rspec-подобно.
-Поэтому решил модернизировать способ 1, чтобы писать спеки на чистом js (coffee).</p>
-
-<p>Скачиваем файлы <a href="https://github.com/pivotal/jasmine/blob/master/lib/jasmine-core/jasmine.js">jasmine.js</a> и <a href="https://github.com/pivotal/jasmine/blob/master/src/console/ConsoleReporter.js">ConsoleReporter.js</a>, помещаем их в <code>vendor/assets/javascripts</code>.</p>
-
-<p>Создаем файл, который будет запускать js-спеки. Он выглядит немного сложно, но так всегда происходит, когда мы начинаем
-решать нестандартную задачу на стыке языков.</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># encoding: utf-8</span>
-<span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
-
-<span class="c1"># Запустить js-спеки, используя jasmine и execjs</span>
-<span class="n">describe</span> <span class="s1">&#39;JS specs&#39;</span> <span class="k">do</span>
-  <span class="k">def</span> <span class="nf">assets</span><span class="p">(</span><span class="n">js_files</span><span class="p">)</span>
-    <span class="nb">Array</span><span class="p">(</span><span class="n">js_files</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="o">|</span><span class="n">js_file</span><span class="o">|</span>
-      <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">extname</span><span class="p">(</span><span class="n">js_file</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;.coffee&#39;</span>
-        <span class="no">CoffeeScript</span><span class="o">.</span><span class="n">compile</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">js_file</span><span class="p">))</span>
-      <span class="k">else</span>
-        <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">js_file</span><span class="p">))</span>
-      <span class="k">end</span>
-    <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="no">ASSETS</span> <span class="o">=</span> <span class="o">[</span>
-    <span class="s1">&#39;vendor/assets/javascripts/jasmine.js&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;vendor/assets/javascripts/ConsoleReporter.js&#39;</span><span class="p">,</span>
-
-    <span class="s1">&#39;app/assets/javascripts/array.js&#39;</span>
-  <span class="o">]</span>
-
-  <span class="no">Dir</span><span class="o">[</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;spec/javascripts/**/*_spec.js*&#39;</span><span class="p">)</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">asset</span><span class="o">|</span>
-    <span class="n">it</span> <span class="s2">&quot;passed </span><span class="si">#{</span><span class="no">Pathname</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span><span class="o">.</span><span class="n">relative_path_from</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
-      <span class="c1"># Подкладываем переменную `exports`, которая нужна jasmine.js</span>
-      <span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;var exports = {};</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-      <span class="c1"># Загружаем жасмин и тестируемый файл</span>
-      <span class="n">src</span> <span class="o">+=</span> <span class="n">assets</span><span class="p">(</span><span class="no">ASSETS</span> <span class="o">+</span> <span class="o">[</span><span class="n">asset</span><span class="o">]</span><span class="p">)</span>
-
-      <span class="c1"># Подключаем jasmine reporter</span>
-      <span class="n">src</span> <span class="o">+=</span> <span class="o">&lt;&lt;-</span><span class="no">JS</span>
-<span class="sh">        var out = &quot;&quot;;</span>
-<span class="sh">        var env = jasmine.getEnv();</span>
-
-<span class="sh">        // Собирать вывод мы будем в переменную `out`</span>
-<span class="sh">        var reporter = new jasmine.ConsoleReporter(function(msg){ out += msg; });</span>
-
-<span class="sh">        // Скажем jasmine не использовать setTimeout и все сделать в один поток</span>
-<span class="sh">        env.updateInterval = null;</span>
-
-<span class="sh">        // Запускаем js-cпеки</span>
-<span class="sh">        env.addReporter(reporter);</span>
-<span class="sh">        env.execute();</span>
-<span class="no">      JS</span>
-
-      <span class="n">js_context</span> <span class="o">=</span> <span class="no">ExecJS</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-
-      <span class="c1"># Используем assert, чтобы вывод в случае ошибки был понятнее</span>
-      <span class="n">out</span> <span class="o">=</span> <span class="n">js_context</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
-      <span class="n">js_specs_passed</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">=~</span> <span class="sr">/\d+ specs?, 0 failures/</span><span class="p">)</span>
-      <span class="n">assert</span> <span class="n">js_specs_passed</span><span class="p">,</span> <span class="n">out</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Пишем наш первый спек с помощью жасмина:</p>
-<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">describe</span> <span class="s">&#39;Array&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-  <span class="nx">it</span> <span class="s">&quot;#remove&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nx">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-    <span class="nx">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">].</span><span class="nx">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">([])</span>
-</code></pre></div>
-<p>Запускаем:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">~/proj/blog-2-js-testing<span class="o">(</span>1.9.3-p194<span class="o">)[</span>master<span class="o">]</span><span class="nv">$ </span>rspec
-..
-
-Finished in 0.57251 seconds
-<span class="m">2</span> examples, <span class="m">0</span> failures
-</code></pre></div>
-<p>Ура! Спеки пройдены.</p>
-
-<p>Данный способ мне идеологически нравится гораздо больше, рассмотрим его недостатки:</p>
-
-<ul>
-<li>Не учитываются зависимости между файлами.</li>
-<li>Нет возможности протестировать js, который работает с DOM.</li>
-<li>Сложно находить ошибку, когда спеки падают.</li>
-<li>Плохая гибкость, так как приходится указывать файлы явно.</li>
-</ul>
-
-<h2>Способ 3. ???</h2>
-
-<p>Способ 3 я еще не придумал. Мне любопытно посмотреть на <code>jasmine-gem</code> и совместить его с <a href="http://phantomjs.org/">phantomjs</a>.
-Так же интересно поиграть с <a href="https://github.com/jonleighton/poltergeist">полтергейстом</a> от Джона Лейгтона.
-Я буду рад, если вы поделитесь своим опытом тестирования javascript, так как тема важная, но мне показалось, что
-единого решения пока нет.</p>
-
-<p>До новых встреч!</p>
-
-<h3>Ссылки</h3>
-
-<ul>
-<li><a href="https://github.com/sstephenson/execjs">https://github.com/sstephenson/execjs</a> - execjs-гем</li>
-<li><a href="https://github.com/avakhov/blog-2-js-testing">https://github.com/avakhov/blog-2-js-testing</a> - исходные кода демо приложения</li>
-<li><a href="http://railscasts.com/episodes/297-running-javascript-in-ruby">http://railscasts.com/episodes/297-running-javascript-in-ruby</a> - Running JavaScript in Ruby</li>
-<li><a href="http://pivotal.github.com/jasmine/">http://pivotal.github.com/jasmine/</a> - jasmine</li>
-<li><a href="http://ruby-doc.org/stdlib-1.9.3/libdoc/pathname/rdoc/Pathname.html#method-i-relative_path_from">Pathname#relative<em>path</em>from</a></li>
-</ul>
-
-        
-        <div style="float:right"><a href="/blog/2012/11/06/javascript-testing/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=3+%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%B0+%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B3%D0%BE+%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F+Javascript&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F11%2F06%2Fjavascript-testing%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

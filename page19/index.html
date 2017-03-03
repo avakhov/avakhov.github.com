@@ -64,6 +64,123 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/05/10/after-holidays/index.html">И снова руби, после выходных</a></h1>
+      
+      <div class="date">May 10, 2012</div>
+
+      
+      <div class="entry">
+        <p>После таких длинных праздников тяжело снова браться за работу, все эти буквы, цифры, кнопки.
+Однажды, после отпуска, я забыл пароль на рабочий компьютер. В другой раз забыл пин-код на входной двери, причем посреди рабочей недели.
+На моей первой работе, чтобы попасть в офис, необходимо было ввести пароль из четырех цифр. Рука настолько привыкла к этому действия,
+ что случайно задумавшить, а какой же у нас код, я не смог вспомнить ни одной цифры. Пришлось ждать коллег и потом сдаваться
+секретарям. Отдых - это тоже серьезный труд. За праздники не появилось ничего новенького из практики, поэтому расскажу про несколько фишек, которые я припас уже давно.</p>
+
+<h2>Массив и Хэш</h2>
+
+<p>В руби 1.9 ошибка при обращении по сломанному индексу к массиву стала более невнятной:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">RUBY_VERSION</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;1.8.7&quot;</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">][</span><span class="ss">:key</span><span class="o">]</span>
+<span class="ss">TypeError</span><span class="p">:</span> <span class="no">Symbol</span> <span class="n">as</span> <span class="n">array</span> <span class="n">index</span>
+</code></pre></div><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">RUBY_VERSION</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;1.9.3&quot;</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">][</span><span class="ss">:key</span><span class="o">]</span>
+<span class="ss">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">convert</span> <span class="no">Symbol</span> <span class="n">into</span> <span class="nb">Integer</span>
+</code></pre></div>
+<p>Если вы случайно передадите масcив в функцию, которая принимает хэш, то поймаете ошибку <code>TypeError: can&#39;t convert Symbol into Integer</code>.
+Я один раз довольно долго искал проблему, так как вызов метода и работа с аргументом были окружены дополнительным кодом и я грешил на
+другую конструкцию.</p>
+
+<h2>Функция &quot;притвориться&quot;</h2>
+
+<p>Во всех сайтах с бэкэндом в модель администратора мы обычно добавляем булевские флажки с правами доступа. Примерно так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># model</span>
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_fields</span> <span class="k">do</span>
+    <span class="n">string</span> <span class="ss">:username</span>
+
+    <span class="n">boolean</span> <span class="ss">:acl_seo</span>
+    <span class="n">boolean</span> <span class="ss">:acl_posts</span>
+    <span class="n">boolean</span> <span class="ss">:acl_orders</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+
+<span class="c1"># controller</span>
+<span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">layout</span> <span class="s1">&#39;admin&#39;</span>
+  <span class="n">before_filter</span> <span class="ss">:authenticate_user</span>
+  <span class="n">before_filter</span> <span class="p">{</span> <span class="k">raise</span> <span class="no">AccessDenied</span> <span class="k">unless</span> <span class="n">current_user</span><span class="o">.</span><span class="n">acl_posts?</span> <span class="p">}</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+
+<span class="c1"># view</span>
+<span class="o">&lt;</span><span class="sx">% if </span><span class="n">current_user</span><span class="o">.</span><span class="n">acl_posts?</span> <span class="sx">%&gt;</span>
+<span class="sx">  &lt;%= link_to &quot;Posts&quot;, posts_path %&gt;</span>
+<span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
+</code></pre></div>
+<p>Эта простая и надежная схема верно служит нам уже довольно долго. Мы создаем суперюзеров, чтобы скрыть настройки от клиента, о которых
+ему не следуют беспокоится. Клиенты часто просят создать аккаунты с ограниченными правами (в душе мы все параноики и к тому же любим
+ущемить чьи-нибудь интересы :-)). Недавно я придумал добавить ещу одну функцию &quot;притвориться другим пользователем&quot;. Теперь суперюзер
+может выбрать из комбобокса любой аккаунт и залогиниться им. Схематически это реализовано так:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="c1"># ...</span>
+  <span class="k">def</span> <span class="nf">owner_user</span>
+    <span class="vi">@owner_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:owner_user_id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">AdminController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="c1"># ...</span>
+
+  <span class="k">def</span> <span class="nf">pretend</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;id &lt;&gt; ?&#39;</span><span class="p">,</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">[</span><span class="ss">:owner_user_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">sign_in</span> <span class="n">user</span>
+    <span class="n">redirect_to</span> <span class="ss">:back</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">stop_pretend</span>
+    <span class="k">if</span> <span class="n">owner_user</span>
+      <span class="n">sign_in</span> <span class="n">owner_user</span>
+      <span class="n">session</span><span class="o">[</span><span class="ss">:owner_user_id</span><span class="o">]</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="k">end</span>
+    <span class="n">redirect_to</span> <span class="ss">:back</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Эта маленькая хитрость позволяет решить сразу же 2 проблемы: всегда можно под любым аккаунтом посмотреть не осталось
+ли чего-нибудь лишнего, и можно зайти под клиентом, который говорит, что у него &quot;все сломалось&quot; и убедиться, что это действительно так.</p>
+
+<h2>Всегда запоминать меня</h2>
+
+<p>Коллега прислал ссылку на статью <a href="http://robots.thoughtbot.com/post/177133611/always-remember-me">Always remember me</a>, о том
+что пора отказаться от галочки &quot;запомнить меня&quot;. В принципе я согласен с этой статьей и сам не долюбливаю эту галочку.
+Даже если сломался интернет и вы не сможете нажать ссылку &quot;выйти&quot;, то всегда можно очистить куки или пользоваться режимом
+приватного просмотра.
+В рейлс 3.2 реализовать логин без экспирации очень легко:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">cookies.signed.permanent[:user_id] = current_user.id
+# Для чтения permanent указывать не обязательно, а signed - обязательно
+cookies.signed[:user_id] # =&gt; 123
+</code></pre></div>
+<p>Мы новые проекты делаем без галочки в бэкэнде, проверяем концепцию. </p>
+
+<p>Хорошей рабочей недели!</p>
+
+        
+        <div style="float:right"><a href="/blog/2012/05/10/after-holidays/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%98+%D1%81%D0%BD%D0%BE%D0%B2%D0%B0+%D1%80%D1%83%D0%B1%D0%B8%2C+%D0%BF%D0%BE%D1%81%D0%BB%D0%B5+%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D1%85&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F05%2F10%2Fafter-holidays%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/05/04/gems-require/index.html">Гемы - require и bundler</a></h1>
       
       <div class="date">May  4, 2012</div>
@@ -977,49 +1094,6 @@ devise, которому нужен <code>root_path</code>) и зелеными 
         
         
         <a href="https://twitter.com/intent/tweet?text=Ruby+NoName+%D0%BF%D0%BE%D0%B4%D0%BA%D0%B0%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F29%2Frubynoname-podcast%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/03/28/and-or-and/index.html">And или &amp;&amp;</a></h1>
-      
-      <div class="date">March 28, 2012</div>
-
-      
-      <div class="entry">
-        <p>Когда я делал свой первый интернет-магазин из Agile Web Development with Rails, мне
-понравилось, что программа выглядит как английский текст. После C++ это было так здорово. Я везде
-использовал and. Потом я где-то прочитал, что это неправильно и нужно в логических условиях
-использовать &amp;&amp; и ||, а в render(&#39;help me&#39;) and die нужно использовать английские варианты. Я переключился
-на новый стиль.</p>
-
-<p>Недавно я снова вернулся к данному вопросу, но не смог найти других отличий между and и &amp;&amp; (or и ||)
-кроме <a href="http://www.ruby-doc.org/docs/ProgrammingRuby/language.html#operatorexpressions">приоритетов</a>.
-Поэтому приведу несколько примеров, когда отличия будут существенные:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">true</span> <span class="ow">and</span> <span class="nb">puts</span> <span class="s1">&#39;help&#39;</span> <span class="c1"># =&gt; print &#39;help&#39; to output</span>
-<span class="kp">true</span> <span class="o">&amp;&amp;</span> <span class="nb">puts</span> <span class="s1">&#39;help&#39;</span>  <span class="c1"># =&gt; SyntaxError: compile error ...</span>
-
-<span class="kp">true</span> <span class="ow">or</span> <span class="kp">false</span> <span class="ow">and</span> <span class="kp">false</span> <span class="c1"># =&gt; false</span>
-<span class="kp">true</span> <span class="o">||</span> <span class="kp">false</span> <span class="o">&amp;&amp;</span> <span class="kp">false</span>  <span class="c1"># =&gt; true</span>
-
-<span class="n">redirect_to</span> <span class="vi">@post</span> <span class="ow">and</span> <span class="k">return</span> <span class="c1"># OK</span>
-<span class="n">redirect_to</span> <span class="vi">@post</span> <span class="o">&amp;&amp;</span> <span class="k">return</span>  <span class="c1"># Опасно, return не будет вызван</span>
-</code></pre></div>
-<p>Разница незначительная, поэтому можно использовать любые варианты, однако мне больше нравится
-классический вариант:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="n">cond1</span> <span class="o">&amp;&amp;</span> <span class="n">cond2</span>
-<span class="c1"># ...</span>
-<span class="k">end</span>
-
-<span class="n">redirect_to</span> <span class="vi">@post</span> <span class="ow">and</span> <span class="k">return</span>
-</code></pre></div>
-        
-        <div style="float:right"><a href="/blog/2012/03/28/and-or-and/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=And+%D0%B8%D0%BB%D0%B8+%26amp%3B%26amp%3B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F03%2F28%2Fand-or-and%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

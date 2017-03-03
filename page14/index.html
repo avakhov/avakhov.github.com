@@ -64,6 +64,34 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/22/refactoring/index.html">Переписывать нельзя модифицировать</a></h1>
+      
+      <div class="date">August 22, 2016</div>
+
+      <div class="img"><img src="/assets/2/refactoring/main.jpg" /></div>
+      <div class="entry">
+        <p>В какой-то книжке прочитал, что программу дешевле переписать с нуля, если нужно модифицировать более 30% исходников.</p>
+
+<p>С этим я согласен, но еще больше люблю
+сделать рабочий каркас в любом случае с чистого листа (в случае рейлс - это начать
+новое приложение). И потом перетаскивать куски старого кода, постоянно проверяя, что приложение запускается.
+Таким образом генеральное флоу выполнения программы оказывается под контролем и явно видны точки, где управление передается в легаси.</p>
+
+<p>В качесте приятного бонуса половина кода теряется, как и положено при любом хорошем переезде, новое
+приложение становится
+гораздо свежее старого.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/08/22/refactoring/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%B5%D1%80%D0%B5%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%82%D1%8C+%D0%BD%D0%B5%D0%BB%D1%8C%D0%B7%D1%8F+%D0%BC%D0%BE%D0%B4%D0%B8%D1%84%D0%B8%D1%86%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F22%2Frefactoring%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/19/lazy-git/index.html">Лига лени в гит-конфиге</a></h1>
       
       <div class="date">August 19, 2016</div>
@@ -470,80 +498,6 @@ rps, сколько в прошлый раз выдавали двенадцат
         
         
         <a href="https://twitter.com/intent/tweet?text=Ember+-+3.+REST&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F02%2F17%2Fmeeio%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/02/02/tsort/index.html">Tsort</a></h1>
-      
-      <div class="date">February  2, 2015</div>
-
-      <div class="img"><img src="/assets/tsort.jpg" /></div>
-      <div class="entry">
-        <p>В исходниках Рейлс я как-то увидел ссылку на модуль <code>tsort</code> <a href="https://github.com/rails/rails/blob/v4.2.0/railties/lib/rails/initializable.rb#L40-L45"><i class="fa fa-external-link"></i></a>.
-&quot;Tsort, WTF?&quot; - подумал я (в переводе с английского это означает -
-что за неведомый, удивительный метод <code>tsort</code> есть в нашем любимом руби).</p>
-
-<p>Документация говорит <a href="http://www.ruby-doc.org/stdlib-2.1.2/libdoc/tsort/rdoc/TSort.html"><i class="fa fa-external-link"></i></a>:
-&quot;TSort implements topological sorting using Tarjan&#39;s algorithm for strongly connected components&quot;.
-Википедия поддерживает <a href="http://en.wikipedia.org/wiki/Strongly_connected_component"><i class="fa fa-external-link"></i></a>:
-&quot;In the mathematical theory of directed graphs, a graph is said to be strongly connected if every vertex is reachable from every other vertex&quot;.</p>
-
-<p>Обычно такие объяснения выглядят для меня примерно так: &quot;麺類 緑茶 algorithm 車青出&quot;, но в этот
-раз я даже
-разобрался. Эта штука помогает найти циклические зависимости в графе, что очень хорошо,
-например, для подсчета зависимостей:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;tsort&#39;</span>
-
-<span class="k">class</span> <span class="nc">BuildSystem</span> <span class="o">&lt;</span> <span class="no">Hash</span>
-  <span class="kp">include</span> <span class="no">TSort</span>
-  <span class="k">alias</span> <span class="n">tsort_each_node</span> <span class="n">each_key</span>
-  <span class="k">def</span> <span class="nf">tsort_each_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-    <span class="nb">self</span><span class="o">[</span><span class="n">node</span><span class="o">].</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">dependencies</span> <span class="o">=</span> <span class="o">[]</span><span class="p">)</span>
-    <span class="nb">self</span><span class="o">[</span><span class="n">component</span><span class="o">]</span> <span class="o">=</span> <span class="n">dependencies</span>
-  <span class="k">end</span>
-
-  <span class="k">alias</span> <span class="n">build_order</span> <span class="n">tsort</span>
-
-  <span class="k">def</span> <span class="nf">valid?</span>
-    <span class="n">strongly_connected_components</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">component</span><span class="o">|</span>
-      <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
-        <span class="nb">puts</span> <span class="s2">&quot;Cyclic deps: </span><span class="si">#{</span><span class="n">component</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="kp">false</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-    <span class="kp">true</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="n">sys</span> <span class="o">=</span> <span class="no">BuildSystem</span><span class="o">.</span><span class="n">new</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;rack&quot;</span><span class="p">,</span> <span class="sx">%w[]</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;rails&quot;</span><span class="p">,</span> <span class="sx">%w[activerecord activesupport actionmailer]</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;actionmailer&quot;</span><span class="p">,</span> <span class="sx">%w[rack]</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;activesupport&quot;</span><span class="p">,</span> <span class="sx">%w[rack]</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;activerecord&quot;</span><span class="p">)</span>
-
-<span class="nb">p</span> <span class="n">sys</span><span class="o">.</span><span class="n">valid?</span>      <span class="c1"># =&gt; true</span>
-<span class="nb">p</span> <span class="n">sys</span><span class="o">.</span><span class="n">build_order</span>
-<span class="c1"># =&gt; [&quot;rack&quot;, &quot;activerecord&quot;, &quot;activesupport&quot;, &quot;actionmailer&quot;, &quot;rails&quot;]</span>
-
-<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;rack&quot;</span><span class="p">,</span> <span class="sx">%w[rails]</span><span class="p">)</span>
-<span class="nb">p</span> <span class="n">sys</span><span class="o">.</span><span class="n">valid?</span>
-<span class="c1"># Cyclic deps: [&quot;rack&quot;, &quot;rails&quot;, &quot;activesupport&quot;, &quot;actionmailer&quot;]</span>
-<span class="c1"># =&gt; false</span>
-</code></pre></div>
-<p>Вот такой вот дивный компонент.</p>
-
-        
-        <div style="float:right"><a href="/blog/2015/02/02/tsort/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=Tsort&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F02%2F02%2Ftsort%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
