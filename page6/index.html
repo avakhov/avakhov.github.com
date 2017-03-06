@@ -64,6 +64,43 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/12/12/small_pak/index.html">Маленькая пакость от терраформа</a></h1>
+      
+      <div class="date">December 12, 2016</div>
+
+      
+      <div class="entry">
+        <p>В моем любимом терраформе есть неочевидное поведение, которое, будь я более сильным духом, конечно
+бы зарепортил или даже лучше попробовал пофиксить.</p>
+
+<p>Интерполирование строк 
+в <code>tf</code>-файлах происходит
+через конструкцию <code>some-${var.VARNAME}</code>, но если забыть ключевое слово <code>var</code>, то терраформ
+молча заменит строку на пустую!</p>
+
+<p>Поэтому если вы хотите, например, создать такую днс запись:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">resource <span class="s2">&quot;dnsimple_record&quot;</span> <span class="s2">&quot;internal-page&quot;</span> <span class="o">{</span>
+  <span class="nv">domain</span> <span class="o">=</span> <span class="s2">&quot;microsoft.com&quot;</span>
+  <span class="nv">name</span>   <span class="o">=</span> <span class="s2">&quot;google-hate-page-${REGION}&quot;</span>
+  <span class="nv">value</span>  <span class="o">=</span> <span class="s2">&quot;1.1.1.1&quot;</span>
+  <span class="nb">type</span>   <span class="o">=</span> <span class="s2">&quot;A&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>то <code>terraform apply</code> молча добавит A-запись с IP <code>1.1.1.1</code>! Крайне неприятно.</p>
+
+<p>Терраформ, я <img class='emoji' title=':eyes:' alt=':eyes:' src='https://assets.github.com/images/icons/emoji/unicode/1f440.png' height='20' width='20' align='absmiddle' /> за тобой.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/12/12/small_pak/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B0%D0%BB%D0%B5%D0%BD%D1%8C%D0%BA%D0%B0%D1%8F+%D0%BF%D0%B0%D0%BA%D0%BE%D1%81%D1%82%D1%8C+%D0%BE%D1%82+%D1%82%D0%B5%D1%80%D1%80%D0%B0%D1%84%D0%BE%D1%80%D0%BC%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F12%2Fsmall_pak%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/09/ubiley/index.html">33.3%</a></h1>
       
       <div class="date">December  9, 2016</div>
@@ -411,44 +448,6 @@ bash - да, zsh - нет.</p>
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%91%D1%8E%D1%80%D0%BE%D0%BA%D1%80%D0%B0%D1%82%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F29%2Fkach%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/28/cc/index.html">ConcourseCI - отличная идея, подозрительная реализация</a></h1>
-      
-      <div class="date">November 28, 2016</div>
-
-      
-      <div class="entry">
-        <p>По совету коллеги изучил СoncourseCI, CI нового поколения. Идея - просто бомба, пайплайны, которые 
-собираются в модных yaml-файлах (кстати у ямл-файлов второе рождение, в рейлс они помню были
-очень давно, потом все захватил JSON и вот снова ямл, который на самом деле включает
-в себя JSON) и позволяют делать потенциально любые операции с вашими
-исходниками: релизить, версионировать, деплоить, выкладывать на S3 и все остальное, что может пригодится
-для CI/CD. </p>
-
-<p>Но вот реализация, уж на что я спокоен ко всякому, но это, друзья, перебор. Докер контейнер, в котором
-бинарь на го в 250 мегабайт, который при установки выстреливает из себя пучок других бинарей и докер
-демон, который запускает докеры, в которых собираются докеры. Ну вообщем эта вся конструкция
-без проблем запускается, прилично работает на тестовых примерах и
-в принципе собрал пару пайплайнов, которые потенциально могли бы нам
-пригодится, но психологически работать с такой системой не очень приятно. Не понятно как подлезть к
-конкретному контейнеру когда что-то пойдет не так, невнятная работа с кэшированием.
-Можно, конечно, все решить, если жизнь заставит,
-но добровольно пока в это ввязываться не хочу.</p>
-
-<p>СoncourseCI, уверен, - будущее, и поиграть с ним точно стоит, освежает мышление. С внедрением
-спешить не будут, подожду 
-более простую реализацию или попробую еще раз попозднее.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/11/28/cc/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=ConcourseCI+-+%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%B0%D1%8F+%D0%B8%D0%B4%D0%B5%D1%8F%2C+%D0%BF%D0%BE%D0%B4%D0%BE%D0%B7%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F+%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F28%2Fcc%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

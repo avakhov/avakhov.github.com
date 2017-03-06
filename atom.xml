@@ -7,6 +7,36 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Теги в ансибле</title>
+        <description>
+          
+          &lt;p&gt;Когда в ансибл настраиваешь бокс и запускаешь &lt;code&gt;ansible-playbook the-server.yml&lt;/code&gt; раз за разам,
+то обычно хочется запускать только какой-то кусочек файла, я знаю два способа: колхозный и
+красивый.&lt;/p&gt;
+
+&lt;p&gt;Колхозный - просто комментим то, что не нужно запускать, главное не забыть раскоментить
+перед пушем обратно. В виме у меня компанда &lt;code&gt;gc&lt;/code&gt; почему-то комментирует или раскомментирует
+более менее правильно любой фрагмент кода на любом языке. Видимо это плагин какой-то, так как пальцы
+помнят, а разум нет.&lt;/p&gt;
+
+&lt;p&gt;Красивый - на нужные констукции повесить тег, например так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;manage_user&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;{admin_users}&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;и вызывать &lt;code&gt;ansible-playbook the-server.yml --tags keys&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Во время разработки я обычно использую
+колхозный способ (все мои дедушки, бабушки и пра- из крестьян), а вот, например, в новых репозитариях
+команда &lt;code&gt;ansible-playbook *.yml --tags keys&lt;/code&gt; как раз обновляет все ключи на всех серверах, если нужно
+дать доступ коллеге или наоборот забрать. В принципе возможна ситуация, когда в одной подсети может быть разный
+доступ к разным серверам и данное решение DRY.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 06 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/06/atag/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/06/atag/index.html</guid>
+      </item>
+    
+      <item>
         <title>Лоулоад</title>
         <description>
           
@@ -274,31 +304,6 @@ DoS почты, дисциплинированно отписываясь от �
         <pubDate>Mon, 20 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/20/teams/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/20/teams/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Ансибл потек</title>
-        <description>
-          
-          &lt;p&gt;На днях нашел забавный дефект в ансибл. В официальном образе консула &lt;a href=&quot;https://github.com/hashicorp/docker-consul/blob/master/0.X/docker-entrypoint.sh#L48&quot;&gt;есть возможность&lt;/a&gt; передать
-конфигурацию в переменной окружения:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;docker_container&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;consul&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;agent -server&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; 
-      &lt;span class=&quot;l-Scalar-Plain&quot;&gt;CONSUL_LOCAL_CONFIG&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;{&amp;quot;skip_leave_on_interrupt&amp;quot;:true,...}&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Это хорошо работает, но если передать в конфиг переменную
-&lt;code&gt;CONSUL_LOCAL_CONFIG: &amp;#39;{&amp;quot;bind&amp;quot;:&amp;quot;&amp;#123;{ip}}&amp;quot;,...}&amp;#39;&lt;/code&gt;, то ансибл в окружение
-контейнера передает строку с одинарными кавычками вместо двойных
-и естественно консул не запускается, так-как &lt;code&gt;{&amp;#39;bind&amp;#39;:&amp;#39;...&lt;/code&gt; - это уже не JSON. Что-то
-где-то там внутри замыкает.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 17 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/17/ansible/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/17/ansible/index.html</guid>
       </item>
     
   </channel>

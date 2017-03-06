@@ -64,6 +64,83 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2015/02/17/meeio/index.html">Ember - 3. REST</a></h1>
+      
+      <div class="date">February 17, 2015</div>
+
+      <div class="img"><img src="/assets/meeio.jpg" /></div>
+      <div class="entry">
+        <p>Давно не брал я в руки вима, вот беру и снова беру. Недавно узнал, что есть устойчивая аббревиатура MEAN
+для стека из монго, експресса, ангуляра и ноды.
+У нас ембер вместо ангуляра, меняем ноду на iojs, работаем в стеке MEEIO. </p>
+
+<p>В прошлом выпуске <a href="/blog/2015/01/29/ember-2-fire/index.html"><i class="fa fa-external-link"></i></a>
+мы сделали буковку R из CRUD для постов, сегодня доделаем все остальные буквы. Обновляем рауты:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Router</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/index&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/new&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/new&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/show&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/:id&#39;</span><span class="p">});</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="s1">&#39;posts/edit&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/posts/:id/edit&#39;</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>На главной странице добавляем ссылку на создание нового поста (<code>app/templates/posts/index.hbs</code>):</p>
+<div class="highlight"><pre><code class="language-handlebars" data-lang="handlebars"><span class="x">&lt;p&gt;</span><span class="cp">{{</span><span class="nf">#link</span><span class="err">-</span><span class="nv">to</span> <span class="s2">&quot;posts/new&quot;</span><span class="cp">}}</span><span class="x">New Post</span><span class="cp">{{</span><span class="nf">/link</span><span class="err">-</span><span class="nv">to</span><span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</code></pre></div>
+<p>Делаем раут для <code>new</code> (<code>app/routes/posts/new.js</code>):</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">createRecord</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">);</span>
+  <span class="p">},</span>
+
+  <span class="nx">deactivate</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;model.isNew&quot;</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">).</span><span class="nx">rollback</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Обратите внимание на метод <code>deactivate</code>. Я не знаю насколько это стандартный прием, придумал его из
+головы. В прошлом выпуске мы обсуждали, что ембер-store - это некоторая сущность, которая должна
+синхронизироваться с сервером. <code>createRecord</code> не синхронизирует запись с сервером, однако создает его в
+сторе. И если вы откажитесь от сохранения записи и выйдите через меню на главную страницу, то пустая
+запись будет в вашем списке. Чтобы этого не произошло и добавил ролбек на не сохрненную модель.</p>
+
+<p>В форме вешаем на кнопку экшен (<code>app/templates/posts/_form.hbs</code>):</p>
+<div class="highlight"><pre><code class="language-handlebars" data-lang="handlebars"><span class="x">  &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot; </span><span class="cp">{{</span><span class="nv">action</span> <span class="s2">&quot;save&quot;</span><span class="cp">}}</span><span class="x">&gt;Save&lt;/button&gt;</span>
+</code></pre></div>
+<p>Который обрабатываем в контроллере (<code>app/controllers/posts/new.js</code>):</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">Ember</span> <span class="nx">from</span> <span class="s1">&#39;ember&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">ObjectController</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">actions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">save</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">;</span>
+      <span class="nx">model</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">me</span><span class="p">.</span><span class="nx">transitionToRoute</span><span class="p">(</span><span class="s2">&quot;posts/show&quot;</span><span class="p">,</span> <span class="nx">model</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Таким образом реализовали C. Остальные буквы легко сделать по аналогии.</p>
+
+<ul>
+<li>Изменения - <a href="https://github.com/avakhov/ember-demo/compare/52b5925aa6a72726998bfd5d7600f49ce83e2ff2...2212d524f6b41407e468830fe8114260e117f4cc">https://github.com/avakhov/ember-demo/compare</a></li>
+<li>Приложение на хероку - <a href="http://ember-demo.herokuapp.com">http://ember-demo.herokuapp.com</a></li>
+</ul>
+
+        
+        <div style="float:right"><a href="/blog/2015/02/17/meeio/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=Ember+-+3.+REST&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F02%2F17%2Fmeeio%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2015/02/02/tsort/index.html">Tsort</a></h1>
       
       <div class="date">February  2, 2015</div>
@@ -774,52 +851,6 @@ Active Record запросы. Когда записей уже миллионы,
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%A3%D0%B4%D0%B0%D0%BB%D1%8F%D0%B5%D0%BC+%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8+%D0%B8%D0%B7+%D0%B1%D0%B0%D0%B7%D1%8B+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F18%2Fremove_a_lot_records%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/15/timestamps/index.html">Сравниваем таймстемпы</a></h1>
-      
-      <div class="date">December 15, 2014</div>
-
-      <div class="img"><img src="/assets/timestamps.jpg" /></div>
-      <div class="entry">
-        <p>Как то раз я нашел ошибку в сервисе <a href="https://github.com/noahhl/batsd">Batsd</a>, написанным Noah Lorang из компании тогда еще 37signals.
-И очень обрадовался, найти у ошибку у таких парней - очень почетно.</p>
-
-<p>Batsd - это штука для хранения агрегированных метрик на подобии statsd, только на руби. В коде я увидел строчку,
-где берутся таймстемпы из текстового файла и сравниваются как строки, без конвертации в число <a href="https://github.com/noahhl/batsd/blob/3cc5e016ed1424aab0fd7d7b06bad5b2076ef4ca/lib/batsd/diskstore.rb#L56-L58"><i class="fa fa-external-link"></i></a>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">        <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span> 
-          <span class="k">while</span> <span class="p">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">gets</span><span class="p">)</span>
-            <span class="n">ts</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span>
-            <span class="k">if</span> <span class="n">ts</span> <span class="o">&gt;=</span> <span class="n">start_ts</span> <span class="o">&amp;&amp;</span> <span class="n">ts</span> <span class="o">&lt;=</span> <span class="n">end_ts</span>    <span class="c1"># &lt;--- ЗДЕСЬ!</span>
-              <span class="n">datapoints</span> <span class="o">&lt;&lt;</span> <span class="p">{</span><span class="ss">timestamp</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span> <span class="ss">value</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">to_f</span><span class="p">}</span>
-            <span class="k">end</span>
-          <span class="k">end</span>
-          <span class="n">file</span><span class="o">.</span><span class="n">close</span>
-        <span class="k">end</span>
-</code></pre></div>
-<p>Вот оно! - подумал я, но оказалось было рано праздновать победу. </p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">004</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="o">[</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="o">]</span>
-<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">13</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">19</span> <span class="o">+</span><span class="mo">0300</span><span class="p">,</span> <span class="mi">1418638219</span><span class="o">]</span>
-
-<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">)</span>
-<span class="o">=&gt;</span> <span class="mi">2001</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">09</span> <span class="mo">05</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">40</span> <span class="o">+</span><span class="mo">0400</span>
-
-<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">9_999_999_999</span><span class="p">)</span>
-<span class="o">=&gt;</span> <span class="mi">2286</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">20</span> <span class="mi">20</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">39</span> <span class="o">+</span><span class="mo">0300</span>
-</code></pre></div>
-<p>Сейчас таймстемп 10-ти значный и даты, начиная c конца 2001 года, можно безболезненно сравнивать как строки.</p>
-
-<p>Это конечно хак, но хак забавный.</p>
-
-        
-        <div style="float:right"><a href="/blog/2014/12/15/timestamps/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+%D1%82%D0%B0%D0%B9%D0%BC%D1%81%D1%82%D0%B5%D0%BC%D0%BF%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F15%2Ftimestamps%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>

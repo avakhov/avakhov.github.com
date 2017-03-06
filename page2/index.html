@@ -64,6 +64,38 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/02/17/ansible/index.html">Ансибл потек</a></h1>
+      
+      <div class="date">February 17, 2017</div>
+
+      
+      <div class="entry">
+        <p>На днях нашел забавный дефект в ансибл. В официальном образе консула <a href="https://github.com/hashicorp/docker-consul/blob/master/0.X/docker-entrypoint.sh#L48">есть возможность</a> передать
+конфигурацию в переменной окружения:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">docker_container</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">consul</span>
+    <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">agent -server</span>
+    <span class="c1"># ...</span>
+    <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span> 
+      <span class="l-Scalar-Plain">CONSUL_LOCAL_CONFIG</span><span class="p-Indicator">:</span> <span class="s">&#39;{&quot;skip_leave_on_interrupt&quot;:true,...}&#39;</span>
+</code></pre></div>
+<p>Это хорошо работает, но если передать в конфиг переменную
+<code>CONSUL_LOCAL_CONFIG: &#39;{&quot;bind&quot;:&quot;&#123;{ip}}&quot;,...}&#39;</code>, то ансибл в окружение
+контейнера передает строку с одинарными кавычками вместо двойных
+и естественно консул не запускается, так-как <code>{&#39;bind&#39;:&#39;...</code> - это уже не JSON. Что-то
+где-то там внутри замыкает.</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/02/17/ansible/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%90%D0%BD%D1%81%D0%B8%D0%B1%D0%BB+%D0%BF%D0%BE%D1%82%D0%B5%D0%BA&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F17%2Fansible%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/02/16/enterpraise/index.html">Rails + PostgreSQL = крутота</a></h1>
       
       <div class="date">February 16, 2017</div>
@@ -350,38 +382,6 @@ web: rails s
         
         
         <a href="https://twitter.com/intent/tweet?text=%D0%9E%D0%BF%D0%B5%D1%87%D0%B0%D1%82%D0%BA%D0%B0+%D0%B2+JavaScript&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F06%2Fmisprint%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/02/03/perstar/index.html">Верю в будущих людей</a></h1>
-      
-      <div class="date">February  3, 2017</div>
-
-      
-      <div class="entry">
-        <p>33 года и уже суставы предсказывают перемену погоды (ок, еще не предсказывают, но готовь сани летом
-как говорится) и пора бы начать брюзжать, что раньше горы были выше, а реки глубже, но нет. 99%
-изменений в IT мне однозначно нравятся.</p>
-
-<p>И даже если предположить, что программисты стали глупее (хотя это не так), инструменты и практики
-стали однозначно лучше. Сравните:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">PGPASSWORD=secret psql -U user -h host -p 5432 db
-</code></pre></div>
-<p>супротив богомерзкой монго (хотя коннекшен стринг я увидел в первый раз именно там, а теперь
-большинство библиотек умеет коннектится так):</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">mongo mongodb://user:pass@host:2500/db
-</code></pre></div>
-<p>Матерый программист, потратит месяц чтобы выучить все ключики, и разобраться почему <code>ps auxww</code>, а <code>ls -al</code>,
-а молодой уже получит свой первый раунд инвестиций.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/02/03/perstar/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=%D0%92%D0%B5%D1%80%D1%8E+%D0%B2+%D0%B1%D1%83%D0%B4%D1%83%D1%89%D0%B8%D1%85+%D0%BB%D1%8E%D0%B4%D0%B5%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F02%2F03%2Fperstar%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
