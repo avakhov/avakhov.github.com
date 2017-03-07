@@ -64,6 +64,145 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/05/22/create-edge-application/index.html">Создание Edge Rails приложения</a></h1>
+      
+      <div class="date">May 22, 2012</div>
+
+      
+      <div class="entry">
+        <p>Если вы нашли какую-нибудь ошибку в рейлс, то нужно проверить, что ее еще не исправили в мастере.
+Для этого иногда необходимо создать приложение из edge. В интернете много устаревших статей на эту тему, поэтому
+сегодня расскажу, как это делаю я.</p>
+
+<p>Простой способ, это сгенерировать пустое приложение на последней стабильной версии рейлс и в гемфайле
+исправить запись с rails:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># gem &#39;rails&#39;, &#39;3.2.3&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="ss">path</span><span class="p">:</span> <span class="s1">&#39;../rails&#39;</span>
+</code></pre></div>
+<p>Но обычно это не очень хорошо, так как версии библиотек, которые прописывает стабильная версия рейлс,
+отличаются от тех, которые используются в мастере. Также могут измениться опции по умолчанию в различных конфигурационных
+файлах. Поэтому приходится дополнительно вручную подправлять настройки.</p>
+
+<p>Лучше создавать приложение прямо из edge. Для этого достаточно клонировать исходники рейлс к себе, запустить <code>bundle</code>, чтобы установить
+необходимые гемы и вызвать <code>rails new</code> из исходников:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/rails/rails
+pushd rails
+  bundle
+popd
+./rails/railties/bin/rails new demo-app --edge
+</code></pre></div>
+<p>Опция --edge обязательная при использовании нестабильных версий рейлс, иначе приложение создатся с еще не зарелизинными версиями
+библиотек и будет не рабочим.</p>
+
+<p>Я уже <a href="/blog/2012/04/22/rails-templates/">рассказывал</a>, как я создаю новое приложение. По аналогии я создал шаблон, для
+нового edge-приложения:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">file_force</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+  <span class="n">f</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">puts</span> <span class="n">content</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">close</span>
+<span class="k">end</span>
+
+<span class="n">gem</span> <span class="s1">&#39;haml&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;jquery-rails&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;therubyracer&#39;</span><span class="p">,</span> <span class="ss">platform</span><span class="p">:</span> <span class="ss">:ruby</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:assets</span>
+<span class="n">gem</span> <span class="s1">&#39;rails-footnotes&#39;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s1">&#39;avakhov/rails-footnotes&#39;</span><span class="p">,</span> <span class="ss">branch</span><span class="p">:</span> <span class="s1">&#39;custom&#39;</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:development</span>
+<span class="n">gem</span> <span class="s1">&#39;factory_girl_rails&#39;</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:test</span>
+<span class="n">gem</span> <span class="s1">&#39;timecop&#39;</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:test</span>
+<span class="n">gem</span> <span class="s1">&#39;database_cleaner&#39;</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:test</span>
+<span class="n">gem</span> <span class="s1">&#39;rspec-rails&#39;</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="o">[</span><span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span><span class="o">]</span>
+
+<span class="n">file</span> <span class="s1">&#39;.rspec&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">--colour</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;spec/spec_helper.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">ENV[&quot;RAILS_ENV&quot;] ||= &#39;test&#39;</span>
+<span class="sh">require File.expand_path(&quot;../../config/environment&quot;, __FILE__)</span>
+<span class="sh">require &#39;rspec/rails&#39;</span>
+<span class="sh">require &#39;rspec/autorun&#39;</span>
+
+<span class="sh">Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each {|f| require f}</span>
+
+<span class="sh">RSpec.configure do |config|</span>
+<span class="sh">  config.before(:suite) do</span>
+<span class="sh">    DatabaseCleaner.strategy = :transaction</span>
+<span class="sh">  end</span>
+
+<span class="sh">  config.before(:each) do</span>
+<span class="sh">    DatabaseCleaner.start</span>
+<span class="sh">  end</span>
+
+<span class="sh">  config.after(:each) do</span>
+<span class="sh">    DatabaseCleaner.clean</span>
+<span class="sh">  end</span>
+
+<span class="sh">  config.include FactoryGirl::Syntax::Methods</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;spec/factories.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">FactoryGirl.define do</span>
+<span class="sh">  # factory :demo do</span>
+<span class="sh">  #   name &#39;name&#39;</span>
+<span class="sh">  # end</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;app/controllers/home_controller.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">class HomeController &lt; ApplicationController</span>
+<span class="sh">  def index</span>
+<span class="sh">  end</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;app/views/home/index.html.haml&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">%h1 Home#index</span>
+<span class="sh">%p Find me in app/views/home/index.html.haml</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;spec/controllers/home_controller_spec.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">require &#39;spec_helper&#39;</span>
+
+<span class="sh">describe HomeController do</span>
+<span class="sh">  it &quot;index&quot; do</span>
+<span class="sh">    get &#39;index&#39;</span>
+<span class="sh">    response.should be_success</span>
+<span class="sh">  end</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">head</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">readlines</span><span class="p">(</span><span class="s1">&#39;config/routes.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="n">file_force</span> <span class="s1">&#39;config/routes.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">#{head.strip}</span>
+<span class="sh">  root to: &#39;home#index&#39;</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="no">FileUtils</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="s1">&#39;public/index.html&#39;</span><span class="p">)</span>
+<span class="no">FileUtils</span><span class="o">.</span><span class="n">rm_rf</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+
+<span class="nb">system</span> <span class="s2">&quot;bundle install&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;rake db:create db:migrate db:test:prepare&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;git init&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;git add .&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;git ci -amInitial&quot;</span>
+</code></pre></div>
+<p>Использую шаблон с помощью команды:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">./rails/railties/bin/rails new demo-app --edge -m rails-templates/edge-app.rb
+</code></pre></div>
+<p>По умолчанию будет использоваться рейлс из гитхаба <code>gem &#39;rails&#39;, github: &#39;rails/rails&#39;</code>, можно поменять вручную на <code>gem &#39;rails&#39;, path: &#39;../rails&#39;</code>, чтобы экспрериментировать со своими изменениями.</p>
+
+        
+        <div style="float:right"><a href="/blog/2012/05/22/create-edge-application/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+        <a href="https://twitter.com/intent/tweet?text=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+Edge+Rails+%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F05%2F22%2Fcreate-edge-application%2Findex.html" class="twitter-share-button">Tweet</a>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/05/15/css-sprites/index.html">CSS-спрайты на компасе</a></h1>
       
       <div class="date">May 15, 2012</div>
@@ -1021,91 +1160,6 @@ devise, которому нужен <code>root_path</code>) и зелеными 
         
         
         <a href="https://twitter.com/intent/tweet?text=DSL%2C+select+%D0%B8+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F11%2Fdsl-and-select%2Findex.html" class="twitter-share-button">Tweet</a>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/04/04/require/index.html">Require, Load и Rails</a></h1>
-      
-      <div class="date">April  4, 2012</div>
-
-      
-      <div class="entry">
-        <blockquote>
-Мы в ответе за тех, кого подключили с помощью load и require.
-<br>
-<i>Давид Хейнемейер де Сент-Экзюпери, Prince On Rails</i>
-</blockquote>
-
-<p>В геме автомиграций я столкнулся с интересной проблемой, для решения которой пришлось глубже
-изучить <code>require</code>, <code>load</code> и также то, как работает Rails с зависимостями.</p>
-
-<p>При выполнении задачи <code>rake db:migrate</code> гему необходимо пробежатся по всем моделям и обновить
-схему базы данных в соответствие с тем, что в модели записано. Я сделал это с помощью примерно
-такого кода:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;app/models/**/*.rb&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
-  <span class="nb">require</span> <span class="n">file</span>
-<span class="k">end</span>
-
-<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
-  <span class="c1"># ...</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Кстати обратите внимание на <a href="http://api.rubyonrails.org/classes/ActiveSupport/DescendantsTracker.html">ActiveSupport::DescendantsTracker</a>,
-по умолчанию он включается в <code>ActiveRecord::Model</code>, но его также удобно использовать при написании какого-нибудь модульного
-расширяемого API.</p>
-
-<p>Схема, описанная выше, работала хорошо, пока я не подключил девайс для авторизации. Автомиграции стали ломались на пользователе
-<code>User</code>. Складывалось ощущение, что модель <code>User</code> загружалась 2 раза и пыталась создать уже созданные колонки повторно.</p>
-
-<p>Это оказалось действительно так, но сначала давайте более внимательно посмотрим на методы <code>require</code> и <code>load</code> из самого руби.
-Если кратко, то load загружает файл всегда, а require только один раз. Причем, код загруженный с помощью <code>load</code> будет
-загружен с помощью <code>require</code> еще один раз. Простой пример для иллюстрации:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### header.rb</span>
-<span class="nb">puts</span> <span class="s1">&#39;bang!&#39;</span>
-
-<span class="c1">### demo.rb</span>
-<span class="nb">load</span> <span class="s1">&#39;header.rb&#39;</span>     <span class="c1"># print &#39;bang!&#39;</span>
-<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; []</span>
-<span class="nb">require</span> <span class="s1">&#39;header.rb&#39;</span>  <span class="c1"># print &#39;bang!&#39;</span>
-<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; [&#39;header.rb&#39;]</span>
-<span class="nb">require</span> <span class="s1">&#39;header.rb&#39;</span>  <span class="c1"># print nothing</span>
-<span class="nb">p</span> <span class="vg">$&quot;</span>                 <span class="c1"># =&gt; [&#39;header.rb&#39;]</span>
-</code></pre></div>
-<p>Таким образом, если мы один и тоже файл сначала подключим с помощью <code>load</code> а потом с помощью <code>require</code>, то он подключится два раза.</p>
-
-<p>Когда я подключил devise, то <code>devise_for :users</code> который прописывает рауты, обращается к модели юзер через дебри кода с помощью 
-<code>ActiveSupport::Dependencies.constantize</code>
-<a href="https://github.com/plataformatec/devise/blob/45aca40f6ce6eb1006f239328f273c3496ba3a64/lib/devise.rb#L294">lib/devise.rb#L294</a>
-Через другие дебри кода, <code>ActiveSupport::Dependencies</code>, который хачит <code>Оbject</code>,
-<a href="https://github.com/rails/rails/blob/02b9c22df8053d71782ae11900d0194f217afc3c/activesupport/lib/active_support/dependencies.rb#L32">вызывает</a>
-<code>load</code> в девелопменте (чтобы нам было комфортно работать без перезагрузки сервера) и <code>require</code> в продакшене. Поэтому мой гем работал 
-корректно в продакшене <code>RAILS_ENV=production rake db:migrate</code> и не работал в девелопменте.</p>
-
-<p>Исправил я просто, используя тот же трюк с <code>constantize</code>, что и девайс:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;app/models/**/*.rb&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
-  <span class="nb">name</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;app/models/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="no">Regexp</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">extname</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;$&#39;</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-  <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">constantize</span><span class="p">(</span><span class="nb">name</span><span class="o">.</span><span class="n">classify</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
-  <span class="c1"># ...</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Новая версия гема 1.0.1 работает с девайсом и без, в продакшене и в девелопменте.</p>
-
-<p><em>Пока я разбирался в require и load начал понимать, что может быть автомиграции чуть-чуть текут по памяти в девелопменте. Но видимо
-они это делают в очень щадящем режиме, что я ни разу этого не заметил. Вообще тема сложная, я только один раз сталкивался
-с тем, что globalize2 сильно тек в девелопменте, где-то я уже об этом писал. Ошибки такого класса тяжело поймать и тяжело исправить,
-но мне кажется, что в девелопмент режиме небольшие утечки - не редкость. Поразмышляю об этом на досуге.</em></p>
-
-        
-        <div style="float:right"><a href="/blog/2012/04/04/require/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-        <a href="https://twitter.com/intent/tweet?text=Require%2C+Load+%D0%B8+Rails&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F04%2Frequire%2Findex.html" class="twitter-share-button">Tweet</a>
         
       </div>
     </article>
