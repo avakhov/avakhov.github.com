@@ -64,6 +64,100 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/04/11/dsl-and-select/index.html">DSL, select и системные методы</a></h1>
+      
+      <div class="date">April 11, 2012</div>
+
+      
+      <div class="entry">
+        <p>При работе с руби иногда встречаются ошибки, которые вызывают замешательство. Недавно я создавал
+простой DSL для своей библиотеки на остове метода <code>instance_eval</code> (метод весьма спорный, его нужно
+использовать аккуратно, но сегодня речь не об этом). Интерпретатор руби вылетал с очень странной ошибкой,
+на простом коде:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Dsl</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="vi">@fields</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="nb">instance_eval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[select text string]</span>
+
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">if</span> <span class="no">METHODS</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="nb">method</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">args</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span>
+      <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="nb">method</span><span class="p">,</span> <span class="n">args</span><span class="o">]</span>
+    <span class="k">else</span>
+      <span class="k">super</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Dsl</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+  <span class="n">string</span> <span class="ss">:a</span>
+  <span class="nb">select</span> <span class="ss">:b</span>  <span class="c1"># &lt;--- BOOM!</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Трейс ошибки:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">demo.rb:20:in `select&#39;: wrong argument type Symbol (expected Array) (TypeError)
+    from demo.rb:20:in `block in &lt;main&gt;&#39;
+    from demo.rb:4:in `instance_eval&#39;
+    from demo.rb:4:in `initialize&#39;
+    from demo.rb:18:in `new&#39;
+    from demo.rb:18:in `&lt;main&gt;&#39;
+</code></pre></div>
+<p>Сейчас меня эта ошибка не удивляет, так как я знаю в чем подвох. Но тогда я очень удивился, даже безуспешно пытался отладить
+свой код.</p>
+
+<p>Секрет очень простой - в руби есть системный метод <code>select</code>
+(<a href="http://www.ruby-doc.org/core-1.9.3/Kernel.html#method-i-select">Kernel.html#method-i-select</a>) и происходит конфликт имен.
+Хорошо, что я еще не &quot;угадал&quot; аргументы, тогда бы ошибка была бы еще сложнее.</p>
+
+<p>Обойти эту проблему очень просто, необходимо объявить метод <code>select</code> в DSL явно:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1"># ...</span>
+
+  <span class="no">METHODS</span> <span class="o">=</span> <span class="sx">%w[text string]</span>
+
+  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="vi">@fields</span> <span class="o">&lt;&lt;</span> <span class="o">[</span><span class="ss">:string</span><span class="p">,</span> <span class="nb">name</span><span class="o">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="c1"># ...</span>
+</code></pre></div>
+<p>Таким образом при работе с рейлс у вас в распоряжении минимум 3 различных метода <code>select</code>: </p>
+
+<ul>
+<li>хелпер метод для рисования комбобоксов;</li>
+<li>метод поиска по массиву (<code>[1, 2, 3, 4, 5].select{|a| a%2 == 0}</code>);</li>
+<li>и наш сегодняшний таинственный незнакомец.</li>
+</ul>
+
+<p>Рейлс, как и само руби, довольно плохо защищено от конфликтов имен, так как количество
+системных методов руби и внутренних методов рейлс равно бесконечности. Поэтому если
+вам кажется, что интерпретатор свихнулся, возможно вы как раз поймали ошибку аналогичную описанной.</p>
+
+<p>И еще один совет - не используйте класс <code>Config</code> в глобальном пространстве имен:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># OK</span>
+<span class="k">module</span> <span class="nn">A</span>
+  <span class="k">class</span> <span class="nc">Config</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># BAD</span>
+<span class="k">class</span> <span class="nc">Config</span> <span class="c1"># &lt;-- in `&lt;main&gt;&#39;: Config is not a class (TypeError) </span>
+<span class="k">end</span>
+</code></pre></div>
+        
+        <div style="float:right"><a href="/blog/2012/04/11/dsl-and-select/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2012/04/11/dsl-and-select/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=DSL%2C+select+%D0%B8+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F11%2Fdsl-and-select%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/04/04/require/index.html">Require, Load и Rails</a></h1>
       
       <div class="date">April  4, 2012</div>

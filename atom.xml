@@ -7,6 +7,34 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Линейка</title>
+        <description>
+          
+          &lt;p&gt;Когда я вел блог в прошлый раз, то моим KPI было количество подписчиков в твиттере.
+Сейчас это не работает,
+старый прием простого репоста каждой истории просто перестал работать. Значит надо брать новую
+линейку.&lt;/p&gt;
+
+&lt;p&gt;Тадам! Добавил подписку на новости сайта - это будет новая метрика.
+У меня есть идеи
+о расширении активности, поэтому в
+рассылке будет обязательно какой-нибудь эксклюзивчик.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Если вам нравится блог и вы хотите его поддержать,
+заполните пожалуйста форму наверху сайта.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Спасибо, вы супер!
+&lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
+&lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
+&lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 09 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/09/marketing/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/09/marketing/index.html</guid>
+      </item>
+    
+      <item>
         <title>Бэкапы</title>
         <description>
           
@@ -267,50 +295,6 @@ DoS почты, дисциплинированно отписываясь от �
         <pubDate>Tue, 21 Feb 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/02/21/vacancy/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/02/21/vacancy/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Количество запросов</title>
-        <description>
-          
-          &lt;p&gt;Мы перешли с заббикса на прометей несколько месяцев назад, очень-очень довольны.
-Я планирую в течение месяца заопенсорсить cкрипт для графаны, который помогает
-создавать и поддерживать дешборды из простого yml-описания, но пока просто пример,
-как можно добавить измерение запросов в секунду:&lt;/p&gt;
-
-&lt;p&gt;1) тюним формат NGINX-логов:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;nginx&lt;/span&gt;
-  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;nginx_http_params&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;log_format combined_plus &amp;#39;$host $remote_addr - $remote_user [$time_local] &amp;#39;&lt;/span&gt;
-       &lt;span class=&quot;l-Scalar-Plain&quot;&gt;&amp;#39;&amp;quot;$request&amp;quot; $status $body_bytes_sent $request_time &amp;#39;&lt;/span&gt;
-       &lt;span class=&quot;l-Scalar-Plain&quot;&gt;&amp;#39;&amp;quot;$http_referer&amp;quot; &amp;quot;$http_user_agent&amp;quot; &amp;quot;$content_type&amp;quot;&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;access_log &amp;quot;/var/log/nginx/access.log&amp;quot; combined_plus&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;2) запускаем nginx-exporter (можно взять вот этот &lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter&quot;&gt;ndiazg/nginx-prometheus-exporter&lt;/a&gt; за основу):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;nginx_prometheus_exporter&lt;/span&gt;
-  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;docker_container&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;nginx-prometheus-exporter&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;started&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;nginx-prometheus-exporter&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;restart_policy&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;unless-stopped&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;/var/log/nginx/access.log&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;/var/log/nginx:/var/log/nginx:ro&lt;/span&gt;
-    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;3093:3093&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;3) Добавляем метрику (с помощью магического скрипта):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sum(rate(http_requests_total{job=&amp;quot;nginx&amp;quot;,vhost=&amp;quot;uchi.ru&amp;quot;}[1m])) by (instance)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;4) PROFIT:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/18/4a.png&quot;&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 21 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/21/prom/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/21/prom/index.html</guid>
       </item>
     
   </channel>
