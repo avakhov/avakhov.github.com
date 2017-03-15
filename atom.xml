@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ansible Variables</title>
+        <description>
+          
+          &lt;p&gt;В ансибл круто сделано, что можно передать переменную в очень многих слоях, как минимум в
+&lt;code&gt;roles/vars&lt;/code&gt;, &lt;code&gt;roles/default&lt;/code&gt;, &lt;code&gt;group_vars&lt;/code&gt; и тд. И даже можно передать через командную строку.
+Как-то захотел передать &lt;code&gt;false&lt;/code&gt;, попробовал так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ansible-playbook system.yml --tags vpn --e vpn_fetch=false
+ansible-playbook system.yml --tags vpn --e vpn_fetch=False
+ansible-playbook system.yml --tags vpn --e vpn_fetch=no
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;но сработал только вариант с JSON:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ansible-playbook system.yml --tags vpn --e &amp;#39;{&amp;quot;vpn_fetch&amp;quot;:false}&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Далее этот флажок обрабатывается в роли привычным образом:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;- include: fetch.yml
+  when: not vpn_fetch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        </description>
+        <pubDate>Wed, 15 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/15/ansib/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/15/ansib/index.html</guid>
+      </item>
+    
+      <item>
         <title>На стачку</title>
         <description>
           
@@ -302,21 +326,6 @@ DoS почты, дисциплинированно отписываясь от �
         <pubDate>Wed, 01 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/01/gleb/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/01/gleb/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Токены в API</title>
-        <description>
-          
-          &lt;p&gt;Обычно встречаются два способа подписывать API-запросы, прямо в урл &lt;code&gt;?token=abc&lt;/code&gt;, либо
-в специальных заголовках к запросу. Я разницы между ними раньше не видел, но сейчас считаю, что
-с заголовком лучше, так как иначе токен будет лежать в логах веб-сервера и сервера приложения, что
-в общем случае не хорошо.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 28 Feb 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/02/28/token/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/02/28/token/index.html</guid>
       </item>
     
   </channel>
