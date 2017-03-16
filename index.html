@@ -64,6 +64,34 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/03/16/terrafail/index.html">Коллеги, я удалил сервер с VPN</a></h1>
+      
+      <div class="date">March 16, 2017</div>
+
+      
+      <div class="entry">
+        <p>Недавно замечательным терраформом грохнул несколько серверов, дело было так.
+В файле <code>var.tf</code> лежала переменная с ID-образа убунты примерно так <code>UBUNTU_IMAGE_ID = &#39;cde3892-...&#39;</code>.
+Я решил обновить образ на свежий и не прочитал, что написал <code>terraform plan</code>, а зря. Терраформ, когда
+у диска меняется переменная <code>image_id</code>, пересоздает диск. Поэтому сервер на новом
+образе я конечно создал, но еще заодно обновил старые сервера. Хорошо, что базы были на другом образе,
+а так
+бы веселья было чуть больше.</p>
+
+<p>Сейчас мы страхуемся тем, что в каждый диск копипастим конкретное значение в <code>image_id</code>, <code>Ctrl-C Ctrl-V</code> - рулят.</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/03/16/terrafail/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2017/03/16/terrafail/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%B3%D0%B8%2C+%D1%8F+%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D0%BB+%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80+%D1%81+VPN&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F16%2Fterrafail%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/03/15/ansib/index.html">Ansible Variables</a></h1>
       
       <div class="date">March 15, 2017</div>
@@ -430,36 +458,6 @@ DoS почты, дисциплинированно отписываясь от �
         
 
         <div class="fb-share-button" data-href="/blog/2017/03/02/highload/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A5%D0%B0%D0%B9%D0%BB%D0%BE%D0%B0%D0%B4&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F02%2Fhighload%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/03/01/gleb/index.html">Скелет презентации</a></h1>
-      
-      <div class="date">March  1, 2017</div>
-
-      
-      <div class="entry">
-        <p>Я сейчас активно готовлюсь к ДевОпсДейс с помощью прекрасной книги по презентациям от
-Глеба Шулишова <a href="http://www.prostopreza.ru/pages/book">Скелет презентации</a>. Она небольшая и
-мне кажется ее стоит почитать, даже если вам не нужно в ближайшее время делать никаких презентаций вообще.</p>
-
-<p>Глеб делит презентации на два типа:</p>
-
-<p><img src=/18/Graphic2.png></p>
-
-<p>Я конечно буду стараться сделать офигенную презентацию, но так как Новый Год в моей жизни пока бывает
-чаще публичных выступлений, то как минумум ставлю задачу заглянуть в бизнес-класс, за вот эту занавесочку
-и стибрить там вилку и плед.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/03/01/gleb/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2017/03/01/gleb/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A1%D0%BA%D0%B5%D0%BB%D0%B5%D1%82+%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F01%2Fgleb%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
