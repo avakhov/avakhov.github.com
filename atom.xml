@@ -193,7 +193,7 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/AlexeyVakhov/paas-paas&quot;&gt;PaaS, выделенные сервера, облако и снова PaaS&lt;/a&gt; - слайды.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://blog.selectel.ru/gostevoj-post-upravlyaem&quot;&gt;Управляем «Виртуальным приватным облаком» с помощью Terraform&lt;/a&gt; - пост в блоге Селектела про терраформ.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;grafana-rb&quot;&gt;https://github.com/uchiru/grafana-rb&lt;/a&gt; - гем для создания дешбордов графаны (сыренький пока, я просто завернул в гем наш внутренний скрипт &lt;code&gt;grafana.rb&lt;/code&gt;, с удовольствием помогу адаптировать под ваши задачи, мои контакты внизу).&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/uchiru/grafana-rb&quot;&gt;grafana-rb&lt;/a&gt; - гем для создания дешбордов графаны (сыренький пока, я просто завернул в гем наш внутренний скрипт &lt;code&gt;grafana.rb&lt;/code&gt;, с удовольствием помогу адаптировать под ваши задачи, мои контакты внизу).&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter&quot;&gt;ndiazg/nginx-prometheus-exporter&lt;/a&gt; - mtail, завернутый в контейнер. Вот &lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter/blob/master/files/progs/nginx.mtail&quot;&gt;такие регекспы&lt;/a&gt; хорошо работает с &lt;code&gt;access.log&lt;/code&gt; nginx&amp;#39;а, если логи собираются в формате, описанном в
 &lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter#nginx-settings&quot;&gt;README-файле&lt;/a&gt;. У нас этот контейнер
 слушает по несколько гигабайт логов в день на каждом сервере, в чем-то подозрительном замечен не был.&lt;/li&gt;
