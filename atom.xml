@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Хероку</title>
+        <description>
+          
+          &lt;p&gt;Мне хорошо запомнилась цитата из группы &lt;code&gt;ror2ru&lt;/code&gt;, что Хероку - для олигархов.
+Я себя никогда не чувствовал и не
+чувствую принадлежащим к этой группе людей, поэтому мне потребовались весьма значительные
+усилия, чтобы решить держать там наши первые продакшены.&lt;/p&gt;
+
+&lt;p&gt;В Хероку мы доросли до весьма солидных сумм в месяц, но это было несоизмеримо дешевле, чем если
+бы нам тогда пришлось бы, кроме всего прочего, еще и возиться с серверами, бэкапами, мониторингом.
+Поэтому Хероку - не для олигархов, а, как мне кажется, весьма правильный выбор,
+даже сегодня, для любой компании,
+которой уже требуется код, но нет еще каких-то космических задач.&lt;/p&gt;
+
+&lt;p&gt;В цифрах, я бы сказал, что если прайс меньше 1000$ в месяц, нагрузки меньше 100 запросов в секунду,
+база не больше 50Гб, а также нет требований о персоналке, то Хероку - идеален.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 21 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/21/se/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/21/se/index.html</guid>
+      </item>
+    
+      <item>
         <title>docker run -p A:B vs git - 1:1</title>
         <description>
           
@@ -279,36 +303,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         <pubDate>Tue, 07 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/07/backups/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/07/backups/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Теги в ансибле</title>
-        <description>
-          
-          &lt;p&gt;Когда в ансибл настраиваешь бокс и запускаешь &lt;code&gt;ansible-playbook the-server.yml&lt;/code&gt; раз за разам,
-то обычно хочется запускать только какой-то кусочек файла, я знаю два способа: колхозный и
-красивый.&lt;/p&gt;
-
-&lt;p&gt;Колхозный - просто комментим то, что не нужно запускать, главное не забыть раскоментить
-перед пушем обратно. В виме у меня компанда &lt;code&gt;gc&lt;/code&gt; почему-то комментирует или раскомментирует
-более менее правильно любой фрагмент кода на любом языке. Видимо это плагин какой-то, так как пальцы
-помнят, а разум нет.&lt;/p&gt;
-
-&lt;p&gt;Красивый - на нужные констукции повесить тег, например так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;manage_user&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;{admin_users}&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;и вызывать &lt;code&gt;ansible-playbook the-server.yml --tags keys&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Во время разработки я обычно использую
-колхозный способ (все мои дедушки, бабушки и пра- из крестьян), а вот, например, в новых репозитариях
-команда &lt;code&gt;ansible-playbook *.yml --tags keys&lt;/code&gt; как раз обновляет все ключи на всех серверах, если нужно
-дать доступ коллеге или наоборот забрать. В принципе возможна ситуация, когда в одной подсети может быть разный
-доступ к разным серверам и данное решение DRY.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 06 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/06/atag/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/06/atag/index.html</guid>
       </item>
     
   </channel>
