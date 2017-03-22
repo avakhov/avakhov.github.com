@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Маленькая гениальная штучка в прометее</title>
+        <description>
+          
+          &lt;p&gt;При настройке прометея через сервис дискавери консула
+поле &lt;code&gt;__meta_consul_tags&lt;/code&gt; состоит из тегов, перечисленных
+через запятую. Внимание, с дополнительными запятыми в начале и в конце строки! &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
+То есть массив тегов &lt;code&gt;[job-A, job-B]&lt;/code&gt; превращается в строку &lt;code&gt;,job-A,job-B,&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Это нужно для более легкой настройки релейбелинга, когда вхождение тега мы можем искать
+по простому регекспу &lt;code&gt;.*,job-A,.*&lt;/code&gt;, не отвлекаясь на отсутствие запятой вначале или в конце
+строки, как было бы в случае простого &lt;code&gt;join(&amp;quot;,&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Про эту штуку узнал из статьи &lt;a href=&quot;https://www.robustperception.io/little-things-matter/&quot;&gt;Little Things Matter&lt;/a&gt; и испытал огромное эстетическое удовольствие. И да, мы это используем в продакшене.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 22 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/22/role/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/22/role/index.html</guid>
+      </item>
+    
+      <item>
         <title>Хероку</title>
         <description>
           
@@ -278,31 +299,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         <pubDate>Thu, 09 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/09/marketing/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/09/marketing/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Бэкапы</title>
-        <description>
-          
-          &lt;p&gt;Сам факт бэкапов (особенно, восстанавливаемость которых каких-то образом проверятся), в некоторых
-дискуссиях
-преподносится, как высшая степень профессионализма. Конечно бэкапы это хорошо, но классических
-&lt;code&gt;pg_dump-&lt;/code&gt;, &lt;code&gt;WAL-логов&lt;/code&gt; или каких-то подобных бинарей, даже разложенных в географически удаленные точки,
-в идеальном мире недостаточно.&lt;/p&gt;
-
-&lt;p&gt;Классно было бы время от времени подниматься с бэкапа, полностью зарубая
-старый сторадж. Тогда архив, с которого мы поднялись, был бы эталонным для точки поднятия. Если продакшен
-работает дальше, значит мы владеем реальным дампом продакшена на тот момент.
-В гуглах всяких насколько понимаю как-то так и делают, постоянно поднимая какие-то данные из бэкапов,
-но вот какого-то рабочего подхода для маленьких и гордых пока не встречал.&lt;/p&gt;
-
-&lt;p&gt;В этом плане я в восторге от гита. В сущности IT-ценность стартапа - это код и базы. Код в гите со всей историей раскладывается в так много точек, что его сложно потерять целиком, а вот с базами так пока не
-получается. Поэтому битва с бэкапами продолжается и выиграть ее нельзя, задача - все время играть в ничью.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 07 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/07/backups/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/07/backups/index.html</guid>
       </item>
     
   </channel>

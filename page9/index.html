@@ -64,6 +64,58 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/11/15/refactoring/index.html">Рефакторинг</a></h1>
+      
+      <div class="date">November 15, 2016</div>
+
+      <div class="img"><img src="/assets/2/refactoring/main.jpg" /></div>
+      <div class="entry">
+        <p>Рефакторинг тема как известно тонкая, поэтому сразу скажу - к переписыванию работающего продакшен-кода я отношусь
+отрицательно, как бы это не называлось. Правило &quot;работает - не трогает&quot; достаточно хорошо проверено временем.</p>
+
+<p>Сейчас постараюсь пояснить, как мыслю. Представьте, что мы на оси времени находимся
+в точке <code>А</code>. Единственная объективная реальность - это тот код, который сейчас находится на продакшене
+(этим кстати мне нравится гитхаб-флоу, мастер - всегда в продакшене, в ветках -
+что хочешь то и делаешь, дело личное, точка опасности - мерж пул реквеста в мастер). Так вот в точке
+<code>А</code>, глядя на наш продакшен, мы видим проблемы кода и всегда примерно понимаем как выглядит точка <code>B</code>, 
+в которой сегодняшний функционал был бы &quot;идеально&quot; выражен в коде.</p>
+
+<p>Я уверен, что большая ошибка начинать движение в точку <code>B</code> (в принципе это и есть рефакторинг -
+изменение кодовой базой без изменения функционала). Время то движется вперед
+и вы оказываетесь в точке <code>C</code> с устаревшим кодом (&quot;идеальным&quot; кодом на момент <code>A</code>). В процессе движения
+выяснится, что точка <code>B</code> - тоже не совсем хороша. В голове - идея была хорошая, а в
+реализации оказалось не очень. Тогда начинаете движение в точку <code>B&#39;</code>, потом в <code>B&#39;&#39;</code> и так далее. Поэтому переписывание
+продакшен кода в моей системе ценности - в большинстве случаев ошибка, это работа на прошлое.</p>
+
+<p>Что я предлагаю вместо этого. Допустим мы продолжим пилить новые фичи как сегодня. То наш код
+шатко-валко, вместе с нами, доползет до точки <code>C</code>. И для этого горемыки, так же будет
+&quot;идеальный&quot; код - точка <code>D</code>. Естественно это не точка (как и впрочем все остальные точки - не точки), это
+облачко возможных хороших реализаций той системы, которая будет в момент <code>C</code>.
+Так вот я твердо уверен, что <strong>нужно менять не сегодняшний работающий код, а менять
+привычки, которые приведут проект в более здоровую точку <code>D</code></strong>.</p>
+
+<p>У меня есть такая аналогия. Допустим человек решил привести себя в форму. Можно поступить хирургически, радикально. Быстро - но
+много побочных эффектов, жесткий отходняк. Либо человек меняет привычки: разбирается с режимом дня,
+правильно питается, регулярно занимается в зале.
+То есть
+по факту он ведет себя уже, прямо сейчас, как здоровый человек, но сегодняшнее состояние пока не очень.</p>
+
+<p>Поэтому, как бы код не был плох, я считаю,
+что нужно прежде всего разобраться какие привычки довели его до такого состояния и что нужно поменять, чтобы привести его
+со временем в порядок.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/11/15/refactoring/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/11/15/refactoring/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A0%D0%B5%D1%84%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F15%2Frefactoring%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/11/14/kill-db/index.html">Убить Базу Билла</a></h1>
       
       <div class="date">November 14, 2016</div>
@@ -431,38 +483,6 @@ dropdb <span class="nv">$db</span>
         
 
         <div class="fb-share-button" data-href="/blog/2016/11/01/early_monitoring/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%B5%D0%B6%D0%B4%D0%B5%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9+%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F01%2Fearly_monitoring%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/31/flock/index.html">Запрет на кроновые пикеты</a></h1>
-      
-      <div class="date">October 31, 2016</div>
-
-      <div class="img"><img src="/assets/2/flock/main.jpg" /></div>
-      <div class="entry">
-        <p>Есть народная мудрость: &quot;знал бы где упаду, там бы костылями подпер&quot;.
-Если вы добавили в свой быстро растущий стартап крон-задачи, особенно чаще чем, скажем, раз в 10 минут,
-гарантирую, что рано или поздно они будут выполнятся дольше отведенного времени, соберутся в большую стаю и вынесут ресурсы сервера, базы или чего-нибудь еще.</p>
-
-<p>Как всегда в линукс мире есть подходящее решение из коробки (<a href="https://ma.ttias.be/prevent-cronjobs-from-overlapping-in-linux/">источник</a>):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>crontab -l
-<span class="m">10</span> * * * * /usr/bin/flock -w <span class="m">0</span> /path/to/cron.lock /usr/bin/php /path/to/cron.php
-<span class="c"># php хи-хи</span>
-</code></pre></div>
-<p>Этот хак, как и многое из моего блога, гуглится за несколько минут.
-Но честно говоря, пару лет назад я вставлял какое-то безумие в виде создания временного
-файла и проверки его существования. Если почему-то вы делаете также, то попробуйте <code>flock</code> -
-будет гораздо изящнее.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/31/flock/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/10/31/flock/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%97%D0%B0%D0%BF%D1%80%D0%B5%D1%82+%D0%BD%D0%B0+%D0%BA%D1%80%D0%BE%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5+%D0%BF%D0%B8%D0%BA%D0%B5%D1%82%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F31%2Fflock%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
