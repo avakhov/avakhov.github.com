@@ -7,6 +7,25 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Black Black Rsync Magic</title>
+        <description>
+          
+          &lt;p&gt;На днях переносил террабайт пдфок с одного сервера на другой. Генетическая
+память подсказывала, что &lt;code&gt;rsync -avP --del&lt;/code&gt; неплохой выбор. Решил для надежности посмотреть хелп:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ rsync --help | grep -- &amp;#39;-a&amp;#39;
+ -a, --archive     archive mode; equals -rlptgoD (no -H,-A,-X)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Я люблю консоль, но иногда, конечно, с изысканности утилит мне становится очень смешно.
+rlptgoD вам, no HAX, братишки! А мы еще
+даже не разобрались с комбинаторикой слешей в путях &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;, IDDQD.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 23 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/23/rsync/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/23/rsync/index.html</guid>
+      </item>
+    
+      <item>
         <title>Маленькая гениальная штучка в прометее</title>
         <description>
           
@@ -271,34 +290,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         <pubDate>Fri, 10 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/10/postmodern/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/10/postmodern/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Линейка</title>
-        <description>
-          
-          &lt;p&gt;Когда я вел блог в прошлый раз, то моим KPI было количество подписчиков в твиттере.
-Сейчас это не работает,
-старый прием простого репоста каждой истории просто перестал работать. Значит надо брать новую
-линейку.&lt;/p&gt;
-
-&lt;p&gt;Тадам! Добавил подписку на новости сайта - это будет новая метрика.
-У меня есть идеи
-о расширении активности, поэтому в
-рассылке будет обязательно какой-нибудь эксклюзивчик.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Если вам нравится блог и вы хотите его поддержать,
-заполните пожалуйста форму наверху сайта.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Спасибо, вы супер!
-&lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-&lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 09 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/09/marketing/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/09/marketing/index.html</guid>
       </item>
     
   </channel>
