@@ -7,6 +7,37 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Цифровой бардак, здравствуй, это я</title>
+        <description>
+          
+          &lt;p&gt;Довольно много
+времени назад гмейл предложил забить на папки и складывать письма в большую кучу. Немного посомневавшись,
+я принял его
+предложение.
+Дела веду
+в тудуисте, в трелло, на бумажках у компа, в гугл-доках, немножко есть файлов в яндекс-диске,
+в гугл драйве, рабочем и личном, в дропбоксе, какие-то няшки валяются в еверноте, который уже не открывал
+несколько месяцев, и наверняка где-то еще.&lt;/p&gt;
+
+&lt;p&gt;Прозрение, что мир бардака окончательно поглотил человечество, наступило сегодня,
+когда решил упорядочить контакты.
+Вообще контакты от гугла весьма странная программа, она подтягивает какой-то шлак из гугл плюса (WTF,
+почему это еще живо), плохо находит дубли и из настроек можно выбрать только сортировку по имени или
+фамилии.
+И вдруг понял, что в современном мире не надо и невозможно держать единый список контактов. Всегда
+без проблем можно найти человека в телеграмме, вотсаппе, фейсбуке или твиттере, а может быть по профилю
+гитхаба, в слеке или еще где.&lt;/p&gt;
+
+&lt;p&gt;Современный цифровой мир - ад для перфекциониста старой школы, любителя каталогизации
+и систематизации. Но я вылечился. Раз так, значит так. Буду смотреть, как дальше пойдет.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 24 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/24/bardak/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/24/bardak/index.html</guid>
+      </item>
+    
+      <item>
         <title>Black Black Rsync Magic</title>
         <description>
           
@@ -263,33 +294,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         <pubDate>Mon, 13 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/13/dod/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/13/dod/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Постмодерн</title>
-        <description>
-          
-          &lt;p&gt;Cервер, в котором древние &lt;code&gt;chruby&lt;/code&gt;-роли, качают &lt;code&gt;chruby&lt;/code&gt; из интернета, лезущий за файлом
-&lt;a href=&quot;https://raw.githubusercontent.com/postmodern/ruby-versions/master/ruby/checksums.sha512&quot;&gt;checksums.sha512&lt;/a&gt;, недоступным вчера несколько часов, накатывал вчера я. Шах и мат, господа мои дорогие. Нету файла - нету
-и сервера &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-&lt;p&gt;Выглядело это так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ curl url
-
-....
-&amp;lt;h1&amp;gt;Error 503 first byte timeout&amp;lt;/h1&amp;gt;
-&amp;lt;p&amp;gt;first byte timeout&amp;lt;/p&amp;gt;
-&amp;lt;h3&amp;gt;Guru Mediation:&amp;lt;/h3&amp;gt;
-&amp;lt;p&amp;gt;Details: cache-ams4123-AMS 1489075171 688230291&amp;lt;/p&amp;gt;
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Лучшим решением оказалось написать тикет в гитхаб, и через несколько часов проблема ушла. В этой истории
-символично, что репозитарий, в котором лежит злосчастный файл, называется &lt;code&gt;postmodern&lt;/code&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 10 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/10/postmodern/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/10/postmodern/index.html</guid>
       </item>
     
   </channel>
