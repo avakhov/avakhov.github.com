@@ -7,6 +7,38 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Глубоководные работы</title>
+        <description>
+          
+          &lt;p&gt;Недавно друг сказал в беседе полностью серьезно: &amp;quot;эпоха ботов, конечно уже прошла,
+месяцев 8 назад ...&amp;quot; Я не очень помню, что дальше было, но эта фраза очень позабавила.
+И действительно
+боты очень ярко сверкали на каждом ресурсе совсем недавно, а сейчас стали где-то рабочим инструментом,
+где-то не стали, но шума однозначно производят сильно меньше.&lt;/p&gt;
+
+&lt;p&gt;В такой среде, где эпоха уходит за 8 месяцев, может напасть уныние и для этого есть все основания.
+В принципе, читая любую, самую свежую техническую статью, нужно понимать, что она уже устарела. Вместе
+с технологией.&lt;/p&gt;
+
+&lt;p&gt;Пока я нашел такое лекарство. Технологии я не оцениваю с точки зрения новизны, а стараюсь просто погрузится
+в суть чуть глубже, чем требует задача. И в этом есть удовольствие и от работы со старыми,
+ и с новыми технологиями.
+Принципы реально остаются одинаковые, и старые вещи, часто действительно бывают более матерые и надежные,
+зато новые однозначно
+более прогрессивные и залихватские.&lt;/p&gt;
+
+&lt;p&gt;Осилив одну глубину, вторая дается гораздо легче, а радует также.
+Из свеженького, в одной
+задумке мне пригодится утилита &lt;code&gt;script&lt;/code&gt;, ей 100500 лет, но конечно я про нее никогда до этого не слышал.
+Знаете такую? Если идея выгорит - расскажу.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 27 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/27/glub/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/27/glub/index.html</guid>
+      </item>
+    
+      <item>
         <title>Цифровой бардак, здравствуй, это я</title>
         <description>
           
@@ -245,55 +277,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         <pubDate>Tue, 14 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/14/nastachky/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/14/nastachky/index.html</guid>
-      </item>
-    
-      <item>
-        <title>DevOpsDays Moscow - 2017</title>
-        <description>
-          
-          &lt;p&gt;В субботу прошла конференция &lt;a href=&quot;http://devopsdays.ru/&quot;&gt;ДевОпсДейс&lt;/a&gt;. Вау, это было круто, три котика
-однозначно &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;! Очень понравилась организация мероприятия,
-начиная с того, что начали пушить с докладом
-за две недели, чтобы не было шанса не подготовится, и заканчивая четкостью проведения самого события -
-строго выдержан хронометраж, классные доклады, огромное количество интересных людей.
-Я волновался, первый раз выступал на технической конференции за несколько последних
-лет, но вроде бы материал в целом понравился, спасибо большое за внимание, вопросы и обратную связь!&lt;/p&gt;
-
-&lt;p&gt;Материалы с доклада:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/AlexeyVakhov/paas-paas&quot;&gt;PaaS, выделенные сервера, облако и снова PaaS&lt;/a&gt; - слайды.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.selectel.ru/gostevoj-post-upravlyaem&quot;&gt;Управляем «Виртуальным приватным облаком» с помощью Terraform&lt;/a&gt; - пост в блоге Селектела про терраформ.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/uchiru/grafana-rb&quot;&gt;grafana-rb&lt;/a&gt; - гем для создания дешбордов графаны (сыренький пока, я просто завернул в гем наш внутренний скрипт &lt;code&gt;grafana.rb&lt;/code&gt;, с удовольствием помогу адаптировать под ваши задачи, мои контакты внизу).&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter&quot;&gt;ndiazg/nginx-prometheus-exporter&lt;/a&gt; - mtail, завернутый в контейнер. Вот &lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter/blob/master/files/progs/nginx.mtail&quot;&gt;такие регекспы&lt;/a&gt; хорошо работает с &lt;code&gt;access.log&lt;/code&gt; nginx&amp;#39;а, если логи собираются в формате, описанном в
-&lt;a href=&quot;https://github.com/ndiazg/nginx-prometheus-exporter#nginx-settings&quot;&gt;README-файле&lt;/a&gt;. У нас этот контейнер
-слушает по несколько гигабайт логов в день на каждом сервере, в чем-то подозрительном замечен не был.&lt;/li&gt;
-&lt;li&gt;Магический скрипт, который сравнивает разницу Селектела, DNSimple и терраформ-состояний выложу на этой неделе, хочу еще подумать, как его оформить.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Я сказал, что прометей подглючивает, и был вопрос как он это делает.
-Наверное это просто субъективное ощущение, которое осталось
-после перехода с заббикса. В заббиксе мы строили (опять с помощью магических руби-скриптов)
-дешборды, где на каждой строке был один сервер, а сервера прописывали ручками. Было очень топорно и в лоб.&lt;/p&gt;
-
-&lt;p&gt;В прометее сервера
-ищутся с помощью консул-дискавери и релейбелинга. Когда я строю график какой-нибудь типа
-такого &lt;code&gt;sum(rate(http_requests_total{code=&amp;quot;200&amp;quot;,job=&amp;quot;front&amp;quot;}[1m]))&lt;/code&gt;, то нет четкой уверенности, что
-это именно будет сумма 200-х запросов по аппликейшен серверам. Может быть кто-нибудь неправильно
-настроил теги консул-сервисов и сюда попали лишние запросы или не попали нужные. То есть подглючивание
-скорее связано с тем, что я еще не до конца привык к более динамическому окружению.&lt;/p&gt;
-
-&lt;p&gt;Контакты:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;mailto:vakhov@gmail.com&quot;&gt;vakhov@gmail.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://t.me/avakhov&quot;&gt;telegram - @avakhov&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        </description>
-        <pubDate>Mon, 13 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/13/dod/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/13/dod/index.html</guid>
       </item>
     
   </channel>
