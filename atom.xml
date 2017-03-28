@@ -7,6 +7,48 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Накладываем швы на ActiveRecord::SchemaDumper</title>
+        <description>
+          
+          &lt;p&gt;В рейлс &lt;code&gt;primary key&lt;/code&gt; - желательно делать &lt;code&gt;id&lt;/code&gt;, формально конечно можно поставить что-то другое, но
+гарантия заканчивается очень быстро. У нас в одном проекте сделали ключом &lt;code&gt;uuid&lt;/code&gt; и конечно же сломался дамп
+схемы. Где сломался дамп схемы, там сломались тесты и вообще не хорошо все это.&lt;/p&gt;
+
+&lt;p&gt;Иногда получается вставить аккуратный монкей-патч, но тут нужно было фиксить увесистый приватый метод 
+&lt;code&gt;ActiveRecord::SchemaDumper#table&lt;/code&gt;. Обычно я делаю так:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Добавляю файл в &lt;code&gt;config/initializers&lt;/code&gt;, обычно это достаточно удачное время&lt;/li&gt;
+&lt;li&gt;Копирую подопытный метод целиком, по возможности с условиями: &lt;code&gt;if defined?(ActiveRecord::SchemaDumper) ...&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Обязательно ставлю ассерт на текущую версию рейлс &lt;code&gt;raise &amp;quot;review and update this patch for Rails upgrade&amp;quot; if Rails.version != &amp;quot;4.2.8&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Каждое вмешательство оформляю ярко, примерно так:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;  &lt;span class=&quot;c1&quot;&gt;##### [BEGIN PATCH 2]&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# # original code&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# next if column.name == pk&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# @connection.column_spec(column, @types)&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# # patched code&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pk&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;uuid&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@types&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;primary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;primary: true&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;next&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@types&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;##### [END PATCH 2]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;В данном случае удалось обойтись тремя швами и схема как новенькая.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 28 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/28/protez/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/28/protez/index.html</guid>
+      </item>
+    
+      <item>
         <title>Глубоководные работы</title>
         <description>
           
@@ -231,52 +273,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         <pubDate>Wed, 15 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/15/ansib/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/15/ansib/index.html</guid>
-      </item>
-    
-      <item>
-        <title>На стачку</title>
-        <description>
-          
-          &lt;p&gt;В апреле коллеги из &lt;a href=&quot;https://cloudcastle.ru/&quot;&gt;CloudCastle&lt;/a&gt; приглашают на &lt;a href=&quot;https://nastachku.ru/&quot;&gt;Стачку&lt;/a&gt;,
-секция девопс. С огромным удовольствием приеду! В Ульяновске был несколько раз, но обычно
-было холодно и совсем не было времени. В этот раз собираюсь на три дня, поэтому, надеюсь,
-успею погулять, познакомиться с городом.&lt;/p&gt;
-
-&lt;p&gt;Хочу продолжить тему, начатую на ДевОпсДейс, какие приемы помогали нам строить
-инфраструктуру и разработку в условиях
-роста компании. Накопилось много интересного, чем хочется поделиться, обменяться мнениями.
-Я поработаю над техникой доклада, добавлю побольше
-кейсов, историй, провокаций. Так, что если все пойдет как запланировано, то встретимся на Стачке!&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;В одной книге я читал про такую психологическую защиту, что когда боишься чего-нибудь - экзамена,
-выступления, то готовишься очень мало или вообще не готовишься. Когда облажаешься, а если не готовиться
-то как может быть иначе, организм себя оправдает, что дескать, так вышло, потому-что мало
-готовился. Эта защита подпитывается тем фактом, что если что-то делаешь в первый раз, то сколько бы
-не старался, то все равно будешь выглядеть не очень.&lt;/p&gt;
-
-&lt;p&gt;Противная штука и ее действие испытал в полном объеме при подготовке в этот раз.
-Вообще начал готовиться
-месяца за полтора, но довольно вяло. Каждый раз, когда садился за доклад, находилось
-тысяча дел, которые нужно
-было сделать очень, очень срочно.&lt;/p&gt;
-
-&lt;p&gt;Обмануть природу мне помогли организаторы. Где-то недели за две до
-события они прислали официальный шаблон
-презентации (клевый, с ним с первых шагов стало получаться красиво), также установили
-дедлайн на 7 марта. Но самое главное, что Константин Назаров предложил свою помощь
-в подготовке всем выступающим. Я записался на созвон за неделю до доклада, и таким искусственным дедлайном
-как минимум заставил себя подготовить слайды, написать текст выступления и подогнать его на 20 минут.&lt;/p&gt;
-
-&lt;p&gt;Потом каждый день я повторял доклад по 2-3 раза каждый день, записывал на видео. Но в любом случае, когда
-увидел полный зал на 400 человек, очень сильно захотелось сказать: &amp;quot;ой, я кажется заболел и не смог прийти&amp;quot;.
-Но не сказал и выступил &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:beer:&#39; alt=&#39;:beer:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f37a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 14 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/14/nastachky/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/14/nastachky/index.html</guid>
       </item>
     
   </channel>
