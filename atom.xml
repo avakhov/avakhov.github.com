@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Стачка</title>
+        <description>
+          
+          &lt;p&gt;Так, все формальности улажены, билеты куплены, 15-го апреля буду рассказывать про искусство
+выживания в растущем проекте в славном городе Ульяновске. В школе, вернувшись с какой-то олимпиады,
+я рассказывал всем, что там всего одна улица Ленина, просто она извивается по
+всему городу. Люди обычно верили в первый момент.&lt;/p&gt;
+
+&lt;p&gt;Организаторы Стачки достаточно обыграли все моменты истории своего города, поэтому пошутить уже
+особо не о чем. Материал готовлю новый, да и доклад будет подлиннее. К тому же мы гораздо более
+докер-компания сегодня, чем две недели назад. А через две неделю ух, вообще будет
+докер в докере на докере. Меняйся быстро, меняйся часто и задумывайся
+надо ли вообще так быстро и часто меняться, вот он и есть дух ДевОпс. О-м-м-м.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 29 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/29/stachka/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/29/stachka/index.html</guid>
+      </item>
+    
+      <item>
         <title>Накладываем швы на ActiveRecord::SchemaDumper</title>
         <description>
           
@@ -249,30 +270,6 @@ run -p 80:80 nginx&lt;/code&gt;, поэтому часто путал какой
         <pubDate>Thu, 16 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/16/terrafail/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/16/terrafail/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Ansible Variables</title>
-        <description>
-          
-          &lt;p&gt;В ансибл круто сделано, что можно передать переменную в очень многих слоях, как минимум в
-&lt;code&gt;roles/vars&lt;/code&gt;, &lt;code&gt;roles/default&lt;/code&gt;, &lt;code&gt;group_vars&lt;/code&gt; и тд. И даже можно передать через командную строку.
-Как-то захотел передать &lt;code&gt;false&lt;/code&gt;, попробовал так:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ansible-playbook system.yml --tags vpn --e vpn_fetch=false
-ansible-playbook system.yml --tags vpn --e vpn_fetch=False
-ansible-playbook system.yml --tags vpn --e vpn_fetch=no
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;но сработал только вариант с JSON:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ansible-playbook system.yml --tags vpn --e &amp;#39;{&amp;quot;vpn_fetch&amp;quot;:false}&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Далее этот флажок обрабатывается в роли привычным образом:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;- include: fetch.yml
-  when: not vpn_fetch
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-        </description>
-        <pubDate>Wed, 15 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/15/ansib/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/15/ansib/index.html</guid>
       </item>
     
   </channel>
