@@ -7,6 +7,45 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>CircleCI PosgteSQL 9.6</title>
+        <description>
+          
+          &lt;p&gt;Прочитав несколько тьюториалов разной степеним мутности, я наконец нашел способ
+как запускать тесты в CircleCI под постгресом 9.6:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# circle.yml
+dependencies:
+  pre:
+    - sudo service postgresql stop
+    - sudo mv /usr/lib/postgresql-9.6/9.6 /usr/lib/postgresql/9.6
+    - sudo mv /etc/postgresql-9.6/9.6 /etc/postgresql/9.6
+    - sudo service postgresql start 9.6
+    - sudo -u postgres psql -p 5433 -c &amp;quot;create user ubuntu with password &amp;#39;ubuntu&amp;#39;;&amp;quot;
+    - sudo -u postgres psql -p 5433 -c &amp;quot;alter user ubuntu with superuser;&amp;quot;
+
+database:
+  override:
+    - mv config/database.yml.ci config/database.yml
+    - bundle exec rake db:create db:schema:load --trace
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;и в файле &lt;code&gt;config/database.yml.ci&lt;/code&gt; прописать:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;test:
+  adapter: postgresql
+  database: circle_ruby_test
+  username: ubuntu
+  password: ubuntu
+  host: localhost
+  port: 5433
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Странно, что это не из коробки, но так часто бывает, когда из инструментов 21-го века торчат уши
+20-го.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 30 Mar 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/03/30/circle/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/30/circle/index.html</guid>
+      </item>
+    
+      <item>
         <title>Стачка</title>
         <description>
           
@@ -250,26 +289,6 @@ run -p 80:80 nginx&lt;/code&gt;, поэтому часто путал какой
         <pubDate>Fri, 17 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/17/integrity/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/17/integrity/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Коллеги, я удалил сервер с VPN</title>
-        <description>
-          
-          &lt;p&gt;Недавно замечательным терраформом грохнул несколько серверов, дело было так.
-В файле &lt;code&gt;var.tf&lt;/code&gt; лежала переменная с ID-образа убунты примерно так &lt;code&gt;UBUNTU_IMAGE_ID = &amp;#39;cde3892-...&amp;#39;&lt;/code&gt;.
-Я решил обновить образ на свежий и не прочитал, что написал &lt;code&gt;terraform plan&lt;/code&gt;, а зря. Терраформ, когда
-у диска меняется переменная &lt;code&gt;image_id&lt;/code&gt;, пересоздает диск. Поэтому сервер на новом
-образе я конечно создал, но еще заодно обновил старые сервера. Хорошо, что базы были на другом образе,
-а так
-бы веселья было чуть больше.&lt;/p&gt;
-
-&lt;p&gt;Сейчас мы страхуемся тем, что в каждый диск копипастим конкретное значение в &lt;code&gt;image_id&lt;/code&gt;, &lt;code&gt;Ctrl-C Ctrl-V&lt;/code&gt; - рулят.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 16 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/16/terrafail/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/16/terrafail/index.html</guid>
       </item>
     
   </channel>
