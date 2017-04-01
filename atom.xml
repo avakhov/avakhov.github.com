@@ -7,6 +7,28 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Новый формат</title>
+        <description>
+          
+          &lt;p&gt;Привет, дорогие читатели! Я решил немного поменять формат своего блога, теперь буду публиковать каждый рабочий
+день одно новое блюдо, которое готовлю самостоятельно. Сегодня представляю вашему вниманию говядину (лопатка) запеченую
+в фольге:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/18/1apr.jpg&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Подпишитесь
+на новости сайта и вы узнаете рецепт мяса,
+увидите фотографии новых блюд раньше всех, научитесь готовить уникальные гарниры и десерты, а также
+получите шанс выиграть билет на мастер-класс по приготовлению комплексного обеда на трех человек
+с автором данного блога. До новых встреч! &lt;/p&gt;
+
+        </description>
+        <pubDate>Sat, 01 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/01/new-form/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/01/new-form/index.html</guid>
+      </item>
+    
+      <item>
         <title>OS и автоматизация</title>
         <description>
           
@@ -257,30 +279,6 @@ rlptgoD вам, no HAX, братишки! А мы еще
         <pubDate>Tue, 21 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/21/se/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/21/se/index.html</guid>
-      </item>
-    
-      <item>
-        <title>docker run -p A:B vs git - 1:1</title>
-        <description>
-          
-          &lt;p&gt;Запускать докер контейнеры я учился из интернета, в 99% статей это выглядит как-то так &lt;code&gt;docker
-run -p 80:80 nginx&lt;/code&gt;, поэтому часто путал какой порт отвечает за хост, а какой за контейнер. Когда
-они отличались, то решал задачу так же, как флешка вставляется в USB-порт, суперпозицией поворотов.&lt;/p&gt;
-
-&lt;p&gt;Запомнить очень просто: &lt;code&gt;80:80&lt;/code&gt; - это сокращенная запись &lt;code&gt;hostIP:hostPort:containerPort&lt;/code&gt;, то есть
-если я хочу повесить рейлс контейнер на &lt;code&gt;8080&lt;/code&gt;-й порт для интерфейса &lt;code&gt;192.168.12.27&lt;/code&gt;, то так и пишу:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;docker run -p 192.168.12.27:8080:3000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;либо, если интерфейс не важен, то команда - &lt;code&gt;docker run -p 8080:3000&lt;/code&gt;. Теперь не путаюсь.&lt;/p&gt;
-
-&lt;p&gt;PS. жуткая команда для удаления ветки &lt;code&gt;git push origin :branch&lt;/code&gt; становится понятной, когда узнаешь, что
-&lt;code&gt;git push origin branchA:branchB&lt;/code&gt;, отправляет локальную &lt;code&gt;branchA&lt;/code&gt; в &lt;code&gt;branchB&lt;/code&gt; на сервере, и если
-отправить &amp;quot;пустоту&amp;quot; в серверную ветку &lt;code&gt;branch&lt;/code&gt;, то это будет равносильно удалению &lt;code&gt;branch&lt;/code&gt; на сервере.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 20 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/20/docker_ports/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/20/docker_ports/index.html</guid>
       </item>
     
   </channel>
