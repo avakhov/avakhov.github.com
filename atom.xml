@@ -7,6 +7,40 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Плато продуктивности /пост ни о чем/</title>
+        <description>
+          
+          &lt;p&gt;Залез я тут в википедию почитать про плато продуктивности по Гартнеру. Так оно не плато, а платеау.
+Вот английский язык именно такой.
+Все просто, просто, а потом вжух и получите, распишитесь - платеау. Причем в транскрипции сразу
+два значка,
+которые меня всегда пугали - [&amp;#39;plætəu]. Ну ладно, это на их совести останется.&lt;/p&gt;
+
+&lt;p&gt;Вот картинка из статьи &lt;a href=&quot;https://en.wikipedia.org/wiki/Hype_cycle&quot;&gt;Hype cycle&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Gartner_Hype_Cycle.svg/559px-Gartner_Hype_Cycle.svg.png&gt;&lt;/p&gt;
+
+&lt;p&gt;Вообще я люблю консультантов, как людей, которые аккумулируют знания по отрасли, но, конечно частенько
+они перегибают палку. &amp;quot;Слоуп оф инлайтенмент&amp;quot; - наверняка в Гартнере сразу увольняют
+тех, кто не может простые вещи сложными словами описать.&lt;/p&gt;
+
+&lt;p&gt;И напоследок крутейшая шутка с баша:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://bash.im/quote/444051&quot;&gt;http://bash.im/quote/444051&lt;/a&gt; &lt;br&gt;
+Цикл внедрения нового программного продукта глазами админов: &lt;br&gt;
+1 Отрицание. &lt;br&gt;
+2 Гнев. &lt;br&gt;
+3 Торги. &lt;br&gt;
+4 Депрессия. &lt;br&gt;
+5 Принятие (в эксплуатацию).&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 03 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/03/gartner/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/03/gartner/index.html</guid>
+      </item>
+    
+      <item>
         <title>Новый формат</title>
         <description>
           
@@ -257,30 +291,6 @@ rlptgoD вам, no HAX, братишки! А мы еще
         <pubDate>Wed, 22 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/22/role/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/22/role/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Хероку</title>
-        <description>
-          
-          &lt;p&gt;Мне хорошо запомнилась цитата из группы &lt;code&gt;ror2ru&lt;/code&gt;, что Хероку - для олигархов.
-Я себя никогда не чувствовал и не
-чувствую принадлежащим к этой группе людей, поэтому мне потребовались весьма значительные
-усилия, чтобы решить держать там наши первые продакшены.&lt;/p&gt;
-
-&lt;p&gt;В Хероку мы доросли до весьма солидных сумм в месяц, но это было несоизмеримо дешевле, чем если
-бы нам тогда пришлось бы, кроме всего прочего, еще и возиться с серверами, бэкапами, мониторингом.
-Поэтому Хероку - не для олигархов, а, как мне кажется, весьма правильный выбор,
-даже сегодня, для любой компании,
-которой уже требуется код, но нет еще каких-то космических задач.&lt;/p&gt;
-
-&lt;p&gt;В цифрах, я бы сказал, что если прайс меньше 1000$ в месяц, нагрузки меньше 100 запросов в секунду,
-база не больше 50Гб, а также нет требований о персоналке, то Хероку - идеален.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 21 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/21/se/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/21/se/index.html</guid>
       </item>
     
   </channel>
