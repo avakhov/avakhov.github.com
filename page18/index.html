@@ -64,6 +64,108 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/12/18/remove_a_lot_records/index.html">Удаляем записи из базы данных</a></h1>
+      
+      <div class="date">December 18, 2014</div>
+
+      <div class="img"><img src="/assets/remove_a_lot_records.jpg" /></div>
+      <div class="entry">
+        <p>Если база маленькая её можно и даже, думаю, нужно, считать той штукой, которая выполняет
+Active Record запросы. Когда записей уже миллионы, начинаются разные интересные задачи.</p>
+
+<p>Как то раз я расщеплял базу на две и нужно было удалить примерно 10 миллионов детей,
+которые остались без родителей (имена таблиц - выдуманные).</p>
+
+<p><img src="/assets/remove_a_lot_records/db.png" alt=""></p>
+
+<p><a href="http://evtuhovich.ru/">Иван Евтухович</a> (я всегда звоню ему с техническими вопросами,
+Иван знает все, особенно про PostgreSQL) сказал, что можно конечно удалить в лоб,
+в одной транзакции, но она будет работать долго и молча.
+Лучше положить id во временную таблицу и удалять записи небольшими порциями, не теряя лица.</p>
+
+<h2>Играем с тестовой базой</h2>
+
+<p>Заполняем базу крайне синтетическими данными на 20M записей <a href="https://gist.github.com/avakhov/48518e4902acb57a7fed#file-1_seed-rb"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ...</span>
+<span class="mi">10_000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+  <span class="n">parent</span> <span class="o">=</span> <span class="no">Parent</span><span class="o">.</span><span class="n">create!</span>
+  <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;(</span><span class="si">#{</span><span class="n">parent</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)&quot;</span><span class="o">]*</span><span class="mi">1000</span>
+  <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO children (parent_id) VALUES </span><span class="si">#{</span><span class="n">values</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Parent #</span><span class="si">#{</span><span class="n">parent</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="mi">10_000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+  <span class="n">values</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;(0)&quot;</span><span class="o">]*</span><span class="mi">1000</span>
+  <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO children (parent_id) VALUES </span><span class="si">#{</span><span class="n">values</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Chunk #</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Удаляем одним запросом:</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">children</span>
+<span class="k">WHERE</span> <span class="n">id</span> <span class="k">IN</span> <span class="p">(</span>
+  <span class="k">SELECT</span> <span class="n">children</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">FROM</span> <span class="n">children</span> <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">parents</span> <span class="k">ON</span> <span class="n">children</span><span class="p">.</span><span class="n">parent_id</span> <span class="o">=</span> <span class="n">parents</span><span class="p">.</span><span class="n">id</span>
+  <span class="k">WHERE</span> <span class="n">parents</span><span class="p">.</span><span class="n">id</span> <span class="k">IS</span> <span class="k">NULL</span>
+<span class="p">);</span>
+<span class="c1">-- =&gt; DELETE 10000000</span>
+<span class="c1">-- =&gt; Time: 7538596.724 ms (~ 2 hours)</span>
+</code></pre></div>
+<p>Удаляем порциями по 1000 записей <a href="https://gist.github.com/avakhov/48518e4902acb57a7fed#file-3_by_small_chunks-rb"><i class="fa fa-external-link"></i></a>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ...</span>
+<span class="k">unless</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">table_exists?</span><span class="p">(</span><span class="s2">&quot;deleting_ids&quot;</span><span class="p">)</span>
+  <span class="n">m1</span> <span class="o">=</span> <span class="no">Benchmark</span><span class="o">.</span><span class="n">measure</span> <span class="p">{</span>
+    <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span> <span class="o">&lt;&lt;-</span><span class="no">SQL</span>
+<span class="sh">      BEGIN;</span>
+
+<span class="sh">      CREATE TABLE deleting_ids(id integer);</span>
+<span class="sh">      CREATE INDEX ON deleting_ids(id);</span>
+
+<span class="sh">      INSERT INTO deleting_ids</span>
+<span class="sh">      SELECT children.id</span>
+<span class="sh">      FROM children LEFT JOIN parents ON children.parent_id = parents.id</span>
+<span class="sh">      WHERE parents.id IS NULL;</span>
+
+<span class="sh">      COMMIT;</span>
+<span class="no">    SQL</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">m2</span> <span class="o">=</span> <span class="no">Benchmark</span><span class="o">.</span><span class="n">measure</span> <span class="p">{</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="no">DeletingId</span><span class="o">.</span><span class="n">first</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="no">DeletingId</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
+    <span class="no">Child</span><span class="o">.</span><span class="n">delete_all</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">ids</span><span class="p">)</span>
+    <span class="no">DeletingId</span><span class="o">.</span><span class="n">delete_all</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">ids</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">&quot;Chunk #</span><span class="si">#{</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> processed&quot;</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+<span class="c1"># =&gt; (112.227890)   (~ 2 mins)</span>
+<span class="c1"># =&gt; (1052.880441)  (~ 17 mins)</span>
+</code></pre></div>
+<h2>Выводы</h2>
+
+<p>В одной транзакции 10М записей удалялось 2 часа,
+по частям - 20 минут (эти времена некорректно сравнивать, так как многое зависит
+от настроек базы, данных, нагрузки и так далее).</p>
+
+<p>Даже не обращая внимание на время исполнения, второй способ все равно гораздо
+лучше, так как он явно показывает прогресс и изменяет базу небольшими, контролируемыми шагами.
+Более того, скрипт можно прервать в любом месте и запустить заново, он просто продолжит
+удалять, что в случае одной транзакции сделать невозможно.</p>
+
+        
+        <div style="float:right"><a href="/blog/2014/12/18/remove_a_lot_records/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2014/12/18/remove_a_lot_records/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A3%D0%B4%D0%B0%D0%BB%D1%8F%D0%B5%D0%BC+%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8+%D0%B8%D0%B7+%D0%B1%D0%B0%D0%B7%D1%8B+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F18%2Fremove_a_lot_records%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/12/15/timestamps/index.html">Сравниваем таймстемпы</a></h1>
       
       <div class="date">December 15, 2014</div>
@@ -526,35 +628,6 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
         
 
         <div class="fb-share-button" data-href="/blog/2014/11/17/long-death-migtations/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D1%87%D0%B5%D0%BC%D1%83+%D1%8F+%D0%BD%D0%B5+%D0%BC%D0%B5%D0%BD%D1%8F%D1%8E+%D1%81%D1%85%D0%B5%D0%BC%D1%83+%D0%B8+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5+%D0%B2+%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9+%D0%BC%D0%B8%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F17%2Flong-death-migtations%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/11/13/disqus-orient/index.html">Комментарии Дискуса на телефоне</a></h1>
-      
-      <div class="date">November 13, 2014</div>
-
-      <div class="img"><img src="/assets/disqus-orient.jpg" /></div>
-      <div class="entry">
-        <p>Я люблю сайты, которые хорошо отображаются на телефоне. Когда они плотно вбиты в ширину экрана и вверх-вниз скролятся, а вправо-влево нет.</p>
-
-<p>Верстка комментариев Дискуса подстраивается под ширину экрана, но едет при смене положения устройства.
-Я встречал этот баг на многих сайтах.
-Чтобы мой блог приятно было смотреть и так, и сяк, и с поворота я добавил переинициализацию комментариев <a href="https://github.com/avakhov/avakhov.github.io/blob/5e3161c5acf5a0dc1d61d77d94def834e7ea00ca/_layouts/default.html#L35"><i class="fa fa-external-link"></i></a>. </p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">  <span class="nt">&lt;body</span> <span class="na">onorientationchange=</span><span class="s">&quot;if(DISQUS) DISQUS.reset({reload: true});&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>Не помню где этот рецепт подсмотрел, но теперь скролл на телефоне отличный.</p>
-
-<p><img src="/assets/disqus-orient/ip.png" alt=""></p>
-
-        
-        <div style="float:right"><a href="/blog/2014/11/13/disqus-orient/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/11/13/disqus-orient/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B8+%D0%94%D0%B8%D1%81%D0%BA%D1%83%D1%81%D0%B0+%D0%BD%D0%B0+%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F13%2Fdisqus-orient%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

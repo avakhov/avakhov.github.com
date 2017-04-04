@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Искусство разложить файлы</title>
+        <description>
+          
+          &lt;p&gt;Мне безумно нравится вот это &lt;a href=&quot;https://habrahabr.ru/company/oleg-bunin/blog/313666/&quot;&gt;выступление Игоря Сысоева на HighLoad++&lt;/a&gt;, которое
+хочется процитировать целиком:&lt;/p&gt;
+
+&lt;p&gt;&amp;quot;Я буду говорить о масштабируемой конфигурации nginx, но это не о том,
+как обслужить с помощью nginx сотни тысяч одновременных соединений, потому что nginx для этого настраивать не надо. &amp;lt;...&amp;gt; Поэтому я буду рассказывать о другой масштабируемости — о масштабируемости конфигурации nginx, т.е. о том, как обеспечить рост конфигурации от сотни строчек до нескольких тысяч и при этом тратить минимальное (желательно константное) время на сопровождение этой конфигурации.&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;Божественно, что когда система растет - как правильно
+разложить файлики, гораздо важнее rps и rpm. Логический хайлоад всегда наступает гораздо раньше и острее,
+чем
+фактический.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 04 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/04/nginx/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/04/nginx/index.html</guid>
+      </item>
+    
+      <item>
         <title>Плато продуктивности /пост ни о чем/</title>
         <description>
           
@@ -270,27 +291,6 @@ rlptgoD вам, no HAX, братишки! А мы еще
         <pubDate>Thu, 23 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/23/rsync/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/23/rsync/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Маленькая гениальная штучка в прометее</title>
-        <description>
-          
-          &lt;p&gt;При настройке прометея через сервис дискавери консула
-поле &lt;code&gt;__meta_consul_tags&lt;/code&gt; состоит из тегов, перечисленных
-через запятую. Внимание, с дополнительными запятыми в начале и в конце строки! &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;
-То есть массив тегов &lt;code&gt;[job-A, job-B]&lt;/code&gt; превращается в строку &lt;code&gt;,job-A,job-B,&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Это нужно для более легкой настройки релейбелинга, когда вхождение тега мы можем искать
-по простому регекспу &lt;code&gt;.*,job-A,.*&lt;/code&gt;, не отвлекаясь на отсутствие запятой вначале или в конце
-строки, как было бы в случае простого &lt;code&gt;join(&amp;quot;,&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Про эту штуку узнал из статьи &lt;a href=&quot;https://www.robustperception.io/little-things-matter/&quot;&gt;Little Things Matter&lt;/a&gt; и испытал огромное эстетическое удовольствие. И да, мы это используем в продакшене.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 22 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/22/role/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/22/role/index.html</guid>
       </item>
     
   </channel>
