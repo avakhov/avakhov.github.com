@@ -7,6 +7,45 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Дизайн и эволюция JavaScript</title>
+        <description>
+          
+          &lt;p&gt;5 лет назад я стал ортодоксальным рубистом, сбежав из C++-кабалы. Руби - прост, но не убог, красив,
+но не уродлив, силен, но не слаб.
+Продолжать можно бесконечно. Сейчас, проматывая статьи про изменения в C++, я не понимаю
+и половины слов. Наверное, то, что очередные полиморные изоморфики попали в стандарт должно радовать,
+а отсутствие изоморных полиморфиков - печалить... Не знаю, я сбежал с этой вечеринки.&lt;/p&gt;
+
+&lt;p&gt;Но самое диво дивное это, конечно, JavaScript. Иногда кажется, что он даже не пытался
+побывать на уровне
+сложности C++ и сразу стал Хаскелем. Я уже старый и последний год программирую в основном
+на yml-файлах и баш скриптах, и, честно говоря, вообще не понимаю, как писать вот такое 
+(Код взят из этой статьи - &lt;a href=&quot;https://habrahabr.ru/post/325388/&quot;&gt;Вы знаете, что такое трансдьюсеры&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstTwoWins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;compose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;others&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;others&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameID&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstTwoWins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Это даже не выглядит как javascript, если честно. Я помню там &lt;code&gt;$(&amp;quot;#element&amp;quot;).hide()&lt;/code&gt; и поехали.&lt;/p&gt;
+
+&lt;p&gt;Вообще по отечески (а почему-то мне кажется, что так писать нравится молодым программистам,
+я когда просекал, как работает код из Александреску тоже ходил по улицам и улыбался), мне бы очень
+хотелось посадить людей на поддержку таких трансдьюсеров в проект на 10-100к файлов и поглядеть через
+годик, что из этого выйдет.&lt;/p&gt;
+
+&lt;p&gt;Ну и топчиковый коммент:&lt;br&gt;
+&lt;img src=&quot;/18/comm.png&quot;&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 05 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/05/modern_js/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/05/modern_js/index.html</guid>
+      </item>
+    
+      <item>
         <title>Искусство разложить файлы</title>
         <description>
           
@@ -272,25 +311,6 @@ database:
         <pubDate>Fri, 24 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/24/bardak/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/24/bardak/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Black Black Rsync Magic</title>
-        <description>
-          
-          &lt;p&gt;На днях переносил террабайт пдфок с одного сервера на другой. Генетическая
-память подсказывала, что &lt;code&gt;rsync -avP --del&lt;/code&gt; неплохой выбор. Решил для надежности посмотреть хелп:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ rsync --help | grep -- &amp;#39;-a&amp;#39;
- -a, --archive     archive mode; equals -rlptgoD (no -H,-A,-X)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Я люблю консоль, но иногда, конечно, с изысканности утилит мне становится очень смешно.
-rlptgoD вам, no HAX, братишки! А мы еще
-даже не разобрались с комбинаторикой слешей в путях &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;, IDDQD.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 23 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/23/rsync/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/23/rsync/index.html</guid>
       </item>
     
   </channel>
