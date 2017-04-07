@@ -64,6 +64,215 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2012/04/22/rails-templates/index.html">Автоматизация создания нового приложения с помощью рейлс-темплейтов</a></h1>
+      
+      <div class="date">April 22, 2012</div>
+
+      
+      <div class="entry">
+        <p>Рейлс уже очень давно поддерживает темплейты при создании нового приложения. До недавнего времени я недооценивал мощь этого инструмента.
+Сегодня я хочу расскать, как я использую темплейты сейчас и привести несколько хитростей из личной практики.</p>
+
+<p>Если вы писали генераторы, то вы уже знакомы с темплейтами, так как они построены на том же коде, что и генераторы.
+В любом случае вот этих 3 ссылок достаточно, чтобы узнать всю необходимую информацию:</p>
+
+<ul>
+<li><a href="http://m.onkey.org/rails-templates">http://m.onkey.org/rails-templates</a></li>
+<li><a href="http://guides.rubyonrails.org/generators.html">http://guides.rubyonrails.org/generators.html</a></li>
+<li><a href="http://rdoc.info/github/wycats/thor/master/Thor/Actions.html">http://rdoc.info/github/wycats/thor/master/Thor/Actions.html</a></li>
+</ul>
+
+<p>Иван Евтухович удачно заметил на конференции, что нужная степень автоматизации, это когда все автоматизировано до безобразия.
+Я абсолютно согласен с данным утверждением и стараюсь автоматизировать именно до этой степени, а иногда даже чуточку больше.</p>
+
+<p>Любая автоматизация, это маленькая локальная инновация. И кроме уменьшения сроков выполнения и увеличения качества
+конкретной задачи у нее есть неочевидный, но очень важный эффект - <em>автоматизация влияет на повседневные шаблоны
+поведения программиста и на конечный результат</em>. Поясню на примерах. Agile кроме уменьшения сроков и увеличения
+отзывчивости девелопмента помогает создавать
+легкие, изящные приложения, которые не получится разработать обычными методами. Гитхаб и рубиджемс помогли нам получить
+огромное количество интересного кода, который раньше не был бы открытым, даже не из-за желания скрыть свои наработки, а
+из-за сложности публикации и поддержки своего опен-сорса. Гит показал нам, как здорово создавать ветки и делать маленькие комиты.
+Раньше нам казалось, что ветки не нужно создавать часто, но оказывается это было не потому-что сама идея веток - бесполезна, а
+потому-что сложности создания и мержа уничтожали все потенциальные приемущества. Автоматизация (как и выбор правильных
+инструментов) помогает взглянуть на старые подходы к работе под другим углом, выработать и использовать новые навыки, и, в конечном
+итоге, получить принципиально другой результат.</p>
+
+<p>Вернемся к теме сегодняшней беседы.
+В повседневной практике довольно редко приходится создавать новое приложение, обычно это приходится делать
+только в начале нового проекта. Но в любом случае у каждого программиста сформирован
+набор гемов и начальных настроек, которые бы он хотел использовать в любом проекте независимо от размера и назначения.
+У меня тоже есть такой набор, каждый раз я его применял вручную, поэтому гем-файлы всех проектов выглядят чуть-чуть
+по разному. Но вообще я всегда создавал новый проект с неохотой, потому-что нужно было добавить поддержку хамл,
+спеки, удалить index.html, настроить базу и сделать еще много всяких маленьких скучных правок. Кроме того я люблю возиться
+с исходниками рейлс и часто у меня возникает вопрос, как работает та или иная функциональность.
+Было бы удобно иметь всегда рабочий стенд, на котором можно быстро проверять свои гипотезы. Я пробовал использовать
+для этого пустой sandbox-проект, но он очень быстро приходил в негодность, плюс иногда еще хочется посмотреть как это работало 
+например в 3.0 или даже в 2.3. Можно конечно еще делать так: создать пустое приложение <code>rails new ...</code>, добавить therubyracer, bundle install, настроить базу, bundle install, фух - не хватает haml, bundle install, опс - хочу автомиграции, я к ним привык - добавить, bundle install - да ну в качель эту идею и рейлс целиком, пусть работают как хотят...</p>
+
+<p>Сейчас я создаю пустое приложение несколько раз за день. Так как, чтобы проверить как работает тот или иной код в чистых рейлс достаточно 3-х простых команд:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">rails new demo-app -m &lt;путь-до-темплейта&gt; # у меня есть заготовки для 3.0, 3.1 и 3.2
+cd demo-app
+rails s   # привычное и прекрасное окружение запущено
+
+# hack, hack, hack
+
+cd .. &amp;&amp; rm -fr demo-app
+</code></pre></div>
+<p>В заключение приведу свой основной темплейт-файл, который я обычно использую:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Можно использовать просто команду `file`, но в этом случае</span>
+<span class="c1"># при попытке переписать существующий файл, система спросит:</span>
+<span class="c1"># &quot;уверенны ли вы?&quot; Конечно уверены! Мы же создаем проект с</span>
+<span class="c1"># нуля и не хотим лишний раз нажимать ентер.</span>
+<span class="k">def</span> <span class="nf">file_force</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+  <span class="n">f</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">puts</span> <span class="n">content</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">close</span>
+<span class="k">end</span>
+
+<span class="n">file_force</span> <span class="s1">&#39;Gemfile&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">source &#39;https://rubygems.org&#39;</span>
+
+<span class="sh">gem &#39;rails&#39;, &#39;3.2.3&#39;</span>
+<span class="sh">gem &#39;pg&#39;</span>
+
+<span class="sh">gem &#39;haml&#39;</span>
+<span class="sh">gem &#39;jquery-rails&#39;</span>
+<span class="sh">gem &#39;unicorn&#39;</span>
+
+<span class="sh">group :assets do</span>
+<span class="sh">  gem &#39;sass-rails&#39;,   &#39;~&gt; 3.2.3&#39;</span>
+<span class="sh">  gem &#39;coffee-rails&#39;, &#39;~&gt; 3.2.1&#39;</span>
+<span class="sh">  gem &#39;therubyracer&#39;, :platform =&gt; :ruby</span>
+<span class="sh">  gem &#39;uglifier&#39;, &#39;&gt;= 1.0.3&#39;</span>
+<span class="sh">end</span>
+
+<span class="sh">group :development do</span>
+<span class="sh">  gem &#39;rails-footnotes&#39;, git: &#39;git://github.com/avakhov/rails-footnotes.git&#39;, branch: &#39;custom&#39;</span>
+<span class="sh">end</span>
+
+<span class="sh">group :test do</span>
+<span class="sh">  gem &#39;factory_girl_rails&#39;</span>
+<span class="sh">  gem &#39;timecop&#39;</span>
+<span class="sh">  gem &#39;database_cleaner&#39;</span>
+<span class="sh">end</span>
+
+<span class="sh">group :development, :test do</span>
+<span class="sh">  gem &#39;rspec-rails&#39;</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file_force</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">/.bundle</span>
+<span class="sh">/log/*.log</span>
+<span class="sh">/tmp</span>
+<span class="sh">/public/assets</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;README.md&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh"># Project</span>
+
+<span class="sh">TODO: description</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;.rspec&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">--colour</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;spec/spec_helper.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">ENV[&quot;RAILS_ENV&quot;] ||= &#39;test&#39;</span>
+<span class="sh">require File.expand_path(&quot;../../config/environment&quot;, __FILE__)</span>
+<span class="sh">require &#39;rspec/rails&#39;</span>
+<span class="sh">require &#39;rspec/autorun&#39;</span>
+
+<span class="sh">Dir[Rails.root.join(&quot;spec/support/**/*.rb&quot;)].each {|f| require f}</span>
+
+<span class="sh">RSpec.configure do |config|</span>
+<span class="sh">  config.before(:suite) do</span>
+<span class="sh">    DatabaseCleaner.strategy = :transaction</span>
+<span class="sh">  end</span>
+
+<span class="sh">  config.before(:each) do</span>
+<span class="sh">    DatabaseCleaner.start</span>
+<span class="sh">  end</span>
+
+<span class="sh">  config.after(:each) do</span>
+<span class="sh">    DatabaseCleaner.clean</span>
+<span class="sh">  end</span>
+
+<span class="sh">  config.include FactoryGirl::Syntax::Methods</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;spec/factories.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">FactoryGirl.define do</span>
+<span class="sh">  # factory :demo do</span>
+<span class="sh">  #   name &#39;name&#39;</span>
+<span class="sh">  # end</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;app/controllers/home_controller.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">class HomeController &lt; ApplicationController</span>
+<span class="sh">  def index</span>
+<span class="sh">  end</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;app/views/home/index.html.haml&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">%h1 Home#index</span>
+<span class="sh">%p Find me in app/views/home/index.html.haml</span>
+<span class="no">CODE</span>
+
+<span class="n">file</span> <span class="s1">&#39;spec/controllers/home_controller_spec.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">require &#39;spec_helper&#39;</span>
+
+<span class="sh">describe HomeController do</span>
+<span class="sh">  it &quot;index&quot; do</span>
+<span class="sh">    get &#39;index&#39;</span>
+<span class="sh">    response.should be_success</span>
+<span class="sh">  end</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="c1"># Нам не нужны примеры роутов, мы и так все знаем!</span>
+<span class="n">head</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">readlines</span><span class="p">(</span><span class="s1">&#39;config/routes.rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="n">file_force</span> <span class="s1">&#39;config/routes.rb&#39;</span><span class="p">,</span> <span class="o">&lt;&lt;-</span><span class="no">CODE</span>
+<span class="sh">#{head.strip}</span>
+<span class="sh">  root to: &#39;home#index&#39;</span>
+<span class="sh">end</span>
+<span class="no">CODE</span>
+
+<span class="c1"># Скрипт темплейта запускается в директории</span>
+<span class="c1"># созданного проекта:</span>
+<span class="no">FileUtils</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="s1">&#39;public/index.html&#39;</span><span class="p">)</span>
+<span class="no">FileUtils</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="s1">&#39;README.rdoc&#39;</span><span class="p">)</span>
+<span class="no">FileUtils</span><span class="o">.</span><span class="n">rm_rf</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+
+<span class="c1"># И мы можем запускать даже шелл-команды</span>
+<span class="nb">system</span> <span class="s2">&quot;bundle install&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;rake db:create db:migrate db:test:prepare&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;git init&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;git add .&quot;</span>
+<span class="nb">system</span> <span class="s2">&quot;git ci -amInitial&quot;</span>
+</code></pre></div>
+<p>После выполения этого темплейта, создается приложение с базой, с главной страницей (можно подключить
+devise, которому нужен <code>root_path</code>) и зелеными спеками.
+Можно вызвать команду <code>rails g scaffold post title:string &amp;&amp; rake db:migrate</code> и экспериментировать
+с моделями. Scaffold-генератор создает много файлов стоит сказать, если он нам не понравится
+мы удалим его с помощью <code>git checkout . &amp;&amp; git clean -df</code>, а может создадим чистый проект заново, с темплейтами - это просто!</p>
+
+        
+        <div style="float:right"><a href="/blog/2012/04/22/rails-templates/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2012/04/22/rails-templates/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F+%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE+%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+%D1%81+%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E+%D1%80%D0%B5%D0%B9%D0%BB%D1%81-%D1%82%D0%B5%D0%BC%D0%BF%D0%BB%D0%B5%D0%B9%D1%82%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F22%2Frails-templates%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2012/04/13/experience-and-monkeys/index.html">Опыт и его последствия</a></h1>
       
       <div class="date">April 13, 2012</div>
@@ -616,64 +825,6 @@
         
 
         <div class="fb-share-button" data-href="/blog/2012/02/28/render-text-layout/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B0%D0%B9%D0%BE%D1%83%D1%82+%D0%B4%D0%BB%D1%8F+%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F28%2Frender-text-layout%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/02/23/action-controller-helper-method/index.html">Action Controller Helper Method</a></h1>
-      
-      <div class="date">February 23, 2012</div>
-
-      
-      <div class="entry">
-        <p>Долгое время мне казалось очевидным что, для того чтобы метод контроллера объявить хелпер методом
-необходимо сначала определить метод, а потом передать его имя в helper_method:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionControllerBase</span>
-  <span class="k">def</span> <span class="nf">current_user</span>
-    <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
-  <span class="k">end</span>
-  <span class="n">helper_method</span> <span class="ss">:current_user</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Однако можно объявлять метод хелпером до его конкретной имплементации.</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionControllerBase</span>
-  <span class="n">before_filter</span> <span class="ss">:authenticate!</span>
-  <span class="n">helper_method</span> <span class="ss">:current_user</span>
-  <span class="c1"># ...</span>
-
-  <span class="k">def</span> <span class="nf">current_user</span>
-    <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Это более красиво выносить фильтры, хэлпер методы и другие служебные объявления в начало класса.
-Я нашел эту особенность в <a href="https://github.com/rails/rails/blob/master/actionpack/lib/abstract_controller/helpers.rb#L51">реализации</a> данного метода, а также есть соответствующий пример в <a href="http://api.rubyonrails.org/classes/AbstractController/Helpers/ClassMethods.html#method-i-helper_method">документации</a>.</p>
-
-<p>Если же вернуться от рейлс к руби, то, например, метод можно сделать приватным только после его объявления:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">A</span>
-  <span class="kp">private</span> <span class="ss">:some</span> <span class="c1"># &lt;--- EXCEPTION: undefined method `some&#39; for class `A&#39;</span>
-
-  <span class="k">def</span> <span class="nf">some</span>
-    <span class="nb">puts</span> <span class="s2">&quot;some&quot;</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="nc">B</span>
-  <span class="k">def</span> <span class="nf">another</span>
-    <span class="nb">puts</span> <span class="s2">&quot;another&quot;</span>
-  <span class="k">end</span>
-
-  <span class="kp">private</span> <span class="ss">:another</span> <span class="c1"># Ok!</span>
-<span class="k">end</span>
-</code></pre></div>
-        
-        <div style="float:right"><a href="/blog/2012/02/23/action-controller-helper-method/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2012/02/23/action-controller-helper-method/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Action+Controller+Helper+Method&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F23%2Faction-controller-helper-method%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
