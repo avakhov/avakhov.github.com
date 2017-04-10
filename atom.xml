@@ -7,6 +7,31 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Сравнить две директории из командной строки</title>
+        <description>
+          
+          &lt;p&gt;Я использую блог как референс некоторых команд, которые нужны редко и я их забываю. Несколько лет
+назад у меня был пост как настраивать звук в убунту для двух моделей VAIO. Да, да, у нас дома было два
+ноутбука VAIO и звук там настраивался маленько по разному. И яркость. Блин, звук и яркость. Мои самые
+сильные ассоциации от убунту на ноуте.&lt;/p&gt;
+
+&lt;p&gt;Сегодня оставляю команду для сравнения двух директорий,
+которая мне нравится:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;colordiff -Nur folder1 folder2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Это укороченный вариант более утонченной версии из &lt;a href=&quot;http://stackoverflow.com/questions/5874090/how-to-get-diff-between-all-files-inside-2-folders-that-are-on-the-web/5875428#5875428&quot;&gt;этой SO дискуссии&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;diff -ENwbur repos1/ repos2/ &lt;span class=&quot;c&quot;&gt;# для эстетов, которым не сложно заполнить и&lt;/span&gt;
+                             &lt;span class=&quot;c&quot;&gt;# 6 неочевидных опций команды `diff`.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ENwburdiff! Ктулху, выходи!&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 10 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/10/diff/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/10/diff/index.html</guid>
+      </item>
+    
+      <item>
         <title>Docker run</title>
         <description>
           
@@ -247,48 +272,6 @@ database:
         <pubDate>Wed, 29 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/29/stachka/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/29/stachka/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Накладываем швы на ActiveRecord::SchemaDumper</title>
-        <description>
-          
-          &lt;p&gt;В рейлс &lt;code&gt;primary key&lt;/code&gt; - желательно делать &lt;code&gt;id&lt;/code&gt;, формально конечно можно поставить что-то другое, но
-гарантия заканчивается очень быстро. У нас в одном проекте сделали ключом &lt;code&gt;uuid&lt;/code&gt; и конечно же сломался дамп
-схемы. Где сломался дамп схемы, там сломались тесты и вообще не хорошо все это.&lt;/p&gt;
-
-&lt;p&gt;Иногда получается вставить аккуратный монкей-патч, но тут нужно было фиксить увесистый приватый метод 
-&lt;code&gt;ActiveRecord::SchemaDumper#table&lt;/code&gt;. Обычно я делаю так:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Добавляю файл в &lt;code&gt;config/initializers&lt;/code&gt;, обычно это достаточно удачное время&lt;/li&gt;
-&lt;li&gt;Копирую подопытный метод целиком, по возможности с условиями: &lt;code&gt;if defined?(ActiveRecord::SchemaDumper) ...&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Обязательно ставлю ассерт на текущую версию рейлс &lt;code&gt;raise &amp;quot;review and update this patch for Rails upgrade&amp;quot; if Rails.version != &amp;quot;4.2.8&amp;quot;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Каждое вмешательство оформляю ярко, примерно так:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;  &lt;span class=&quot;c1&quot;&gt;##### [BEGIN PATCH 2]&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# # original code&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# next if column.name == pk&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# @connection.column_spec(column, @types)&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# # patched code&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pk&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;uuid&amp;quot;&lt;/span&gt;
-      &lt;span class=&quot;vi&quot;&gt;@connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@types&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;primary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;primary: true&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;next&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@types&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;##### [END PATCH 2]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;В данном случае удалось обойтись тремя швами и схема как новенькая.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 28 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/28/protez/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/28/protez/index.html</guid>
       </item>
     
   </channel>

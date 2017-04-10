@@ -64,6 +64,56 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/03/28/protez/index.html">Накладываем швы на ActiveRecord::SchemaDumper</a></h1>
+      
+      <div class="date">March 28, 2017</div>
+
+      
+      <div class="entry">
+        <p>В рейлс <code>primary key</code> - желательно делать <code>id</code>, формально конечно можно поставить что-то другое, но
+гарантия заканчивается очень быстро. У нас в одном проекте сделали ключом <code>uuid</code> и конечно же сломался дамп
+схемы. Где сломался дамп схемы, там сломались тесты и вообще не хорошо все это.</p>
+
+<p>Иногда получается вставить аккуратный монкей-патч, но тут нужно было фиксить увесистый приватый метод 
+<code>ActiveRecord::SchemaDumper#table</code>. Обычно я делаю так:</p>
+
+<ol>
+<li>Добавляю файл в <code>config/initializers</code>, обычно это достаточно удачное время</li>
+<li>Копирую подопытный метод целиком, по возможности с условиями: <code>if defined?(ActiveRecord::SchemaDumper) ...</code></li>
+<li>Обязательно ставлю ассерт на текущую версию рейлс <code>raise &quot;review and update this patch for Rails upgrade&quot; if Rails.version != &quot;4.2.8&quot;</code></li>
+<li>Каждое вмешательство оформляю ярко, примерно так:</li>
+</ol>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1">##### [BEGIN PATCH 2]</span>
+  <span class="c1"># # original code</span>
+  <span class="c1"># next if column.name == pk</span>
+  <span class="c1"># @connection.column_spec(column, @types)</span>
+
+  <span class="c1"># # patched code</span>
+  <span class="k">if</span> <span class="n">column</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">pk</span>
+    <span class="k">if</span> <span class="n">pk</span> <span class="o">==</span> <span class="s2">&quot;uuid&quot;</span>
+      <span class="vi">@connection</span><span class="o">.</span><span class="n">column_spec</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="vi">@types</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="ss">primary</span><span class="p">:</span> <span class="s2">&quot;primary: true&quot;</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="k">next</span>
+    <span class="k">end</span>
+  <span class="k">else</span>
+    <span class="vi">@connection</span><span class="o">.</span><span class="n">column_spec</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="vi">@types</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1">##### [END PATCH 2]</span>
+</code></pre></div>
+<p>В данном случае удалось обойтись тремя швами и схема как новенькая.</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/03/28/protez/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2017/03/28/protez/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B%D0%B2%D0%B0%D0%B5%D0%BC+%D1%88%D0%B2%D1%8B+%D0%BD%D0%B0+ActiveRecord%3A%3ASchemaDumper&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F28%2Fprotez%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/03/27/glub/index.html">Глубоководные работы</a></h1>
       
       <div class="date">March 27, 2017</div>
@@ -357,60 +407,6 @@ ansible-playbook system.yml --tags vpn --e vpn_fetch=no
         
 
         <div class="fb-share-button" data-href="/blog/2017/03/15/ansib/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Ansible+Variables&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F15%2Fansib%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/03/14/nastachky/index.html">На стачку</a></h1>
-      
-      <div class="date">March 14, 2017</div>
-
-      
-      <div class="entry">
-        <p>В апреле коллеги из <a href="https://cloudcastle.ru/">CloudCastle</a> приглашают на <a href="https://nastachku.ru/">Стачку</a>,
-секция девопс. С огромным удовольствием приеду! В Ульяновске был несколько раз, но обычно
-было холодно и совсем не было времени. В этот раз собираюсь на три дня, поэтому, надеюсь,
-успею погулять, познакомиться с городом.</p>
-
-<p>Хочу продолжить тему, начатую на ДевОпсДейс, какие приемы помогали нам строить
-инфраструктуру и разработку в условиях
-роста компании. Накопилось много интересного, чем хочется поделиться, обменяться мнениями.
-Я поработаю над техникой доклада, добавлю побольше
-кейсов, историй, провокаций. Так, что если все пойдет как запланировано, то встретимся на Стачке!</p>
-
-<hr>
-
-<p>В одной книге я читал про такую психологическую защиту, что когда боишься чего-нибудь - экзамена,
-выступления, то готовишься очень мало или вообще не готовишься. Когда облажаешься, а если не готовиться
-то как может быть иначе, организм себя оправдает, что дескать, так вышло, потому-что мало
-готовился. Эта защита подпитывается тем фактом, что если что-то делаешь в первый раз, то сколько бы
-не старался, то все равно будешь выглядеть не очень.</p>
-
-<p>Противная штука и ее действие испытал в полном объеме при подготовке в этот раз.
-Вообще начал готовиться
-месяца за полтора, но довольно вяло. Каждый раз, когда садился за доклад, находилось
-тысяча дел, которые нужно
-было сделать очень, очень срочно.</p>
-
-<p>Обмануть природу мне помогли организаторы. Где-то недели за две до
-события они прислали официальный шаблон
-презентации (клевый, с ним с первых шагов стало получаться красиво), также установили
-дедлайн на 7 марта. Но самое главное, что Константин Назаров предложил свою помощь
-в подготовке всем выступающим. Я записался на созвон за неделю до доклада, и таким искусственным дедлайном
-как минимум заставил себя подготовить слайды, написать текст выступления и подогнать его на 20 минут.</p>
-
-<p>Потом каждый день я повторял доклад по 2-3 раза каждый день, записывал на видео. Но в любом случае, когда
-увидел полный зал на 400 человек, очень сильно захотелось сказать: &quot;ой, я кажется заболел и не смог прийти&quot;.
-Но не сказал и выступил <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' />.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/03/14/nastachky/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2017/03/14/nastachky/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B0+%D1%81%D1%82%D0%B0%D1%87%D0%BA%D1%83&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F14%2Fnastachky%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
