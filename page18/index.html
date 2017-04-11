@@ -64,6 +64,62 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2015/01/23/ember-1-intro/index.html">Ember.js - 1. Введение</a></h1>
+      
+      <div class="date">January 23, 2015</div>
+
+      <div class="img"><img src="/assets/ember-1-intro.jpg" /></div>
+      <div class="entry">
+        <p>Говорят, что у Ember.js кривая обучения крутовата. Категорически с этим не соглашусь.</p>
+
+<p>На самом деле обучение Ember.js - это глубокий темный колодец, в котором сидишь на дне и воешь от
+отчаяния. Но когда я немного разобрался, Эмбер начал мне нравится, даже сказал бы, что
+я его полюбил. Это действительно очень достойная и перспективная разработка.</p>
+
+<p>Я хочу посвятить несколько выпусков работе с этим замечательным
+фреймворком.
+Не знаю, что в итоге получится, пока планирую, что мы
+зайдем немного с другой стороны, чем предлагается в официальных гайдах. Выпуски
+про Эмбер будут перемежаться с другими, более привычными темами про Руби, Рейлс и все такое,
+чтобы было веселее.
+Для успешной работы нам понадобится
+Node.js (я поставил через <code>ndenv</code> по аналогии с моим любимым <code>rbenv</code>) и
+<a href="http://www.ember-cli.com/">Ember-cli</a> - это тру-способ организации проекта.</p>
+
+<p>Для начала хочу отметить, что в Эмбере все наследуется от <code>Ember.Object</code>, основная фишка
+которого, это возможность установить свойство через <code>set</code> и взять его через <code>get</code>. Всегда
+пользуйтесь этими методами. В качестве бонуса за непривычный синтаксис вы получите
+computed-свойста, вычисляемые реактивно, обзерверы, следящие за измененим свойств и
+всякие другие любопытные штуки. Создавать объект следует через <code>create</code>:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">Object</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">fullName</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;surName&quot;</span><span class="p">);</span>
+  <span class="p">}.</span><span class="nx">property</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;surName&quot;</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">alex</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Alexey&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">alex</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">));</span> <span class="c1">// =&gt; &quot;Alexey &quot;</span>
+
+<span class="nx">alex</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;surName&quot;</span><span class="p">,</span> <span class="s2">&quot;Vakhov&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">alex</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">));</span> <span class="c1">// =&gt; &quot;Alexey Vakhov&quot;</span>
+</code></pre></div>
+<p>Подробнее можно прочитать в разделе <a href="http://emberjs.com/guides/object-model/classes-and-instances/">The Object Model</a>
+официальной документации.</p>
+
+<p>На сегодня все, до новых встреч!</p>
+
+        
+        <div style="float:right"><a href="/blog/2015/01/23/ember-1-intro/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2015/01/23/ember-1-intro/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Ember.js+-+1.+%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F23%2Fember-1-intro%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2015/01/15/hub/index.html">Hub и Git</a></h1>
       
       <div class="date">January 15, 2015</div>
@@ -565,47 +621,6 @@ jQuery UI Sortable, не нарушая реактивности системы.
         
 
         <div class="fb-share-button" data-href="/blog/2014/12/04/require/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Require+Local+File&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F04%2Frequire%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/01/500-it/index.html">Как получить ошибку 500 на продакшене</a></h1>
-      
-      <div class="date">December  1, 2014</div>
-
-      <div class="img"><img src="/assets/500-it.jpg" /></div>
-      <div class="entry">
-        <p>Когда к новому проекту подключаешь трекер ошибок, Airbrake или Honeybadger (кстати говорят, что
-можно еще Skylight или Opbeat, но я не пробовал), хочется проверить, что все настроено
-правильно.</p>
-
-<p>Можно дождаться когда кто-нибудь внесет в продакшен дефект, но я обычно добавляю
-какой-нибудь секретный раут, вызывающий 500:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># config/routes.rb</span>
-<span class="n">get</span> <span class="s1">&#39;some_500_secret_url&#39;</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="nb">proc</span> <span class="p">{</span> <span class="k">raise</span> <span class="s1">&#39;500&#39;</span> <span class="p">}</span>
-</code></pre></div>
-<p>На самом деле к рауте привязано полноценное rack-приложение, которое по канонам
-должно выглядеть хотя бы так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">get</span> <span class="s1">&#39;some_500_secret_url&#39;</span><span class="p">,</span> <span class="ss">to</span><span class="p">:</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">env</span><span class="o">|</span>
-  <span class="o">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">},</span> <span class="o">[</span><span class="s1">&#39;Hello 500&#39;</span><span class="o">]]</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Но для тестирование работы эксепшенов достаточно просто бросить рантайм-ошибку.</p>
-
-<p>Теперь можно вызывать
-500 на продакшене столько раз, сколько необходимо.</p>
-
-<p><b>Update:</b> <a href=http://leopard.in.ua/>Алексей</a> показал как вызвать 500 на любом урле Рейлс-сайта,
-для этого достаточно добавить <code>?%28t%B3odei%29</code> в конец. Я проверил, получается <code>ArgumentError: invalid byte sequence in UTF-8</code>, очень забавно, на вызов Ктулху похоже :-)</p>
-
-        
-        <div style="float:right"><a href="/blog/2014/12/01/500-it/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/12/01/500-it/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C+%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D1%83+500+%D0%BD%D0%B0+%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%BA%D1%88%D0%B5%D0%BD%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F01%2F500-it%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
