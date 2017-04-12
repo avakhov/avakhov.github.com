@@ -7,6 +7,36 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ноутбук, рюкзак, Ульяновск</title>
+        <description>
+          
+          &lt;p&gt;Отправляюсь сегодня в славный город Ульяновск, на денек в наш офис и потом на стаченьку. И в честь
+этого рассказываю, что cron в Ubuntu 16.04 у меня почему-то заглючил при смене таймзоны. Не ожидал
+такого от утилиты, старше себя, но что есть, то есть. Из уважения к пенсионеру,
+обновили наш &lt;code&gt;bootstrap&lt;/code&gt; рецепт, чтобы
+после установки таймзоны крон перегружался.&lt;/p&gt;
+
+&lt;p&gt;У стартапов есть такой этап от гаража до лофта, когда у них нет полноценных ставок для
+администраторов/девопсов. Особенно беда тем, кто вдруг распался на много продуктов, как мы. Тогда может
+оказаться, что в одном проекте работы на 0.2 человека, во втором на 0.05, а на следующией день
+появляется еще
+3 продукта по 0.15 и один на 0.03.
+Серьезному человеку хостить 10 рейлс приложений будет скучновато, несерьезному -
+сложновато. И вообще серьезность начинается от трех человек, только тогда это команда и кворум.&lt;/p&gt;
+
+&lt;p&gt;На начальном этапе и среднем дико спасают PaaS&amp;#39;ы (привет Хероку), но может оказаться там тесновато, 
+а для команды еще рановато. В принципе у меня есть решение, как можно с огоньком пережить это время.
+Я планирую в ближайший месяц-два-три его доосмыслить и опубликовать набор подходов, которые позволяет
+относительно маленькими усилиями на докерах в облаках управлять, скажем, сотней приложений, каждое
+из которых может обрабатывать сотни rps при необходимости. Оставайтесь на линии! &lt;img class=&#39;emoji&#39; title=&#39;:cocktail:&#39; alt=&#39;:cocktail:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f378.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 12 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/12/ulsk/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/12/ulsk/index.html</guid>
+      </item>
+    
+      <item>
         <title>Интернет в метро</title>
         <description>
           
@@ -232,45 +262,6 @@
         <pubDate>Fri, 31 Mar 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/03/31/os/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/03/31/os/index.html</guid>
-      </item>
-    
-      <item>
-        <title>CircleCI PosgteSQL 9.6</title>
-        <description>
-          
-          &lt;p&gt;Прочитав несколько тьюториалов разной степеним мутности, я наконец нашел способ
-как запускать тесты в CircleCI под постгресом 9.6:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# circle.yml
-dependencies:
-  pre:
-    - sudo service postgresql stop
-    - sudo mv /usr/lib/postgresql-9.6/9.6 /usr/lib/postgresql/9.6
-    - sudo mv /etc/postgresql-9.6/9.6 /etc/postgresql/9.6
-    - sudo service postgresql start 9.6
-    - sudo -u postgres psql -p 5433 -c &amp;quot;create user ubuntu with password &amp;#39;ubuntu&amp;#39;;&amp;quot;
-    - sudo -u postgres psql -p 5433 -c &amp;quot;alter user ubuntu with superuser;&amp;quot;
-
-database:
-  override:
-    - mv config/database.yml.ci config/database.yml
-    - bundle exec rake db:create db:schema:load --trace
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;и в файле &lt;code&gt;config/database.yml.ci&lt;/code&gt; прописать:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;test:
-  adapter: postgresql
-  database: circle_ruby_test
-  username: ubuntu
-  password: ubuntu
-  host: localhost
-  port: 5433
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Странно, что это не из коробки, но так часто бывает, когда из инструментов 21-го века торчат уши
-20-го.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 30 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/30/circle/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/30/circle/index.html</guid>
       </item>
     
   </channel>
