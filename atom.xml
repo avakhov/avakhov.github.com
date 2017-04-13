@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Атака на клиентов R01</title>
+        <description>
+          
+          &lt;p&gt;Друг недавно переслал письмо, которое выглядит точь в точь как от R01 с просьбой
+валидировать домен:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=/18/isaev.png&gt;&lt;/p&gt;
+
+&lt;p&gt;Красиво оформили чертяки, лайк! Я даже поверил в первую секунду. Но расширение &lt;code&gt;.php&lt;/code&gt; выдало
+славного разведчика Исаева, а также адрес &lt;code&gt;noreply@r01.tech&lt;/code&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 13 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/13/r01/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/13/r01/index.html</guid>
+      </item>
+    
+      <item>
         <title>Ноутбук, рюкзак, Ульяновск</title>
         <description>
           
@@ -238,30 +256,6 @@
         <pubDate>Sat, 01 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/01/new-form/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/01/new-form/index.html</guid>
-      </item>
-    
-      <item>
-        <title>OS и автоматизация</title>
-        <description>
-          
-          &lt;p&gt;Люди спорят о том какой еще язык программирования появится,
-а сейчас мне сильно не хватает нормальной хипстерской
-облачной операционной системы. Которая вжух и поставилась. И сразу же докеры, сервисы, логи
-все как-то само. И не надо бригаду администраторов, которые это вжух делают сегодня вручную.&lt;/p&gt;
-
-&lt;p&gt;Еще во всех абсолютно языках не хватает возможности контролируемо и просто вызывать
-внешние процессы, заходить на ssh, опрашивать урлы и прочее, что нужно при любой автоматизации.
-Вот как человек делает. Он попробовал зайти на сервер, не получилось - попинговал, посмотрел DNS.
-Однако сейчас даже чтобы вызвать внешний bash-скрипт и корректно обработать код возрата
-нужно делать
-какие-то нетривиальные движения (привет &lt;code&gt;popen3&lt;/code&gt; и братья в руби).&lt;/p&gt;
-
-&lt;p&gt;То есть нужна операционка и надежные, простые инструменты автоматизации. Вот такой запрос к обществу.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 31 Mar 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/03/31/os/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/03/31/os/index.html</guid>
       </item>
     
   </channel>
