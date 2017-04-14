@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>git checkout ulyanovsk</title>
+        <description>
+          
+          &lt;p&gt;&lt;img src=/18/ul/1.jpg&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=/18/ul/2.jpg&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=/18/ul/3.jpg&gt;&lt;/p&gt;
+
+&lt;p&gt;Yo.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 14 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/14/ul/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/14/ul/index.html</guid>
+      </item>
+    
+      <item>
         <title>Атака на клиентов R01</title>
         <description>
           
@@ -232,30 +250,6 @@
         <pubDate>Mon, 03 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/03/gartner/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/03/gartner/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Новый формат</title>
-        <description>
-          
-          &lt;p&gt;Привет, дорогие читатели! Я решил немного поменять формат своего блога, теперь буду публиковать каждый рабочий
-день одно новое блюдо, которое готовлю самостоятельно. Сегодня представляю вашему вниманию говядину (лопатка), запеченую
-в фольге:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/18/1apr.jpg&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Подпишитесь
-на новости сайта и вы узнаете рецепт мяса,
-увидите фотографии новых блюд раньше всех, научитесь готовить уникальные гарниры и десерты, а также
-получите шанс выиграть билет на мастер-класс по приготовлению комплексного обеда на трех человек
-с автором данного блога.&lt;/p&gt;
-
-&lt;p&gt;До новых встреч! &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Sat, 01 Apr 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/04/01/new-form/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/01/new-form/index.html</guid>
       </item>
     
   </channel>
