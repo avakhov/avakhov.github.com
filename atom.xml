@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ruby + JSON</title>
+        <description>
+          
+          &lt;p&gt;Ой, а я и не заметил, что в руби 2.2+ нормально работает JSON:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ docker run ruby:2.1.10 ruby -e &amp;#39;a={&amp;quot;a&amp;quot;:&amp;quot;b&amp;quot;};p a&amp;#39;
+-e:1: syntax error, unexpected &amp;#39;:&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;А уже в 2.2:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ docker run ruby:2.2.0 ruby -e &amp;#39;a={&amp;quot;a&amp;quot;:&amp;quot;b&amp;quot;};p a&amp;#39;
+{:a=&amp;gt;&amp;quot;b&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Немного странно, что ключ - это символ, логичнее наверное была бы строка. Ну да ладно.
+Новость хорошая, хоть и не свежая.&lt;/p&gt;
+
+        </description>
+        <pubDate>Sat, 15 Apr 2017 00:00:00 +0400</pubDate>
+        <link>http://vakhov.me/blog/2017/04/15/ruby/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/15/ruby/index.html</guid>
+      </item>
+    
+      <item>
         <title>git checkout ulyanovsk</title>
         <description>
           
@@ -19,7 +40,7 @@
 &lt;p&gt;Yo.&lt;/p&gt;
 
         </description>
-        <pubDate>Fri, 14 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Fri, 14 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/14/ul/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/14/ul/index.html</guid>
       </item>
@@ -37,7 +58,7 @@
 славного разведчика Исаева, а также адрес &lt;code&gt;noreply@r01.tech&lt;/code&gt;.&lt;/p&gt;
 
         </description>
-        <pubDate>Thu, 13 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Thu, 13 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/13/r01/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/13/r01/index.html</guid>
       </item>
@@ -67,7 +88,7 @@
 из которых может обрабатывать сотни rps при необходимости. Оставайтесь на линии! &lt;img class=&#39;emoji&#39; title=&#39;:cocktail:&#39; alt=&#39;:cocktail:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f378.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
 
         </description>
-        <pubDate>Wed, 12 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Wed, 12 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/12/ulsk/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/12/ulsk/index.html</guid>
       </item>
@@ -87,7 +108,7 @@
 так как спамеры всех мастей не дремлют, но иногда фильтр отсекает реально дельные вещи.&lt;/p&gt;
 
         </description>
-        <pubDate>Tue, 11 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Tue, 11 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/11/transaction/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/11/transaction/index.html</guid>
       </item>
@@ -112,7 +133,7 @@
 &lt;p&gt;ENwburdiff! Ктулху, выходи!&lt;/p&gt;
 
         </description>
-        <pubDate>Mon, 10 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Mon, 10 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/10/diff/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/10/diff/index.html</guid>
       </item>
@@ -129,7 +150,7 @@
 Тогда докеры контейнеры не будут доступны из интернета.&lt;/p&gt;
 
         </description>
-        <pubDate>Fri, 07 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Fri, 07 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/07/docker/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/07/docker/index.html</guid>
       </item>
@@ -153,7 +174,7 @@
 Экран здоровенный, аппарат тяжелый, за 11к рублей нормально.&lt;/p&gt;
 
         </description>
-        <pubDate>Thu, 06 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Thu, 06 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/06/apple/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/06/apple/index.html</guid>
       </item>
@@ -192,7 +213,7 @@
 &lt;img src=&quot;/18/comm.png&quot;&gt;&lt;/p&gt;
 
         </description>
-        <pubDate>Wed, 05 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Wed, 05 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/05/modern_js/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/05/modern_js/index.html</guid>
       </item>
@@ -213,43 +234,9 @@
 фактический.&lt;/p&gt;
 
         </description>
-        <pubDate>Tue, 04 Apr 2017 00:00:00 +0300</pubDate>
+        <pubDate>Tue, 04 Apr 2017 00:00:00 +0400</pubDate>
         <link>http://vakhov.me/blog/2017/04/04/nginx/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/04/nginx/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Плато продуктивности /пост ни о чем/</title>
-        <description>
-          
-          &lt;p&gt;Залез я тут в википедию почитать про плато продуктивности по Гартнеру. Так оно не плато, а платеау.
-Вот английский язык именно такой.
-Все просто, просто, а потом вжух и получите, распишитесь - платеау. Причем в транскрипции сразу
-два значка,
-которые меня всегда пугали - [&amp;#39;plætəu]. Ну ладно, это на их совести останется.&lt;/p&gt;
-
-&lt;p&gt;Вот картинка из статьи &lt;a href=&quot;https://en.wikipedia.org/wiki/Hype_cycle&quot;&gt;Hype cycle&lt;/a&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Gartner_Hype_Cycle.svg/559px-Gartner_Hype_Cycle.svg.png&gt;&lt;/p&gt;
-
-&lt;p&gt;Вообще я люблю консультантов, как людей, которые аккумулируют знания по отрасли, но, конечно частенько
-они перегибают палку. &amp;quot;Слоуп оф инлайтенмент&amp;quot; - наверняка в Гартнере сразу увольняют
-тех, кто не может простые вещи сложными словами описать.&lt;/p&gt;
-
-&lt;p&gt;И напоследок крутейшая шутка с баша:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://bash.im/quote/444051&quot;&gt;http://bash.im/quote/444051&lt;/a&gt; &lt;br&gt;
-Цикл внедрения нового программного продукта глазами админов: &lt;br&gt;
-1 Отрицание. &lt;br&gt;
-2 Гнев. &lt;br&gt;
-3 Торги. &lt;br&gt;
-4 Депрессия. &lt;br&gt;
-5 Принятие (в эксплуатацию).&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 03 Apr 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/04/03/gartner/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/03/gartner/index.html</guid>
       </item>
     
   </channel>
