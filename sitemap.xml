@@ -3,9 +3,17 @@
   
   
   <url>
+    <loc>http://vakhov.me/blog/2017/04/17/stachka/index.html</loc>
+    
+    <lastmod>2017-04-17T00:00:00+03:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://vakhov.me/blog/2017/04/15/ruby/index.html</loc>
     
-    <lastmod>2017-04-15T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -13,7 +21,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/14/ul/index.html</loc>
     
-    <lastmod>2017-04-14T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -21,7 +29,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/13/r01/index.html</loc>
     
-    <lastmod>2017-04-13T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -29,7 +37,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/12/ulsk/index.html</loc>
     
-    <lastmod>2017-04-12T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-12T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -37,7 +45,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/11/transaction/index.html</loc>
     
-    <lastmod>2017-04-11T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-11T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -45,7 +53,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/10/diff/index.html</loc>
     
-    <lastmod>2017-04-10T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -53,7 +61,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/07/docker/index.html</loc>
     
-    <lastmod>2017-04-07T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -61,7 +69,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/06/apple/index.html</loc>
     
-    <lastmod>2017-04-06T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -69,7 +77,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/05/modern_js/index.html</loc>
     
-    <lastmod>2017-04-05T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-05T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -77,7 +85,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/04/nginx/index.html</loc>
     
-    <lastmod>2017-04-04T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-04T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -85,7 +93,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/03/gartner/index.html</loc>
     
-    <lastmod>2017-04-03T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-03T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -93,7 +101,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/04/01/new-form/index.html</loc>
     
-    <lastmod>2017-04-01T00:00:00+04:00</lastmod>
+    <lastmod>2017-04-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -101,7 +109,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/31/os/index.html</loc>
     
-    <lastmod>2017-03-31T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-31T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -109,7 +117,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/30/circle/index.html</loc>
     
-    <lastmod>2017-03-30T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -117,7 +125,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/29/stachka/index.html</loc>
     
-    <lastmod>2017-03-29T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -125,7 +133,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/28/protez/index.html</loc>
     
-    <lastmod>2017-03-28T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-28T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -133,7 +141,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/27/glub/index.html</loc>
     
-    <lastmod>2017-03-27T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -141,7 +149,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/24/bardak/index.html</loc>
     
-    <lastmod>2017-03-24T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-24T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -149,7 +157,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/23/rsync/index.html</loc>
     
-    <lastmod>2017-03-23T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -157,7 +165,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/22/role/index.html</loc>
     
-    <lastmod>2017-03-22T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -165,7 +173,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/21/se/index.html</loc>
     
-    <lastmod>2017-03-21T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -173,7 +181,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/20/docker_ports/index.html</loc>
     
-    <lastmod>2017-03-20T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -181,7 +189,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/17/integrity/index.html</loc>
     
-    <lastmod>2017-03-17T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -189,7 +197,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/16/terrafail/index.html</loc>
     
-    <lastmod>2017-03-16T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -197,7 +205,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/15/ansib/index.html</loc>
     
-    <lastmod>2017-03-15T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -205,7 +213,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/14/nastachky/index.html</loc>
     
-    <lastmod>2017-03-14T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -213,7 +221,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/13/dod/index.html</loc>
     
-    <lastmod>2017-03-13T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -221,7 +229,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/10/postmodern/index.html</loc>
     
-    <lastmod>2017-03-10T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -229,7 +237,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/09/marketing/index.html</loc>
     
-    <lastmod>2017-03-09T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-09T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -237,7 +245,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/07/backups/index.html</loc>
     
-    <lastmod>2017-03-07T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -245,7 +253,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/06/atag/index.html</loc>
     
-    <lastmod>2017-03-06T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -253,7 +261,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/03/lowload/index.html</loc>
     
-    <lastmod>2017-03-03T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-03T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -261,7 +269,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/02/highload/index.html</loc>
     
-    <lastmod>2017-03-02T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-02T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -269,7 +277,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/03/01/gleb/index.html</loc>
     
-    <lastmod>2017-03-01T00:00:00+04:00</lastmod>
+    <lastmod>2017-03-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -277,7 +285,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/28/token/index.html</loc>
     
-    <lastmod>2017-02-28T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-28T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -285,7 +293,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/27/ping/index.html</loc>
     
-    <lastmod>2017-02-27T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -293,7 +301,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/22/pri/index.html</loc>
     
-    <lastmod>2017-02-22T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -301,7 +309,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/21/vacancy/index.html</loc>
     
-    <lastmod>2017-02-21T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -309,7 +317,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/21/prom/index.html</loc>
     
-    <lastmod>2017-02-21T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -317,7 +325,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/20/teams/index.html</loc>
     
-    <lastmod>2017-02-20T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -325,7 +333,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/17/ansible/index.html</loc>
     
-    <lastmod>2017-02-17T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -333,7 +341,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/16/enterpraise/index.html</loc>
     
-    <lastmod>2017-02-16T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -341,7 +349,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/15/plastik/index.html</loc>
     
-    <lastmod>2017-02-15T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -349,7 +357,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/14/ddd/index.html</loc>
     
-    <lastmod>2017-02-14T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -357,7 +365,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/13/5000/index.html</loc>
     
-    <lastmod>2017-02-13T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -365,7 +373,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/10/50/index.html</loc>
     
-    <lastmod>2017-02-10T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -373,7 +381,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/09/zero/index.html</loc>
     
-    <lastmod>2017-02-09T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-09T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -381,7 +389,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/08/seme4ki/index.html</loc>
     
-    <lastmod>2017-02-08T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-08T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -389,7 +397,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/07/durov/index.html</loc>
     
-    <lastmod>2017-02-07T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -397,7 +405,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/06/misprint/index.html</loc>
     
-    <lastmod>2017-02-06T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -405,7 +413,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/03/perstar/index.html</loc>
     
-    <lastmod>2017-02-03T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-03T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -413,7 +421,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/02/etc/index.html</loc>
     
-    <lastmod>2017-02-02T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-02T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -421,7 +429,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/02/01/shtatno/index.html</loc>
     
-    <lastmod>2017-02-01T00:00:00+04:00</lastmod>
+    <lastmod>2017-02-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -429,7 +437,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/31/terr-echo/index.html</loc>
     
-    <lastmod>2017-01-31T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-31T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -437,7 +445,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/30/deba/index.html</loc>
     
-    <lastmod>2017-01-30T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -445,7 +453,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/27/93_96/index.html</loc>
     
-    <lastmod>2017-01-27T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -453,7 +461,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/26/regex/index.html</loc>
     
-    <lastmod>2017-01-26T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-26T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -461,7 +469,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/25/sync-hard/index.html</loc>
     
-    <lastmod>2017-01-25T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-25T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -469,7 +477,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/24/avant/index.html</loc>
     
-    <lastmod>2017-01-24T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-24T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -477,7 +485,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/23/mail2/index.html</loc>
     
-    <lastmod>2017-01-23T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -485,7 +493,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/20/mail/index.html</loc>
     
-    <lastmod>2017-01-20T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -493,7 +501,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/19/terraform_gce/index.html</loc>
     
-    <lastmod>2017-01-19T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-19T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -501,7 +509,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/18/yarn/index.html</loc>
     
-    <lastmod>2017-01-18T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-18T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -509,7 +517,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/17/prichina/index.html</loc>
     
-    <lastmod>2017-01-17T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -517,7 +525,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/16/lodash/index.html</loc>
     
-    <lastmod>2017-01-16T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -525,7 +533,7 @@
   <url>
     <loc>http://vakhov.me/blog/2017/01/13/friday/index.html</loc>
     
-    <lastmod>2017-01-13T00:00:00+04:00</lastmod>
+    <lastmod>2017-01-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -533,7 +541,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/30/2017/index.html</loc>
     
-    <lastmod>2016-12-30T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -541,7 +549,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/29/omakasi/index.html</loc>
     
-    <lastmod>2016-12-29T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -549,7 +557,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/28/tolken/index.html</loc>
     
-    <lastmod>2016-12-28T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-28T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -557,7 +565,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/27/ded/index.html</loc>
     
-    <lastmod>2016-12-27T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -565,7 +573,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/26/bab/index.html</loc>
     
-    <lastmod>2016-12-26T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-26T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -573,7 +581,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/23/burya/index.html</loc>
     
-    <lastmod>2016-12-23T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -581,7 +589,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/22/marketing/index.html</loc>
     
-    <lastmod>2016-12-22T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -589,7 +597,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/21/pug/index.html</loc>
     
-    <lastmod>2016-12-21T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -597,7 +605,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/20/shiva/index.html</loc>
     
-    <lastmod>2016-12-20T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -605,7 +613,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/19/static_prom/index.html</loc>
     
-    <lastmod>2016-12-19T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-19T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -613,7 +621,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/16/luna/index.html</loc>
     
-    <lastmod>2016-12-16T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -621,7 +629,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/15/stepeni/index.html</loc>
     
-    <lastmod>2016-12-15T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -629,7 +637,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/14/start/index.html</loc>
     
-    <lastmod>2016-12-14T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -637,7 +645,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/13/3magic/index.html</loc>
     
-    <lastmod>2016-12-13T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -645,7 +653,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/12/small_pak/index.html</loc>
     
-    <lastmod>2016-12-12T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-12T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -653,7 +661,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/09/ubiley/index.html</loc>
     
-    <lastmod>2016-12-09T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-09T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -661,7 +669,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/08/load/index.html</loc>
     
-    <lastmod>2016-12-08T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-08T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -669,7 +677,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/07/procent/index.html</loc>
     
-    <lastmod>2016-12-07T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -677,7 +685,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/06/ansible/index.html</loc>
     
-    <lastmod>2016-12-06T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -685,7 +693,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/05/selectel_sol/index.html</loc>
     
-    <lastmod>2016-12-05T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-05T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -693,7 +701,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/02/5disk/index.html</loc>
     
-    <lastmod>2016-12-02T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-02T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -701,7 +709,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/12/01/python/index.html</loc>
     
-    <lastmod>2016-12-01T00:00:00+04:00</lastmod>
+    <lastmod>2016-12-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -709,7 +717,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/30/palec/index.html</loc>
     
-    <lastmod>2016-11-30T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -717,7 +725,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/29/kach/index.html</loc>
     
-    <lastmod>2016-11-29T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -725,7 +733,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/28/cc/index.html</loc>
     
-    <lastmod>2016-11-28T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-28T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -733,7 +741,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/25/slab/index.html</loc>
     
-    <lastmod>2016-11-25T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-25T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -741,7 +749,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/24/history/index.html</loc>
     
-    <lastmod>2016-11-24T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-24T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -749,7 +757,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/23/4_tela/index.html</loc>
     
-    <lastmod>2016-11-23T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -757,7 +765,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/22/array_true/index.html</loc>
     
-    <lastmod>2016-11-22T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -765,7 +773,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/21/terraform_plus_selectel/index.html</loc>
     
-    <lastmod>2016-11-21T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -773,7 +781,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/18/timeman/index.html</loc>
     
-    <lastmod>2016-11-18T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-18T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -781,7 +789,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/17/kladovka/index.html</loc>
     
-    <lastmod>2016-11-17T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -789,7 +797,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/16/mib/index.html</loc>
     
-    <lastmod>2016-11-16T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -797,7 +805,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/15/refactoring/index.html</loc>
     
-    <lastmod>2016-11-15T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -805,7 +813,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/14/kill-db/index.html</loc>
     
-    <lastmod>2016-11-14T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -813,7 +821,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/11/prepare-pc/index.html</loc>
     
-    <lastmod>2016-11-11T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-11T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -821,7 +829,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/10/phil/index.html</loc>
     
-    <lastmod>2016-11-10T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -829,7 +837,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/09/ansible-jet-black/index.html</loc>
     
-    <lastmod>2016-11-09T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-09T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -837,7 +845,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/08/cpp/index.html</loc>
     
-    <lastmod>2016-11-08T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-08T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -845,7 +853,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/07/shatal2/index.html</loc>
     
-    <lastmod>2016-11-07T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -853,7 +861,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/03/udp/index.html</loc>
     
-    <lastmod>2016-11-03T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-03T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -861,7 +869,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/02/right/index.html</loc>
     
-    <lastmod>2016-11-02T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-02T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -869,7 +877,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/11/01/early_monitoring/index.html</loc>
     
-    <lastmod>2016-11-01T00:00:00+04:00</lastmod>
+    <lastmod>2016-11-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -877,7 +885,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/31/flock/index.html</loc>
     
-    <lastmod>2016-10-31T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-31T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -885,7 +893,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/28/down/index.html</loc>
     
-    <lastmod>2016-10-28T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-28T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -893,7 +901,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/27/krizis/index.html</loc>
     
-    <lastmod>2016-10-27T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -901,7 +909,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/27/1001/index.html</loc>
     
-    <lastmod>2016-10-27T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -909,7 +917,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/26/context/index.html</loc>
     
-    <lastmod>2016-10-26T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-26T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -917,7 +925,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/25/mailgun/index.html</loc>
     
-    <lastmod>2016-10-25T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-25T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -925,7 +933,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/24/ansible-keys/index.html</loc>
     
-    <lastmod>2016-10-24T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-24T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -933,7 +941,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/21/utils/index.html</loc>
     
-    <lastmod>2016-10-21T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -941,7 +949,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/20/db/index.html</loc>
     
-    <lastmod>2016-10-20T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -949,7 +957,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/19/ngrok/index.html</loc>
     
-    <lastmod>2016-10-19T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-19T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -957,7 +965,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/18/failes/index.html</loc>
     
-    <lastmod>2016-10-18T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-18T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -965,7 +973,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/17/dj/index.html</loc>
     
-    <lastmod>2016-10-17T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -973,7 +981,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/14/racket/index.html</loc>
     
-    <lastmod>2016-10-14T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -981,7 +989,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/13/terraform-like-a-terraformer/index.html</loc>
     
-    <lastmod>2016-10-13T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -989,7 +997,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/12/selectel-new-project/index.html</loc>
     
-    <lastmod>2016-10-12T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-12T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -997,7 +1005,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/11/owner/index.html</loc>
     
-    <lastmod>2016-10-11T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-11T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1005,7 +1013,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/10/zabolel/index.html</loc>
     
-    <lastmod>2016-10-10T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1013,7 +1021,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/10/bash-size/index.html</loc>
     
-    <lastmod>2016-10-10T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1021,7 +1029,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/07/regular/index.html</loc>
     
-    <lastmod>2016-10-07T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1029,7 +1037,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/06/db-optim/index.html</loc>
     
-    <lastmod>2016-10-06T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1037,7 +1045,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/05/recent/index.html</loc>
     
-    <lastmod>2016-10-05T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-05T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1045,7 +1053,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/04/crazy-bash/index.html</loc>
     
-    <lastmod>2016-10-04T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-04T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1053,7 +1061,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/10/03/github/index.html</loc>
     
-    <lastmod>2016-10-03T00:00:00+04:00</lastmod>
+    <lastmod>2016-10-03T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1061,7 +1069,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/30/pg_pick/index.html</loc>
     
-    <lastmod>2016-09-30T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1069,7 +1077,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/29/ga/index.html</loc>
     
-    <lastmod>2016-09-29T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1077,7 +1085,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/28/stress/index.html</loc>
     
-    <lastmod>2016-09-28T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-28T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1085,7 +1093,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/27/comments/index.html</loc>
     
-    <lastmod>2016-09-27T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1093,7 +1101,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/26/sinatra/index.html</loc>
     
-    <lastmod>2016-09-26T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-26T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1101,7 +1109,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/23/email/index.html</loc>
     
-    <lastmod>2016-09-23T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1109,7 +1117,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/22/redo/index.html</loc>
     
-    <lastmod>2016-09-22T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1117,7 +1125,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/21/shots/index.html</loc>
     
-    <lastmod>2016-09-21T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-21T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1125,7 +1133,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/20/two-principe/index.html</loc>
     
-    <lastmod>2016-09-20T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1133,7 +1141,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/19/visit/index.html</loc>
     
-    <lastmod>2016-09-19T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-19T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1141,7 +1149,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/16/pure-logs/index.html</loc>
     
-    <lastmod>2016-09-16T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1149,7 +1157,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/15/rails-hate/index.html</loc>
     
-    <lastmod>2016-09-15T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1157,7 +1165,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/14/slim-coff/index.html</loc>
     
-    <lastmod>2016-09-14T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-14T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1165,7 +1173,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/13/blogo-engine/index.html</loc>
     
-    <lastmod>2016-09-13T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1173,7 +1181,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/12/vim/index.html</loc>
     
-    <lastmod>2016-09-12T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-12T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1181,7 +1189,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/09/too_dev/index.html</loc>
     
-    <lastmod>2016-09-09T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-09T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1189,7 +1197,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/08/progress/index.html</loc>
     
-    <lastmod>2016-09-08T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-08T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1197,7 +1205,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/07/ux/index.html</loc>
     
-    <lastmod>2016-09-07T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-07T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1205,7 +1213,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/06/ruby2/index.html</loc>
     
-    <lastmod>2016-09-06T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1213,7 +1221,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/05/bullet/index.html</loc>
     
-    <lastmod>2016-09-05T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-05T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1221,7 +1229,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/02/1gb_json/index.html</loc>
     
-    <lastmod>2016-09-02T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-02T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1229,7 +1237,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/09/01/provod/index.html</loc>
     
-    <lastmod>2016-09-01T00:00:00+04:00</lastmod>
+    <lastmod>2016-09-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1237,7 +1245,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/31/tri/index.html</loc>
     
-    <lastmod>2016-08-31T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-31T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1245,7 +1253,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/30/ruby/index.html</loc>
     
-    <lastmod>2016-08-30T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1253,7 +1261,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/29/i_have_idea/index.html</loc>
     
-    <lastmod>2016-08-29T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1261,7 +1269,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/26/beauty/index.html</loc>
     
-    <lastmod>2016-08-26T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-26T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1269,7 +1277,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/25/grep-it/index.html</loc>
     
-    <lastmod>2016-08-25T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-25T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1277,7 +1285,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/24/cron/index.html</loc>
     
-    <lastmod>2016-08-24T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-24T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1285,7 +1293,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/23/blob/index.html</loc>
     
-    <lastmod>2016-08-23T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1293,7 +1301,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/22/refactoring/index.html</loc>
     
-    <lastmod>2016-08-22T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1301,7 +1309,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/19/lazy-git/index.html</loc>
     
-    <lastmod>2016-08-19T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-19T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1309,7 +1317,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/18/alarm/index.html</loc>
     
-    <lastmod>2016-08-18T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-18T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1317,7 +1325,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/17/watch-the-slon/index.html</loc>
     
-    <lastmod>2016-08-17T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1325,7 +1333,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/16/back-tick/index.html</loc>
     
-    <lastmod>2016-08-16T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-16T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1333,7 +1341,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/15/deploy/index.html</loc>
     
-    <lastmod>2016-08-15T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1341,7 +1349,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/12/doc-db/index.html</loc>
     
-    <lastmod>2016-08-12T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-12T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1349,7 +1357,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/11/regexp/index.html</loc>
     
-    <lastmod>2016-08-11T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-11T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1357,7 +1365,7 @@
   <url>
     <loc>http://vakhov.me/blog/2016/08/10/reborn/index.html</loc>
     
-    <lastmod>2016-08-10T00:00:00+04:00</lastmod>
+    <lastmod>2016-08-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1365,7 +1373,7 @@
   <url>
     <loc>http://vakhov.me/blog/2015/02/17/meeio/index.html</loc>
     
-    <lastmod>2015-02-17T00:00:00+04:00</lastmod>
+    <lastmod>2015-02-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1373,7 +1381,7 @@
   <url>
     <loc>http://vakhov.me/blog/2015/02/02/tsort/index.html</loc>
     
-    <lastmod>2015-02-02T00:00:00+04:00</lastmod>
+    <lastmod>2015-02-02T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1381,7 +1389,7 @@
   <url>
     <loc>http://vakhov.me/blog/2015/01/29/ember-2-fire/index.html</loc>
     
-    <lastmod>2015-01-29T00:00:00+04:00</lastmod>
+    <lastmod>2015-01-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1389,7 +1397,7 @@
   <url>
     <loc>http://vakhov.me/blog/2015/01/26/flat_map/index.html</loc>
     
-    <lastmod>2015-01-26T00:00:00+04:00</lastmod>
+    <lastmod>2015-01-26T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1397,7 +1405,7 @@
   <url>
     <loc>http://vakhov.me/blog/2015/01/23/ember-1-intro/index.html</loc>
     
-    <lastmod>2015-01-23T00:00:00+04:00</lastmod>
+    <lastmod>2015-01-23T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1405,7 +1413,7 @@
   <url>
     <loc>http://vakhov.me/blog/2015/01/15/hub/index.html</loc>
     
-    <lastmod>2015-01-15T00:00:00+04:00</lastmod>
+    <lastmod>2015-01-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1413,7 +1421,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/29/new-year/index.html</loc>
     
-    <lastmod>2014-12-29T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-29T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1421,7 +1429,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/25/contribute/index.html</loc>
     
-    <lastmod>2014-12-25T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-25T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1429,7 +1437,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/22/gnu-screen/index.html</loc>
     
-    <lastmod>2014-12-22T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-22T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1437,7 +1445,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/18/remove_a_lot_records/index.html</loc>
     
-    <lastmod>2014-12-18T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-18T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1445,7 +1453,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/15/timestamps/index.html</loc>
     
-    <lastmod>2014-12-15T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-15T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1453,7 +1461,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/11/react-sortable/index.html</loc>
     
-    <lastmod>2014-12-11T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-11T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1461,7 +1469,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/08/2-small-things/index.html</loc>
     
-    <lastmod>2014-12-08T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-08T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1469,7 +1477,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/04/require/index.html</loc>
     
-    <lastmod>2014-12-04T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-04T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1477,7 +1485,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/12/01/500-it/index.html</loc>
     
-    <lastmod>2014-12-01T00:00:00+04:00</lastmod>
+    <lastmod>2014-12-01T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1485,7 +1493,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/27/react-todo/index.html</loc>
     
-    <lastmod>2014-11-27T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1493,7 +1501,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/24/be_rspec/index.html</loc>
     
-    <lastmod>2014-11-24T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-24T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1501,7 +1509,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/20/array_find/index.html</loc>
     
-    <lastmod>2014-11-20T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-20T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1509,7 +1517,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/17/long-death-migtations/index.html</loc>
     
-    <lastmod>2014-11-17T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-17T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1517,7 +1525,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/13/disqus-orient/index.html</loc>
     
-    <lastmod>2014-11-13T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-13T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1525,7 +1533,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/10/rackup-ru/index.html</loc>
     
-    <lastmod>2014-11-10T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-10T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1533,7 +1541,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/11/06/pretty-bash-prompt/index.html</loc>
     
-    <lastmod>2014-11-06T00:00:00+04:00</lastmod>
+    <lastmod>2014-11-06T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1541,7 +1549,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/10/30/oaas/index.html</loc>
     
-    <lastmod>2014-10-30T00:00:00+04:00</lastmod>
+    <lastmod>2014-10-30T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1549,7 +1557,7 @@
   <url>
     <loc>http://vakhov.me/blog/2014/10/27/record-lock/index.html</loc>
     
-    <lastmod>2014-10-27T00:00:00+04:00</lastmod>
+    <lastmod>2014-10-27T00:00:00+03:00</lastmod>
     
     <priority>0.8</priority>
   </url>
@@ -1829,35 +1837,35 @@
   
   <url>
     <loc>http://vakhov.me/18plus.html</loc>
-    <lastmod>2017-04-15T09:12:06+04:00</lastmod>
+    <lastmod>2017-04-17T07:23:15+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/404.html</loc>
-    <lastmod>2017-04-15T09:12:06+04:00</lastmod>
+    <lastmod>2017-04-17T07:23:15+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/about.html</loc>
-    <lastmod>2017-04-15T09:12:06+04:00</lastmod>
+    <lastmod>2017-04-17T07:23:15+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/</loc>
-    <lastmod>2017-04-15T09:12:06+04:00</lastmod>
+    <lastmod>2017-04-17T07:23:15+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/external/terraform.html</loc>
-    <lastmod>2017-04-15T09:12:06+04:00</lastmod>
+    <lastmod>2017-04-17T07:23:15+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

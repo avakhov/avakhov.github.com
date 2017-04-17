@@ -7,6 +7,25 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Стачка Все.</title>
+        <description>
+          
+          &lt;p&gt;Стачка прошла, классное мероприятие. Докладов я как обычно послушал немного, но
+довольно много пообщался. Самое важное узнать не новые технологии (которых очень
+много), а кейсы успешного использования и проблемы во время использования.&lt;/p&gt;
+
+&lt;p&gt;Очень понравился рассказ Олега Бартунова про JSON в постгресе. Если кратко, то
+нужно выкинуть &lt;code&gt;json&lt;/code&gt; и всегда пользоваться &lt;code&gt;jsonb&lt;/code&gt;, а в Постгресс 11 будет поддержка
+нового стандарта SQL для работы с JSON. То есть в 99% случаев хипстерам можно пользоваться
+постгресом и не нужны никакие NoSQL. Это приятно.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 17 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/17/stachka/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/17/stachka/index.html</guid>
+      </item>
+    
+      <item>
         <title>Ruby + JSON</title>
         <description>
           
@@ -22,7 +41,7 @@
 Новость хорошая, хоть и не свежая.&lt;/p&gt;
 
         </description>
-        <pubDate>Sat, 15 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Sat, 15 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/15/ruby/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/15/ruby/index.html</guid>
       </item>
@@ -40,7 +59,7 @@
 &lt;p&gt;Yo.&lt;/p&gt;
 
         </description>
-        <pubDate>Fri, 14 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Fri, 14 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/14/ul/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/14/ul/index.html</guid>
       </item>
@@ -58,7 +77,7 @@
 славного разведчика Исаева, а также адрес &lt;code&gt;noreply@r01.tech&lt;/code&gt;.&lt;/p&gt;
 
         </description>
-        <pubDate>Thu, 13 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Thu, 13 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/13/r01/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/13/r01/index.html</guid>
       </item>
@@ -88,7 +107,7 @@
 из которых может обрабатывать сотни rps при необходимости. Оставайтесь на линии! &lt;img class=&#39;emoji&#39; title=&#39;:cocktail:&#39; alt=&#39;:cocktail:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f378.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
 
         </description>
-        <pubDate>Wed, 12 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Wed, 12 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/12/ulsk/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/12/ulsk/index.html</guid>
       </item>
@@ -108,7 +127,7 @@
 так как спамеры всех мастей не дремлют, но иногда фильтр отсекает реально дельные вещи.&lt;/p&gt;
 
         </description>
-        <pubDate>Tue, 11 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Tue, 11 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/11/transaction/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/11/transaction/index.html</guid>
       </item>
@@ -133,7 +152,7 @@
 &lt;p&gt;ENwburdiff! Ктулху, выходи!&lt;/p&gt;
 
         </description>
-        <pubDate>Mon, 10 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Mon, 10 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/10/diff/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/10/diff/index.html</guid>
       </item>
@@ -150,7 +169,7 @@
 Тогда докеры контейнеры не будут доступны из интернета.&lt;/p&gt;
 
         </description>
-        <pubDate>Fri, 07 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Fri, 07 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/07/docker/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/07/docker/index.html</guid>
       </item>
@@ -174,7 +193,7 @@
 Экран здоровенный, аппарат тяжелый, за 11к рублей нормально.&lt;/p&gt;
 
         </description>
-        <pubDate>Thu, 06 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Thu, 06 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/06/apple/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/06/apple/index.html</guid>
       </item>
@@ -213,30 +232,9 @@
 &lt;img src=&quot;/18/comm.png&quot;&gt;&lt;/p&gt;
 
         </description>
-        <pubDate>Wed, 05 Apr 2017 00:00:00 +0400</pubDate>
+        <pubDate>Wed, 05 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/05/modern_js/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/05/modern_js/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Искусство разложить файлы</title>
-        <description>
-          
-          &lt;p&gt;Мне безумно нравится вот это &lt;a href=&quot;https://habrahabr.ru/company/oleg-bunin/blog/313666/&quot;&gt;выступление Игоря Сысоева на HighLoad++&lt;/a&gt;, которое
-хочется процитировать целиком:&lt;/p&gt;
-
-&lt;p&gt;&amp;quot;Я буду говорить о масштабируемой конфигурации nginx, но это не о том,
-как обслужить с помощью nginx сотни тысяч одновременных соединений, потому что nginx для этого настраивать не надо. &amp;lt;...&amp;gt; Поэтому я буду рассказывать о другой масштабируемости — о масштабируемости конфигурации nginx, т.е. о том, как обеспечить рост конфигурации от сотни строчек до нескольких тысяч и при этом тратить минимальное (желательно константное) время на сопровождение этой конфигурации.&amp;quot;&lt;/p&gt;
-
-&lt;p&gt;Божественно, что когда система растет - как правильно
-разложить файлики, гораздо важнее rps и rpm. Логический хайлоад всегда наступает гораздо раньше и острее,
-чем
-фактический.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 04 Apr 2017 00:00:00 +0400</pubDate>
-        <link>http://vakhov.me/blog/2017/04/04/nginx/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/04/nginx/index.html</guid>
       </item>
     
   </channel>
