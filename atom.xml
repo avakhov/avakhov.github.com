@@ -7,6 +7,32 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Матрица</title>
+        <description>
+          
+          &lt;p&gt;&lt;i&gt;
+Note: сейчас у меня переходный этап, когда девопсом я уже наигрался, а девелопментом пока снова не занялся и блог
+будет напоминать немножечко ЖЖ, буду просто писать свои мысли, челендж продолжается, но без примеров кода. Сегодня про матрицу.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;Вообще я социальные сети не использую особо, фейсбук держу как просто адресную книгу. Но когда после конференции
+стал добавлять людей, удивился насколько он уже оказывается меня хорошо знает, людей угадывает по двум-трем буквам, социальный
+граф работает. Через 10 лет и даже быстрее, фейсбук будет знать всё про всех. Сейчас чуть-чуть держится старшее поколение, оставляя
+мало цифровых следов. Я тоже люблю шалить и не заполнять профили самостоятельно. Пусть машинное обучение
+попыхтит на долю секунды больше, вычисляя пропущенную информацию. Но скоро, для того чтобы вести аккаунт, человек уже не потребуется. А нужна
+будет только
+теплая ванночка, десять гигабит в голову и тук-тук, Нео.&lt;/p&gt;
+
+&lt;p&gt;Вообще, если без шуток, то я сейчас немного еще не готов к такому прогрессу. Мне консервативно кажется, что жизнь человека, это в основном все таки
+его личное дело. Активным пользователем интернета я стал в 2001 года и застал принцип, что ты добровольно выходишь в интернет, чаще всего
+анонимно. А сегодня интернет уже вышел в человека и не собирается уходить. Хм. Мир поменялся и надо учиться с этим жить.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 18 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/18/face3/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/18/face3/index.html</guid>
+      </item>
+    
+      <item>
         <title>Стачка Все.</title>
         <description>
           
@@ -196,45 +222,6 @@
         <pubDate>Thu, 06 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/06/apple/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/06/apple/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Дизайн и эволюция JavaScript</title>
-        <description>
-          
-          &lt;p&gt;5 лет назад я стал ортодоксальным рубистом, сбежав из C++-кабалы. Руби - прост, но не убог, красив,
-но не уродлив, силен, но не слаб.
-Продолжать можно бесконечно. Сейчас, проматывая статьи про изменения в C++, я не понимаю
-и половины слов. Наверное, то, что очередные полиморные изоморфики попали в стандарт должно радовать,
-а отсутствие изоморных полиморфиков - печалить... Не знаю, я сбежал с этой вечеринки.&lt;/p&gt;
-
-&lt;p&gt;Но самое диво дивное это, конечно, JavaScript. Иногда кажется, что он даже не пытался
-побывать на уровне
-сложности C++ и сразу стал Хаскелем. Я уже старый и последний год программирую в основном
-на yml-файлах и баш скриптах, и, честно говоря, вообще не понимаю, как писать вот такое 
-(Код взят из этой статьи - &lt;a href=&quot;https://habrahabr.ru/post/325388/&quot;&gt;Вы знаете, что такое трансдьюсеры&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstTwoWins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;compose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;others&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;others&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameID&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gameID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstTwoWins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Это даже не выглядит как javascript, если честно. Я помню там &lt;code&gt;$(&amp;quot;#element&amp;quot;).hide()&lt;/code&gt; и поехали.&lt;/p&gt;
-
-&lt;p&gt;Вообще по отечески (а почему-то мне кажется, что так писать нравится молодым программистам,
-я когда просекал, как работает код из Александреску тоже ходил по улицам и улыбался), мне бы очень
-хотелось посадить людей на поддержку таких трансдьюсеров в проект на 10-100к файлов и поглядеть через
-годик, что из этого выйдет.&lt;/p&gt;
-
-&lt;p&gt;Ну и топчиковый коммент:&lt;br&gt;
-&lt;img src=&quot;/18/comm.png&quot;&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 05 Apr 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/04/05/modern_js/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/05/modern_js/index.html</guid>
       </item>
     
   </channel>
