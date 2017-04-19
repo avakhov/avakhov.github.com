@@ -64,6 +64,57 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/20/db/index.html">Кто дергал этот запрос и послал его?</a></h1>
+      
+      <div class="date">October 20, 2016</div>
+
+      
+      <div class="entry">
+        <p>Один из важных моментов оптимизации рейлс-приложения, на котором кстати часто вся оптимизация и заканчивается, это уменьшение количество запросов в базу.</p>
+
+<p>Самый простой способ понять что нужно оптимизировать, пожалуй - посмотреть в ньюрелике
+под вашим штатным трафиком, какой экшен занимает больше всего времени. После этого запустить приложение локально и начать изучать
+какие строчки кода тревожат базу. Многие проблемы легко понять просто по логам. Убрав тяжелые N+1, а также большинство
+запросов <code>CACHE</code>, вы сильно поможете приложению.</p>
+
+<p><strong>Note:</strong> Все <code>СACHE</code> очень рекомендую убирать (один из вариантов - смотрим и ностальгируем 
+<a href="http://railscasts.com/episodes/1-caching-with-instance-variables">Caching with Instance Variables</a>), так как несмотря на то что запрос в базу
+не посылается, <code>ActiveRecord</code> кэширует запрос на уровне SQL, все AR-объекты пересоздаются с нуля, что жгет CPU и негативно влияет на произодительность.</p>
+
+<p>Также есть два удобных инструмента, которые помогут справится с задачей. Старый, добрый <a href="https://github.com/josevalim/rails-footnotes">rails-footnotes</a> на страницах
+рисует полную информацию о всех запросах.</p>
+
+<p><img src="/assets/2/db/footnotes.png" alt=""></p>
+
+<p>Так как футнотес наверняка будет рвать верстку, то я его обычно подключаю с помощью такой конструкции:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">defined?</span><span class="p">(</span><span class="no">Footnotes</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="no">Footnotes</span><span class="o">.</span><span class="n">setup</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="n">f</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;FOOTNOTES&quot;</span><span class="p">))</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Теперь, чтобы включить футноты достаточно создать в корне файл <code>touch FOOTNOTES</code>. Если его удалить, то футноты отключатся без перезагрузки сервера.
+Естественно на продакшене футноты не надо включать никогда <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
+
+<p>Однако футноты не помогут, если таинственный запрос к базе в AJAX&#39;е, а по коду сходу не понятно в каком колбеке или библиотеке он вызывается.
+Решение тоже есть - это <code>ActiveSupport::Notifications</code>. В инициалайзере подписываемся на
+SQL-запросы и находим негодяя:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Notifications</span><span class="o">.</span><span class="n">subscribe</span> <span class="s2">&quot;sql.active_record&quot;</span> <span class="k">do</span> <span class="o">|*</span><span class="n">args</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="nb">caller</span> <span class="k">if</span> <span class="n">args</span><span class="o">[</span><span class="mi">4</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;User Load&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Берегите свою базу смолоду и она вам верно прослужит многие годы <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/10/20/db/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/10/20/db/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%82%D0%BE+%D0%B4%D0%B5%D1%80%D0%B3%D0%B0%D0%BB+%D1%8D%D1%82%D0%BE%D1%82+%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81+%D0%B8+%D0%BF%D0%BE%D1%81%D0%BB%D0%B0%D0%BB+%D0%B5%D0%B3%D0%BE%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F20%2Fdb%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/19/ngrok/index.html">Утилиты, утилиты</a></h1>
       
       <div class="date">October 19, 2016</div>
@@ -526,47 +577,6 @@ process out
       </div>
     </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/07/regular/index.html">Р - Регулярность</a></h1>
-      
-      <div class="date">October  7, 2016</div>
-
-      
-      <div class="entry">
-        <p>Этим летом как-то я приуныл, работа-дом-работа-дом и решил заняться личностным ростом, вот прямо так. Окинув жизненный опыт,
-а в 32 года уже обычно есть что окидывать, нашел одну закономерность. В тех делах был приятный результат,
-где я занимался чем-то регулярно.
-Из публичный вещей, это пожалуй комиты в рейлс. Я три месяца тратил на рейлс каждый день по 2-3 часа, включая выходные. В итоге
-попал в топ-50 контрибьютеров (за три года правда скатился в топ-100).
-В принципе с тех пор рейлс больше не учил, но тогда хорошо постарался, до сих
-пор помогает.</p>
-
-<p>Поэтому я решил попробовать заменить спонтанную регулярность, на сознательную регулярность. Ну уже кстати есть первые результаты,
-не скажу, что жизнь стала как бутон розы, но точно приятней. За два месяца я сделал две вещи: пробежал программу 5K Runner от
-<a href=http://www.fitness22.com>fitness22</a> и решил вести технический блог не меньше года, по истории каждый рабочий день.</p>
-
-<p>По раннеру получился пробег 114 км, прямо как спорткар с нуля до сотни за два месяца <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />. Просто оставлю здесь скриншоты первого
-и последнего занятий:</p>
-
-<p><img src=/assets/2/regular/b.png width=300px>
-<img src=/assets/2/regular/a.png width=300px></p>
-
-<p>Также опубликовал 42 поста с момента возрождения блога, то есть почти столько же, сколько за 3 года
-до этого в сумме. Кстати очень помогает публичный контракт с вами, я заявил сроки, регулярность, теперь не отвертеться.
-На самом деле зная себя, отвертеться можно и очень просто, но у меня еще есть серия трюков, которая, надеюсь поможет
-не сойти с трассы. При случае расскажу. До встречи <img class='emoji' title=':smiley_cat:' alt=':smiley_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63a.png' height='20' width='20' align='absmiddle' /></p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/07/regular/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/10/07/regular/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A0+-+%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D0%BE%D1%81%D1%82%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F07%2Fregular%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
 </div>
 
 <!-- Pagination links -->
@@ -574,7 +584,7 @@ process out
   
     <a href="/page12" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 13 of 23</span>
+  <span class="page_number ">Page: 13 of 24</span>
   
     <a href="/page14" class="next">Next</a>
   
