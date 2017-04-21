@@ -64,6 +64,39 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/04/10/diff/index.html">Сравнить две директории из командной строки</a></h1>
+      
+      <div class="date">April 10, 2017</div>
+
+      
+      <div class="entry">
+        <p>Я использую блог как референс некоторых команд, которые нужны редко и я их забываю. Несколько лет
+назад у меня был пост как настраивать звук в убунту для двух моделей VAIO. Да, да, у нас дома было два
+ноутбука VAIO и звук там настраивался маленько по разному. И яркость. Блин, звук и яркость. Мои самые
+сильные ассоциации от убунту на ноуте.</p>
+
+<p>Сегодня оставляю команду для сравнения двух директорий,
+которая мне нравится:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">colordiff -Nur folder1 folder2
+</code></pre></div>
+<p>Это укороченный вариант более утонченной версии из <a href="http://stackoverflow.com/questions/5874090/how-to-get-diff-between-all-files-inside-2-folders-that-are-on-the-web/5875428#5875428">этой SO дискуссии</a></p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff -ENwbur repos1/ repos2/ <span class="c"># для эстетов, которым не сложно заполнить и</span>
+                             <span class="c"># 6 неочевидных опций команды `diff`.</span>
+</code></pre></div>
+<p>ENwburdiff! Ктулху, выходи!</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/04/10/diff/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2017/04/10/diff/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D1%82%D1%8C+%D0%B4%D0%B2%D0%B5+%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%B8+%D0%B8%D0%B7+%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%BD%D0%BE%D0%B9+%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F04%2F10%2Fdiff%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/04/07/docker/index.html">Docker run</a></h1>
       
       <div class="date">April  7, 2017</div>
@@ -373,56 +406,6 @@ database:
         
 
         <div class="fb-share-button" data-href="/blog/2017/03/29/stachka/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A1%D1%82%D0%B0%D1%87%D0%BA%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F29%2Fstachka%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/03/28/protez/index.html">Накладываем швы на ActiveRecord::SchemaDumper</a></h1>
-      
-      <div class="date">March 28, 2017</div>
-
-      
-      <div class="entry">
-        <p>В рейлс <code>primary key</code> - желательно делать <code>id</code>, формально конечно можно поставить что-то другое, но
-гарантия заканчивается очень быстро. У нас в одном проекте сделали ключом <code>uuid</code> и конечно же сломался дамп
-схемы. Где сломался дамп схемы, там сломались тесты и вообще не хорошо все это.</p>
-
-<p>Иногда получается вставить аккуратный монкей-патч, но тут нужно было фиксить увесистый приватый метод 
-<code>ActiveRecord::SchemaDumper#table</code>. Обычно я делаю так:</p>
-
-<ol>
-<li>Добавляю файл в <code>config/initializers</code>, обычно это достаточно удачное время</li>
-<li>Копирую подопытный метод целиком, по возможности с условиями: <code>if defined?(ActiveRecord::SchemaDumper) ...</code></li>
-<li>Обязательно ставлю ассерт на текущую версию рейлс <code>raise &quot;review and update this patch for Rails upgrade&quot; if Rails.version != &quot;4.2.8&quot;</code></li>
-<li>Каждое вмешательство оформляю ярко, примерно так:</li>
-</ol>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="c1">##### [BEGIN PATCH 2]</span>
-  <span class="c1"># # original code</span>
-  <span class="c1"># next if column.name == pk</span>
-  <span class="c1"># @connection.column_spec(column, @types)</span>
-
-  <span class="c1"># # patched code</span>
-  <span class="k">if</span> <span class="n">column</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">pk</span>
-    <span class="k">if</span> <span class="n">pk</span> <span class="o">==</span> <span class="s2">&quot;uuid&quot;</span>
-      <span class="vi">@connection</span><span class="o">.</span><span class="n">column_spec</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="vi">@types</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="ss">primary</span><span class="p">:</span> <span class="s2">&quot;primary: true&quot;</span><span class="p">)</span>
-    <span class="k">else</span>
-      <span class="k">next</span>
-    <span class="k">end</span>
-  <span class="k">else</span>
-    <span class="vi">@connection</span><span class="o">.</span><span class="n">column_spec</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="vi">@types</span><span class="p">)</span>
-  <span class="k">end</span>
-  <span class="c1">##### [END PATCH 2]</span>
-</code></pre></div>
-<p>В данном случае удалось обойтись тремя швами и схема как новенькая.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/03/28/protez/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2017/03/28/protez/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B%D0%B2%D0%B0%D0%B5%D0%BC+%D1%88%D0%B2%D1%8B+%D0%BD%D0%B0+ActiveRecord%3A%3ASchemaDumper&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F28%2Fprotez%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
