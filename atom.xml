@@ -7,6 +7,21 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Docker Moby</title>
+        <description>
+          
+          &lt;p&gt;Докер умудряется делать новые компоненты и архитектурные пласты быстрее, чем я успеваю читать. 
+Вот теперь &lt;a href=&quot;https://blog.docker.com/2017/04/introducing-the-moby-project/&quot;&gt;Докер Моби&lt;/a&gt;. Думаю если
+зажмуриться и притвориться, что его нет, через полгода его уже и не будет. New Docker 2.0 наверняка как
+раз выйдет.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 26 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/26/docker/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/26/docker/index.html</guid>
+      </item>
+    
+      <item>
         <title>Сфера</title>
         <description>
           
@@ -232,24 +247,6 @@ Note: сейчас у меня переходный этап, когда дев�
         <pubDate>Fri, 14 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/14/ul/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/14/ul/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Атака на клиентов R01</title>
-        <description>
-          
-          &lt;p&gt;Друг недавно переслал письмо, которое выглядит точь в точь как от R01 с просьбой
-валидировать домен:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=/18/isaev.png&gt;&lt;/p&gt;
-
-&lt;p&gt;Красиво оформили чертяки, лайк! Я даже поверил в первую секунду. Но расширение &lt;code&gt;.php&lt;/code&gt; выдало
-славного разведчика Исаева, а также адрес &lt;code&gt;noreply@r01.tech&lt;/code&gt;.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 13 Apr 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/04/13/r01/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/13/r01/index.html</guid>
       </item>
     
   </channel>
