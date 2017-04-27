@@ -7,6 +7,21 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Частые выкатки</title>
+        <description>
+          
+          &lt;p&gt;Я не катил продакшен несколько месяцев, но недавно решил сам поправить счетчик и обратил внимание на такую вещь. Когда катил каждый день
+по несколько раз, то это была рутинная операция. После перерыва же - катить гораздо страшнее. Потерялся навык, появились
+сомнения и тревоги. Я думаю большая ценность любых автоматизаций - это именно вот это ощущение обыденности. Мало что-то уметь
+делать, нужно делать это часто.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 27 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/27/deploy/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/27/deploy/index.html</guid>
+      </item>
+    
+      <item>
         <title>Docker Moby</title>
         <description>
           
@@ -229,24 +244,6 @@ Note: сейчас у меня переходный этап, когда дев�
         <pubDate>Sat, 15 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/15/ruby/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/15/ruby/index.html</guid>
-      </item>
-    
-      <item>
-        <title>git checkout ulyanovsk</title>
-        <description>
-          
-          &lt;p&gt;&lt;img src=/18/ul/1.jpg&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=/18/ul/2.jpg&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=/18/ul/3.jpg&gt;&lt;/p&gt;
-
-&lt;p&gt;Yo.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 14 Apr 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/04/14/ul/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/14/ul/index.html</guid>
       </item>
     
   </channel>
