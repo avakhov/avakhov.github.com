@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Последний день с Passanger</title>
+        <description>
+          
+          &lt;p&gt;Покупал тут книжку на литрес (Сферу кстати) и вспомнил пассенджер,
+был, а может быть и есть, такой апп-сервер
+для рейлс.&lt;/p&gt;
+
+&lt;p&gt;Покупка книги на литрес у меня происходит так: раз в полгода я резко подрываюсь,
+нахожу книгу, тут же оплачиваю, они мне генерят какой-то autoreg-аккаунт и потом через
+саппорт я соединяю это временный аккаунт с основным. Там как-то так удобно сделана покупка, что я все время
+забываю, что у меня уже один аккаунт есть.&lt;/p&gt;
+
+&lt;p&gt;Последний сеанс работы с пассенджером прошел аналогично: &lt;code&gt;gem install passenger&lt;/code&gt;, ой как быстро он поставился! вау, круто-круто!
+&lt;code&gt;passenger run&lt;/code&gt; и он деловито начал качать и компилировать nginx. Прямо настоящий nginx.
+Свалился где-то в середине с ошибкой
+и давай до свидания, больше мы с ним не встречались.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 28 Apr 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/04/28/passenger/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/28/passenger/index.html</guid>
+      </item>
+    
+      <item>
         <title>Частые выкатки</title>
         <description>
           
@@ -223,27 +247,6 @@ Note: сейчас у меня переходный этап, когда дев�
         <pubDate>Mon, 17 Apr 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/04/17/stachka/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/04/17/stachka/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Ruby + JSON</title>
-        <description>
-          
-          &lt;p&gt;Ой, а я и не заметил, что в руби 2.2+ нормально работает JSON:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ docker run ruby:2.1.10 ruby -e &amp;#39;a={&amp;quot;a&amp;quot;:&amp;quot;b&amp;quot;};p a&amp;#39;
--e:1: syntax error, unexpected &amp;#39;:&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;А уже в 2.2:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ docker run ruby:2.2.0 ruby -e &amp;#39;a={&amp;quot;a&amp;quot;:&amp;quot;b&amp;quot;};p a&amp;#39;
-{:a=&amp;gt;&amp;quot;b&amp;quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Немного странно, что ключ - это символ, логичнее наверное была бы строка. Ну да ладно.
-Новость хорошая, хоть и не свежая.&lt;/p&gt;
-
-        </description>
-        <pubDate>Sat, 15 Apr 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/04/15/ruby/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/04/15/ruby/index.html</guid>
       </item>
     
   </channel>
