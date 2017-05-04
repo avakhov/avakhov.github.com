@@ -64,6 +64,47 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/11/17/kladovka/index.html">Кладовка и натянутый трос</a></h1>
+      
+      <div class="date">November 17, 2016</div>
+
+      <div class="img"><img src="/assets/2/kladovka/main.jpg" /></div>
+      <div class="entry">
+        <p>Вообще идеальный код должен быть как натянутый трос - удаление любой строчки должно что-нибудь ломать.
+Такой код легко поддерживать и развивать. В реальной жизни естественно так не получается, поэтому
+приходится пользоваться метафорой кладовки. Ну такая, кладовка обычная, в которую закидываешь что-нибудь
+наверх и быстро-быстро закрываешь. Все понимают как это выглядит? А когда открывашь, то надо
+как японский воин одну руку держать над головой, вторую перед собой и быть готовым ко всему.
+Так и с кодом.
+Не бывает плохого кода, бывает ситуация, когда его плохо засунули в пыльный угол.</p>
+
+<p>Чемпион по удобству засовывания - это конечно SCSS. Обожаю его. Досточно завернуть все вот это,
+что накопилось в какое-нибудь <code>body.legacy5 { ... }</code>, проставить нужный класс в лайауте или вьюхах
+и начать новую жизнь даже с теми же стилями.</p>
+
+<p>В рейлс нужно помнить, что если лайаут стал совсем плох, всегда можно начать новый, перетащив
+туда только то-что нужно. Лайаутом можно управлеть на любом уровне - для всего приложения, для
+контроллера, для набора экшена или даже в методе <code>render</code>, поэтому можно тихонечко переходить
+на новый лайаут и в финале удалить старого монстра (хотя новый в этот момент может оказаться
+не лучше, но хотя бы понятно что делать).</p>
+
+<p>И напоследок в Рейлс - очень удобно организовывать неймспейсы. Практически любой код можно
+аккуратно засунуть в какое-нибудь <code>Legacy2::</code> и потихоньку вытеснять из проекта. Я когда-то давно
+даже писал пост, какая магия Рейлс создает неймспейс <code>Foo::Bar::</code>, если файл лежит например в
+<code>app/components/foo/bar/some_file.rb</code>.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/11/17/kladovka/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/11/17/kladovka/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BB%D0%B0%D0%B4%D0%BE%D0%B2%D0%BA%D0%B0+%D0%B8+%D0%BD%D0%B0%D1%82%D1%8F%D0%BD%D1%83%D1%82%D1%8B%D0%B9+%D1%82%D1%80%D0%BE%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F17%2Fkladovka%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/11/16/mib/index.html">Для хранения йобибайта данных возьмите 1024 зебибайтных диска</a></h1>
       
       <div class="date">November 16, 2016</div>
@@ -412,49 +453,6 @@ dropdb <span class="nv">$db</span>
       </div>
     </article>
   
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/02/right/index.html">Как вы яхту назовете</a></h1>
-      
-      <div class="date">November  2, 2016</div>
-
-      <div class="img"><img src="/assets/2/right/main.jpg" /></div>
-      <div class="entry">
-        <p>Родилась у нас как-то раз шутка, что любое решение можно выставить хорошим, просто подобрав правильный
-термин.</p>
-
-<p>Смотрите, допустим, - <strong>монолит</strong>.<br>
-- Фу-у-у.<br>
-<strong>Микросервисы</strong>!<br>
-- м-м-м, парень понимает толк в жизни.</p>
-
-<p>А теперь внимание - <strong>монорейлс</strong>!<br>
-- Вау, крутяк!<br>
-И снова мужики встают, когда вы входите в пивную.</p>
-
-<p>А чем <strong>монолит</strong> отличается от <strong>монорейлса</strong>?
-Только тем, что во втором случае придуман новый, свежий термин
-(вообще я не знаю насколько он используется, просто видел в одной статье).
-То есть это с одной стороны и шутка, а с другой и не очень шутка. Маркетинг уже
-очень прочно проник в инженерное дело, дажe в опен сорс. Сегодня оформлению идей, а не только
-содержанию, стоит уделять самое пристальное внимание. </p>
-
-<p>И мне кажется это здорово. Я вообще за доходчивость и изящество, за чистоту идей и красоту подачи.
-Наример хорошую историю,
-не приврав чуть-чуть или весьма сильно, вообще не раскажешь. Так и в профессии.
-По возможности лучше не скатываться совсем уж в булшит-бинго, но придумать какую-нибудь
-метафору или подобрать сочный, яркий термин для описании ситуации по-моему мнению всегда полезно.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/11/02/right/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/11/02/right/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%B2%D1%8B+%D1%8F%D1%85%D1%82%D1%83+%D0%BD%D0%B0%D0%B7%D0%BE%D0%B2%D0%B5%D1%82%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F02%2Fright%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
 </div>
 
 <!-- Pagination links -->
@@ -462,7 +460,7 @@ dropdb <span class="nv">$db</span>
   
     <a href="/page11" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 12 of 24</span>
+  <span class="page_number ">Page: 12 of 25</span>
   
     <a href="/page13" class="next">Next</a>
   
