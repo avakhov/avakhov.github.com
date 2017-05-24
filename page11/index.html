@@ -64,6 +64,38 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/12/07/procent/index.html">Повседневное</a></h1>
+      
+      <div class="date">December  7, 2016</div>
+
+      
+      <div class="entry">
+        <p>Я практик и мне результат важнее правильного термина, но в принципе для любой разумной деятельности
+всегда можно подобрать нужные слова, найти продукты и целые компании, которые занимаются только этим.</p>
+
+<p>Вот, например, если вы готовите базы для тестовых енвайроментов и разработчиков (а куда деваться,
+если база не помещается на обычный компьютер), то вы вовлечены в Test Data Management, как любезно
+подсказал Иван Евтухович в <a href="http://evtuhovich.ru/life/2016/11/30/banya/">ржевских банях</a>.</p>
+
+<p>Рейлс сайтик, который обращается к базе, выполняет OLTP-запросы, а вот если вас попросили
+выгрузить активность за месяц - это уже OLAP. <code>cap production deploy</code> - 
+билет в мир Continuous Delivery, CircleCI, подключенный одним кликом к гитхабу, - это
+Continuous Integration.</p>
+
+<p>Будни каждого IT-специалиста проходят в пафосе терминов и технологий <img class='emoji' title=':star2:' alt=':star2:' src='https://assets.github.com/images/icons/emoji/unicode/1f31f.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':yum:' alt=':yum:' src='https://assets.github.com/images/icons/emoji/unicode/1f60b.png' height='20' width='20' align='absmiddle' />.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/12/07/procent/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/12/07/procent/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%B2%D1%81%D0%B5%D0%B4%D0%BD%D0%B5%D0%B2%D0%BD%D0%BE%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F07%2Fprocent%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/06/ansible/index.html">Ансибл не гони, ансибл погоди</a></h1>
       
       <div class="date">December  6, 2016</div>
@@ -417,42 +449,6 @@ bash - да, zsh - нет.</p>
         
 
         <div class="fb-share-button" data-href="/blog/2016/11/24/history/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D1%81%D1%82%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5+%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F24%2Fhistory%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/23/4_tela/index.html">Четвертое тело</a></h1>
-      
-      <div class="date">November 23, 2016</div>
-
-      <div class="img"><img src="/assets/2/4_tela/main.jpg" /></div>
-      <div class="entry">
-        <p>Одна из проблем терраформа, как я писал, заключается в том, что вы работаете с тремя сущностями:</p>
-
-<ul>
-<li>tf-скрипты — это то, что вы хотите видеть;</li>
-<li>файл состояния — это то, как выглядит инфраструктура по мнению Terraform;</li>
-<li>реальное состояние дел — как на самом деле выглядит инфраструктура.</li>
-</ul>
-
-<p>Как небесной механике задача <a href="https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0_%D1%82%D1%80%D1%91%D1%85_%D1%82%D0%B5%D0%BB">трех тел</a> в аналитическом виде не решается, так и терраформ со своими тремя сущностями
-оставляет повод для беспокойства, а что если кто-то ручками заведет
-сервер или dns-запись? Не со злобы, а просто так вышло. Этот сервер или эта запись не попадет в состояния терраформа. Раздражает.</p>
-
-<p>Чтобы вернуть себе полное чувство контроля над инфра, я ввел в систему четвертую сущность - написал специальный руби-скрипт (99%
-проблем в жизни решается специальным руби-скриптом кстати <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />), который запускаю ручками время от времени. Этот скрипт скачивает
-все DNS-записи, полную структуру опенстека (сети, диски, сервера) и сравнивает результат с файлами состояния. Если различий
-нет, то значит, каждый объект управляется терраформом и соответственно лежит в красивом виде в репозитарии as a code. Это очень приятно
-осознавать.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/11/23/4_tela/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/11/23/4_tela/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A7%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D0%B5+%D1%82%D0%B5%D0%BB%D0%BE&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F23%2F4_tela%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
