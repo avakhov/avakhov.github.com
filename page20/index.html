@@ -64,6 +64,45 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/11/regexp/index.html">%r{егекспы}</a></h1>
+      
+      <div class="date">August 11, 2016</div>
+
+      <div class="img"><img src="/assets/2/regexp/main.jpg" /></div>
+      <div class="entry">
+        <p>Недавно в канал коллега скинул ссылку <a href="https://aaronlasseigne.com/2016/07/08/5-tips-for-writing-a-legible-regexp/">5 Tips for Writing a Legible Regexp</a>.</p>
+
+<p>Лично мне кажется, что регекспы созданы для того, чтобы их только писать, читать их невозможно, как ни
+старайся. Однако
+совет про <code>%r{http://...}</code> понравился, я использовал его в тот день для парсинга ссылок в
+тексте.</p>
+
+<blockquote>
+<p>Зачем мне понадобилось парсить ссылки? О, это вообще другая история.
+У нас несколько десятков репозитариев, я слежу, чтобы они все были перечислены на главной странице
+в вики, сгруппированные по проектам, чтобы в случае чего было понятно
+к кому обратиться с вопросом. Простой скрипт
+на руби сравнивает список ссылок на странице с репозитариями в гитхабе и выдает разницу если она есть.</p>
+</blockquote>
+
+<p>Однако <code>%r{}</code> не единственная хитрость, которую стоит попробовать.
+В руби вообще на мой вкус самый дружелюбный синтаксис, среди всех языков, которые встречал.
+<code>%w[word1 word2]</code>, <code>system %(ssh alex@host &#39;grep &quot;foo&quot; /var/log/bar.log&#39;)</code>,
+<code>return unless ...</code> и кучу других маленьких
+удобных приемов я использую каждый день.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/08/11/regexp/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/08/11/regexp/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%25r%7B%D0%B5%D0%B3%D0%B5%D0%BA%D1%81%D0%BF%D1%8B%7D&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F11%2Fregexp%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/10/reborn/index.html">И снова здравствуйте</a></h1>
       
       <div class="date">August 10, 2016</div>
@@ -775,46 +814,6 @@ git push
         
 
         <div class="fb-share-button" data-href="/blog/2014/12/25/contribute/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%83%D0%BB+%D1%80%D0%B5%D0%BA%D0%B2%D0%B5%D1%81%D1%82%D1%8B+%D0%B2+%D0%BE%D0%BF%D0%B5%D0%BD+%D1%81%D0%BE%D1%80%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F25%2Fcontribute%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/22/gnu-screen/index.html">Добротный мультиплексор</a></h1>
-      
-      <div class="date">December 22, 2014</div>
-
-      <div class="img"><img src="/assets/gnu-screen.jpg" /></div>
-      <div class="entry">
-        <p>Думаю большинство знает и использует замечательную &quot;свободную консольную утилиту-мультиплексор&quot;,
-как дружелюбно описывает GNU Screen википедия <a href="https://ru.wikipedia.org/wiki/GNU_Screen"><i class="fa fa-external-link"></i></a>,
-но я все же скажу пару слов.</p>
-
-<p>Если вам нужно выполнить большой и важный скрипт на несколько часов, запустите этот скрипт
-на сервере в сессии GNU Screen, который наверняка уже установлен.</p>
-
-<ul>
-<li><code>screen</code> - новый сеанс</li>
-<li><code>screen -rd</code> - присоединиться к старой сессии</li>
-<li><code>Ctrl-a c</code> - создать новое окно (уже находясь внутри screen)</li>
-<li><code>Ctrl-a n</code> - перейти на следующее окно</li>
-<li><code>Ctrl-a d</code> - отсоединиться от сессии (оставив ее работать)</li>
-</ul>
-
-<p>Запускаем долгий скрипт в screen, выключаем компьютер, на следующий день
-заходим в сессию и изучаем, как там обстоят дела.</p>
-
-<p>Если нужно много работать с серверами, думаю можно настроить окружение удобнее,
-но для эпизодического использования
-хватит пяти команд.</p>
-
-        
-        <div style="float:right"><a href="/blog/2014/12/22/gnu-screen/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/12/22/gnu-screen/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%94%D0%BE%D0%B1%D1%80%D0%BE%D1%82%D0%BD%D1%8B%D0%B9+%D0%BC%D1%83%D0%BB%D1%8C%D1%82%D0%B8%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%BE%D1%80&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F22%2Fgnu-screen%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

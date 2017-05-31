@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Обычный день в Эппл</title>
+        <description>
+          
+          &lt;p&gt;В какой-то книге/статье написано, что кампусы Эппл проектируются так, чтобы работники
+часто сталкивались с друг другом и общались, с другой стороны есть много информации, что в компании
+высочайший уровень секретности.&lt;/p&gt;
+
+&lt;p&gt;Поэтому в офисах Эппл сотрудники с каменными лицами постоянно 
+проходят мимо друг друга, чтобы ни взглядом, ни подрагиванием мускула не выдать как будет
+выглядеть новый айфон.&lt;/p&gt;
+
+&lt;p&gt;PS. Перейдя в мир андроида я думал Xiaomi нагло тырит внешний вид айфонов, но зайдя на сайт
+&lt;a href=&quot;https://mymeizu.ru&quot;&gt;https://mymeizu.ru&lt;/a&gt;, понял, что Сяоми просто зайчики.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 31 May 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/05/31/apple/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/31/apple/index.html</guid>
+      </item>
+    
+      <item>
         <title>Логирование</title>
         <description>
           
@@ -191,21 +212,6 @@
         <pubDate>Thu, 04 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/04/postmodern/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/04/postmodern/index.html</guid>
-      </item>
-    
-      <item>
-        <title>PostgreSQL</title>
-        <description>
-          
-          &lt;p&gt;А, чуть не забыл. JSON в постгрес использовать не нужно, только JSONB. Также, технически, тип &lt;code&gt;string&lt;/code&gt; из рейлс, который char, что-то
-там 256, точно такой же как &lt;code&gt;text&lt;/code&gt;. В реализации между ними разницы никакой нет. Но я бы все таки оставлял &lt;code&gt;string&lt;/code&gt;, чтобы особо ретивые
-пользователи не вгоняли слишком большие строки. 256 символов это разумное ограничение в имене, адресе и тд. Критичные базы гурманы делают
-с репликой и еще одной репликой с отставанием на 30 минут например. При креше главной базы будет полчаса времени чайку попить и подумать. Вроде все.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 03 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/03/pg/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/03/pg/index.html</guid>
       </item>
     
   </channel>
