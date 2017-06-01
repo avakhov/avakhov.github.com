@@ -7,6 +7,25 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Пикник на обочине</title>
+        <description>
+          
+          &lt;p&gt;Несколько лет назад, мы с Иваном Евтуховичем смотрели &amp;quot;Сталкера&amp;quot; Тарковского в кинотеатре и после этого
+изрядно напились. На днях я наконец-то прочитал &amp;quot;Пикник на обочине&amp;quot;. Ну что могу сказать, фильм
+очень круто снят, прямо по книге. После прочтения на душе черно и хочется напиться. Один в один ощущения.&lt;/p&gt;
+
+&lt;p&gt;Если без шуток, то книга и фильм - очень мощные, ни сколько не конкурируют друг с другом. Но такие могучие
+вещи чаще раза в несколько лет читать/смотреть не готов. Кстати на &amp;quot;Пикник&amp;quot; я наткнулся в разделе
+бесплатных книг приложения Литреса. Потом прочитал &amp;quot;Юмористические рассказы&amp;quot; Аверченко, понятия не имел
+про такого писателя и без приложения не нашел бы. Хочу углубится дальше по списку.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 01 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/01/piknik/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/01/piknik/index.html</guid>
+      </item>
+    
+      <item>
         <title>Обычный день в Эппл</title>
         <description>
           
@@ -191,27 +210,6 @@
         <pubDate>Fri, 05 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/05/vacation/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/05/vacation/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Постмодерн</title>
-        <description>
-          
-          &lt;p&gt;Вчера нашел шикарный глюк. Докер локально каким-то образом накопил рассинхронизацию времени. То есть на компьютере у меня было уже
-&lt;code&gt;3 мая 15:42&lt;/code&gt;, а в контейнере докера оставалось еще второе мая. Сайт &lt;code&gt;https://rubygems.org&lt;/code&gt; вчера обновил SSL-сертификат, поэтому для докера
-из прошлого сертификат был &lt;b&gt;еще&lt;/b&gt; не валидный и я не смог собрать докер-образ локально, так как гемы не брались!&lt;/p&gt;
-
-&lt;p&gt;Примерно так это выглядело:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/18/1.png&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Перезагрузка ноута полечила этот конфуз. Вообще интересно это только в докере для мака бывает или на сервере тоже можно словить? Не очень хорошо
-было бы.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 04 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/04/postmodern/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/04/postmodern/index.html</guid>
       </item>
     
   </channel>
