@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Системный файлы фрейморков</title>
+        <description>
+          
+          &lt;p&gt;Одна из бед фреймворков, что при генерации нового приложения, создается много всяких левых файлов на все случаи жизни. Рейлс я уже давно
+активно не занимаюсь, но все равно всегда смотрю, какая версия какие файлы генерирует. Мне нравится следить как они меняются и я чувствую
+какие соломоновы решения приходится принимать коре тим, чтобе не потерять общности, не оскорбить опытных, не испугать начинающих. Это сложно.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 02 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/02/shlako/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/02/shlako/index.html</guid>
+      </item>
+    
+      <item>
         <title>Пикник на обочине</title>
         <description>
           
@@ -197,19 +211,6 @@
         <pubDate>Mon, 22 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/22/hard/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/22/hard/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Отпуск</title>
-        <description>
-          
-          &lt;p&gt;Всему свое время: время писать посты и время ходить в отпуск. Вот сейчас как раз второе. Уезжаю отдыхать на две недели,
-без компьютера конечно. С компьютером отдых привращается в программирование. Поэтому перерыв. &lt;img class=&#39;emoji&#39; title=&#39;:palm_tree:&#39; alt=&#39;:palm_tree:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f334.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 05 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/05/vacation/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/05/vacation/index.html</guid>
       </item>
     
   </channel>
