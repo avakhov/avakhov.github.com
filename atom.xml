@@ -7,6 +7,21 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Критерий кода</title>
+        <description>
+          
+          &lt;p&gt;Чужой код всегда плохой, это понятно, но есть хороший способ померять качество своего кода. Отвлекаетесь
+от своей программы на месяц-два-полгода на что-то другое и потом проверяете насколько быстро и хорошо
+вы можете понять. Если нравится - значит код отличный. И точно код, который сложно самому читать в момент
+создания, - плохой. Монады не прокатят.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 05 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/05/bad/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/05/bad/index.html</guid>
+      </item>
+    
+      <item>
         <title>Системный файлы фрейморков</title>
         <description>
           
@@ -196,21 +211,6 @@
         <pubDate>Tue, 23 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/23/cifra/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/23/cifra/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Железо дешевле людей</title>
-        <description>
-          
-          &lt;p&gt;Говорят, что железо дешевле людей и я только недавно смог ее правильно сформулировать, хотя интуитивно чувствовал и раньше. &amp;quot;Железо дешевле людей&amp;quot; - это
-не прямое сравнение стоимости сервера с з/п человека, а &lt;b&gt;волевое решение&lt;/b&gt;. Часто может оказаться, особенно на первом этапе, что
-железо будет дороже специалистов в абсолютном значении. Особенно облака, Хероку и тд. Но это дороговизна мнимая. Пытаясь экономить, можно потерять смысл
-и темп. К тому же это очень человечно ценить интеллект и навыки больше байт и битов. Байты и биты подешевеют, а интеллект - нет.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 22 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/22/hard/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/22/hard/index.html</guid>
       </item>
     
   </channel>
