@@ -64,6 +64,37 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/12/20/shiva/index.html">Идеальный программист</a></h1>
+      
+      <div class="date">December 20, 2016</div>
+
+      
+      <div class="entry">
+        <p>После очередной статьи на хабре <a href="https://habrahabr.ru/post/317312/">Идеальный программист. Часть 1</a> делюсь эмоциями в уютненьком бложике.
+Конечно, я читал, и Совершенный код, и Код Да Винчи, и книгу из статьи, и Программиста-прагматика, и кучу еще всего. Но честно говоря
+эти списки из еще семидесяти и семи вещей, которые обязан знать и уметь каждый, кто хочет называть себя программистом (а кто вообще есть программист? -
+справедливо возмущался я несколько постов назад).</p>
+
+<p>А где правила для ленивых, для тугих, для тех, кто постоянно делает не то, кто не читает документацию (а что кто-то читает? <img class='emoji' title=':trollface:' alt=':trollface:' src='https://assets.github.com/images/icons/emoji/trollface.png' height='20' width='20' align='absmiddle' />)?
+В современном мире изобилия, пресыщенности и потребительского счастья требовать от людей, чтобы они соответствовали каким-то бесконечным списком
+(которые на 100% истинны, но who cares?), хм, моветон.</p>
+
+<p>Я твердо уверен, что в 21 веке весь технологический стек, от сервера до последнего селектора в css, должны сделать шаг к людям.
+А люди? А люди - пьют
+смузи <img class='emoji' title=':cocktail:' alt=':cocktail:' src='https://assets.github.com/images/icons/emoji/unicode/1f378.png' height='20' width='20' align='absmiddle' />.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/12/20/shiva/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/12/20/shiva/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%98%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F20%2Fshiva%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/19/static_prom/index.html">Кастомные метрики прометея</a></h1>
       
       <div class="date">December 19, 2016</div>
@@ -382,50 +413,6 @@ Continuous Integration.</p>
         
 
         <div class="fb-share-button" data-href="/blog/2016/12/07/procent/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D0%BE%D0%B2%D1%81%D0%B5%D0%B4%D0%BD%D0%B5%D0%B2%D0%BD%D0%BE%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F07%2Fprocent%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/12/06/ansible/index.html">Ансибл не гони, ансибл погоди</a></h1>
-      
-      <div class="date">December  6, 2016</div>
-
-      <div class="img"><img src="/assets/2/ansible/main.jpg" /></div>
-      <div class="entry">
-        <p>Так получилось, что у нас большинство проектов настроены с помощью ансибла 2.0 и у всех он был установлен и все работало.
-Однако где-то понадобились фичи из 2.1, поставили 2.2 и старые рецепты естественно работать перестали. В принципе они
-легко фиксятся, но есть два способа, как можно обойтись без исправления: один рабочий, а второй на докере <img class='emoji' title=':trollface:' alt=':trollface:' src='https://assets.github.com/images/icons/emoji/trollface.png' height='20' width='20' align='absmiddle' />.</p>
-
-<p>С удивлением узнал (коллеги подсказали), что <code>brew</code> умеет переключать версии:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">brew switch ansible 2.0.1.0
-brew switch ansible 2.2.0.0_1 
-</code></pre></div>
-<p>Белиссимо! Этим способом я пока и пользуюсь. </p>
-
-<p>Второй способ пока не использовал, только запустил один раз. Уже давно в голове крутится идея,
-что докер же должен стать идеальным для консервации
-старых версий утилит. В принципе такая команда запускается (если ssh-ключ без пароля) и работает ожидаемо:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -v<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:/ansible -v<span class="nv">$HOME</span>/.ssh:/root/.ssh <span class="se">\</span>
-  hypoport/ansible:2.0.2.0 ansible-playbook node.yml
-</code></pre></div>
-<p>То есть можно положить в репо какой-нибудь sh-файл, который сделает алиасы нужных докеризированных версий утилит или еще что-нибудь
-придумать. Идейно по-моему очень круто, но есть две засады. Вывод команды не цветной, пока не смотрел можно ли это как-то пофиксить.
-И вторая проблема хуже, докер в маке работает медленно, рецепт, который прогоняется через brew-версию за одну минуту, в контейнере
-пыхтел четыре с половиной <img class='emoji' title=':scream_cat:' alt=':scream_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f640.png' height='20' width='20' align='absmiddle' />. В убунту такой проблемы насколько я знаю нет, докер унижает только любителей смузи.</p>
-
-<p>По факту у нас пожалуй плывут версии всего двух утилит - ansible (редко) и терраформ (чаще). Так-то особо проблемы нет, но может вы
-знаете изящный способ консервировать версию утилиты на веки вечные?</p>
-
-<p>PS. Писал этот пост и подумал, а может вагрант?! Ммм?</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/12/06/ansible/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/12/06/ansible/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%90%D0%BD%D1%81%D0%B8%D0%B1%D0%BB+%D0%BD%D0%B5+%D0%B3%D0%BE%D0%BD%D0%B8%2C+%D0%B0%D0%BD%D1%81%D0%B8%D0%B1%D0%BB+%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F06%2Fansible%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
