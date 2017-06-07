@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Обновления</title>
+        <description>
+          
+          &lt;p&gt;Некоторые люди говорят, что они любят обновления, сразу же ставят, изучают новые фичи. Помню какая была движуха была во время новой флетовой iOS, люди ставили какие-то глючные беты. А я не люблю обновления. У меня уже устоявшиеся рабочие привычки и ждать когда это все загрузится - раздражает.&lt;/p&gt;
+
+&lt;p&gt;На днях, на работе, дал слабину и согласился на какое-то обновление, которое 20 минут ставилось. И вот сейчас такая же фигня с домашним компом, пишу пост с телефона :-/. Тим Кук, остановись!&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 07 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/07/updates/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/07/updates/index.html</guid>
+      </item>
+    
+      <item>
         <title>Докер - это Кольт мира разработки</title>
         <description>
           
@@ -197,19 +211,6 @@ IT криво ухмылялись
         <pubDate>Thu, 25 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/25/byod/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/25/byod/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Граница между администрированием и девопсом</title>
-        <description>
-          
-          &lt;p&gt;Когда вы заходите на сервер по ssh - вы занимаетесь администрированием, когда не заходите - девопсом.
-Девопс это про создание и настройку технологий, а не конкретные инструкции и команды.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 24 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/24/dvps/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/24/dvps/index.html</guid>
       </item>
     
   </channel>

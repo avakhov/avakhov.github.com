@@ -64,6 +64,53 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/03/30/circle/index.html">CircleCI PosgteSQL 9.6</a></h1>
+      
+      <div class="date">March 30, 2017</div>
+
+      
+      <div class="entry">
+        <p>Прочитав несколько тьюториалов разной степеним мутности, я наконец нашел способ
+как запускать тесты в CircleCI под постгресом 9.6:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># circle.yml
+dependencies:
+  pre:
+    - sudo service postgresql stop
+    - sudo mv /usr/lib/postgresql-9.6/9.6 /usr/lib/postgresql/9.6
+    - sudo mv /etc/postgresql-9.6/9.6 /etc/postgresql/9.6
+    - sudo service postgresql start 9.6
+    - sudo -u postgres psql -p 5433 -c &quot;create user ubuntu with password &#39;ubuntu&#39;;&quot;
+    - sudo -u postgres psql -p 5433 -c &quot;alter user ubuntu with superuser;&quot;
+
+database:
+  override:
+    - mv config/database.yml.ci config/database.yml
+    - bundle exec rake db:create db:schema:load --trace
+</code></pre></div>
+<p>и в файле <code>config/database.yml.ci</code> прописать:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">test:
+  adapter: postgresql
+  database: circle_ruby_test
+  username: ubuntu
+  password: ubuntu
+  host: localhost
+  port: 5433
+</code></pre></div>
+<p>Странно, что это не из коробки, но так часто бывает, когда из инструментов 21-го века торчат уши
+20-го.</p>
+
+        
+        <div style="float:right"><a href="/blog/2017/03/30/circle/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2017/03/30/circle/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=CircleCI+PosgteSQL+9.6&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F30%2Fcircle%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/03/29/stachka/index.html">Стачка</a></h1>
       
       <div class="date">March 29, 2017</div>
@@ -376,34 +423,6 @@ run -p 80:80 nginx</code>, поэтому часто путал какой по�
         
 
         <div class="fb-share-button" data-href="/blog/2017/03/17/integrity/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A1%D0%BA%D1%80%D0%B8%D0%BF%D1%82+%D1%86%D0%B5%D0%BB%D0%BE%D1%81%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F17%2Fintegrity%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/03/16/terrafail/index.html">Коллеги, я удалил сервер с VPN</a></h1>
-      
-      <div class="date">March 16, 2017</div>
-
-      
-      <div class="entry">
-        <p>Недавно замечательным терраформом грохнул несколько серверов, дело было так.
-В файле <code>var.tf</code> лежала переменная с ID-образа убунты примерно так <code>UBUNTU_IMAGE_ID = &#39;cde3892-...&#39;</code>.
-Я решил обновить образ на свежий и не прочитал, что написал <code>terraform plan</code>, а зря. Терраформ, когда
-у диска меняется переменная <code>image_id</code>, пересоздает диск. Поэтому сервер на новом
-образе я конечно создал, но еще заодно обновил старые сервера. Хорошо, что базы были на другом образе,
-а так
-бы веселья было чуть больше.</p>
-
-<p>Сейчас мы страхуемся тем, что в каждый диск копипастим конкретное значение в <code>image_id</code>, <code>Ctrl-C Ctrl-V</code> - рулят.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/03/16/terrafail/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2017/03/16/terrafail/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%B3%D0%B8%2C+%D1%8F+%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D0%BB+%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80+%D1%81+VPN&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F16%2Fterrafail%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
