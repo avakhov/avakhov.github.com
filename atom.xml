@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Кадры решают все</title>
+        <description>
+          
+          &lt;p&gt;В &lt;a href=&quot;https://goo.gl/ge2JqN&quot;&gt;фильме про Гугл&lt;/a&gt; конечно все чистейшая
+правда кроме одной вещи, саппорт у Гугл самый омерзительный среди всех IT-компаний, которые я когда либо встречал. Дорваться
+до живого человека - искусство, дорваться до живого человека, который решит проблему - неведомое искусство.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 09 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/09/google/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/09/google/index.html</guid>
+      </item>
+    
+      <item>
         <title>Информационное поле</title>
         <description>
           
@@ -171,29 +185,6 @@ IT криво ухмылялись
         <pubDate>Mon, 29 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/29/stop-compain/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/29/stop-compain/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Проекты против рутины</title>
-        <description>
-          
-          &lt;p&gt;Один из рисков всяких аджайлов - это превращения деятельности в рутину. Человеку нужны
-яркие победы, а я сомневаюсь, что кто-то празднует в кабаке то, что велосити спринта номер
-28 больше на 5% спринта 27. Всякие гибкие штуки - очень круто и вообще единственный вариант
-вести IT-проекты, но они одни не вытянут историю.&lt;/p&gt;
-
-&lt;p&gt;Самый простой пример, это то, что 90% ресторанов прекрасны по интерьеру, и при этом
-90% ресторанов ужасны по еде (кроме
-сетевых, где строго соблюдаются технологии и приемлемое качество примерно одинаковое везде).
-Сделать интерьер - это
-проект с дедлайном, ух навалился и сделал. А готовить вкусно или девелопить ровно каждый день
-могут только титаны своей
-профессии.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 26 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/26/rutina/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/26/rutina/index.html</guid>
       </item>
     
   </channel>
