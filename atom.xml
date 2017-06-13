@@ -7,6 +7,22 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Перейдите на другую сторону улицы</title>
+        <description>
+          
+          &lt;p&gt;5 лет назад мне достался в наследство свежий, только начатый рейлс проект, который использовал sqlite в продакшене (и запущен был он в development-режиме, так как ребята не справились с компиляцией ассетов, и в качестве уникального ключа для событий использовался текущий таймпстемп в секундах, а-а-а-а). Под впечатлением я написал в Твиттер, что людей, которые используют sqlite в продакшене нужно лишать права голоса.&lt;/p&gt;
+
+&lt;p&gt;Шли годы, я поменял своё мнение, голосовать им можно, но встретив таких людей на улице, стоит перейти на другую стороны дороги.&lt;/p&gt;
+
+&lt;p&gt;Это все конечно шутки, но такие откровенно паталогические решения мне даже неинтересно обсуждать. Они возникли не из-за глупости или глубоких идей, а из-за непрофессионализма. Это скучно. &lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 13 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/13/sqlite/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/13/sqlite/index.html</guid>
+      </item>
+    
+      <item>
         <title>Кадры решают все</title>
         <description>
           
@@ -168,23 +184,6 @@ IT криво ухмылялись
         <pubDate>Tue, 30 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/30/crazy_log/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/30/crazy_log/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Линейка Off</title>
-        <description>
-          
-          &lt;p&gt;79 дней назад я &lt;a href=&quot;/blog/2017/03/09/marketing/index.html&quot;&gt;добавил&lt;/a&gt; на сайт подписку на новости,
-пора подвести итоги. Подписалось 20 человек, из них
-минимум двое мои хорошие друзья. Значит сам по себе сбор емейлов так не работает. Ну и ладно.&lt;/p&gt;
-
-&lt;p&gt;Вот статистика:
-&lt;img src=&quot;/assets/lineka.png&quot;&gt;&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 29 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/29/stop-compain/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/29/stop-compain/index.html</guid>
       </item>
     
   </channel>
