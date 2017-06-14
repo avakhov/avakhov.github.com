@@ -7,6 +7,23 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>js.erb</title>
+        <description>
+          
+          &lt;p&gt;В одном внутреннем интерфейсе мне нужно было сделать а-ля crud без перезагрузки страницы. Конечно сегодня такие вещи положено делать на реакте и прочей js-радости, но я вспомнил про старичка js.erb.&lt;/p&gt;
+
+&lt;p&gt;Честно скажу, к рендеренигу кусков js на сервере я отношусь с презрением с тех пор как &lt;a href=&quot;http://railscasts.com/episodes/205-unobtrusive-javascript&quot;&gt;услышал термин unobtrusive javascript&lt;/a&gt;.
+Однако нафигачить небольшой интерфейс оказалось настолько быстро и приятно, что вы ещё будете настраивать вебпакер, даже если это 5.1, а я уже буду допивать свою первую пинту пенного. &lt;/p&gt;
+
+&lt;p&gt;Злоупотреблять этим не стоит (ни js.erb, ни пенным), но если нужно построить на рейлс почти spa для пары важных страниц - очень удобно. &lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 14 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/14/js_erb/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/14/js_erb/index.html</guid>
+      </item>
+    
+      <item>
         <title>Перейдите на другую сторону улицы</title>
         <description>
           
@@ -157,33 +174,6 @@ IT криво ухмылялись
         <pubDate>Wed, 31 May 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/05/31/apple/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/05/31/apple/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Логирование</title>
-        <description>
-          
-          &lt;p&gt;У нас часто сервисные утилиты пишут в базу свои логи примерно так, чтобы их легко через морду было посмотреть:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  Open3.popen2e(cmd + &amp;quot; 2&amp;gt;&amp;amp;1&amp;quot;) { |i, oe, t|
-    oe.each{ |line| add_log_line(line.strip) }
-  }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Один сервис пишет довольно много логов и, что еще усугубило ситуацию, в процессе миграции одной ногой (база) он остался в хероку, а второй
-ногой (сам код) ушел в Селектел. И в такой раскоряке он начал вдруг работать неприятные 50 минут и больше.&lt;/p&gt;
-
-&lt;p&gt;После небольшого исследования нашли
-причину, что инсерт в базу довольно долгий, так как база далеко, и код 40 минут из 50 сидит в базе, тормозя запуск внешнего скрипта.
-Самой утилите уже больше 3 лет, поэтому чтобы
-ничего не трогать просто вынесли логирование в отдельный поток и стали отправлять логи батчами (пишу и понимаю, что хватило бы только второго шага).
-Всякое бывает.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; Выкинул отдельный поток, оставил только отправку логов пакетом не чаще раза в 3 секунды.
-Работает также быстро. Не люблю треды, еще Кнут говаривал, что мультипоточное программирование - от лукавого.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 30 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/30/crazy_log/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/30/crazy_log/index.html</guid>
       </item>
     
   </channel>
