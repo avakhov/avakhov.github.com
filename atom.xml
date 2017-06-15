@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Trello API</title>
+        <description>
+          
+          &lt;p&gt;У нас есть небольшая рейлс-приблуда для планирования спринтов, я ее решил интегрировать с трелло. Это первая интеграция в жизни, которую можно осуществить за 10 минут.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developers.trello.com/clientjs&quot;&gt;Client.js&lt;/a&gt; возвращает в браузер список карточек без всякого серверного кода. Мне нужен был только автокомплетишн названий карточек, с помощью jquery-ui autocomplete это делается элементарно. Любопытный подход у трелло. &lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 15 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/15/trello-api/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/15/trello-api/index.html</guid>
+      </item>
+    
+      <item>
         <title>js.erb</title>
         <description>
           
@@ -153,27 +167,6 @@ IT криво ухмылялись
         <pubDate>Thu, 01 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/01/piknik/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/01/piknik/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Обычный день в Эппл</title>
-        <description>
-          
-          &lt;p&gt;В какой-то книге/статье написано, что кампусы Эппл проектируются так, чтобы работники
-часто сталкивались с друг другом и общались, с другой стороны есть много информации, что в компании
-высочайший уровень секретности.&lt;/p&gt;
-
-&lt;p&gt;Поэтому в офисах Эппл сотрудники с каменными лицами постоянно 
-проходят мимо друг друга, чтобы ни взглядом, ни подрагиванием мускула не выдать как будет
-выглядеть новый айфон.&lt;/p&gt;
-
-&lt;p&gt;PS. Перейдя в мир андроида я думал Xiaomi нагло тырит внешний вид айфонов, но зайдя на сайт
-&lt;a href=&quot;https://mymeizu.ru&quot;&gt;https://mymeizu.ru&lt;/a&gt;, понял, что Сяоми просто зайчики.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 31 May 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/05/31/apple/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/05/31/apple/index.html</guid>
       </item>
     
   </channel>
