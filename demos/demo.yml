@@ -1,0 +1,13 @@
+vars:
+  env: &env
+    SOME: 1
+    ANOTHER: "foo"
+
+pipeline:
+  step1:
+    cmd: "echo 1"
+    env: *env
+
+  step2:
+    cmd: "echo 2"
+    env: *env

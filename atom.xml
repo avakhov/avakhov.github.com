@@ -7,6 +7,40 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ямл-переменные</title>
+        <description>
+          
+          &lt;p&gt;Я обращал внимание на &lt;code&gt;&amp;amp;&lt;/code&gt; и &lt;code&gt;*&lt;/code&gt; в &lt;code&gt;database.yml&lt;/code&gt; нового рейлс-приложения, но никогда не задумывался, что
+это можно использовать в произвольных yml-файлах. Например, если есть какой-нибудь пайплайн и
+хочется DRY в конфиге, то можно сделать так:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;&amp;amp;env&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;SOME&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;ANOTHER&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;pipeline&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;step1&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;echo&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;*env&lt;/span&gt;
+
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;step2&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;echo&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;*env&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;В руби по крайней мере это работает, но насколько я понимаю, это часть синтаксиса.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;YAML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;demo.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# {&amp;quot;vars&amp;quot;=&amp;gt;{&amp;quot;env&amp;quot;=&amp;gt;{&amp;quot;SOME&amp;quot;=&amp;gt;1, &amp;quot;ANOTHER&amp;quot;=&amp;gt;&amp;quot;foo&amp;quot;}},&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# &amp;quot;pipeline&amp;quot;=&amp;gt;{&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# &amp;quot;step1&amp;quot;=&amp;gt;{&amp;quot;cmd&amp;quot;=&amp;gt;&amp;quot;echo 1&amp;quot;, &amp;quot;env&amp;quot;=&amp;gt;{&amp;quot;SOME&amp;quot;=&amp;gt;1, &amp;quot;ANOTHER&amp;quot;=&amp;gt;&amp;quot;foo&amp;quot;}},&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# &amp;quot;step2&amp;quot;=&amp;gt;{&amp;quot;cmd&amp;quot;=&amp;gt;&amp;quot;echo 2&amp;quot;, &amp;quot;env&amp;quot;=&amp;gt;{&amp;quot;SOME&amp;quot;=&amp;gt;1, &amp;quot;ANOTHER&amp;quot;=&amp;gt;&amp;quot;foo&amp;quot;}}}}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        </description>
+        <pubDate>Mon, 19 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/19/yaml/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/19/yaml/index.html</guid>
+      </item>
+    
+      <item>
         <title>Фокусировка</title>
         <description>
           
@@ -150,20 +184,6 @@ IT криво ухмылялись
         <pubDate>Mon, 05 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/05/bad/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/05/bad/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Системный файлы фрейморков</title>
-        <description>
-          
-          &lt;p&gt;Одна из бед фреймворков, что при генерации нового приложения, создается много всяких левых файлов на все случаи жизни. Рейлс я уже давно
-активно не занимаюсь, но все равно всегда смотрю, какая версия какие файлы генерирует. Мне нравится следить как они меняются и я чувствую
-какие соломоновы решения приходится принимать коре тим, чтобе не потерять общности, не оскорбить опытных, не испугать начинающих. Это сложно.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 02 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/02/shlako/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/02/shlako/index.html</guid>
       </item>
     
   </channel>
