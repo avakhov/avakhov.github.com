@@ -64,6 +64,49 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/10/27/record-lock/index.html">Лок на запись</a></h1>
+      
+      <div class="date">October 27, 2014</div>
+
+      <div class="img"><img src="/assets/record-lock.jpg" /></div>
+      <div class="entry">
+        <p>Бывает, что при обновлении строчки в базе хочется сделать серию сложных операций с зависимыми записями и желательно, чтобы паралельные
+потоки в это время не мешали.</p>
+
+<p>В PostgreSQL есть замечательный способ блокировки <code>SELECT FOR UPDATE</code>, который мне как-то подсказал <a href="http://evtuhovich.ru">Иван</a>.
+Если запустить 2 транзакции и в обеих вызвать <code>SELECT FOR UPDATE</code>, то вторая транзакция будет ожидать окончания первой.</p>
+
+<p><img src="/assets/record-lock/lock.png" alt=""></p>
+
+<p>В Рейсл такие запросы удобно упакованы в методе <code>with_lock</code> <a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html#method-i-with_lock"><i class="fa fa-external-link"></i></a>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">do_some_tricky_calculations</span>
+    <span class="n">with_lock</span> <span class="k">do</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Tricky Dude&quot;</span>
+      <span class="c1"># update a lot different records</span>
+      <span class="n">save!</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>В логах мы увидем такой же <code>FOR UPDATE</code>, как мы это делали вручную:</p>
+
+<p><img src="/assets/record-lock/rails.png" alt=""></p>
+
+<p>Как и в любой хорошем приеме, здесь нужна мера. Если блокировать базу часто и надолго, то производительность упадет сильно.</p>
+
+        
+        <div style="float:right"><a href="/blog/2014/10/27/record-lock/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2014/10/27/record-lock/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%BE%D0%BA+%D0%BD%D0%B0+%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F27%2Frecord-lock%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/10/23/sinatra-embed-views/index.html">Синатра инлайн-темплейты</a></h1>
       
       <div class="date">October 23, 2014</div>
@@ -1084,99 +1127,6 @@ gem &#39;smt_rails&#39;, &#39;&gt;= 0.2.3&#39;
         
 
         <div class="fb-share-button" data-href="/blog/2012/07/30/mustache-recursive-templates-smtrails/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A0%D0%B5%D0%BA%D1%83%D1%80%D1%81%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5+mustache-%D1%82%D0%B5%D0%BC%D0%BF%D0%BB%D0%B5%D0%B9%D1%82%D1%8B+%D0%B8+SMTRails&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F30%2Fmustache-recursive-templates-smtrails%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/07/17/the-history-of-a-comma/index.html">История одной запятой</a></h1>
-      
-      <div class="date">July 17, 2012</div>
-
-      
-      <div class="entry">
-        <p>Программисты в повседневной практике часто работают с различными перечислениями. Это могут быть элементы массива,
-пары ключ-значения или, например, параметры метода. Существует одна хитрость при определении таких перечислений, которую я
-использую уже очень давно и сегодня хочу поделиться с вами.</p>
-
-<p>В C++ мы использовали следующую запись конструкторов:</p>
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">SomeClass</span><span class="o">::</span><span class="n">SomeClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">i_value</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">i_string</span><span class="p">)</span>
-  <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">i_value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">,</span> <span class="n">m_value</span><span class="p">(</span><span class="n">i_value</span><span class="p">)</span>
-  <span class="p">,</span> <span class="n">m_string</span><span class="p">(</span><span class="n">i_string</span><span class="p">)</span>
-  <span class="p">,</span> <span class="n">m_float</span><span class="p">()</span>
-  <span class="p">,</span> <span class="n">m_storage</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Мы использовали явные вызовы конструкторов каждого члена класса, даже там где это можно было опустить, чтобы лучше контролировать
-деятельность классов. Часто приходится жертвовать теоретическим изяществом ради достижения практических целей. Однако главное
-не в этом. Обратите внимание на оформление запятых. Такая конструкция позволяет легко менять инициализаторы
-местами и добавлять новые, не боясь получить синтаксическую ошибку. Это экономит немного времени и чуть-чуть нервных клетов.</p>
-
-<p>В мире рейлс дела с перечислениями обстоят еще лучше, так как интерпретатор руби не такой строгий, как компилятор C++.
-Можно объявлять массивы:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span>
-  <span class="s1">&#39;value1&#39;</span><span class="p">,</span>
-  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- внимание, запятая!</span>
-<span class="o">]</span>
-</code></pre></div>
-<p>хэши:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">hash</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="ss">key</span><span class="p">:</span> <span class="ss">:value</span><span class="p">,</span>
-  <span class="ss">anohter</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="c1"># &lt;-- опять запятая!  </span>
-<span class="p">}</span>
-</code></pre></div>
-<p>и вызывать методы:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">some</span><span class="p">(</span>
-  <span class="s1">&#39;abc&#39;</span><span class="p">,</span>
-  <span class="mi">123</span><span class="p">,</span>          <span class="c1"># &lt;-- и снова она!</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>добавляя запятую в конце последнего члена перечисления. Возможно это синтаксически не совсем изящно, но работает
-как ожидается и экономит время на длинных конструкциях.</p>
-
-<p>В кофе-скрипт дела идут настолько замечательно, что запятых не нужно вообще:</p>
-<div class="highlight"><pre><code class="language-coffeescript" data-lang="coffeescript"><span class="nx">some_method</span><span class="p">(</span>
-  <span class="mi">1</span>
-  <span class="mi">2</span>
-<span class="p">)</span>
-
-<span class="nv">array = </span><span class="p">[</span>
-  <span class="mi">4</span>
-  <span class="mi">5</span>
-  <span class="mi">6</span>
-<span class="p">]</span>
-
-<span class="nv">hash = </span><span class="p">{</span>
-  <span class="nv">a: </span><span class="mi">1</span>
-  <span class="nv">b: </span><span class="mi">1</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Джаваскрипт-интерпретатор в Хроме и Файерфоксе работает достойно:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">array</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="mi">4</span><span class="p">,</span>
-  <span class="mi">5</span><span class="p">,</span>
-  <span class="mi">6</span><span class="p">,</span>
-<span class="p">];</span>
-
-<span class="nx">hash</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>И наконец джаваскрипт в интернет-эксплорере выдает ошибку:</p>
-
-<p><img src="/assets/old/13-comma/ie.png" alt=""></p>
-
-        
-        <div style="float:right"><a href="/blog/2012/07/17/the-history-of-a-comma/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2012/07/17/the-history-of-a-comma/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F+%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9+%D0%B7%D0%B0%D0%BF%D1%8F%D1%82%D0%BE%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F07%2F17%2Fthe-history-of-a-comma%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
