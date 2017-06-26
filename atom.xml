@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>С vs Pascal</title>
+        <description>
+          
+          &lt;p&gt;В школе у нас было две группы на уроках информатики, одна посильнее, программировала на C. У них преподавал такой бородатенький чувак,
+мне кажется как учитель он был не очень, но точно был прошаренный и от индустии. И вторая группа была послабее, на Паскале. Там был я.
+И мне всегда казалось, что вторая половина делает что-то такое крутое, у них были указатели, инкременты и вообще дух программирования. Сам
+язык С мне казался очень благородным, а Паскаль - скучной поделкой.&lt;/p&gt;
+
+&lt;p&gt;Но сегодня я продолжаю думать также. С - благородный и клевый, а Паскаль - нет. Я даже учебник по Го прочитал только с третьего раза, первые
+два раза закрывал из-за оператора опаскаливания &lt;code&gt;:=&lt;/code&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 26 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/26/cpp/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/26/cpp/index.html</guid>
+      </item>
+    
+      <item>
         <title>JS.erb - просто не модно</title>
         <description>
           
@@ -207,20 +225,6 @@
         <pubDate>Tue, 13 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/13/sqlite/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/13/sqlite/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Кадры решают все</title>
-        <description>
-          
-          &lt;p&gt;В &lt;a href=&quot;https://goo.gl/ge2JqN&quot;&gt;фильме про Гугл&lt;/a&gt; конечно все чистейшая
-правда кроме одной вещи, саппорт у Гугл самый омерзительный среди всех IT-компаний, которые я когда либо встречал. Дорваться
-до живого человека - искусство, дорваться до живого человека, который решит проблему - неведомое искусство.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 09 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/09/google/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/09/google/index.html</guid>
       </item>
     
   </channel>

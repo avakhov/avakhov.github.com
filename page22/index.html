@@ -64,6 +64,81 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2015/02/02/tsort/index.html">Tsort</a></h1>
+      
+      <div class="date">February  2, 2015</div>
+
+      <div class="img"><img src="/assets/tsort.jpg" /></div>
+      <div class="entry">
+        <p>В исходниках Рейлс я как-то увидел ссылку на модуль <code>tsort</code> <a href="https://github.com/rails/rails/blob/v4.2.0/railties/lib/rails/initializable.rb#L40-L45"><i class="fa fa-external-link"></i></a>.
+&quot;Tsort, WTF?&quot; - подумал я (в переводе с английского это означает -
+что за неведомый, удивительный метод <code>tsort</code> есть в нашем любимом руби).</p>
+
+<p>Документация говорит <a href="http://www.ruby-doc.org/stdlib-2.1.2/libdoc/tsort/rdoc/TSort.html"><i class="fa fa-external-link"></i></a>:
+&quot;TSort implements topological sorting using Tarjan&#39;s algorithm for strongly connected components&quot;.
+Википедия поддерживает <a href="http://en.wikipedia.org/wiki/Strongly_connected_component"><i class="fa fa-external-link"></i></a>:
+&quot;In the mathematical theory of directed graphs, a graph is said to be strongly connected if every vertex is reachable from every other vertex&quot;.</p>
+
+<p>Обычно такие объяснения выглядят для меня примерно так: &quot;麺類 緑茶 algorithm 車青出&quot;, но в этот
+раз я даже
+разобрался. Эта штука помогает найти циклические зависимости в графе, что очень хорошо,
+например, для подсчета зависимостей:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">&#39;tsort&#39;</span>
+
+<span class="k">class</span> <span class="nc">BuildSystem</span> <span class="o">&lt;</span> <span class="no">Hash</span>
+  <span class="kp">include</span> <span class="no">TSort</span>
+  <span class="k">alias</span> <span class="n">tsort_each_node</span> <span class="n">each_key</span>
+  <span class="k">def</span> <span class="nf">tsort_each_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">[</span><span class="n">node</span><span class="o">].</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">dependencies</span> <span class="o">=</span> <span class="o">[]</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">[</span><span class="n">component</span><span class="o">]</span> <span class="o">=</span> <span class="n">dependencies</span>
+  <span class="k">end</span>
+
+  <span class="k">alias</span> <span class="n">build_order</span> <span class="n">tsort</span>
+
+  <span class="k">def</span> <span class="nf">valid?</span>
+    <span class="n">strongly_connected_components</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">component</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="nb">puts</span> <span class="s2">&quot;Cyclic deps: </span><span class="si">#{</span><span class="n">component</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="kp">false</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">sys</span> <span class="o">=</span> <span class="no">BuildSystem</span><span class="o">.</span><span class="n">new</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;rack&quot;</span><span class="p">,</span> <span class="sx">%w[]</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;rails&quot;</span><span class="p">,</span> <span class="sx">%w[activerecord activesupport actionmailer]</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;actionmailer&quot;</span><span class="p">,</span> <span class="sx">%w[rack]</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;activesupport&quot;</span><span class="p">,</span> <span class="sx">%w[rack]</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;activerecord&quot;</span><span class="p">)</span>
+
+<span class="nb">p</span> <span class="n">sys</span><span class="o">.</span><span class="n">valid?</span>      <span class="c1"># =&gt; true</span>
+<span class="nb">p</span> <span class="n">sys</span><span class="o">.</span><span class="n">build_order</span>
+<span class="c1"># =&gt; [&quot;rack&quot;, &quot;activerecord&quot;, &quot;activesupport&quot;, &quot;actionmailer&quot;, &quot;rails&quot;]</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;rack&quot;</span><span class="p">,</span> <span class="sx">%w[rails]</span><span class="p">)</span>
+<span class="nb">p</span> <span class="n">sys</span><span class="o">.</span><span class="n">valid?</span>
+<span class="c1"># Cyclic deps: [&quot;rack&quot;, &quot;rails&quot;, &quot;activesupport&quot;, &quot;actionmailer&quot;]</span>
+<span class="c1"># =&gt; false</span>
+</code></pre></div>
+<p>Вот такой вот дивный компонент.</p>
+
+        
+        <div style="float:right"><a href="/blog/2015/02/02/tsort/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2015/02/02/tsort/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Tsort&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F02%2F02%2Ftsort%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2015/01/29/ember-2-fire/index.html">Ember.js - 2. Index & Show</a></h1>
       
       <div class="date">January 29, 2015</div>
@@ -755,61 +830,6 @@ Active Record запросы. Когда записей уже миллионы,
         
 
         <div class="fb-share-button" data-href="/blog/2014/12/15/timestamps/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A1%D1%80%D0%B0%D0%B2%D0%BD%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+%D1%82%D0%B0%D0%B9%D0%BC%D1%81%D1%82%D0%B5%D0%BC%D0%BF%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F15%2Ftimestamps%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/11/react-sortable/index.html">React.js + jQuery UI Sortable</a></h1>
-      
-      <div class="date">December 11, 2014</div>
-
-      <div class="img"><img src="/assets/react-sortable.jpg" /></div>
-      <div class="entry">
-        <p>В React.js прекрасно все, кроме поддержки драгов из коробки,
-в частности сортируемого списка.
-В интернете в основном предлагают вручную обрабатывать события мышки. Однако сделать корректную сортировку
-длинного списка с учетом скроллов и браузеров довольно сложно, поэтому я прикрутил
-jQuery UI Sortable, не нарушая реактивности системы.</p>
-
-<p>Воспользуемся генератором вкусных рецептов из старого выпуска <a href="/blog/2014/11/27/react-todo/index.html"><i class="fa fa-external-link"></i></a> и добавим возможность менять шаги в рецепте с
-помощью перетаскивания.</p>
-
-<p>С React.js даже самый минимальный код все равно довольно большой, поэтому дам ссылки на результат
-и немного поясню изменения:</p>
-
-<ul>
-<li><a href="http://bl.ocks.org/avakhov/raw/7b9d2b1a354e59dbfa63/">Живое демо (работает даже на телефоне)</a></li>
-<li><a href="https://gist.github.com/avakhov/7b9d2b1a354e59dbfa63">Исходники</a></li>
-<li><a href="https://gist.github.com/avakhov/a491f8d5eac0cbb74f91">Изменения с предыдущей версии</a></li>
-</ul>
-
-<p><img src="/assets/react-sortable/screen.png" alt=""></p>
-
-<p>За таскание отвечает класс <code>Sortable</code>, в который передается функция, рисующая шаг рецепта.
-<code>Sortable</code> отрисовывает список и навешивает jQuery UI Sortable на элементы.
-В колбеке <code>stop</code> мы вызываем
-<code>sortable(&quot;cancel&quot;)</code> чтобы отменить результат переноса (это очень важно,
-так как если мы будем вручную менять DOM, то React.js будет ругаться). Далее
-мы рапортуем главному
-приложение о изменении состояния, и он уже сам
-обновляет список через реактивность.</p>
-
-<p>Я постарался изобразить процесс на диаграмме (думаю совершил 33 ошибки в UML, но мне
-хотелось опробовать сервис <a href="http://draw.io">draw.io</a>):</p>
-
-<p><img src="/assets/react-sortable/diag.png" alt=""></p>
-
-<p>Не знаю насколько данное решение готово для использования на продакшене, но для внутренних интерфейсов
-очень даже ничего.</p>
-
-        
-        <div style="float:right"><a href="/blog/2014/12/11/react-sortable/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/12/11/react-sortable/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=React.js+%2B+jQuery+UI+Sortable&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F11%2Freact-sortable%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

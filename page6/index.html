@@ -64,6 +64,38 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/04/01/new-form/index.html">Новый формат</a></h1>
+      
+      <div class="date">April  1, 2017</div>
+
+      
+      <div class="entry">
+        <p>Привет, дорогие читатели! Я решил немного поменять формат своего блога, теперь буду публиковать каждый рабочий
+день одно новое блюдо, которое готовлю самостоятельно. Сегодня представляю вашему вниманию говядину (лопатка), запеченую
+в фольге:</p>
+
+<p><img src="/18/1apr.jpg"></p>
+
+<p>Подпишитесь
+на новости сайта и вы узнаете рецепт мяса,
+увидите фотографии новых блюд раньше всех, научитесь готовить уникальные гарниры и десерты, а также
+получите шанс выиграть билет на мастер-класс по приготовлению комплексного обеда на трех человек
+с автором данного блога.</p>
+
+<p>До новых встреч! <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':cat:' alt=':cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f431.png' height='20' width='20' align='absmiddle' /></p>
+
+        
+        <div style="float:right"><a href="/blog/2017/04/01/new-form/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2017/04/01/new-form/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9+%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F04%2F01%2Fnew-form%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2017/03/31/os/index.html">OS и автоматизация</a></h1>
       
       <div class="date">March 31, 2017</div>
@@ -383,38 +415,6 @@ rlptgoD вам, no HAX, братишки! А мы еще
         
 
         <div class="fb-share-button" data-href="/blog/2017/03/21/se/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A5%D0%B5%D1%80%D0%BE%D0%BA%D1%83&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F21%2Fse%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2017/03/20/docker_ports/index.html">docker run -p A:B vs git - 1:1</a></h1>
-      
-      <div class="date">March 20, 2017</div>
-
-      
-      <div class="entry">
-        <p>Запускать докер контейнеры я учился из интернета, в 99% статей это выглядит как-то так <code>docker
-run -p 80:80 nginx</code>, поэтому часто путал какой порт отвечает за хост, а какой за контейнер. Когда
-они отличались, то решал задачу так же, как флешка вставляется в USB-порт, суперпозицией поворотов.</p>
-
-<p>Запомнить очень просто: <code>80:80</code> - это сокращенная запись <code>hostIP:hostPort:containerPort</code>, то есть
-если я хочу повесить рейлс контейнер на <code>8080</code>-й порт для интерфейса <code>192.168.12.27</code>, то так и пишу:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">docker run -p 192.168.12.27:8080:3000
-</code></pre></div>
-<p>либо, если интерфейс не важен, то команда - <code>docker run -p 8080:3000</code>. Теперь не путаюсь.</p>
-
-<p>PS. жуткая команда для удаления ветки <code>git push origin :branch</code> становится понятной, когда узнаешь, что
-<code>git push origin branchA:branchB</code>, отправляет локальную <code>branchA</code> в <code>branchB</code> на сервере, и если
-отправить &quot;пустоту&quot; в серверную ветку <code>branch</code>, то это будет равносильно удалению <code>branch</code> на сервере.</p>
-
-        
-        <div style="float:right"><a href="/blog/2017/03/20/docker_ports/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2017/03/20/docker_ports/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=docker+run+-p+A%3AB+vs+git+-+1%3A1&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F03%2F20%2Fdocker_ports%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
