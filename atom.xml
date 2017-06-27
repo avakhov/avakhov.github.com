@@ -7,6 +7,23 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Артек</title>
+        <description>
+          
+          &lt;p&gt;По рабочим делам попал в Артек. Пока еще на разобрался что к чему, но объект повышенной
+охраняемости и где-то там в горах.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/18/artek2.jpg&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Некогда подробности объяснять, побежал дверные ручки зубной пастой мазать.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 27 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/27/artek/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/27/artek/index.html</guid>
+      </item>
+    
+      <item>
         <title>С vs Pascal</title>
         <description>
           
@@ -209,22 +226,6 @@
         <pubDate>Wed, 14 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/14/js_erb/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/14/js_erb/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Перейдите на другую сторону улицы</title>
-        <description>
-          
-          &lt;p&gt;5 лет назад мне достался в наследство свежий, только начатый рейлс проект, который использовал sqlite в продакшене (и запущен был он в development-режиме, так как ребята не справились с компиляцией ассетов, и в качестве уникального ключа для событий использовался текущий таймпстемп в секундах, а-а-а-а). Под впечатлением я написал в Твиттер, что людей, которые используют sqlite в продакшене нужно лишать права голоса.&lt;/p&gt;
-
-&lt;p&gt;Шли годы, я поменял своё мнение, голосовать им можно, но встретив таких людей на улице, стоит перейти на другую стороны дороги.&lt;/p&gt;
-
-&lt;p&gt;Это все конечно шутки, но такие откровенно паталогические решения мне даже неинтересно обсуждать. Они возникли не из-за глупости или глубоких идей, а из-за непрофессионализма. Это скучно. &lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 13 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/13/sqlite/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/13/sqlite/index.html</guid>
       </item>
     
   </channel>
