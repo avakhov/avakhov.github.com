@@ -7,6 +7,19 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>IT</title>
+        <description>
+          
+          &lt;p&gt;10 лет назад в IT был крутой, тот кто выглядит умным. 90% деятельности, слов было не понятно людям со стороны. Сегодня, мне кажется, что крут, тот кто понятен.
+Быть понятным бизнесу и говорить с ним на одном языке - это по настоящему сложно.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 28 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/28/some/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/28/some/index.html</guid>
+      </item>
+    
+      <item>
         <title>Артек</title>
         <description>
           
@@ -209,23 +222,6 @@
         <pubDate>Thu, 15 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/15/trello-api/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/15/trello-api/index.html</guid>
-      </item>
-    
-      <item>
-        <title>js.erb</title>
-        <description>
-          
-          &lt;p&gt;В одном внутреннем интерфейсе мне нужно было сделать а-ля crud без перезагрузки страницы. Конечно сегодня такие вещи положено делать на реакте и прочей js-радости, но я вспомнил про старичка js.erb.&lt;/p&gt;
-
-&lt;p&gt;Честно скажу, к рендеренигу кусков js на сервере я отношусь с презрением с тех пор как &lt;a href=&quot;http://railscasts.com/episodes/205-unobtrusive-javascript&quot;&gt;услышал термин unobtrusive javascript&lt;/a&gt;.
-Однако нафигачить небольшой интерфейс оказалось настолько быстро и приятно, что вы ещё будете настраивать вебпакер, даже если это 5.1, а я уже буду допивать свою первую пинту пенного. &lt;/p&gt;
-
-&lt;p&gt;Злоупотреблять этим не стоит (ни js.erb, ни пенным), но если нужно построить на рейлс почти spa для пары важных страниц - очень удобно. &lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 14 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/14/js_erb/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/14/js_erb/index.html</guid>
       </item>
     
   </channel>
