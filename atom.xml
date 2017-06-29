@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Русский язык</title>
+        <description>
+          
+          &lt;p&gt;По старой привычке у меня всегда основным языком компьютера был английский.
+Но недавно у меня перестала работать постановка задач на русском языке в тудуисте,
+приходится писать &amp;quot;написать пост every day&amp;quot;. Тупо. Я решил, что тудуист мне важнее
+старых условностей и перевел оба компьютера на русский язык.&lt;/p&gt;
+
+&lt;p&gt;Конечно иногда я пока не могу найти некоторые пункты меню, но в целом реально без разницы.
+Мозг ко всему приспосабливается.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 29 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/29/rusmac/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/29/rusmac/index.html</guid>
+      </item>
+    
+      <item>
         <title>IT</title>
         <description>
           
@@ -208,20 +226,6 @@
         <pubDate>Fri, 16 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/16/focus/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/16/focus/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Trello API</title>
-        <description>
-          
-          &lt;p&gt;У нас есть небольшая рейлс-приблуда для планирования спринтов, я ее решил интегрировать с трелло. Это первая интеграция в жизни, которую можно осуществить за 10 минут.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://developers.trello.com/clientjs&quot;&gt;Client.js&lt;/a&gt; возвращает в браузер список карточек без всякого серверного кода. Мне нужен был только автокомплетишн названий карточек, с помощью jquery-ui autocomplete это делается элементарно. Любопытный подход у трелло. &lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 15 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/15/trello-api/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/15/trello-api/index.html</guid>
       </item>
     
   </channel>
