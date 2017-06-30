@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>rails db:migrate</title>
+        <description>
+          
+          &lt;p&gt;Я часто нахожу какие-то свежие фишки через опечатки. Например новая вещь, которую обнаружил
+в рейлс 5.1, не знаю когда она пояивилась, что через &lt;code&gt;rails&lt;/code&gt; команду можно вызывать
+рейк-задачи. &lt;code&gt;rails db:migrate&lt;/code&gt; прекрасно работает и делает что надо. Магия.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 30 Jun 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/06/30/railsdb/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/30/railsdb/index.html</guid>
+      </item>
+    
+      <item>
         <title>Русский язык</title>
         <description>
           
@@ -210,22 +224,6 @@
         <pubDate>Mon, 19 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/19/yaml/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/19/yaml/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Фокусировка</title>
-        <description>
-          
-          &lt;p&gt;Раньше у меня был большой список мелких задач, которые нужно сделать в свободное время. Кнопку там подвинуть, оптимизировать страницу и тд. И я действительно эти задачи делал. Иногда. &lt;/p&gt;
-
-&lt;p&gt;Сейчас у меня другой принцип - не делать несущественные задачи, вообще. Если нет откровенной грязи (а откуда ей взяться когда 15 лет за клавиатурой?), то тормозящие страницы, некрасивые интерфейсы чаще всего симптомы какой-то более серьезной, системной проблемы. И скорее всего нужно сконцентрироваться на ней.&lt;/p&gt;
-
-&lt;p&gt;Страница тормозит чаще всего, что в начале данных было мало, а сейчас много. И возможно нужно не кеш ставить (чур-чур), а подумать как подтюнить систему целиком под новые реалии. К тому же база для экспериментов в этот момент уже хорошая. &lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 16 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/16/focus/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/16/focus/index.html</guid>
       </item>
     
   </channel>
