@@ -7,6 +7,30 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Большое</title>
+        <description>
+          
+          &lt;p&gt;В Артеке отдыхает 4000 детей прямо сейчас, но лагерь уже может вместить 10k детей. Местные говорят,
+что в 20-каком-то году эту цифру хотят увеличить до 120 тысяч детей одновременно. Артек действительно
+хорош, а еще в него видно, что вкладываются, поэтому он прямо очень хорош.&lt;/p&gt;
+
+&lt;p&gt;И наблюдая за этой территорией,
+которое по размеру, как докладывают, превосходит королество Монако, я понял, что в душе у нас
+все равно рулит жажда больших проектов. Если мост, то на остров Русский, если зимняя - то олимпиада, и в
+Сочи желательно.&lt;/p&gt;
+
+&lt;p&gt;Большие проекты, это конечно и большие попилы, обязательно. Но почему-то мне кажется,
+что они не ключевой мотив.
+Это просто приятный, офигенный бонус к жажде больших проектов. Win-win такой своебразный
+(моральную сторону этого вопроса мне бы не хотелось обсуждать, мораль - дело тонкое).&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 05 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/05/big/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/05/big/index.html</guid>
+      </item>
+    
+      <item>
         <title>Мыши плакали и кололись</title>
         <description>
           
@@ -16,6 +40,8 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
      895
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;895 модулей. Дурдом &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. А где же реакт раутер?&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;UPDATE:&lt;/em&gt; Нашелся. &lt;code&gt;yarn add react-router&lt;/code&gt; и дело в шляпо. Недурно.&lt;/p&gt;
 
         </description>
         <pubDate>Tue, 04 Jul 2017 00:00:00 +0300</pubDate>
@@ -158,25 +184,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Thu, 22 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/22/solution/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/22/solution/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Робастный</title>
-        <description>
-          
-          &lt;p&gt;В одной фиговой книге, с хреновым переводом, я встретил слово &amp;quot;робастный&amp;quot;. Среди всей той воды, которой там было предостаточно, это
-слово все равно смотрелось очень сильно. У нас долго даже много было шуток на эту тему.&lt;/p&gt;
-
-&lt;p&gt;&amp;quot;РОБАСТНЫЙ — [англ. robust &amp;lt; лат. robuste прочно, крепко] инф. устойчивый к помехам.&amp;quot; сообщает нам гугл. Хм.
-Сейчас мне довольно часто приходится употреблять слова &amp;quot;масштабирование&amp;quot;, &amp;quot;архитектура&amp;quot;. Мне бывает немножко неловко в такие моменты.
-Но, реально, некоторые явления
-в жизни невозможно описать без этих слов. Однако я очень расчитываю не попадать в такие ситуации, когда придется на полном
-серьезе использовать слово &amp;quot;робастный&amp;quot;. Фу.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 21 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/21/robustnost/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/21/robustnost/index.html</guid>
       </item>
     
   </channel>
