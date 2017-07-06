@@ -7,6 +7,18 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Правильная верстка</title>
+        <description>
+          
+          &lt;p&gt;Правильная верстка выглядит вот так: &lt;code&gt;&amp;lt;div style=&amp;quot;margin-top:10px;&amp;quot;&amp;gt;Some: &amp;lt;input /&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;Other: &amp;lt;input /&amp;gt;...&lt;/code&gt;. Вся сила именно в тройном &lt;code&gt;&amp;amp;nbsp;&lt;/code&gt;, он отступ особой четкости выдает.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 06 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/06/true-markup/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/06/true-markup/index.html</guid>
+      </item>
+    
+      <item>
         <title>Большое</title>
         <description>
           
@@ -165,25 +177,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Fri, 23 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/23/mash/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/23/mash/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Принятие решений</title>
-        <description>
-          
-          &lt;p&gt;Раньше мне было очень сложно принимать решения, в жизни, и в работе. Помог мне такой трюк, сейчас поясню. 
-В современном обществе ценятся решатели, достигатели и прочие альфачи. И в принципе в социуме положительная эмоциональная оценка на том чтобы что-то сделать и отрицательная на том чтобы что-то не сделать. &lt;/p&gt;
-
-&lt;p&gt;То есть например сбежать от неприятного разговора, притворившись больным, это вроде не круто. А преодолеть себя и сделать что-то противное, это вроде как круто.
-Если уйти от эмоциональной оценки и принять, что любое деланье или неделанье (по любым причинам в обеих случаях) это просто вилки реальности и хотите вы этого или нет, вам придется жить в тех ситуациях, которые моделируются дальше.&lt;/p&gt;
-
-&lt;p&gt;Решение или отказ от решения по сотням ситуаций происходят в каждую секунду у всех.
-В самом факте принять решения ничего сакрального нет. &lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 22 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/22/solution/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/22/solution/index.html</guid>
       </item>
     
   </channel>
