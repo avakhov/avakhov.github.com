@@ -7,6 +7,27 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ошибки раннего маркетинга</title>
+        <description>
+          
+          &lt;p&gt;У меня есть знакомый, который что-то купил из техники в начале нулевых. Ему позвонили, говорят
+вы были тысячный покупатель, приезжайте, заберите подарок. Он приехал, забрал ноут, уехал.
+Хм. Вот так, без двойного дна. ROI такого рекламного хода был конечно нулевой,
+люди еще не умели правильный маркетинг.&lt;/p&gt;
+
+&lt;p&gt;Сегодня мне кажется, что люди уже научились правильному маркетингу,
+поэтому не трачу время на всякие
+акции, скидки, карты и прочее.
+Уверен, что они
+сфоткают, заставят подписать кучу бумаг, потреплют нервы и имя, но ноут уже, конечно, не дадут.&lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 11 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/11/market/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/11/market/index.html</guid>
+      </item>
+    
+      <item>
         <title>Среда</title>
         <description>
           
@@ -167,23 +188,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Wed, 28 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/28/some/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/28/some/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Артек</title>
-        <description>
-          
-          &lt;p&gt;По рабочим делам попал в Артек. Пока еще на разобрался что к чему, но объект повышенной
-охраняемости и где-то там в горах.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/18/artek2.jpg&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;Некогда подробности объяснять, побежал дверные ручки зубной пастой мазать.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 27 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/27/artek/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/27/artek/index.html</guid>
       </item>
     
   </channel>
