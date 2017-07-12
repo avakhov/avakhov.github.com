@@ -7,6 +7,18 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Боль</title>
+        <description>
+          
+          &lt;p&gt;Главное условие творчества - это боль. Когда пишут по трем каналам одновременно, плюс что-то упало, к тому же вчера надо было отправить три отчёта - начинается истинное творчество. Именно в этих условиях создаётся что-то по настоящему толковое.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 12 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/12/tvor/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/12/tvor/index.html</guid>
+      </item>
+    
+      <item>
         <title>Ошибки раннего маркетинга</title>
         <description>
           
@@ -175,19 +187,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Thu, 29 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/29/rusmac/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/29/rusmac/index.html</guid>
-      </item>
-    
-      <item>
-        <title>IT</title>
-        <description>
-          
-          &lt;p&gt;10 лет назад в IT был крутой, тот кто выглядит умным. 90% деятельности, слов было не понятно людям со стороны. Сегодня, мне кажется, что крут, тот кто понятен.
-Быть понятным бизнесу и говорить с ним на одном языке - это по настоящему сложно.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 28 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/28/some/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/28/some/index.html</guid>
       </item>
     
   </channel>
