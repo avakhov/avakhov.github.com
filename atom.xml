@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Skitch</title>
+        <description>
+          
+          &lt;p&gt;Пару лет назад читал статью, что Евернот будет первым упавшим единорогом. Не знаю упал он или нет, я им очень давно не пользовался, а вот скитч, которым я делаю все скриншоты, начал крешиться.  Причем на обоих компьютерах. Негодяй.&lt;/p&gt;
+
+&lt;p&gt;А вообще помойка всяких фактов у меня много где была, и в Еверноте тоже, но сейчас задержалась в Google Keep. Довольно удобно.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 13 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/13/skitch/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/13/skitch/index.html</guid>
+      </item>
+    
+      <item>
         <title>Боль</title>
         <description>
           
@@ -169,24 +183,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Fri, 30 Jun 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/06/30/railsdb/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/06/30/railsdb/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Русский язык</title>
-        <description>
-          
-          &lt;p&gt;По старой привычке у меня всегда основным языком компьютера был английский.
-Но недавно у меня перестала работать постановка задач на русском языке в тудуисте,
-приходится писать &amp;quot;написать пост every day&amp;quot;. Тупо. Я решил, что тудуист мне важнее
-старых условностей и перевел оба компьютера на русский язык.&lt;/p&gt;
-
-&lt;p&gt;Конечно иногда я пока не могу найти некоторые пункты меню, но в целом реально без разницы.
-Мозг ко всему приспосабливается.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 29 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/29/rusmac/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/29/rusmac/index.html</guid>
       </item>
     
   </channel>
