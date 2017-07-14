@@ -7,6 +7,25 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Схема Лесa</title>
+        <description>
+          
+          &lt;p&gt;Главный недостаток Schema Less баз данных для меня - это отсутствие схемы &lt;img class=&#39;emoji&#39; title=&#39;:joy:&#39; alt=&#39;:joy:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f602.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.
+То есть набросать очень грязный прототип - гуд, но если делать какие-то долгоиграющие вещи, когда
+запись меняется, то начинается сущий кошмар. Вообще не понятно, что от записи ждать.&lt;/p&gt;
+
+&lt;p&gt;Кстати если посмотреть на библиотеки работы с такими базами, типа монгоида, там схема есть и она
+описывается в модели (вроде бы, не помню &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;). Наверное без схемы хорошо когда только пишешь и
+сохраняешь какие-то аудит-сообщения похожие, но разные, типа вебхуков. Но с такой задачей
+и &lt;code&gt;jsonb&lt;/code&gt; неплохо справляется сегодня... Вообщем нет у меня дружбы с схема лесс, не задается.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 14 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/14/mong/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/14/mong/index.html</guid>
+      </item>
+    
+      <item>
         <title>Skitch</title>
         <description>
           
@@ -169,20 +188,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Mon, 03 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/03/skoro/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/03/skoro/index.html</guid>
-      </item>
-    
-      <item>
-        <title>rails db:migrate</title>
-        <description>
-          
-          &lt;p&gt;Я часто нахожу какие-то свежие фишки через опечатки. Например новая вещь, которую обнаружил
-в рейлс 5.1, не знаю когда она пояивилась, что через &lt;code&gt;rails&lt;/code&gt; команду можно вызывать
-рейк-задачи. &lt;code&gt;rails db:migrate&lt;/code&gt; прекрасно работает и делает что надо. Магия.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 30 Jun 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/06/30/railsdb/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/06/30/railsdb/index.html</guid>
       </item>
     
   </channel>
