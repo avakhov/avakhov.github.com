@@ -7,6 +7,22 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Стандартизация</title>
+        <description>
+          
+          &lt;p&gt;В гитхабе был запилен специальный флажок для рейлс и пары других проектов, который позволял комитить всем пользователям в мастер проекта с документацией.
+Гитхаб мужественно поддерживал эту фичу несколько лет, но потом, подозреваю когда уже стал стандартом-монополистом, такую возможность отключил. 
+Вообще такие флажки бывают во всех проектах и они отвратительные, их мало кто использует, про них все время забывают, ломают, потом чинят с бранными словами разными. &lt;/p&gt;
+
+&lt;p&gt;Я понимаю под каким риском находятся такие фичи, любой новый сотрудник обязательно их снесет, поэтому когда мы, например, упираемся в ограничения облачных провайдеров и нам предлагают кастомное решение, мы стараемся отказаться и обойтись общедоступным функционалом.  &lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 17 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/17/standard/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/17/standard/index.html</guid>
+      </item>
+    
+      <item>
         <title>Схема Лесa</title>
         <description>
           
@@ -172,22 +188,6 @@ The all-in-one guide. Чтобы отрисовать картинку с кру
         <pubDate>Tue, 04 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/04/react/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/04/react/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Суперчеловек</title>
-        <description>
-          
-          &lt;p&gt;Наконец-то зашел на сайт по технике чтения &lt;a href=&quot;http://spritzinc.com/&quot;&gt;Sprintz&lt;/a&gt;, до этого только слышал.
-Ну что ж, читать и понимать
-действительно можно, правда через пару минут уже стало не комфортно.
-И мне показалось, что мой мозг не выдержит такой постоянный ритм. Он временами быстрый,
-а временами залипает. Бумажная книжка то не убегает, а здесь фьють и конец.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 03 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/03/skoro/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/03/skoro/index.html</guid>
       </item>
     
   </channel>

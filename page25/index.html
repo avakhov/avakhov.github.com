@@ -64,6 +64,65 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2014/11/24/be_rspec/index.html">Как работает be_some в RSpec?</a></h1>
+      
+      <div class="date">November 24, 2014</div>
+
+      <div class="img"><img src="/assets/be_rspec.jpg" /></div>
+      <div class="entry">
+        <p>Как-то раз я решил разобраться какая именно магия используется в RSpec-предикаторах <code>be_some</code>, так
+как на первый взгляд они напоминают <code>undefined local variable or method</code>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Sun</span>
+  <span class="k">def</span> <span class="nf">available?</span>
+    <span class="kp">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="no">Sun</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">&quot;sad and cold&quot;</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">Sun</span><span class="o">.</span><span class="n">new</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be_available</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Конечно же это <code>method_messing</code>. Продираться через все хитросплетения RSpec мне не захотелось, хотя
+код там  очень основательный и щедро документированный, я нашел лишь несколько ключевых точек.</p>
+
+<p><code>describe Sun</code> превращается в класс <code>RSpec::ExampleGroups::Sun</code>, наследованный от
+<code>RSpec::Core::ExampleGroup</code>, в который при инициализации подмешивается модуль <code>RSpec::Matchers</code> <a href="https://github.com/rspec/rspec-core/blob/v3.1.7/lib/rspec/core/configuration.rb#L1095-L1101"><i class="fa fa-external-link"></i></a>, 
+отлавливающий <code>be_*</code> с помощью <code>method_messing</code> <a href="https://github.com/rspec/rspec-expectations/blob/v3.1.2/lib/rspec/matchers.rb#L928-L940"><i class="fa fa-external-link"></i></a>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">RSpec</span>
+  <span class="c1"># ...</span>
+  <span class="k">module</span> <span class="nn">Matchers</span>
+  <span class="c1"># ...</span>
+
+    <span class="no">BE_PREDICATE_REGEX</span> <span class="o">=</span> <span class="sr">/^(be_(?:an?_)?)(.*)/</span>
+    <span class="no">HAS_REGEX</span> <span class="o">=</span> <span class="sr">/^(?:have_)(.*)/</span>
+
+    <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="k">case</span> <span class="nb">method</span><span class="o">.</span><span class="n">to_s</span>
+      <span class="k">when</span> <span class="no">BE_PREDICATE_REGEX</span>
+        <span class="no">BuiltIn</span><span class="o">::</span><span class="no">BePredicate</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="k">when</span> <span class="no">HAS_REGEX</span>
+        <span class="no">BuiltIn</span><span class="o">::</span><span class="no">Has</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="k">super</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+</code></pre></div>
+<p>Отлично, теперь можно спать спокойно.</p>
+
+        
+        <div style="float:right"><a href="/blog/2014/11/24/be_rspec/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2014/11/24/be_rspec/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82+be_some+%D0%B2+RSpec%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F24%2Fbe_rspec%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2014/11/20/array_find/index.html">Неведомый Array#find</a></h1>
       
       <div class="date">November 20, 2014</div>
@@ -545,93 +604,6 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
         
 
         <div class="fb-share-button" data-href="/blog/2014/10/20/mini-rails/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B8%D0%BD%D0%B8+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F20%2Fmini-rails%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/10/16/namespaces/index.html">Неймспейсы в Рейлс</a></h1>
-      
-      <div class="date">October 16, 2014</div>
-
-      <div class="img"><img src="/assets/namespaces.jpg" /></div>
-      <div class="entry">
-        <p>В Рейлс очень удобно организовывать код по неймспейсам.</p>
-
-<p>Допустим есть файл <code>app/components/api/command.rb</code>, со следующим содержанием:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># app/components/api/command.rb</span>
-<span class="k">class</span> <span class="nc">Api</span><span class="o">::</span><span class="no">Command</span>
-  <span class="c1"># ...</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Рейлс сам создаст промежуточный модуль <code>Api</code>, который в обычном руби приходится объявлять так:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Api</span>
-  <span class="k">class</span> <span class="nc">Command</span>
-    <span class="c1"># ...</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>Как же это работает?</p>
-
-<p>Каждое Рейлс приложение - это <code>Rails::Engine</code>, который при инициализации вызывает
-серию хуков, один из которых устанавливает пути автозагрузки
-<a href="https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine/configuration.rb#L37"><i class="fa fa-external-link"></i></a>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Rails</span>
-  <span class="k">class</span> <span class="nc">Engine</span>
-<span class="c1"># ...</span>
-    <span class="k">def</span> <span class="nf">paths</span>
-      <span class="vi">@paths</span> <span class="o">||=</span> <span class="k">begin</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Paths</span><span class="o">::</span><span class="no">Root</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@root</span><span class="p">)</span>
-
-        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app&quot;</span><span class="p">,</span>                 <span class="ss">eager_load</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">glob</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
-        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app/assets&quot;</span><span class="p">,</span>          <span class="ss">glob</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
-        <span class="n">paths</span><span class="o">.</span><span class="n">add</span> <span class="s2">&quot;app/controllers&quot;</span><span class="p">,</span>     <span class="ss">eager_load</span><span class="p">:</span> <span class="kp">true</span>
-<span class="c1"># ...</span>
-</code></pre></div>
-<p>Строчка <code>paths.add &quot;app&quot;, ..., glob: &quot;*&quot;</code> ищет все папки из <code>app</code> (в нашем
-случае это <code>app/components</code>).</p>
-
-<p>Далее пути добавляются в <code>ActiveSupport::Dependencies</code> <a href="https://github.com/rails/rails/blob/v4.1.6/railties/lib/rails/engine.rb#L559"><i class="fa fa-external-link"></i></a>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">Rails</span>
-  <span class="k">class</span> <span class="nc">Engine</span> <span class="o">&lt;</span> <span class="no">Railtie</span>
-<span class="c1"># ...</span>
-    <span class="n">initializer</span> <span class="ss">:set_autoload_paths</span><span class="p">,</span> <span class="ss">before</span><span class="p">:</span> <span class="ss">:bootstrap_hook</span> <span class="k">do</span>
-      <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">autoload_paths</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="o">*</span><span class="n">_all_autoload_paths</span><span class="p">)</span>
-      <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Dependencies</span><span class="o">.</span><span class="n">autoload_once_paths</span><span class="o">.</span><span class="n">unshift</span><span class="p">(</span><span class="o">*</span><span class="n">_all_autoload_once_paths</span><span class="p">)</span>
-<span class="c1"># ...</span>
-</code></pre></div>
-<p><code>ActiveSupport::Dependencies</code> расширяет все модули с помощью специального внутреннего модуля <code>ModuleConstMissing</code> <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L290"><i class="fa fa-external-link"></i></a>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ActiveSupport</span> <span class="c1">#:nodoc:</span>
-  <span class="k">module</span> <span class="nn">Dependencies</span> <span class="c1">#:nodoc:</span>
-<span class="c1"># ...</span>
-    <span class="k">def</span> <span class="nf">hook!</span>
-      <span class="no">Object</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">Loadable</span> <span class="p">}</span>
-      <span class="no">Module</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">ModuleConstMissing</span> <span class="p">}</span>
-      <span class="no">Exception</span><span class="o">.</span><span class="n">class_eval</span> <span class="p">{</span> <span class="kp">include</span> <span class="no">Blamable</span> <span class="p">}</span>
-    <span class="k">end</span>
-<span class="c1"># ...</span>
-</code></pre></div>
-<p><code>ModuleConstMissing</code> в свою очередь, используя <code>const_missing</code>, перехватает все обращения к неизвестным константам и загружает 
-необходимые файлы <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L458"><i class="fa fa-external-link"></i></a>, считая что раз в путях поиска (<code>app/*</code> в нашем примере) есть файл <code>api/command.rb</code>, то класс <code>Api::Command</code> должен находится именно там.</p>
-
-<p>Ах да, модуль <code>Api</code>, с которого мы начали наш разговор, создается в методе <code>ActiveSupport::Dependencies#autoload_module!</code> <a href="https://github.com/rails/rails/blob/v4.1.6/activesupport/lib/active_support/dependencies.rb#L420"><i class="fa fa-external-link"></i></a>) при первой попытке
-разрезолвить полное имя класса <code>Api::Command</code>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">ActiveSupport</span> <span class="c1">#:nodoc:</span>
-  <span class="k">module</span> <span class="nn">Dependencies</span> <span class="c1">#:nodoc:</span>
-<span class="c1"># ...</span>
-    <span class="k">def</span> <span class="nf">autoload_module!</span><span class="p">(</span><span class="n">into</span><span class="p">,</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">qualified_name</span><span class="p">,</span> <span class="n">path_suffix</span><span class="p">)</span>
-      <span class="k">return</span> <span class="kp">nil</span> <span class="k">unless</span> <span class="n">base_path</span> <span class="o">=</span> <span class="n">autoloadable_module?</span><span class="p">(</span><span class="n">path_suffix</span><span class="p">)</span>
-      <span class="n">mod</span> <span class="o">=</span> <span class="no">Module</span><span class="o">.</span><span class="n">new</span>
-      <span class="n">into</span><span class="o">.</span><span class="n">const_set</span> <span class="n">const_name</span><span class="p">,</span> <span class="n">mod</span>
-<span class="c1"># ...</span>
-</code></pre></div>
-        
-        <div style="float:right"><a href="/blog/2014/10/16/namespaces/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/10/16/namespaces/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B9%D0%BC%D1%81%D0%BF%D0%B5%D0%B9%D1%81%D1%8B+%D0%B2+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F16%2Fnamespaces%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
