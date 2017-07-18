@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Публичные выступления</title>
+        <description>
+          
+          &lt;p&gt;Так получилось, что последние полгода у меня было три больших выступления с микрофоном, проектором, по взрослому, и пару десятков малых. Все выступления готовлю по одной схеме - полный текст выступления в стандартном гугл документе, каждые два абзаца новый слайд. Абзац - 1-3 приложения. Выступление на 40 минут - 7 страниц, заказывают час - 10 страниц, спич на 5 минут - выдаю полторы страницы текста.&lt;/p&gt;
+
+&lt;p&gt;Это техника, а главное что когда базовый страх прошел, мне стало нравится выступать! В микрофон так голос прикольно громко звучит :) &lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 18 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/18/public/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/18/public/index.html</guid>
+      </item>
+    
+      <item>
         <title>Стандартизация</title>
         <description>
           
@@ -169,25 +183,6 @@
         <pubDate>Wed, 05 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/05/big/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/05/big/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Мыши плакали и кололись</title>
-        <description>
-          
-          &lt;p&gt;Продолжаю изыскания с модным вебов в N-й раз. &lt;a href=&quot;http://www.react.express&quot;&gt;http://www.react.express&lt;/a&gt; - вот хороший ресурс,
-The all-in-one guide. Чтобы отрисовать картинку с крутящимся атомом нужно:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls -1 node_modules/ &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; wc -l
-     895
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;895 модулей. Дурдом &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;. А где же реакт раутер?&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;UPDATE:&lt;/em&gt; Нашелся. &lt;code&gt;yarn add react-router&lt;/code&gt; и дело в шляпо. Недурно.&lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 04 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/04/react/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/04/react/index.html</guid>
       </item>
     
   </channel>
