@@ -7,6 +7,22 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Челендж выводы</title>
+        <description>
+          
+          &lt;p&gt;Почти год назад я затеял блого-марафон, каждый будний день новый пост. Осталось каких-то там 10-15 постов и свобода! Польза вообще от такого мероприятия большая, я прокачал речь, причем устную тоже, волю, выступил на двух конференциях, одни плюсы вообщем. &lt;/p&gt;
+
+&lt;p&gt;За год было три-четыре раза когда чуть не забил. Причем первые разы - просто слабость, была понятно зачем продолжать. А крайний раз был самый сложный. Плато пользы наступило примерно на 8-9 месяц, когда стало понятно, что я могу писать, могу не писать. Сознание было уже не обмануть, что от того что я напишу, что-то поменяется.&lt;/p&gt;
+
+&lt;p&gt;Я пошел спать, прекрасно понимая, что поста на завтра нету. &amp;quot;Ты, что, охренел?&amp;quot; - прошипел внутренний голос. Я с каменным лицом встал с постели, написал пост, захлопнул ноут, презрительно посмотрел на внутренний голос и лег спать. Никогда Штирлиц не был так близок к провалу. &lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 20 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/20/chel/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/20/chel/index.html</guid>
+      </item>
+    
+      <item>
         <title>Автоплатежи</title>
         <description>
           
@@ -161,18 +177,6 @@
         <pubDate>Fri, 07 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/07/ruby-migr/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/07/ruby-migr/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Правильная верстка</title>
-        <description>
-          
-          &lt;p&gt;Правильная верстка выглядит вот так: &lt;code&gt;&amp;lt;div style=&amp;quot;margin-top:10px;&amp;quot;&amp;gt;Some: &amp;lt;input /&amp;gt;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;Other: &amp;lt;input /&amp;gt;...&lt;/code&gt;. Вся сила именно в тройном &lt;code&gt;&amp;amp;nbsp;&lt;/code&gt;, он отступ особой четкости выдает.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 06 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/06/true-markup/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/06/true-markup/index.html</guid>
       </item>
     
   </channel>
