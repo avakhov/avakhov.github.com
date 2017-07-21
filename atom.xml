@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Без инета</title>
+        <description>
+          
+          &lt;p&gt;Был чудесный момент, когда ноуты уже появились, а интернет был не такой наглый и можно было программировать, например, в самолете. Сегодня без интернета я не могу сделать ничего хоть сколько продолжительное время. Пакеты, гугл, SO...&lt;/p&gt;
+
+&lt;p&gt;Ноут без интернета сегодня - суррогат компьютера, просто алюминиевая руда. &lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 21 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/21/bez/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/21/bez/index.html</guid>
+      </item>
+    
+      <item>
         <title>Челендж выводы</title>
         <description>
           
@@ -154,29 +168,6 @@
         <pubDate>Mon, 10 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/10/sreda/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/10/sreda/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Руби 1.8 - 2.4</title>
-        <description>
-          
-          &lt;p&gt;Мне очень понравилось как мигрировали версии руби. Был 1.8, настоящий клевый руби, шустрый,
-но немного ламповый. Чего одна работа с юникодом стоила.&lt;/p&gt;
-
-&lt;p&gt;Потом выпустили 1.9, тормозный мостр. Но мне он нравился. В нем чувствовалась какая-то
-взрослость. Не помню в чем она уже заключалась, но я запускал его на своем
-убитом ноуте без всяких &lt;code&gt;spring&lt;/code&gt;-ов, просто потому-то понимал, что это правильно.&lt;/p&gt;
-
-&lt;p&gt;2.0 я как-то не запомнил, но помню как радовался 2.1, это был все тот же взрослый
-руби, но только быстрый. И следующие минорные версии уже просто радовали всякими
-мелочами, некоторые из которых я находил случайно, и не разу не огорчили.&lt;/p&gt;
-
-&lt;p&gt;Идеальная миграция.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 07 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/07/ruby-migr/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/07/ruby-migr/index.html</guid>
       </item>
     
   </channel>
