@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+commander = Class.new {
+  def initialize
+    @commands = {}
+  end
+
+  def step(cmd, desc, &block)
+    @commands[cmd] = {desc: desc, block: block}
+  end
+
+  def run
+    usage and return if ARGV.empty?
+
+    @commands.each do |name, payload|
+      if ARGV[0...(name.split.length)].join(" ") == name
+        name.split.length.times { ARGV.shift }
+        puts "COMMAND: #{name}"
+        payload[:block].call
+        puts "Done."
+        return
+      end
+    end
+
+    puts "ERROR: unknown argv"
+  end
+
+  def usage
+    puts "Operate your dev environment like a lord"
+    puts "bin/dev [cmd] <options>\n\n"
+    @commands.each do |name, payload|
+      puts "  #{name.ljust(@commands.keys.map(&:length).max)}  - #{payload[:desc]}"
+    end
+  end
+}.new
+
+commander.step "prepare", "prepare environment" do
+  system "docker build -t blog -f Dockerfile ."
+end
+
+commander.step "run", "run blog local" do
+  system "docker run --rm -p4000:4000 -v`pwd`:/app blog rm -fr _site"
+  system "docker run --rm -p4000:4000 -v`pwd`:/app blog rm -fr _build"
+  system "docker run --rm -p4000:4000 -v`pwd`:/app blog jekyll serve -w --drafts"
+end
+
+commander.step "add draft", "add draft" do
+  system "docker run -v`pwd`:/app blog bin/add_draft #{ARGV.join(" ")}"
+end
+
+commander.step "publish", "publilsh" do
+  system "docker run -v`pwd`:/app blog bin/publish #{ARGV.join(" ")}"
+end
+
+commander.run

@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+system "mkdir -p _drafts"
+
+if ARGV.empty?
+  puts "./draft <title>"
+  exit
+end
+
+title = ARGV.join(" ")
+url = title.downcase.gsub(/\s+/, " ").gsub(" ", "-")
+postfix = nil
+while File.exists?("_drafts/#{url}#{postfix}.markdown") do
+  postfix ||= "-1"
+  postfix.next!
+end
+url = "#{url}#{postfix}"
+
+system "mkdir -p assets/2/#{url}"
+system "cp assets/empty.jpg assets/2/#{url}/main.jpg"
+File.write "_drafts/#{url}.markdown", <<-TXT
+---
+title: #{title}
+_image: /assets/2/#{url}/main.jpg
+layout: post
+---
+Content!
+TXT
+
+lines = File.readlines("schedule.txt").map(&:strip)
+lines.push "# _drafts/" + url + ".markdown"
+File.write("schedule.txt", lines.join("\n") + "\n")
+
+puts "Done. #{"_drafts/#{url}.markdown"}"

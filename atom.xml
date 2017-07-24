@@ -7,6 +7,23 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Made In China</title>
+        <description>
+          
+          &lt;p&gt;Знакомство с китайскими товарами у меня началось конечно же со штанов Адибас, с мотней, которая потом
+снова вошла в моду, и нитками во все стороны. Мне долго пришлось привыкать,
+что что-то там они умеют делать, особенно
+под присмотром кураторов. Китайские машины, китайские телефоны, и вот теперь китайский код.
+OpenResty, vue.js (не уверен, что они они делаются прямо в Китае, так как Evan You, например, вроде живет
+в Штатах), но тренд понятен. Разрыв шаблона.&lt;/p&gt;
+
+        </description>
+        <pubDate>Mon, 24 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/24/china/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/24/china/index.html</guid>
+      </item>
+    
+      <item>
         <title>Без инета</title>
         <description>
           
@@ -144,30 +161,6 @@
         <pubDate>Tue, 11 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/11/market/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/11/market/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Среда</title>
-        <description>
-          
-          &lt;p&gt;В русских сказках и мифологиях Солнышко чаще всего добрый и приятный персонаж. В жарких странах
-же обычно наоборот, Солнце - злобный упырь. В климате мы ценим разное :-)&lt;/p&gt;
-
-&lt;p&gt;Окружение очень сильно оказывает влияние на человека,
-его эмоции, состояние, картину мира.
-На эту тему есть крутая книга, в которой анализируется развитие человечества
-в целом и разбирается, какое влияние география и особенности местности оказали на разные народы -
-&lt;a href=&quot;https://www.ozon.ru/context/detail/id/135781963/&quot;&gt;Ружья, микробы и сталь&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;И я тут подумал, у меня интернет появился в 10-м классе, я из безкомпьютерного детства еще.
-А сегодня растет поколение людей, у которых
-гаджеты появляются раньше, чем они учатся ходить. Они точно будут какие-то другие внутри маленько.
-Интересно какие.&lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 10 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/10/sreda/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/10/sreda/index.html</guid>
       </item>
     
   </channel>

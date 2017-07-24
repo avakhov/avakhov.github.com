@@ -1,0 +1,74 @@
+#!/usr/bin/env ruby
+
+if ARGV.empty?
+  puts "./publish <-|next|post>"
+  exit
+end
+
+system "bundle install"
+
+if File.exists?(ARGV[0])
+  file = ARGV[0]
+  post = ARGV[0].sub("_drafts/", "_posts/#{Time.now.strftime("%Y-%m-%d")}-")
+  system("mv #{file} #{post}")
+elsif ARGV[0] == "next"
+  lines = File.readlines("schedule.txt").map(&:strip)
+  ready = lines.select { |l| l != "" && File.exists?(l) }
+  if ready.length > 0
+    file = ready[0]
+    File.write("schedule.txt", lines.reject { |l| l == ready[0] }.join("\n") + "\n")
+    post = file.sub("_drafts/", "_posts/#{Time.now.strftime("%Y-%m-%d")}-")
+    system("mv #{file} #{post}")
+    `curl -X POST --data-urlencode 'payload={"channel": "@vakhov", "username": "webhookbot", "text": ":+1: I posted \`#{ready[0]}\`. Visit http://vakhov.me. Posts in queue: #{ready.length - 1}"}' https://hooks.slack.com/services/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`
+  else
+    `curl -X POST --data-urlencode 'payload={"channel": "@vakhov", "username": "webhookbot", "text": "ALARM! No post are posted!!!!"}' https://hooks.slack.com/services/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`
+    exit
+  end
+elsif ARGV[0] == "-"
+  # do nothing
+else
+  raise "wrong arg"
+end
+
+REPO = "git@github.com:avakhov/avakhov.github.io"
+if ENV["NOCACHE"].to_i == 1
+  system "rm -fr _build"
+  system "git clone #{REPO} _build"
+else
+  if File.directory?("_build")
+    system "cd _build && git checkout . && git clean -dfx && git pull --rebase"
+  else
+    system "git clone #{REPO} _build"
+  end
+end
+
+system "rm -fr _build/* _build/.gitignore"
+system "bundle exec jekyll build -d _build"
+
+text = Dir["_build/blog/**/*.html"].map { |file| File.read(file) }.join("\n\n")
+Dir["_build/assets/2/**/*"].each do |file|
+  next if File.directory?(file)
+  unless text.index(file.sub('_build', ''))
+    system "rm -f #{file}"
+  end
+end
+
+system %(
+  git add -A . &&
+  git commit -am"Saved at "`date "+%Y-%m-%d__%H:%M:%S"`
+)
+
+system %(
+  git pull --rebase &&
+  git push
+)
+
+system %(cd _build && 
+  git add -A . &&
+  git commit -am"Published at "`date "+%Y-%m-%d__%H:%M:%S"` &&
+  git push &&
+  echo "" &&
+  git log -1 --stat
+)
+
+puts "done."
