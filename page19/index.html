@@ -64,6 +64,44 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/10/17/dj/index.html">Delayed Job - хак или фича?</a></h1>
+      
+      <div class="date">October 17, 2016</div>
+
+      
+      <div class="entry">
+        <p>Так сложилось, что мы пользуемся для всяких асинхронных задач <a href="https://github.com/collectiveidea/delayed_job">DelayedJob</a>.
+Удобно, что этот тот же постгрес, из коробки комфортный API, разумные дефалтовые настройки (например интервалы сколько
+раз запускать упавшую задачу).</p>
+
+<p>Однако если задуматься, то DJ - эта та еще штука и при эксплуатации нужно знать его особенности.
+Когда вы делаете
+<code>User.find(1).delay.send_hello</code>, то в базу сериализуется объект типа <code>User</code> и факт, что к нему нужно применить
+метод <code>:send_hello</code>. Одноко, чтобы это работало как магия, при восстановлении <code>AR</code>-объекта, на самом
+деле он берется прямо из базы <a href="https://github.com/collectiveidea/delayed_job/blob/2014009496dd0b2af217ab322f74f91fe4e26097/lib/delayed/psych_ext.rb#L30-L65">psych_ext.rb#L30-L65</a>.</p>
+
+<p>В большинстве случаев это просто работает, но могут быть необычные сайд эффекты. 
+Если метод применяется к объекту, который
+успели уже удалить, то будет ошибка 500. Или предположим, что пользователь два раза быстро нажал на восстановление пароля, вы
+сохранили токен восстановления, письмо в очередь, потом токен перетерся новым, еще одно письмо в очередь. Если очередь затупила,
+то в зависимости от того как реализован метод отправки письма, пользователь может получить либо два письма с разным токеном (первый
+из них уже не будет работать), либо с самым свежим.</p>
+
+<p>Вообще 99% необычного поведения DJ проявляется, если очередь не успевает обрабатываться, поэтому ее обязательно нужно мониторить. А так можно
+пользоваться. Работает.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/10/17/dj/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/10/17/dj/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Delayed+Job+-+%D1%85%D0%B0%D0%BA+%D0%B8%D0%BB%D0%B8+%D1%84%D0%B8%D1%87%D0%B0%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F17%2Fdj%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/14/racket/index.html">Racket</a></h1>
       
       <div class="date">October 14, 2016</div>
@@ -520,41 +558,6 @@ process out
         
 
         <div class="fb-share-button" data-href="/blog/2016/10/05/recent/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%BD%D0%B5+%D0%BD%D1%83%D0%B6%D0%B5%D0%BD+recent&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F05%2Frecent%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/04/crazy-bash/index.html">Безумие баш скриптов</a></h1>
-      
-      <div class="date">October  4, 2016</div>
-
-      <div class="img"><img src="/assets/2/crazy-bash/main.jpg" /></div>
-      <div class="entry">
-        <p>Я люблю маленькие баш-скрипты. Это нативный, быстрой способ что-то автоматизировать, посчитать
-или сделать. Баш - полноценный язык программирования, хотя и с специфическим синтаксисом. Однако
-есть одна вещь, которая меня полностью убивает, не знаю зачем так сделано, даже гуглить не буду,
-может быть кто-нибудь в комментариях ответит.</p>
-
-<p>Итак, интерпретатор баша исполняет скрипт строчка за строчкой и если поменять файл во время исполнения
-долгого скрипта, то эффект будет не предсказуемым. Это полностью ломает привычный шаблон разработчика,
-когда запустил программу и в этот момент меняешь код для следующего запуска. Я на этом попадался
-несколько раз и каждый раз был в шоке.</p>
-
-<p>Самый простой пример, который смог сходу придумать:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># x.sh</span>
-<span class="nb">echo </span>sleep <span class="m">1</span> &gt;&gt; x.sh
-<span class="nb">echo echo </span>hello &gt;&gt; x.sh
-</code></pre></div>
-<p>Так вот, если запустить <code>bash x.sh</code>, то он выведет <code>hello</code>! WTF? Не знаю.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/04/crazy-bash/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/10/04/crazy-bash/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%91%D0%B5%D0%B7%D1%83%D0%BC%D0%B8%D0%B5+%D0%B1%D0%B0%D1%88+%D1%81%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F04%2Fcrazy-bash%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
