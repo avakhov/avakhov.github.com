@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Ленточный бэкап</title>
+        <description>
+          
+          &lt;p&gt;Устное выступление мне напоминает запись информации на ленточный бэкап. Чтобы проверить, что выступление есть, его надо полностью повторить. После повторения, что бы проверить, что ничего не забыл нужно ещё раз полностью повторить. И так далее. &lt;/p&gt;
+
+&lt;p&gt;За 10 минут до выступления нужно впасть в панику, поныть, понервничать хоронечько. Потом начать говорить, говорить. Хм, а бэкап то есть, и недурной! Ура. Аплодисменты. Кассету с бэкапом в мусорку. Занавес. &lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 26 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/26/tape/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/26/tape/index.html</guid>
+      </item>
+    
+      <item>
         <title>Первая Олимпиада Плюс</title>
         <description>
           
@@ -176,18 +190,6 @@ OpenResty, vue.js (не уверен, что они они делаются пр
         <pubDate>Thu, 13 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/13/skitch/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/13/skitch/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Боль</title>
-        <description>
-          
-          &lt;p&gt;Главное условие творчества - это боль. Когда пишут по трем каналам одновременно, плюс что-то упало, к тому же вчера надо было отправить три отчёта - начинается истинное творчество. Именно в этих условиях создаётся что-то по настоящему толковое.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 12 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/12/tvor/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/12/tvor/index.html</guid>
       </item>
     
   </channel>
