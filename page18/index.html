@@ -64,6 +64,65 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/11/01/early_monitoring/index.html">Преждевременный мониторинг</a></h1>
+      
+      <div class="date">November  1, 2016</div>
+
+      <div class="img"><img src="/assets/2/early_monitoring/tonya.png" /></div>
+      <div class="entry">
+        <p><em>
+Наша великолепная коллега Тоня нарисовала иллюстрацию для сегодняшней истории. Спасибо, Тоня! Три котика:
+<img class='emoji' title=':smiley_cat:' alt=':smiley_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63a.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':smiley_cat:' alt=':smiley_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63a.png' height='20' width='20' align='absmiddle' />
+<img class='emoji' title=':smiley_cat:' alt=':smiley_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63a.png' height='20' width='20' align='absmiddle' />.
+</em></p>
+
+<p>&quot;Преждевременный&quot; - само слово несет в себе негативный оттенок. Мы все знаем про преждевременную
+оптимизацию, но я также верю, что есть преждевременный мониторинг, преждевременная архитектура,
+преждевременная автоматизация, преждевременное тестирование (для разнообразия речь идет о кроссбраузерном
+тестировании, предполжим кто-то делает MVP в 11 версиях браузеров одновременно, <img class='emoji' title=':open_mouth:' alt=':open_mouth:' src='https://assets.github.com/images/icons/emoji/unicode/1f62e.png' height='20' width='20' align='absmiddle' />)
+и много еще всего
+преждевременного.</p>
+
+<p>Хочу поделиться одним наблюдением. Представьте, что вы отправляете
+в публичный канал информацию из любой системы мониторинга. В этом случае приходится, что называется
+&quot;отвечать за базар&quot;. Например, вдруг система начинает срабатывать слишком часто, даже ложно
+(а кто знает
+ложно или не ложно, надо разбирать каждый случай), она спамит канал
+и о вас думают плохо.</p>
+
+<p>Также люди неявно ожидают реакции на каждую неполадку.
+Допустим ночью 5 раз отправился сигнал, что сайт не доступен. Коллеги приходят
+на работу, видят кучу красных сообщений, и если нет никаких комментариев,
+они думают, что вам все по барабану. Я не ханжа,
+бывают ситуации, когда действительно по барабану ночные (а иногда и дневные) падения, красные тесты
+и так далее. Но надо помнить, что если вы понимаете и принимаете какие-то компромисы, не
+обязательно это будет очевидно стороннему наблюдателю.</p>
+
+<p>Публичный контракт - страшная вещь. Помню, что криво настроенный заббикс, мне
+слал каждый день по 10-50 писем, которые я спокойно просматривал и удалял довольно долго.
+Не было времени настроить нормально, однако среди алертов был небольшой процент значимых, поэтому отключить
+совсем тоже было нельзя. Если бы такое количество писем приходило бы генеральному, он был бы
+очень встревожен происходящим. Хотя качество продакшена соответствовало 
+уровню сервиса на тот момент.</p>
+
+<p>Уверен, что продукт должен развиваться равномерно. Если сервис в зачаточном
+состоянии, то и мониторинг должен быть зачаточным, самый минимум. Так как грамотная настройка
+алертов и отладка процесса реагирования на инциденты могут оказаться слишком трудоемкими и избыточными, пока
+достаточно &quot;чик-чик и в продакшен&quot;.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/11/01/early_monitoring/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/11/01/early_monitoring/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%B5%D0%B6%D0%B4%D0%B5%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9+%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F01%2Fearly_monitoring%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/10/31/flock/index.html">Запрет на кроновые пикеты</a></h1>
       
       <div class="date">October 31, 2016</div>
@@ -425,34 +484,6 @@ SQL-запросы и находим негодяя:</p>
         
 
         <div class="fb-share-button" data-href="/blog/2016/10/20/db/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D1%82%D0%BE+%D0%B4%D0%B5%D1%80%D0%B3%D0%B0%D0%BB+%D1%8D%D1%82%D0%BE%D1%82+%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81+%D0%B8+%D0%BF%D0%BE%D1%81%D0%BB%D0%B0%D0%BB+%D0%B5%D0%B3%D0%BE%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F20%2Fdb%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/10/19/ngrok/index.html">Утилиты, утилиты</a></h1>
-      
-      <div class="date">October 19, 2016</div>
-
-      
-      <div class="entry">
-        <p>Вдруг кто не знал, но есть две прекрасные утилиты, одна полезная, а вторая от авторов Бейзкампа.</p>
-
-<p><a href="https://ngrok.com">Ngrok</a> - позволяет расшарить любой локальный порт прямо в интернет. <code>ngrok http 3000</code> - просто запомните эту команду. Бесценно, когда
-нужно показать приложение собеседнику по чатику, потестить его на айпеде, либо отладить работу с веб-хуками.</p>
-
-<p><a href="http://xip.io">Xip.io</a> - wildcard-доменное имя к любому IP-адресу - <code>*.10.0.0.1.xip.io resolves to 10.0.0.1</code>. У меня пока не было ни одного кейса,
-когда бы это пригодилось, но я чувствую, что такие ситуации точно есть.</p>
-
-<p>Какие полезные утилиты для веб-разработки используете вы?</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/10/19/ngrok/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/10/19/ngrok/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A3%D1%82%D0%B8%D0%BB%D0%B8%D1%82%D1%8B%2C+%D1%83%D1%82%D0%B8%D0%BB%D0%B8%D1%82%D1%8B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F19%2Fngrok%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

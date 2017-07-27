@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Слэк</title>
+        <description>
+          
+          &lt;p&gt;Слэк начал довольно сильно глючить на телефоне и бывает на компе. Уже не тот. Значит не последний
+корпоративный мессенджер на нашем веку. После каждого фейсбука кажется, что больше никакой социальной
+сети уже не будет, значит будет.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 27 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/27/slack/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/27/slack/index.html</guid>
+      </item>
+    
+      <item>
         <title>Ленточный бэкап</title>
         <description>
           
@@ -176,20 +190,6 @@ OpenResty, vue.js (не уверен, что они они делаются пр
         <pubDate>Fri, 14 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/14/mong/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/14/mong/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Skitch</title>
-        <description>
-          
-          &lt;p&gt;Пару лет назад читал статью, что Евернот будет первым упавшим единорогом. Не знаю упал он или нет, я им очень давно не пользовался, а вот скитч, которым я делаю все скриншоты, начал крешиться.  Причем на обоих компьютерах. Негодяй.&lt;/p&gt;
-
-&lt;p&gt;А вообще помойка всяких фактов у меня много где была, и в Еверноте тоже, но сейчас задержалась в Google Keep. Довольно удобно.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 13 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/13/skitch/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/13/skitch/index.html</guid>
       </item>
     
   </channel>
