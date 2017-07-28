@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Бойцы Опен Сорс</title>
+        <description>
+          
+          &lt;p&gt;Я бы очень хотел комитить в Опен Сорс, но катастрафически не хватает времени. 100+ комитов в Рейлс
+5 лет назад был последний вклад :-/ Кстати я до сих пор вхожу в топ-100 контрибьюторов и до сих
+пор этим фактом можно было бы украсить резюме, если бы оно мне понадобилось.&lt;/p&gt;
+
+&lt;p&gt;Не помню писал или нет, но я сделал скрипт, который вдул все исходники Рейлс в электронную книгу.
+Читал их везде, просто файл за файлом, и потом фиксил разные мелочи, правил документацию и тд. Ничего
+существенного, однако как красиво! Топ-100, м-м-м.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 28 Jul 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/07/28/oo/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/28/oo/index.html</guid>
+      </item>
+    
+      <item>
         <title>Слэк</title>
         <description>
           
@@ -171,25 +189,6 @@ OpenResty, vue.js (не уверен, что они они делаются пр
         <pubDate>Mon, 17 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/17/standard/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/17/standard/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Схема Лесa</title>
-        <description>
-          
-          &lt;p&gt;Главный недостаток Schema Less баз данных для меня - это отсутствие схемы &lt;img class=&#39;emoji&#39; title=&#39;:joy:&#39; alt=&#39;:joy:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f602.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.
-То есть набросать очень грязный прототип - гуд, но если делать какие-то долгоиграющие вещи, когда
-запись меняется, то начинается сущий кошмар. Вообще не понятно, что от записи ждать.&lt;/p&gt;
-
-&lt;p&gt;Кстати если посмотреть на библиотеки работы с такими базами, типа монгоида, там схема есть и она
-описывается в модели (вроде бы, не помню &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;). Наверное без схемы хорошо когда только пишешь и
-сохраняешь какие-то аудит-сообщения похожие, но разные, типа вебхуков. Но с такой задачей
-и &lt;code&gt;jsonb&lt;/code&gt; неплохо справляется сегодня... Вообщем нет у меня дружбы с схема лесс, не задается.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 14 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/14/mong/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/14/mong/index.html</guid>
       </item>
     
   </channel>
