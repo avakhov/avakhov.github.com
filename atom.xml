@@ -7,6 +7,18 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Регламент</title>
+        <description>
+          
+          &lt;p&gt;Есть такой способ управления собой и не только - написать инструкцию. &amp;quot;Нужно так делать,  потому что так написано в пункте 2.3&amp;quot; - работает и для себя, и для других, даже если этот пункт появился 15 секунд назад. &lt;/p&gt;
+
+        </description>
+        <pubDate>Tue, 01 Aug 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/08/01/regla/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/01/regla/index.html</guid>
+      </item>
+    
+      <item>
         <title>Точность</title>
         <description>
           
@@ -173,20 +185,6 @@ OpenResty, vue.js (не уверен, что они они делаются пр
         <pubDate>Wed, 19 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/19/auto/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/19/auto/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Публичные выступления</title>
-        <description>
-          
-          &lt;p&gt;Так получилось, что последние полгода у меня было три больших выступления с микрофоном, проектором, по взрослому, и пару десятков малых. Все выступления готовлю по одной схеме - полный текст выступления в стандартном гугл документе, каждые два абзаца новый слайд. Абзац - 1-3 приложения. Выступление на 40 минут - 7 страниц, заказывают час - 10 страниц, спич на 5 минут - выдаю полторы страницы текста.&lt;/p&gt;
-
-&lt;p&gt;Это техника, а главное что когда базовый страх прошел, мне стало нравится выступать! В микрофон так голос прикольно громко звучит :) &lt;/p&gt;
-
-        </description>
-        <pubDate>Tue, 18 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/18/public/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/18/public/index.html</guid>
       </item>
     
   </channel>
