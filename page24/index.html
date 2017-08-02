@@ -64,6 +64,36 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/17/watch-the-slon/index.html">Как помыть слона</a></h1>
+      
+      <div class="date">August 17, 2016</div>
+
+      <div class="img"><img src="/assets/2/watch-the-slon/main.jpg" /></div>
+      <div class="entry">
+        <p>Иногда накатывает настроение, когда кажется что все плохо, куча критичных проблем, невыполненных обещаний и непонятно за что хвататься.</p>
+
+<p>В такие моменты обычно вспоминаю замечательную книгу <a href="http://uibook2.usethics.ru">Дизайн пользовательского интерфейса. Искусство мыть слона</a>.</p>
+
+<blockquote>
+<p>Чтобы хорошо вымыть слона, очень полезно начинать с самой
+грязной его части, иначе к концу мытья грязь успеет снова распространиться по слону.</p>
+</blockquote>
+
+<p>Поэтому я выписываю все нерешенные вопросы в список, нахожу самый гнусный и стараюсь
+решить его хотя бы чуть-чуть. Обычно отпускает.</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/08/17/watch-the-slon/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/08/17/watch-the-slon/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%BF%D0%BE%D0%BC%D1%8B%D1%82%D1%8C+%D1%81%D0%BB%D0%BE%D0%BD%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F17%2Fwatch-the-slon%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/16/back-tick/index.html">Коварный backtick или как определить размер используемой памяти</a></h1>
       
       <div class="date">August 16, 2016</div>
@@ -751,62 +781,6 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
         
 
         <div class="fb-share-button" data-href="/blog/2015/01/26/flat_map/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Enumerable%23flat_map&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F26%2Fflat_map%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/23/ember-1-intro/index.html">Ember.js - 1. Введение</a></h1>
-      
-      <div class="date">January 23, 2015</div>
-
-      <div class="img"><img src="/assets/ember-1-intro.jpg" /></div>
-      <div class="entry">
-        <p>Говорят, что у Ember.js кривая обучения крутовата. Категорически с этим не соглашусь.</p>
-
-<p>На самом деле обучение Ember.js - это глубокий темный колодец, в котором сидишь на дне и воешь от
-отчаяния. Но когда я немного разобрался, Эмбер начал мне нравится, даже сказал бы, что
-я его полюбил. Это действительно очень достойная и перспективная разработка.</p>
-
-<p>Я хочу посвятить несколько выпусков работе с этим замечательным
-фреймворком.
-Не знаю, что в итоге получится, пока планирую, что мы
-зайдем немного с другой стороны, чем предлагается в официальных гайдах. Выпуски
-про Эмбер будут перемежаться с другими, более привычными темами про Руби, Рейлс и все такое,
-чтобы было веселее.
-Для успешной работы нам понадобится
-Node.js (я поставил через <code>ndenv</code> по аналогии с моим любимым <code>rbenv</code>) и
-<a href="http://www.ember-cli.com/">Ember-cli</a> - это тру-способ организации проекта.</p>
-
-<p>Для начала хочу отметить, что в Эмбере все наследуется от <code>Ember.Object</code>, основная фишка
-которого, это возможность установить свойство через <code>set</code> и взять его через <code>get</code>. Всегда
-пользуйтесь этими методами. В качестве бонуса за непривычный синтаксис вы получите
-computed-свойста, вычисляемые реактивно, обзерверы, следящие за измененим свойств и
-всякие другие любопытные штуки. Создавать объект следует через <code>create</code>:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">Ember</span><span class="p">.</span><span class="nb">Object</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-  <span class="nx">fullName</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;surName&quot;</span><span class="p">);</span>
-  <span class="p">}.</span><span class="nx">property</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;surName&quot;</span><span class="p">)</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">alex</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Alexey&quot;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">alex</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">));</span> <span class="c1">// =&gt; &quot;Alexey &quot;</span>
-
-<span class="nx">alex</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;surName&quot;</span><span class="p">,</span> <span class="s2">&quot;Vakhov&quot;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">alex</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;fullName&quot;</span><span class="p">));</span> <span class="c1">// =&gt; &quot;Alexey Vakhov&quot;</span>
-</code></pre></div>
-<p>Подробнее можно прочитать в разделе <a href="http://emberjs.com/guides/object-model/classes-and-instances/">The Object Model</a>
-официальной документации.</p>
-
-<p>На сегодня все, до новых встреч!</p>
-
-        
-        <div style="float:right"><a href="/blog/2015/01/23/ember-1-intro/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2015/01/23/ember-1-intro/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Ember.js+-+1.+%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F23%2Fember-1-intro%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

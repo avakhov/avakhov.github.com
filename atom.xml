@@ -7,6 +7,20 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Регэкспы и кавычки</title>
+        <description>
+          
+          &lt;p&gt;Проблема, которую будет решить нашим потомкам, это регэкспы, кавычки и их экранирование.
+Пока людям приходится быть
+черным поясам по слешам, чтобы вызывать sed по ssh из руби скрипта, жизнь - боль.&lt;/p&gt;
+
+        </description>
+        <pubDate>Wed, 02 Aug 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/08/02/regexp/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/02/regexp/index.html</guid>
+      </item>
+    
+      <item>
         <title>Регламент</title>
         <description>
           
@@ -171,20 +185,6 @@ OpenResty, vue.js (не уверен, что они они делаются пр
         <pubDate>Thu, 20 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/20/chel/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/20/chel/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Автоплатежи</title>
-        <description>
-          
-          &lt;p&gt;На работе все сервисы у нас на автоплатеже, а все личные я оплачиваю вручную. Ну и логично, в учи.ру занимаются даже 31 декабря (я серьезно), а интернет мне может и не нужен будет в следующий месяц, мало ли что.&lt;/p&gt;
-
-&lt;p&gt;В личном пользовании у меня дольше всего продержалось автопополнение телефона от Тинькова. Однако недавно увидел, что денег мало, закинул 400 рублей и тут очухался автоплатеж и накатил ещё 200 через 10 минут. Не то что это плохо, но неадекватно. Отключил, только &lt;s&gt;через консоль&lt;/s&gt; руками теперь.&lt;/p&gt;
-
-        </description>
-        <pubDate>Wed, 19 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/19/auto/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/19/auto/index.html</guid>
       </item>
     
   </channel>
