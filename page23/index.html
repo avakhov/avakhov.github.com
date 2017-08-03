@@ -64,6 +64,49 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/09/01/provod/index.html">Архитектура проводов</a></h1>
+      
+      <div class="date">September  1, 2016</div>
+
+      <div class="img"><img src="/assets/2/provod/main.jpg" /></div>
+      <div class="entry">
+        <p>В жизни есть вещи, про которые не принято говорить на
+конференциях. Простые, топорные, но крайне рабочие схемы. Одна из таких схем - 
+это архитектура проводов (название - мое <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />).</p>
+
+<p>Думаю вы замечали, что в любом офисе, на улице, в подъездах
+и еще много где
+скапливается огромное
+количество проводов. Никто не хочет разбираться нужен ли каждый конкретный провод или нет,
+всегда проще сверху протянуть новый. Такой принцип достаточно хорошо и долго работает, хотя
+выглядит это, конечно, не очень.</p>
+
+<p>Аналогичный подход используется в некоторых очень важных местах программного кода, когда
+ключевый метод вызывается много где, но при этом все равно продолжает развиваться и
+сохраняет обратную совместимость. В
+этом случае для поддержки нового функционала добавляют новые параметры и обкладывают
+легаси код условиями, чтобы на старых параметрах код работал как раньше.</p>
+
+<p>Такой подход я встречал в больших и страшных C++-приложениях.
+Такой прием за четыре года разработки <a href="https://uchi.ru">Учи.ру</a> мы использовали один раз,
+но со всей душой. Метод принимает 48 параметров (в виде ключей хэша, но все-таки).</p>
+
+<p>Главное, при использовании архитектуры проводов, важно помнить, что в один прекрасный день
+придется срезать все провода и проложить их заново (кстати в случае нашего метода-рекордсмена
+мы как раз этим занимаемся).</p>
+
+        
+        <div style="float:right"><a href="/blog/2016/09/01/provod/index.html#disqus_thread">0 Comments</a></div>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/09/01/provod/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0+%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F01%2Fprovod%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/31/tri/index.html">Троешники рулят</a></h1>
       
       <div class="date">August 31, 2016</div>
@@ -391,38 +434,6 @@
         
 
         <div class="fb-share-button" data-href="/blog/2016/08/19/lazy-git/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9B%D0%B8%D0%B3%D0%B0+%D0%BB%D0%B5%D0%BD%D0%B8+%D0%B2+%D0%B3%D0%B8%D1%82-%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F19%2Flazy-git%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/08/18/alarm/index.html">Бдительность не бывает лишней</a></h1>
-      
-      <div class="date">August 18, 2016</div>
-
-      <div class="img"><img src="/assets/2/alarm/main.jpg" /></div>
-      <div class="entry">
-        <p>Как-то раз я копировал postgres-базу с продакшена на тестовый сервер.</p>
-
-<p>Продакшен работал уже на версии 9.4 и там даже добавили таблицу с jsonb-колонкой, тестовый сервер был
-все еще 9.3. Этот факт у меня был где-то на краю сознания, поэтому я решил проверить как перенеслась
-эта таблица.</p>
-
-<p>Правильный ответ - таблица никак не перенеслась, она просто не создалась.
-Наверняка <code>pg_restore</code> об этом
-написал, но обычно его вывод выглядит примерно так, поэтому я не заметил:</p>
-
-<p><img src="/assets/2/alarm/1.png" alt=""></p>
-
-<p>Мораль это истории такова: не стоит терять бдительность при переносе базы, мало ли что.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/08/18/alarm/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/08/18/alarm/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%91%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C+%D0%BD%D0%B5+%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82+%D0%BB%D0%B8%D1%88%D0%BD%D0%B5%D0%B9&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F18%2Falarm%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
