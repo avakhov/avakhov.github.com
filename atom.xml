@@ -7,6 +7,28 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Офис</title>
+        <description>
+          
+          &lt;p&gt;Ради настоящего Пауэрпойнта покупал на месяц Микрософт Офис. Я очень уважаю Микрософт, особенно как
+они агрессивно вкладываются в облака, опенсорс, но при этом прилежно отдают дань традициям.
+Офис все также располагается на компьютере довольно кучеряво. Очень рад, что недавно переставлял
+комп с нуля и его ставить уже не стал.&lt;/p&gt;
+
+&lt;p&gt;У меня есть чеклист, что нужно настроить, чтобы начать комфотно работать.
+Каждый раз этот чеклист уменьшается,
+сейчас в нем 34 пункта, включая &amp;quot;скрывать док&amp;quot; и
+&amp;quot;показывать экран при помещении мышки в правый нижний угол&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;PS. Скитч ставить не стал, попробую прожить с яндекс диском, который все равно ставлю.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 04 Aug 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/08/04/office/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/04/office/index.html</guid>
+      </item>
+    
+      <item>
         <title>Шахиджанян</title>
         <description>
           
@@ -169,20 +191,6 @@ OpenResty, vue.js (не уверен, что они они делаются пр
         <pubDate>Mon, 24 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/24/china/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/24/china/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Без инета</title>
-        <description>
-          
-          &lt;p&gt;Был чудесный момент, когда ноуты уже появились, а интернет был не такой наглый и можно было программировать, например, в самолете. Сегодня без интернета я не могу сделать ничего хоть сколько продолжительное время. Пакеты, гугл, SO...&lt;/p&gt;
-
-&lt;p&gt;Ноут без интернета сегодня - суррогат компьютера, просто алюминиевая руда. &lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 21 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/21/bez/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/21/bez/index.html</guid>
       </item>
     
   </channel>
