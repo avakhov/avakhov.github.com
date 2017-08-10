@@ -7,6 +7,18 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>1 Year</title>
+        <description>
+          
+          &lt;p&gt;&lt;a href=&quot;/blog/2016/08/10/reborn/index.html&quot;&gt;/blog/2016/08/10/reborn&lt;/a&gt; - done &lt;img class=&#39;emoji&#39; title=&#39;:smiley_cat:&#39; alt=&#39;:smiley_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+
+        </description>
+        <pubDate>Thu, 10 Aug 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/08/10/done/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/10/done/index.html</guid>
+      </item>
+    
+      <item>
         <title>Форк несуществующего кода</title>
         <description>
           
@@ -147,20 +159,6 @@
         <pubDate>Fri, 28 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/28/oo/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/28/oo/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Слэк</title>
-        <description>
-          
-          &lt;p&gt;Слэк начал довольно сильно глючить на телефоне и бывает на компе. Уже не тот. Значит не последний
-корпоративный мессенджер на нашем веку. После каждого фейсбука кажется, что больше никакой социальной
-сети уже не будет, значит будет.&lt;/p&gt;
-
-        </description>
-        <pubDate>Thu, 27 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/27/slack/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/27/slack/index.html</guid>
       </item>
     
   </channel>
