@@ -2,9 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Alexey Vakhov</title>
-    <description>Блог, милый блог. Новая история каждый будний день.</description>
+    <description>Блог, милый блог.</description>
     <link>http://vakhov.me</link>
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Вопрос</title>
+        <description>
+          
+          &lt;p&gt;Месяц назад я закончил писать блог, вместо меня уже трудился крон. В принципе отдохнул. Бомбануть еще годик?&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 11 Aug 2017 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2017/08/11/question/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/11/question/index.html</guid>
+      </item>
     
       <item>
         <title>1 Year</title>
@@ -141,24 +153,6 @@
         <pubDate>Mon, 31 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/31/precies/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/31/precies/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Бойцы Опен Сорс</title>
-        <description>
-          
-          &lt;p&gt;Я бы очень хотел комитить в Опен Сорс, но катастрафически не хватает времени. 100+ комитов в Рейлс
-5 лет назад был последний вклад :-/ Кстати я до сих пор вхожу в топ-100 контрибьюторов и до сих
-пор этим фактом можно было бы украсить резюме, если бы оно мне понадобилось.&lt;/p&gt;
-
-&lt;p&gt;Не помню писал или нет, но я сделал скрипт, который вдул все исходники Рейлс в электронную книгу.
-Читал их везде, просто файл за файлом, и потом фиксил разные мелочи, правил документацию и тд. Ничего
-существенного, однако как красиво! Топ-100, м-м-м.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 28 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/28/oo/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/28/oo/index.html</guid>
       </item>
     
   </channel>

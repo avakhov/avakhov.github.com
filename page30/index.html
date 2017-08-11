@@ -6,10 +6,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Блог, милый блог. Новая история каждый будний день.</title>
+    <title>Alexey Vakhov – Блог, милый блог.</title>
 
     <meta name="author" content="Alexey Vakhov" />
-    <meta name="description" content="Блог, милый блог. Новая история каждый будний день.">
+    <meta name="description" content="Блог, милый блог.">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/font-awesome-4.2.0/css/font-awesome.min.css" />
-    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог. Новая история каждый будний день." href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог." href="/atom.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     
@@ -48,7 +48,7 @@
           
           <div class="site-info">
             <h1 class="site-name"><a href="/">Alexey Vakhov</a></h1>
-            <p class="site-description">Блог, милый блог. Новая история каждый будний день.</p>
+            <p class="site-description">Блог, милый блог.</p>
           </div>
           
           <nav>
@@ -61,6 +61,64 @@
 
     <div id="main" role="main" class="container">
       <div class="posts">
+  
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2012/04/13/experience-and-monkeys/index.html">Опыт и его последствия</a></h1>
+      
+      <div class="date">April 13, 2012</div>
+
+      
+      <div class="entry">
+        <p>Есть история про обезьян, которых обливали водой, когда они пытались добраться до пищи, потом обезьян по одной  меняли и
+сухие обезьяны тем не менее не брали бананы.
+Я не знаю где найти оригинал, но в гугле можно найти много интерпретаций: <a href="https://www.google.ru/search?q=%D0%BE%D0%B1%D0%B5%D0%B7%D1%8C%D1%8F%D0%BD+%D0%BE%D0%B1%D0%BB%D0%B8%D0%B2%D0%B0%D0%BB%D0%B8+%D0%B2%D0%BE%D0%B4%D0%BE%D0%B9">https://www.google.ru/search?q=обезьян+обливали+водой</a>.
+Сам эксперимент хороший, но почему-то его обычно пересказывают в стиле, что &quot;все - обезьяны, а я д&#39;Артаньян&quot;. Я хочу реабилитировать
+его на примере программирования. Мудрец по капле воды догадывается о существовании океанов, а специалист любое социальное
+явление может объяснить примером из своей профессии.</p>
+
+<p>Я полагаю, что этот эксперимент показывает, что обезьяны, как и мы, способны к обучению. Но он предостерегает, что в
+даже самом хорошом явлении есть свои опасности. Многим правильным вещам: не прыгать с крыши, не есть пенопласт, не пробовать героин
+мы обучились от людей, которые этого тоже никогда не делали. Весь прогресс в принципе строится на способности в большом количестве случаев
+аксиоматично принимать знания предков. Но любой фанатизм может сыграть злую шутку. Как обезьяны не приспособились к изменившимся
+условиям и не рискнули попробовать еще (хотя я уверен, что они еще рискнут), так и наши шаблоны поведения могут оказаться неактуальными.
+Особенно в нашей индустрии, так как здесь все стремительно меняется, и с одной стороны нужно выработать какой-то профессиональный стержень, с
+другой стороны не превратиться в мамонта.</p>
+
+<p>Я помню минимум 2 истории, когда я оказался подобен сухим обезьянам, хотя конечно их намного больше и о многих я еще не знаю.</p>
+
+<p>В рейлс 3.0 (или 3.1 я не помню) была досадная особенность, что в девелопменте сервер не подхватывал измения схемы базы данных,
+и после выполнения каждой миграции нужно было его рестартовать. Я дисциплинировано перегружал сервер вплоть до ближайшего понедельника,
+когда случайно забыл перегрузить и увидел, что уже все работает правильно.</p>
+
+<p>Когда-то давно я обжегся когда создал модель <code>News</code> для реализации новостей. Это было нарушением минимум двух конвенций: использование
+для модели и для ресурсов слова, одинакового в единственном и множественном числах, а также использование служебного слова new. Поэтому
+я долго время использовал невнятный <code>NewsLetter</code>. Недавно я проверил как же обстоят дела с новостями в новых рейлс, оказывается все
+работает как надо. Можно использовать <code>rails g scaffold news title:string body:text</code> и все будет работать.</p>
+
+<p>Таким образом обезьяны нам просто подсказывают, что, нужно время от времени проводить инвентаризацию своих знаний и чем старше знание, тем
+более внимательно нужно проверять. Часто молодые программисты
+без опыта оказываются более эффективные, чем с опытом, потому-что они пользуются сразу же новыми технологиями без лишней рефлексии.
+Пусть и они не знают
+ассемблера, си, как экономить байты, как управлять памятью и писать резидентные программы. Чёрт, они вообще ничего не знают
+и ничего не боятся! Но у них нет груза устаревших знаний.
+Хотя я, следует признать, тоже не работал за Спектрумом, БЭСМ-6, счетами абак и не видел динозавров,
+что очень злит людей, которые это все пережили.</p>
+
+<p>Поэтому я советую всем (и сам стараюсь следовать этому совету) постоянно изучать новые технологии, подходы,
+экспериментировать и искать. Тогда работа будет в удовольствие и не будешь сухой обезьяной :)</p>
+
+<p><img src="/assets/old/4-makak/gorilka.jpg"></p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/04/13/experience-and-monkeys/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2012/04/13/experience-and-monkeys/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9E%D0%BF%D1%8B%D1%82+%D0%B8+%D0%B5%D0%B3%D0%BE+%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%B8%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F04%2F13%2Fexperience-and-monkeys%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
   
     <article class="post">    
       
@@ -147,7 +205,7 @@
 <span class="k">end</span>
 </code></pre></div>
         
-        <div style="float:right"><a href="/blog/2012/04/11/dsl-and-select/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/04/11/dsl-and-select/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -233,7 +291,7 @@
 но мне кажется, что в девелопмент режиме небольшие утечки - не редкость. Поразмышляю об этом на досуге.</em></p>
 
         
-        <div style="float:right"><a href="/blog/2012/04/04/require/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/04/04/require/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -310,7 +368,7 @@
 </p>
 
         
-        <div style="float:right"><a href="/blog/2012/03/29/rubynoname-podcast/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/03/29/rubynoname-podcast/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -354,7 +412,7 @@
 <span class="n">redirect_to</span> <span class="vi">@post</span> <span class="ow">and</span> <span class="k">return</span>
 </code></pre></div>
         
-        <div style="float:right"><a href="/blog/2012/03/28/and-or-and/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/03/28/and-or-and/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -413,7 +471,7 @@
 <span class="k">end</span>
 </code></pre></div>
         
-        <div style="float:right"><a href="/blog/2012/03/24/automigration/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/03/24/automigration/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -475,7 +533,7 @@
 <a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/deprecation/method_wrappers.rb#L13"><code>active_support/deprecation/method_wrappers.rb#L13</code></a>. Для того и была <a href="https://github.com/rails/rails/commit/643571ca25bc2fcc701e6def0975f56fe10a732f">создана</a>.</p>
 
         
-        <div style="float:right"><a href="/blog/2012/03/13/alias-method-chain/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/03/13/alias-method-chain/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -519,7 +577,7 @@
 контроллеров тоже. Код, предложенный вверху поста, будет выполняться правильно.</p>
 
         
-        <div style="float:right"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/03/01/anonymous-controller-layout-lookup/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -553,7 +611,7 @@
 <a href="https://github.com/rails/rails/blob/v3.2.1/actionpack/lib/abstract_controller/layouts.rb#L421">одна строчка</a> из абстракт-контроллера.</p>
 
         
-        <div style="float:right"><a href="/blog/2012/02/28/render-text-layout/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/02/28/render-text-layout/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -611,113 +669,11 @@
 <span class="k">end</span>
 </code></pre></div>
         
-        <div style="float:right"><a href="/blog/2012/02/23/action-controller-helper-method/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2012/02/23/action-controller-helper-method/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
         <div class="fb-share-button" data-href="/blog/2012/02/23/action-controller-helper-method/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Action+Controller+Helper+Method&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F23%2Faction-controller-helper-method%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2012/02/17/simple-haml-generator/index.html">Простой Haml генератор статических сайтов</a></h1>
-      
-      <div class="date">February 17, 2012</div>
-
-      
-      <div class="entry">
-        <p>Для нашей компании мы решили сделать максимально простой сайт, разместив на белом фоне несколько 
-блоков с информацией. Я решил взять сетку 
-твиттер бутстрап-фрейморка и обойтись без помощи дизайнера и верстальщика. Верстка для бутстрапа
-требует довольно большое количество вложенных дивов, поэтому лучше всего использовать Haml, 
-с разбивкой содержания на несколько партиалов. Статические сайты обычно удобно делать с помощью Jekyll,
-но я не знаю насколько сложно добавить поддержку хамл к Jekyll и возможно ли это сделать быстро. 
-В нашем случае данную задачу можно решить c помощью нескольких простых скриптов.</p>
-
-<p>Итак, скачиваем исходники бутстрап с <a href="http://twitter.github.com/bootstrap/">официальной страницы
-проекта</a> в папку проекта. Создаем директорию views,
-добавляем хамл-файлы:</p>
-<div class="highlight"><pre><code class="language-haml" data-lang="haml"><span class="cp">-# views/index.haml</span>
-<span class="nn">!!! 5</span>
-<span class="nt">%html</span>
-  <span class="nt">%head</span>
-    <span class="cp">-# ...</span>
-<span class="nt">%body</span>
-  <span class="nc">.container</span>
-    <span class="p">=</span> <span class="n">partial</span> <span class="ss">:header</span>
-    <span class="cp">-# ...</span>
-</code></pre></div><div class="highlight"><pre><code class="language-haml" data-lang="haml"><span class="cp">-# views/_header.haml</span>
-<span class="nc">.header</span>
-  <span class="nt">%h1</span> Logo
-</code></pre></div>
-<p>Создаем файл который будет собирать наш сайт в папку _site:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># make.rb</span>
-<span class="nb">require</span> <span class="s1">&#39;haml&#39;</span>
-
-<span class="sb">`rm -fr _site &amp;&amp; mkdir _site`</span>
-<span class="sb">`cp -r bootstrap _site`</span>
-
-<span class="nb">puts</span> <span class="s2">&quot;generate index.html&quot;</span>
-<span class="n">engine</span> <span class="o">=</span> <span class="o">::</span><span class="no">Haml</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;views/index.haml&#39;</span><span class="p">))</span>
-<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;_site/index.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span> <span class="n">engine</span><span class="o">.</span><span class="n">render</span><span class="p">}</span>
-</code></pre></div>
-<p>Запускаем файл make.rb и получаем ошибку Unknown method &#39;partial&#39;.
-В наш генератор необходимо добавить поддержку паршиалов.</p>
-
-<p>У <a href="http://haml-lang.com/docs/yardoc/Haml/Engine.html#render-instance_method">Haml::Engine#render</a>
-метода есть параметр scope, который позволяет выполнить код хамла в контексте произвольного объекта.
-Реализуем простой паршиал и запустим make.rb снова:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ...</span>
-
-<span class="k">class</span> <span class="nc">Helpers</span>
-  <span class="k">def</span> <span class="nf">partial</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
-    <span class="o">::</span><span class="no">Haml</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;views/_</span><span class="si">#{</span><span class="n">template</span><span class="si">}</span><span class="s2">.haml&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">Helpers</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="n">engine</span> <span class="o">=</span> <span class="o">::</span><span class="no">Haml</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;views/index.haml&#39;</span><span class="p">))</span>
-<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;_site/index.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span> <span class="n">engine</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="no">Helpers</span><span class="o">.</span><span class="n">new</span><span class="p">)}</span>
-</code></pre></div>
-<p>Теперь скрипт выполнится правильно и создаст готовый сайт в папке _site.</p>
-
-<p>Для удобства разработки добавим гард:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Guardfile</span>
-<span class="n">ignore_paths</span> <span class="s1">&#39;_site&#39;</span>
-<span class="n">guard</span> <span class="ss">:shell</span> <span class="k">do</span>
-  <span class="n">watch</span><span class="p">(</span><span class="sr">/.*/</span><span class="p">)</span> <span class="p">{</span> <span class="sb">`./make.rb`</span> <span class="p">}</span>
-<span class="k">end</span>
-</code></pre></div>
-<p>а также скрипт деплоя готового сайта:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># deploy.sh</span>
-./make.rb
-rsync -aP --del _site/ server:/www/site
-</code></pre></div>
-<p>Таким образом очень быстро мы получили готовый генератор простых статических сайтов.
-Примером сайта выполненного по этой технологии является <a href="http://boshie.com">сайт нашей компании</a>.</p>
-
-<p>В качестве дополнительного плюса, при использовании haml, исходный код вашего сайта будет рисоваться
-симпатичной змейкой.</p>
-
-<p><img src="/assets/old/1/zip-zip.png" alt=""></p>
-
-<p><strong>Update:</strong> Есть шутка, что нет смысла чему-то долго учиться, потому-что всегда
-на ютубе будет много роликов, где кто-нибудь это делает в 10 раз лучше.
-Так и в руби, на любую идею уже есть красиво оформленный гем. 
-Вот ссылки на генераторы статических сайтов, которые посоветовали коллеги в комментариях:</p>
-
-<ul>
-<li><a href="http://middlemanapp.com/">http://middlemanapp.com/</a></li>
-<li><a href="http://stasis.me/">http://stasis.me/</a></li>
-</ul>
-
-        
-        <div style="float:right"><a href="/blog/2012/02/17/simple-haml-generator/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2012/02/17/simple-haml-generator/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9+Haml+%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80+%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85+%D1%81%D0%B0%D0%B9%D1%82%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2012%2F02%2F17%2Fsimple-haml-generator%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
@@ -729,9 +685,9 @@ rsync -aP --del _site/ server:/www/site
   
     <a href="/page29" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 30 of 30</span>
+  <span class="page_number ">Page: 30 of 31</span>
   
-    <span class="next ">Next</span>
+    <a href="/page31" class="next">Next</a>
   
 </div>
 

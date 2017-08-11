@@ -6,10 +6,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Блог, милый блог. Новая история каждый будний день.</title>
+    <title>Alexey Vakhov – Блог, милый блог.</title>
 
     <meta name="author" content="Alexey Vakhov" />
-    <meta name="description" content="Блог, милый блог. Новая история каждый будний день.">
+    <meta name="description" content="Блог, милый блог.">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/font-awesome-4.2.0/css/font-awesome.min.css" />
-    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог. Новая история каждый будний день." href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог." href="/atom.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     
@@ -48,7 +48,7 @@
           
           <div class="site-info">
             <h1 class="site-name"><a href="/">Alexey Vakhov</a></h1>
-            <p class="site-description">Блог, милый блог. Новая история каждый будний день.</p>
+            <p class="site-description">Блог, милый блог.</p>
           </div>
           
           <nav>
@@ -61,6 +61,47 @@
 
     <div id="main" role="main" class="container">
       <div class="posts">
+  
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2016/11/17/kladovka/index.html">Кладовка и натянутый трос</a></h1>
+      
+      <div class="date">November 17, 2016</div>
+
+      <div class="img"><img src="/assets/2/kladovka/main.jpg" /></div>
+      <div class="entry">
+        <p>Вообще идеальный код должен быть как натянутый трос - удаление любой строчки должно что-нибудь ломать.
+Такой код легко поддерживать и развивать. В реальной жизни естественно так не получается, поэтому
+приходится пользоваться метафорой кладовки. Ну такая, кладовка обычная, в которую закидываешь что-нибудь
+наверх и быстро-быстро закрываешь. Все понимают как это выглядит? А когда открывашь, то надо
+как японский воин одну руку держать над головой, вторую перед собой и быть готовым ко всему.
+Так и с кодом.
+Не бывает плохого кода, бывает ситуация, когда его плохо засунули в пыльный угол.</p>
+
+<p>Чемпион по удобству засовывания - это конечно SCSS. Обожаю его. Досточно завернуть все вот это,
+что накопилось в какое-нибудь <code>body.legacy5 { ... }</code>, проставить нужный класс в лайауте или вьюхах
+и начать новую жизнь даже с теми же стилями.</p>
+
+<p>В рейлс нужно помнить, что если лайаут стал совсем плох, всегда можно начать новый, перетащив
+туда только то-что нужно. Лайаутом можно управлеть на любом уровне - для всего приложения, для
+контроллера, для набора экшена или даже в методе <code>render</code>, поэтому можно тихонечко переходить
+на новый лайаут и в финале удалить старого монстра (хотя новый в этот момент может оказаться
+не лучше, но хотя бы понятно что делать).</p>
+
+<p>И напоследок в Рейлс - очень удобно организовывать неймспейсы. Практически любой код можно
+аккуратно засунуть в какое-нибудь <code>Legacy2::</code> и потихоньку вытеснять из проекта. Я когда-то давно
+даже писал пост, какая магия Рейлс создает неймспейс <code>Foo::Bar::</code>, если файл лежит например в
+<code>app/components/foo/bar/some_file.rb</code>.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/17/kladovka/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/11/17/kladovka/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BB%D0%B0%D0%B4%D0%BE%D0%B2%D0%BA%D0%B0+%D0%B8+%D0%BD%D0%B0%D1%82%D1%8F%D0%BD%D1%83%D1%82%D1%8B%D0%B9+%D1%82%D1%80%D0%BE%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F17%2Fkladovka%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
   
     <article class="post">    
       
@@ -80,7 +121,7 @@
 мегабайты, а <code>Mb</code>, извините, уже мегабиты. А <code>мега-</code> или <code>меби-</code> уже без разницы, никогда не сталкивался с ситуацией, где бы это было важно.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/16/mib/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/16/mib/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -132,7 +173,7 @@
 со временем в порядок.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/15/refactoring/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/15/refactoring/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -164,7 +205,7 @@ dropdb <span class="nv">$db</span>
 <p>Вроде работает хорошо.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/14/kill-db/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/14/kill-db/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -198,7 +239,7 @@ dropdb <span class="nv">$db</span>
 <p>Вообщем борюсь с вендор локом на бытовом уровне. А сколько времени вам понадобится, чтобы продолжить работу на чистом компьютере (с хорошим интернетом мне - меньше часа)?</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/11/prepare-pc/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/11/prepare-pc/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -233,7 +274,7 @@ dropdb <span class="nv">$db</span>
 И опять, что одним хорошо, другим может не подойти. Везде контекст, везде конкретика.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/10/phil/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/10/phil/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -274,7 +315,7 @@ dropdb <span class="nv">$db</span>
 <p>С нетерпением жду будущего.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/09/ansible-jet-black/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/09/ansible-jet-black/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -306,7 +347,7 @@ dropdb <span class="nv">$db</span>
 <p>Мда. Вот такие вещи меня смущали тогда.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/08/cpp/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/08/cpp/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -369,7 +410,7 @@ dropdb <span class="nv">$db</span>
 нет сердца, но если после 10 лет вы это все благополучно не забыли, сердца у вас все равно нет <img class='emoji' title=':stuck_out_tongue_winking_eye:' alt=':stuck_out_tongue_winking_eye:' src='https://assets.github.com/images/icons/emoji/unicode/1f61c.png' height='20' width='20' align='absmiddle' />.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/07/shatal2/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/07/shatal2/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -403,54 +444,11 @@ dropdb <span class="nv">$db</span>
 нагрузке. Так что с хостед версией графита у нас не срослось. Увы.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/11/03/udp/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/03/udp/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
         <div class="fb-share-button" data-href="/blog/2016/11/03/udp/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D1%83%D1%8E%D1%89%D0%B8%D0%B5+UDP&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F03%2Fudp%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/02/right/index.html">Как вы яхту назовете</a></h1>
-      
-      <div class="date">November  2, 2016</div>
-
-      <div class="img"><img src="/assets/2/right/main.jpg" /></div>
-      <div class="entry">
-        <p>Родилась у нас как-то раз шутка, что любое решение можно выставить хорошим, просто подобрав правильный
-термин.</p>
-
-<p>Смотрите, допустим, - <strong>монолит</strong>.<br>
-- Фу-у-у.<br>
-<strong>Микросервисы</strong>!<br>
-- м-м-м, парень понимает толк в жизни.</p>
-
-<p>А теперь внимание - <strong>монорейлс</strong>!<br>
-- Вау, крутяк!<br>
-И снова мужики встают, когда вы входите в пивную.</p>
-
-<p>А чем <strong>монолит</strong> отличается от <strong>монорейлса</strong>?
-Только тем, что во втором случае придуман новый, свежий термин
-(вообще я не знаю насколько он используется, просто видел в одной статье).
-То есть это с одной стороны и шутка, а с другой и не очень шутка. Маркетинг уже
-очень прочно проник в инженерное дело, дажe в опен сорс. Сегодня оформлению идей, а не только
-содержанию, стоит уделять самое пристальное внимание. </p>
-
-<p>И мне кажется это здорово. Я вообще за доходчивость и изящество, за чистоту идей и красоту подачи.
-Наример хорошую историю,
-не приврав чуть-чуть или весьма сильно, вообще не раскажешь. Так и в профессии.
-По возможности лучше не скатываться совсем уж в булшит-бинго, но придумать какую-нибудь
-метафору или подобрать сочный, яркий термин для описании ситуации по-моему мнению всегда полезно.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/11/02/right/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/11/02/right/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%B2%D1%8B+%D1%8F%D1%85%D1%82%D1%83+%D0%BD%D0%B0%D0%B7%D0%BE%D0%B2%D0%B5%D1%82%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F02%2Fright%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
@@ -462,7 +460,7 @@ dropdb <span class="nv">$db</span>
   
     <a href="/page17" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 18 of 30</span>
+  <span class="page_number ">Page: 18 of 31</span>
   
     <a href="/page19" class="next">Next</a>
   

@@ -6,10 +6,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Блог, милый блог. Новая история каждый будний день.</title>
+    <title>Alexey Vakhov – Блог, милый блог.</title>
 
     <meta name="author" content="Alexey Vakhov" />
-    <meta name="description" content="Блог, милый блог. Новая история каждый будний день.">
+    <meta name="description" content="Блог, милый блог.">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/font-awesome-4.2.0/css/font-awesome.min.css" />
-    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог. Новая история каждый будний день." href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог." href="/atom.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     
@@ -48,7 +48,7 @@
           
           <div class="site-info">
             <h1 class="site-name"><a href="/">Alexey Vakhov</a></h1>
-            <p class="site-description">Блог, милый блог. Новая история каждый будний день.</p>
+            <p class="site-description">Блог, милый блог.</p>
           </div>
           
           <nav>
@@ -61,6 +61,49 @@
 
     <div id="main" role="main" class="container">
       <div class="posts">
+  
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2014/11/20/array_find/index.html">Неведомый Array#find</a></h1>
+      
+      <div class="date">November 20, 2014</div>
+
+      <div class="img"><img src="/assets/array_find.jpg" /></div>
+      <div class="entry">
+        <p>Полагаясь на интуицию, как делаю в 90% случаев, программируя на Руби, я написал проверку
+наличия элемента в массиве <code>array.find(4) ? &#39;success&#39; : &#39;fail&#39;</code> и с удивлением
+узнал, что это не работает.</p>
+
+<p>Документация нам подсказывает <a href="http://ruby-doc.org/core-2.1.3/Enumerable.html#method-i-find"><i class="fa fa-external-link"></i></a>, что <code>find</code> вернет <code>Enumerator</code> если блок не задан.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  #&lt;Enumerator: [1, 2, 3]:find(4)&gt;</span>
+</code></pre></div>
+<p>Любой объект в руби - это <code>true</code>, поэтому конструкция из вступления будет всегда возвращать
+<code>success</code>. Есть несколько способов исправить ситуацию.</p>
+
+<p>Использовать блочную версию <code>find</code> (не очень изящно, но работает):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">}</span>  <span class="c1"># =&gt;  nil</span>
+</code></pre></div>
+<p>Использовать метод <code>index</code> или <code>include?</code> (я так делаю, когда пишу на чистом руби): </p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">index</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>     <span class="c1"># =&gt;  nil</span>
+<span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">include?</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  false</span>
+</code></pre></div>
+<p>В Рейлс (или когда просто подключен <code>ActiveSupport</code>) еще есть метод <code>#in?</code>
+<a href="http://api.rubyonrails.org/classes/Object.html#method-i-in-3F"><i class="fa fa-external-link"></i></a>,
+позволяющий иногда сделать код более читаемым:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+<span class="mi">4</span><span class="o">.</span><span class="n">in?</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>       <span class="c1"># =&gt;  false</span>
+</code></pre></div>
+<p>На один неправильный вариант использования <code>find</code>, есть много правильных.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/20/array_find/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2014/11/20/array_find/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B2%D0%B5%D0%B4%D0%BE%D0%BC%D1%8B%D0%B9+Array%23find&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F20%2Farray_find%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
   
     <article class="post">    
       
@@ -131,7 +174,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 предлагает, может испортить выкатку на Хероку. Поэтому я больше не меняю схему и данные в одной транзакции.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/11/17/long-death-migtations/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/17/long-death-migtations/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -160,7 +203,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 <p><img src="/assets/disqus-orient/ip.png" alt=""></p>
 
         
-        <div style="float:right"><a href="/blog/2014/11/13/disqus-orient/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/13/disqus-orient/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -216,7 +259,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 <p>Теперь файл <code>config.ru</code>, который лежит в корне каждого Рейлс проекта, больше не вызывает у меня вопросов.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/11/10/rackup-ru/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/10/rackup-ru/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -269,7 +312,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 <p>Симпатично.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/11/06/pretty-bash-prompt/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/06/pretty-bash-prompt/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -356,7 +399,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 у которого одна единственная обязанность - логинить пользователя. Не заглядывая в код ясно, что там все в порядке.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/10/30/oaas/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/10/30/oaas/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -399,7 +442,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 <p>Как и в любой хорошем приеме, здесь нужна мера. Если блокировать базу часто и надолго, то производительность упадет сильно.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/10/27/record-lock/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/10/27/record-lock/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -455,7 +498,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 <p>Снимаю шляпу перед очередной экзотической штучкой мира руби.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/10/23/sinatra-embed-views/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/10/23/sinatra-embed-views/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -497,7 +540,7 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 На главной странице вы увидите &quot;Hello!&quot;.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/10/20/mini-rails/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/10/20/mini-rails/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -584,81 +627,11 @@ SQL: ALTER TABLE &quot;users&quot; ADD COLUMN &quot;surname&quot; character vary
 <span class="c1"># ...</span>
 </code></pre></div>
         
-        <div style="float:right"><a href="/blog/2014/10/16/namespaces/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/10/16/namespaces/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
         <div class="fb-share-button" data-href="/blog/2014/10/16/namespaces/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B9%D0%BC%D1%81%D0%BF%D0%B5%D0%B9%D1%81%D1%8B+%D0%B2+%D0%A0%D0%B5%D0%B9%D0%BB%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F16%2Fnamespaces%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/10/12/ed-editor/index.html">Ed - хардкорнее чем Vi</a></h1>
-      
-      <div class="date">October 12, 2014</div>
-
-      <div class="img"><img src="/assets/ed-editor.jpg" /></div>
-      <div class="entry">
-        <p>Однажды мне захотелось отредактировать файл прямо на Хероку,
-потянувшись за Vim с удивлением узнал, что на Хероку Vim/Vi нету. Увы.</p>
-
-<p>Интернет заботливо подсказал, что в 1970 году, симпатичный парень Кен Томпсон написал редактор <code>ed</code>,
-который точно есть абсолютно на всех unix-системах уже 40 с лишним лет.
-И точно на Хероку он есть.
-Ed - прадедушка вима и сейчас мы немного посмотрим на него поближе. </p>
-
-<p>Пересказывать мануал и википедию я не буду, лучше просто расскажу пару забавных фактов.
-Первый факт - все команды в ed состоят из одной английской буквы,
-а в случае ошибки выводится только знак вопроса. Второй факт - в ed нет подсветки синтаксиса. </p>
-
-<p>Вот пример работы работы с ed:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ed -p: <span class="c"># опция -p:, делает ed более похожим на вим</span>
-:a
-This is new file.
-Ed is the gest!
-.
-:%l
-This is new file.<span class="err">$</span>
-Ed is the gest!<span class="err">$</span>
-:1d
-:s/gest/best
-Ed is the best!
-:w demo.txt
-16
-:q
-<span class="nv">$ </span>cat demo.txt
-Ed is the best!
-</code></pre></div>
-<p>Строчки, которые начинаются с двоеточия - это команды в ed. В данном примере мы добавили в буфер 
-две строчки, вывели их, удалили первую строку, исправили опечатку и
-сохранили результат в файл <code>demo.txt</code>. При некоторой сноровке можно легко создавать
-и редактировать небольшие файлики.</p>
-
-<p>Редактор ed мне очень понравился, кроме Хероку я его использую, например,
-чтобы вставить предупреждение на вторую строчку в каждом баш скрипте:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> binary in *.sh
-<span class="k">do</span>
-ed &gt; /dev/null <span class="nv">$binary</span> <span class="s">&lt;&lt;EOF</span>
-<span class="s">1</span>
-<span class="s">a</span>
-<span class="s"># GENERATED AUTOMATICALLY. DO NOT MODIFY THIS FILE!</span>
-<span class="s">.</span>
-<span class="s">w</span>
-<span class="s">EOF</span>
-<span class="k">done</span>
-</code></pre></div>
-<p>Кстати, это Кен Томпсон - мне кажется так и должен выглядеть настоящий разработчик:</p>
-
-<p><img src="/assets/ed-editor/Ken_Thompson_02.jpg" alt=""></p>
-
-        
-        <div style="float:right"><a href="/blog/2014/10/12/ed-editor/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/10/12/ed-editor/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Ed+-+%D1%85%D0%B0%D1%80%D0%B4%D0%BA%D0%BE%D1%80%D0%BD%D0%B5%D0%B5+%D1%87%D0%B5%D0%BC+Vi&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F10%2F12%2Fed-editor%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
@@ -670,7 +643,7 @@ ed &gt; /dev/null <span class="nv">$binary</span> <span class="s">&lt;&lt;EOF</s
   
     <a href="/page26" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 27 of 30</span>
+  <span class="page_number ">Page: 27 of 31</span>
   
     <a href="/page28" class="next">Next</a>
   

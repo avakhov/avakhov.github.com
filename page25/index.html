@@ -6,10 +6,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Блог, милый блог. Новая история каждый будний день.</title>
+    <title>Alexey Vakhov – Блог, милый блог.</title>
 
     <meta name="author" content="Alexey Vakhov" />
-    <meta name="description" content="Блог, милый блог. Новая история каждый будний день.">
+    <meta name="description" content="Блог, милый блог.">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/font-awesome-4.2.0/css/font-awesome.min.css" />
-    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог. Новая история каждый будний день." href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог." href="/atom.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     
@@ -48,7 +48,7 @@
           
           <div class="site-info">
             <h1 class="site-name"><a href="/">Alexey Vakhov</a></h1>
-            <p class="site-description">Блог, милый блог. Новая история каждый будний день.</p>
+            <p class="site-description">Блог, милый блог.</p>
           </div>
           
           <nav>
@@ -61,6 +61,64 @@
 
     <div id="main" role="main" class="container">
       <div class="posts">
+  
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2016/08/12/doc-db/index.html">Как можно документировать схему базу данных</a></h1>
+      
+      <div class="date">August 12, 2016</div>
+
+      <div class="img"><img src="/assets/2/doc-db/main.jpg" /></div>
+      <div class="entry">
+        <p>Когда проект начал расти я почувствовал, что очень сильно не хватает комментариев к схеме
+базы данных. В живом приложении появляются таинcтвенные таблицы, какие-то флаги, json-ны и
+прочие неведомые вещи, иногда хочется узнать, что они означают.</p>
+
+<p>Конечно некоторые поля в моделях очевидны, в <code>Student#name</code> в принципе очевидно что хранится,
+но какое-нибудь <code>Group#migrated_from_old_db2</code> (название вымышленое) нуждается в объяснении - кто, когда,
+зачем это мигрировал и что такое старая база (вторая). </p>
+
+<p>Я завел файл <code>doc/db.md</code>, в котором описал все таблицы и колонки, которые были на тот момент и
+попросил коллег поддерживать его. Конечно никто поддерживать не стал. И не из вредности,
+а потому-что при программировании приходится и так помнить тысячу вещей. Документирование
+изменений схемы не входило в обязательные рутины работы.</p>
+
+<div class="hr">&middot;&middot;&middot;</div>
+
+<p>Решил проблему просто - написал тест, который падает, если в файле <code>doc/db.md</code> нет описания для
+какой-нибудь колонки. Формат файла очень простой, он легко парсится и красиво выглядит в интерфейсе
+гитхаба:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># uchi.ru db schema
+
+## schools
+
+Школы.
+
+| column | description |
+|--:|--:|
+| name | Название |
+...
+</code></pre></div>
+<p>Все таблицы и колонки легко вытянуть с помощью <code>AR::Base.connection.tables</code> и 
+<code>AR::Base.connection.columns</code>. Вуаля! Мержить пул реквест на красных тестах нельзя.
+Но тесты падают, если схема обновилась, а <code>doc/db.md</code> нет!</p>
+
+<div class="hr">&middot;&middot;&middot;</div>
+
+<p>Теперь все базы данных у нас документированы, а файл <code>doc/db.md</code> в каждом репозитарии один из ключевых
+при изучении приложения с которым работаешь первый раз или давно не работал. Поддерживать
+такую документацию легко и естественно, в итоге она гораздо информативнее стандартного 
+файла <code>db/schema.rb</code>.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/08/12/doc-db/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/08/12/doc-db/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE+%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C+%D1%81%D1%85%D0%B5%D0%BC%D1%83+%D0%B1%D0%B0%D0%B7%D1%83+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F12%2Fdoc-db%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
   
     <article class="post">    
       
@@ -92,7 +150,7 @@
 удобных приемов я использую каждый день.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/08/11/regexp/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/08/11/regexp/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -148,7 +206,7 @@
 <p><em>Алексей Вахов</em></p>
 
         
-        <div style="float:right"><a href="/blog/2016/08/10/reborn/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/08/10/reborn/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -226,7 +284,7 @@
 </ul>
 
         
-        <div style="float:right"><a href="/blog/2015/02/17/meeio/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/02/17/meeio/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -301,7 +359,7 @@
 <p>Вот такой вот дивный компонент.</p>
 
         
-        <div style="float:right"><a href="/blog/2015/02/02/tsort/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/02/02/tsort/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -551,7 +609,7 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
 </ul>
 
         
-        <div style="float:right"><a href="/blog/2015/01/29/ember-2-fire/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/01/29/ember-2-fire/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -595,7 +653,7 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
 <p>Руби - гениальный язык!</p>
 
         
-        <div style="float:right"><a href="/blog/2015/01/26/flat_map/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/01/26/flat_map/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -651,7 +709,7 @@ computed-свойста, вычисляемые реактивно, обзерв
 <p>На сегодня все, до новых встреч!</p>
 
         
-        <div style="float:right"><a href="/blog/2015/01/23/ember-1-intro/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/01/23/ember-1-intro/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -723,7 +781,7 @@ git push avakhov new-feature -u
 <p><code>git cleanup</code> - почистить локальный репозитарий от разных старых, уже смерженных в мастер веток.</p>
 
         
-        <div style="float:right"><a href="/blog/2015/01/15/hub/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/01/15/hub/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -749,71 +807,11 @@ git push avakhov new-feature -u
 <p><img class='emoji' title=':evergreen_tree:' alt=':evergreen_tree:' src='https://assets.github.com/images/icons/emoji/unicode/1f332.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':wine_glass:' alt=':wine_glass:' src='https://assets.github.com/images/icons/emoji/unicode/1f377.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':poultry_leg:' alt=':poultry_leg:' src='https://assets.github.com/images/icons/emoji/unicode/1f357.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':sake:' alt=':sake:' src='https://assets.github.com/images/icons/emoji/unicode/1f376.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':cocktail:' alt=':cocktail:' src='https://assets.github.com/images/icons/emoji/unicode/1f378.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':clap:' alt=':clap:' src='https://assets.github.com/images/icons/emoji/unicode/1f44f.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':sleeping:' alt=':sleeping:' src='https://assets.github.com/images/icons/emoji/unicode/1f634.png' height='20' width='20' align='absmiddle' /> </p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/29/new-year/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/29/new-year/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
         <div class="fb-share-button" data-href="/blog/2014/12/29/new-year/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Year+%2B%3D+1&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F29%2Fnew-year%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/12/25/contribute/index.html">Пул реквесты в опен сорс</a></h1>
-      
-      <div class="date">December 25, 2014</div>
-
-      <div class="img"><img src="/assets/contribute.jpg" /></div>
-      <div class="entry">
-        <p>Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
-из пяти пунктов:</p>
-
-<ol>
-<li>Fork it ( https://github.com/[my-github-username]/awesome-gem/fork )</li>
-<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
-<li>Commit your changes (<code>git commit -am &#39;Add some feature&#39;</code>)</li>
-<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
-<li>Create a new Pull Request</li>
-</ol>
-
-<p>Я расскажу пару хитростей, которые можно использовать,
-чтобы сделать процесс создания пул реквестов еще приятнее и
-беззаботнее.</p>
-
-<h2>Процесс создания пул реквестов</h2>
-
-<p><em>1. Форкаем репозитарий и клонируем</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git clone git@github.com:avakhov/awesome-gem.git
-</code></pre></div>
-<p><em>2. Подцепляем оригинальный remote (я его называю papa)</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git remote add papa git@github.com:awesome/awesome-gem.git
-</code></pre></div>
-<p><em>3. Берем самую свежую версию</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git fetch papa
-get checkout papa/master
-</code></pre></div>
-<p><em>4. Создаем ветку (можно начинать имя с чисел по порядку)</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git checkout -b 2-mega-fix
-git push origin 2-mega-fix -u
-</code></pre></div>
-<p><em>5. Комитим</em></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git commit -m&quot;Msg&quot;
-git push
-</code></pre></div>
-<p><em>6. Посылаем пул реквест через Github!</em> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /></p>
-
-<p>Переходим к пункту 3, чтобы создать новый пул реквест.</p>
-
-<p>Такой процедуры легко придерживаться и она гарантирует, что мы всегда
-работаем с актуальным кодом (в оригинальном процесс легко форкнуться от устаревшей ревизии).</p>
-
-        
-        <div style="float:right"><a href="/blog/2014/12/25/contribute/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/12/25/contribute/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%83%D0%BB+%D1%80%D0%B5%D0%BA%D0%B2%D0%B5%D1%81%D1%82%D1%8B+%D0%B2+%D0%BE%D0%BF%D0%B5%D0%BD+%D1%81%D0%BE%D1%80%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F25%2Fcontribute%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
@@ -825,7 +823,7 @@ git push
   
     <a href="/page24" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 25 of 30</span>
+  <span class="page_number ">Page: 25 of 31</span>
   
     <a href="/page26" class="next">Next</a>
   

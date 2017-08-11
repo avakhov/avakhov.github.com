@@ -6,10 +6,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Блог, милый блог. Новая история каждый будний день.</title>
+    <title>Alexey Vakhov – Блог, милый блог.</title>
 
     <meta name="author" content="Alexey Vakhov" />
-    <meta name="description" content="Блог, милый блог. Новая история каждый будний день.">
+    <meta name="description" content="Блог, милый блог.">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/font-awesome-4.2.0/css/font-awesome.min.css" />
-    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог. Новая история каждый будний день." href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог." href="/atom.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     
@@ -48,7 +48,7 @@
           
           <div class="site-info">
             <h1 class="site-name"><a href="/">Alexey Vakhov</a></h1>
-            <p class="site-description">Блог, милый блог. Новая история каждый будний день.</p>
+            <p class="site-description">Блог, милый блог.</p>
           </div>
           
           <nav>
@@ -61,6 +61,52 @@
 
     <div id="main" role="main" class="container">
       <div class="posts">
+  
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2016/09/23/email/index.html">Емейл-маркетинг в жизни простого инженера</a></h1>
+      
+      <div class="date">September 23, 2016</div>
+
+      <div class="img"><img src="/assets/2/email/main.jpg" /></div>
+      <div class="entry">
+        <p>Большинство инструментов маркетинга требуют добавления в домен SPF-записи. И через некоторое
+время получается примерно такая конструкция:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">dig +short -t txt mailchimp.com
+<span class="c"># v=spf1 include:servers.mcsv.net include:mail.zendesk.com</span>
+<span class="c"># include:_spf.google.com include:_lp.mailchimp.com ip4:50.22.164.201</span>
+<span class="c"># ip4:205.201.140.14 ip4:205.201.132.14 ~all</span>
+</code></pre></div>
+<p>Однако важно помнить одну деталь - при проверки этой записи сервер по спецификации должен
+сделать не больше 10 DNS запросов (информацию легко найти в интернете по ключевым словам
+<code>spf: too many DNS lookups</code>), иначе репутация письма будет сильно испорчена. Мы один раз
+случайно <code>_spf.google.com</code> поставили на последнее место для одного из доменов, эта запись вылетела из лимита и письма, отправленные
+просто из gmail-интерфейса, стали часто попадать в спам.</p>
+
+<p>Необходимое количество запросов легко посчитать вручную, раскрыв spf-запись каждого перечисленного
+адреса, или с помощью какого-нибудь скрипта. Однако самый лучшим способом проверить качество не только
+SPF-записей, а всех настроек в принципе, это отправить письмо из каждого используемого сервиса
+на специальный адрес, например который предложит <a href=https://www.mail-tester.com/>www.mail-tester.com</a>.
+Именно
+с помощью него мы быстро вычислили свою проблему с гмейлом.</p>
+
+<p>Конечно профессиональный маркетолог вам это все сам расскажет, но если вы продемонстрирует свои
+знания SPF и предложите проверить письма через мейл тестер, то он точно будет при встрече будет
+первым подавать руку.</p>
+
+<p>Хорошего дня вам, высокой конверсии и нулевого баунс рейта!</p>
+
+<p><img src="/assets/2/email/spam.png" alt=""></p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/23/email/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/09/23/email/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%95%D0%BC%D0%B5%D0%B9%D0%BB-%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3+%D0%B2+%D0%B6%D0%B8%D0%B7%D0%BD%D0%B8+%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B3%D0%BE+%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F23%2Femail%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
   
     <article class="post">    
       
@@ -114,7 +160,7 @@
 Но для нас CircleCI - проверенно хорош.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/22/redo/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/22/redo/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -153,7 +199,7 @@
 Pipelines, но точно не скажу, не пользовался), я только ухмыльнулся - конечно здорово, мы так уже четыре года делаем <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/21/shots/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/21/shots/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -187,7 +233,7 @@ Pipelines, но точно не скажу, не пользовался), я т�
 практически полностью ускользнуть из лап бюрократии, которая есть в любой, даже самой хорошей компании.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/20/two-principe/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/20/two-principe/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -221,7 +267,7 @@ Pipelines, но точно не скажу, не пользовался), я т�
 кроме пожалуй <code>-H</code>, <code>-X</code> я читаю в мане или гуглю.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/19/visit/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/19/visit/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -278,7 +324,7 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
 в ежедневные рабочие рутины, в большинстве случаев можно обойтись подручными средствами.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/16/pure-logs/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/16/pure-logs/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -308,7 +354,7 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
 или попробуйте найти в легаси проекте все варианты построения раута (включая <code>form_for [:admin, @user]</code>).</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/15/rails-hate/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/15/rails-hate/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -337,7 +383,7 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
 разогнаном мире.</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/14/slim-coff/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/14/slim-coff/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -387,7 +433,7 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
 я это вообще гуглить?</p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/13/blogo-engine/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/13/blogo-engine/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -423,46 +469,11 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
 <p><img src="/assets/2/vim/vim.png" alt=""></p>
 
         
-        <div style="float:right"><a href="/blog/2016/09/12/vim/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/12/vim/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
         <div class="fb-share-button" data-href="/blog/2016/09/12/vim/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%92%D0%B8%D0%BC%D1%83+%D0%BF%D1%80%D0%B5%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8+%D0%BF%D0%BE%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F12%2Fvim%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/09/09/too_dev/index.html">Не очень программист</a></h1>
-      
-      <div class="date">September  9, 2016</div>
-
-      <div class="img"><img src="/assets/2/too_dev/main.jpg" /></div>
-      <div class="entry">
-        <p>Когда я уходил из системной С++-разработки в веб-разработку на руби, настроение было
-очень паршивое. Было ощущение будто бы сорвали разом две лычки. К тому времени я прочитал все
-ключевые книги Страуструпа, Александреску, Мейерса и других уважаемых товарищей, разбирался
-в шаблонах, умных указателях, паттернах и прочих сложных вещах. Язык руби казался слишком примитивном -
-на этом же может писать любой школьник!</p>
-
-<p>Через полгода или год я встретился с бывшими коллегами, к тому времени уже сделав несколько
-простых сайтов на рейлс и даже их немножко продав, и в ходе беседы окончательно убедился в правильности
-своего решения. Они обсуждали как кто-то оптимизировал алгоритм переворачивания строки, сделал
-это неправильно и дефект даже дошел до продакшена. Я понял, что мне больше неинтересно
-заниматься такими низкоуровневыми вещами, в веб-разработке мы гораздор ближе к задачам бизнеса,
-результаты получаются быстрее, мотивация в виде довольных или рассерженных клиентов
-сильно ярче.</p>
-
-<p>С тех пор для меня бизнес-ориентированность задач, при всей мерзости этого сочетания, очень
-важный показатель. Если приходится заниматься чем-то, что никто из живых людей не увидит, я сержусь.</p>
-
-        
-        <div style="float:right"><a href="/blog/2016/09/09/too_dev/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/09/09/too_dev/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5+%D0%BE%D1%87%D0%B5%D0%BD%D1%8C+%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F09%2Ftoo_dev%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
@@ -474,7 +485,7 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
   
     <a href="/page21" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 22 of 30</span>
+  <span class="page_number ">Page: 22 of 31</span>
   
     <a href="/page23" class="next">Next</a>
   

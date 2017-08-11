@@ -6,10 +6,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <title>Alexey Vakhov – Блог, милый блог. Новая история каждый будний день.</title>
+    <title>Alexey Vakhov – Блог, милый блог.</title>
 
     <meta name="author" content="Alexey Vakhov" />
-    <meta name="description" content="Блог, милый блог. Новая история каждый будний день.">
+    <meta name="description" content="Блог, милый блог.">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="/font-awesome-4.2.0/css/font-awesome.min.css" />
-    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог. Новая история каждый будний день." href="/atom.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Alexey Vakhov - Блог, милый блог." href="/atom.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
     
@@ -48,7 +48,7 @@
           
           <div class="site-info">
             <h1 class="site-name"><a href="/">Alexey Vakhov</a></h1>
-            <p class="site-description">Блог, милый блог. Новая история каждый будний день.</p>
+            <p class="site-description">Блог, милый блог.</p>
           </div>
           
           <nav>
@@ -61,6 +61,66 @@
 
     <div id="main" role="main" class="container">
       <div class="posts">
+  
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2014/12/25/contribute/index.html">Пул реквесты в опен сорс</a></h1>
+      
+      <div class="date">December 25, 2014</div>
+
+      <div class="img"><img src="/assets/contribute.jpg" /></div>
+      <div class="entry">
+        <p>Стандартный гид по контрибьюторству, который появляется в любом свежесозданном геме, состоит
+из пяти пунктов:</p>
+
+<ol>
+<li>Fork it ( https://github.com/[my-github-username]/awesome-gem/fork )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am &#39;Add some feature&#39;</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+
+<p>Я расскажу пару хитростей, которые можно использовать,
+чтобы сделать процесс создания пул реквестов еще приятнее и
+беззаботнее.</p>
+
+<h2>Процесс создания пул реквестов</h2>
+
+<p><em>1. Форкаем репозитарий и клонируем</em></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone git@github.com:avakhov/awesome-gem.git
+</code></pre></div>
+<p><em>2. Подцепляем оригинальный remote (я его называю papa)</em></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git remote add papa git@github.com:awesome/awesome-gem.git
+</code></pre></div>
+<p><em>3. Берем самую свежую версию</em></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git fetch papa
+get checkout papa/master
+</code></pre></div>
+<p><em>4. Создаем ветку (можно начинать имя с чисел по порядку)</em></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git checkout -b 2-mega-fix
+git push origin 2-mega-fix -u
+</code></pre></div>
+<p><em>5. Комитим</em></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">git commit -m&quot;Msg&quot;
+git push
+</code></pre></div>
+<p><em>6. Посылаем пул реквест через Github!</em> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':beer:' alt=':beer:' src='https://assets.github.com/images/icons/emoji/unicode/1f37a.png' height='20' width='20' align='absmiddle' /></p>
+
+<p>Переходим к пункту 3, чтобы создать новый пул реквест.</p>
+
+<p>Такой процедуры легко придерживаться и она гарантирует, что мы всегда
+работаем с актуальным кодом (в оригинальном процесс легко форкнуться от устаревшей ревизии).</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/25/contribute/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2014/12/25/contribute/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9F%D1%83%D0%BB+%D1%80%D0%B5%D0%BA%D0%B2%D0%B5%D1%81%D1%82%D1%8B+%D0%B2+%D0%BE%D0%BF%D0%B5%D0%BD+%D1%81%D0%BE%D1%80%D1%81&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F12%2F25%2Fcontribute%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
   
     <article class="post">    
       
@@ -93,7 +153,7 @@
 хватит пяти команд.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/22/gnu-screen/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/22/gnu-screen/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -195,7 +255,7 @@ Active Record запросы. Когда записей уже миллионы,
 удалять, что в случае одной транзакции сделать невозможно.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/18/remove_a_lot_records/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/18/remove_a_lot_records/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -242,7 +302,7 @@ Active Record запросы. Когда записей уже миллионы,
 <p>Это конечно хак, но хак забавный.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/15/timestamps/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/15/timestamps/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -297,7 +357,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
 очень даже ничего.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/11/react-sortable/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/11/react-sortable/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -345,7 +405,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
 <p><img class='emoji' title=':fire:' alt=':fire:' src='https://assets.github.com/images/icons/emoji/unicode/1f525.png' height='20' width='20' align='absmiddle' /> <img class='emoji' title=':fire:' alt=':fire:' src='https://assets.github.com/images/icons/emoji/unicode/1f525.png' height='20' width='20' align='absmiddle' /></p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/08/2-small-things/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/08/2-small-things/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -402,7 +462,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
 <code>require File.expand_path(&#39;../some&#39;, __FILE__)</code>.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/04/require/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/04/require/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -443,7 +503,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
 для этого достаточно добавить <code>?%28t%B3odei%29</code> в конец. Я проверил, получается <code>ArgumentError: invalid byte sequence in UTF-8</code>, очень забавно, на вызов Ктулху похоже :-)</p>
 
         
-        <div style="float:right"><a href="/blog/2014/12/01/500-it/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/12/01/500-it/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -483,7 +543,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
 гораздо легче писать и поддерживать, чем аналогичное решение, допустим, на jQuery.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/11/27/react-todo/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/27/react-todo/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
@@ -542,54 +602,11 @@ jQuery UI Sortable, не нарушая реактивности системы.
 <p>Отлично, теперь можно спать спокойно.</p>
 
         
-        <div style="float:right"><a href="/blog/2014/11/24/be_rspec/index.html#disqus_thread">0 Comments</a></div>
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2014/11/24/be_rspec/index.html#disqus_thread">0 Comments</a></div></small>
         
         
 
         <div class="fb-share-button" data-href="/blog/2014/11/24/be_rspec/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D0%BA+%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82+be_some+%D0%B2+RSpec%3F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F24%2Fbe_rspec%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2014/11/20/array_find/index.html">Неведомый Array#find</a></h1>
-      
-      <div class="date">November 20, 2014</div>
-
-      <div class="img"><img src="/assets/array_find.jpg" /></div>
-      <div class="entry">
-        <p>Полагаясь на интуицию, как делаю в 90% случаев, программируя на Руби, я написал проверку
-наличия элемента в массиве <code>array.find(4) ? &#39;success&#39; : &#39;fail&#39;</code> и с удивлением
-узнал, что это не работает.</p>
-
-<p>Документация нам подсказывает <a href="http://ruby-doc.org/core-2.1.3/Enumerable.html#method-i-find"><i class="fa fa-external-link"></i></a>, что <code>find</code> вернет <code>Enumerator</code> если блок не задан.</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  #&lt;Enumerator: [1, 2, 3]:find(4)&gt;</span>
-</code></pre></div>
-<p>Любой объект в руби - это <code>true</code>, поэтому конструкция из вступления будет всегда возвращать
-<code>success</code>. Есть несколько способов исправить ситуацию.</p>
-
-<p>Использовать блочную версию <code>find</code> (не очень изящно, но работает):</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">find</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">4</span> <span class="p">}</span>  <span class="c1"># =&gt;  nil</span>
-</code></pre></div>
-<p>Использовать метод <code>index</code> или <code>include?</code> (я так делаю, когда пишу на чистом руби): </p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">index</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>     <span class="c1"># =&gt;  nil</span>
-<span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">include?</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># =&gt;  false</span>
-</code></pre></div>
-<p>В Рейлс (или когда просто подключен <code>ActiveSupport</code>) еще есть метод <code>#in?</code>
-<a href="http://api.rubyonrails.org/classes/Object.html#method-i-in-3F"><i class="fa fa-external-link"></i></a>,
-позволяющий иногда сделать код более читаемым:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">array</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
-<span class="mi">4</span><span class="o">.</span><span class="n">in?</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>       <span class="c1"># =&gt;  false</span>
-</code></pre></div>
-<p>На один неправильный вариант использования <code>find</code>, есть много правильных.</p>
-
-        
-        <div style="float:right"><a href="/blog/2014/11/20/array_find/index.html#disqus_thread">0 Comments</a></div>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2014/11/20/array_find/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9D%D0%B5%D0%B2%D0%B5%D0%B4%D0%BE%D0%BC%D1%8B%D0%B9+Array%23find&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2014%2F11%2F20%2Farray_find%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
@@ -601,7 +618,7 @@ jQuery UI Sortable, не нарушая реактивности системы.
   
     <a href="/page25" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 26 of 30</span>
+  <span class="page_number ">Page: 26 of 31</span>
   
     <a href="/page27" class="next">Next</a>
   
