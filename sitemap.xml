@@ -3,14 +3,6 @@
   
   
   <url>
-    <loc>http://vakhov.me/blog/2017/08/11/question.markdown/index.html</loc>
-    
-    <lastmod>2017-08-11T00:00:00+03:00</lastmod>
-    
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
     <loc>http://vakhov.me/blog/2017/08/10/done/index.html</loc>
     
     <lastmod>2017-08-10T00:00:00+03:00</lastmod>
@@ -2413,35 +2405,35 @@
   
   <url>
     <loc>http://vakhov.me/18plus.html</loc>
-    <lastmod>2018-08-05T22:56:19+03:00</lastmod>
+    <lastmod>2018-08-05T23:00:48+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/404.html</loc>
-    <lastmod>2018-08-05T22:56:19+03:00</lastmod>
+    <lastmod>2018-08-05T23:00:48+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/about.html</loc>
-    <lastmod>2018-08-05T22:56:19+03:00</lastmod>
+    <lastmod>2018-08-05T23:00:48+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/</loc>
-    <lastmod>2018-08-05T22:56:19+03:00</lastmod>
+    <lastmod>2018-08-05T23:00:48+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://vakhov.me/external/terraform.html</loc>
-    <lastmod>2018-08-05T22:56:19+03:00</lastmod>
+    <lastmod>2018-08-05T23:00:48+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -64,47 +64,6 @@
   
     <article class="post">    
       
-      <h1 class="main"><a href="/blog/2016/10/07/regular/index.html">Р - Регулярность</a></h1>
-      
-      <div class="date">October  7, 2016</div>
-
-      
-      <div class="entry">
-        <p>Этим летом как-то я приуныл, работа-дом-работа-дом и решил заняться личностным ростом, вот прямо так. Окинув жизненный опыт,
-а в 32 года уже обычно есть что окидывать, нашел одну закономерность. В тех делах был приятный результат,
-где я занимался чем-то регулярно.
-Из публичный вещей, это пожалуй комиты в рейлс. Я три месяца тратил на рейлс каждый день по 2-3 часа, включая выходные. В итоге
-попал в топ-50 контрибьютеров (за три года правда скатился в топ-100).
-В принципе с тех пор рейлс больше не учил, но тогда хорошо постарался, до сих
-пор помогает.</p>
-
-<p>Поэтому я решил попробовать заменить спонтанную регулярность, на сознательную регулярность. Ну уже кстати есть первые результаты,
-не скажу, что жизнь стала как бутон розы, но точно приятней. За два месяца я сделал две вещи: пробежал программу 5K Runner от
-<a href=http://www.fitness22.com>fitness22</a> и решил вести технический блог не меньше года, по истории каждый рабочий день.</p>
-
-<p>По раннеру получился пробег 114 км, прямо как спорткар с нуля до сотни за два месяца <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />. Просто оставлю здесь скриншоты первого
-и последнего занятий:</p>
-
-<p><img src=/assets/2/regular/b.png width=300px>
-<img src=/assets/2/regular/a.png width=300px></p>
-
-<p>Также опубликовал 42 поста с момента возрождения блога, то есть почти столько же, сколько за 3 года
-до этого в сумме. Кстати очень помогает публичный контракт с вами, я заявил сроки, регулярность, теперь не отвертеться.
-На самом деле зная себя, отвертеться можно и очень просто, но у меня еще есть серия трюков, которая, надеюсь поможет
-не сойти с трассы. При случае расскажу. До встречи <img class='emoji' title=':smiley_cat:' alt=':smiley_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63a.png' height='20' width='20' align='absmiddle' /></p>
-
-        
-        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/10/07/regular/index.html#disqus_thread">0 Comments</a></div></small>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/10/07/regular/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A0+-+%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D0%BE%D1%81%D1%82%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F10%2F07%2Fregular%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
       <h1 class="main"><a href="/blog/2016/10/06/db-optim/index.html">Кто пишет в базу?</a></h1>
       
       <div class="date">October  6, 2016</div>
@@ -407,6 +366,52 @@
       </div>
     </article>
   
+    <article class="post">    
+      
+      <h1 class="main"><a href="/blog/2016/09/23/email/index.html">Емейл-маркетинг в жизни простого инженера</a></h1>
+      
+      <div class="date">September 23, 2016</div>
+
+      <div class="img"><img src="/assets/2/email/main.jpg" /></div>
+      <div class="entry">
+        <p>Большинство инструментов маркетинга требуют добавления в домен SPF-записи. И через некоторое
+время получается примерно такая конструкция:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">dig +short -t txt mailchimp.com
+<span class="c"># v=spf1 include:servers.mcsv.net include:mail.zendesk.com</span>
+<span class="c"># include:_spf.google.com include:_lp.mailchimp.com ip4:50.22.164.201</span>
+<span class="c"># ip4:205.201.140.14 ip4:205.201.132.14 ~all</span>
+</code></pre></div>
+<p>Однако важно помнить одну деталь - при проверки этой записи сервер по спецификации должен
+сделать не больше 10 DNS запросов (информацию легко найти в интернете по ключевым словам
+<code>spf: too many DNS lookups</code>), иначе репутация письма будет сильно испорчена. Мы один раз
+случайно <code>_spf.google.com</code> поставили на последнее место для одного из доменов, эта запись вылетела из лимита и письма, отправленные
+просто из gmail-интерфейса, стали часто попадать в спам.</p>
+
+<p>Необходимое количество запросов легко посчитать вручную, раскрыв spf-запись каждого перечисленного
+адреса, или с помощью какого-нибудь скрипта. Однако самый лучшим способом проверить качество не только
+SPF-записей, а всех настроек в принципе, это отправить письмо из каждого используемого сервиса
+на специальный адрес, например который предложит <a href=https://www.mail-tester.com/>www.mail-tester.com</a>.
+Именно
+с помощью него мы быстро вычислили свою проблему с гмейлом.</p>
+
+<p>Конечно профессиональный маркетолог вам это все сам расскажет, но если вы продемонстрирует свои
+знания SPF и предложите проверить письма через мейл тестер, то он точно будет при встрече будет
+первым подавать руку.</p>
+
+<p>Хорошего дня вам, высокой конверсии и нулевого баунс рейта!</p>
+
+<p><img src="/assets/2/email/spam.png" alt=""></p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/23/email/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/09/23/email/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%95%D0%BC%D0%B5%D0%B9%D0%BB-%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3+%D0%B2+%D0%B6%D0%B8%D0%B7%D0%BD%D0%B8+%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B3%D0%BE+%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F23%2Femail%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
 </div>
 
 <!-- Pagination links -->
@@ -414,7 +419,7 @@
   
     <a href="/page20" class="previous">Previous</a>
   
-  <span class="page_number ">Page: 21 of 31</span>
+  <span class="page_number ">Page: 21 of 30</span>
   
     <a href="/page22" class="next">Next</a>
   
