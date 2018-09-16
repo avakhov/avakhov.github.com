@@ -7,10 +7,80 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Мастер Класс в Казани</title>
+        <description>
+          
+          &lt;p&gt;14 сентября провел &lt;a href=&quot;https://devopsdays.com.ru&quot;&gt;мастер-класс в Казани&lt;/a&gt; по настройке докер-кластера,
+полное название &amp;quot;Настройка докер кластера с использованием инструментов HashiCorp&amp;quot;. Для меня формат
+новый, но очень понравился. Вроде бы участники тоже остались довольны.&lt;/p&gt;
+
+&lt;p&gt;Мне хотелось провести интерактивную сессию только на чистой практике, чтобы каждый выполнил все
+задания 100% и при этом уложиться в отведенный час. И это получилось! Я собрал тестовый стенд
+на 16 человек, то есть это большой сервер, в котором крутятся 16 докер контейнеров с
+нужными улититами, консоль пробрасывается прямо в браузер с
+помощью &lt;a href=&quot;https://github.com/yudai/gotty&quot;&gt;gotty&lt;/a&gt;, у каждого участника своя презентация, с командами
+которые нужно выполнять&lt;/p&gt;
+
+&lt;p&gt;Вот так выглядела презентация участника:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/3/mc-kazan/2.png&quot; target=&quot;_blank&quot;&gt;&lt;img style=&quot;width:350px&quot; src=&quot;/assets/3/mc-kazan/2.png&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;/assets/3/mc-kazan/1.png&quot; target=&quot;_blank&quot;&gt;&lt;img style=&quot;width:350px&quot; src=&quot;/assets/3/mc-kazan/1.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Консоль:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/3/mc-kazan/3.png&quot; target=&quot;_blank&quot;&gt;&lt;img style=&quot;width:350px&quot; src=&quot;/assets/3/mc-kazan/3.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Основная сложность мастер-классов, в том что их тяжело вести одному,
+нужен ассистент, который помогает участникам, у кого что-то не получается. И вторая
+сложность состоит в том, что уровень группы разный, кто-то выполняет задания быстрее, кто-то медленнее.
+Быстрому всегда будет скучновато, а медленному тяжеловато.&lt;/p&gt;
+
+&lt;p&gt;Эти проблемы я попробовал нивелировать с помощью общего дешборда, на котором видны рабочие сессии всех
+участников:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/3/mc-kazan/4.png&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/3/mc-kazan/4.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Те кто, сделал шаг раньше, может наблюдать за прогрессом других, а также на дешборде легко оценить,
+кто не справляется и целево подойти к нужному человеку. Это сработало и помогло удержать фокус
+группы на занятии.&lt;/p&gt;
+
+&lt;p&gt;&amp;quot;Speed run&amp;quot; полного сценария занимает около 7 минут, состоит из 10-15 шагов. Но так-как вся группа ждала
+выполнения каждого шага всеми участниками, то полный мастер класс занял 55 минут.&lt;/p&gt;
+
+&lt;p&gt;Избранные отзывы:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Хороший формат для проведения презентаций, спасибо за workshop:)&lt;/li&gt;
+&lt;li&gt;Отличный интерактив! 10 динозавров из 10&lt;/li&gt;
+&lt;li&gt;Очень понравился интерактивный формат. Видно, что проделана работа по подготовке к занятию, что очень радует. Не хватило введения в используемые инструменты - многие использовали их первый раз.&lt;/li&gt;
+&lt;li&gt;Всё прикольно! Спасибо автору. Но конечно хочется не голой практики, а ещё и погружения одновременного в теорию&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Я очень рад таким отзывам, так как именно планировал максимально идеально провести практику
+с нулем теории. Большое спасибо участникам, что пришли и прошли все задания, было 10 активных
+пользователя и еще примерно столько же наблюдателей.&lt;/p&gt;
+
+&lt;p&gt;2 октября буду проводить еще одну сессию мастер-класса на
+&lt;a href=&quot;https://devopsconf.io/moscow/2018&quot;&gt;DevOps Conf&lt;/a&gt;, организаторы выделили времени в два раза больше,
+поэтому планирую добавить теории и может быть еще практических заданий. Но цель будет такая же -
+каждый участник поднимет настоящий докер кластер с мониторингом и сделает несколько выкаток тестовых
+приложений. Ну и конечно напоследок почистит всю созданную инфраструктуру, так как есть время 
+создавать сервера и есть время удалять сервера, чтобы они не тратили деньги.&lt;/p&gt;
+
+&lt;p&gt;До встречи и хорошего настроения &lt;img class=&#39;emoji&#39; title=&#39;:cat:&#39; alt=&#39;:cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f431.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;&lt;/p&gt;
+
+        </description>
+        <pubDate>Sun, 16 Sep 2018 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2018/09/16/mc-kazan/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2018/09/16/mc-kazan/index.html</guid>
+      </item>
+    
+      <item>
         <title>1 Year</title>
         <description>
           
-          &lt;p&gt;&lt;a href=&quot;/blog/2016/08/10/reborn/index.html&quot;&gt;/blog/2016/08/10/reborn&lt;/a&gt; - done &lt;img class=&#39;emoji&#39; title=&#39;:smiley_cat:&#39; alt=&#39;:smiley_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.&lt;/p&gt;
+          &lt;p&gt;&lt;a href=&quot;/blog/2016/08/10/reborn/index.html&quot;&gt;/blog/2016/08/10/reborn&lt;/a&gt; - done &lt;img class=&#39;emoji&#39; title=&#39;:smiley_cat:&#39; alt=&#39;:smiley_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63a.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:heart_eyes_cat:&#39; alt=&#39;:heart_eyes_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f63b.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt; &lt;img class=&#39;emoji&#39; title=&#39;:scream_cat:&#39; alt=&#39;:scream_cat:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f640.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;.
+yo&lt;/p&gt;
 
         </description>
         <pubDate>Thu, 10 Aug 2017 00:00:00 +0300</pubDate>
@@ -141,24 +211,6 @@
         <pubDate>Mon, 31 Jul 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/07/31/precies/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/07/31/precies/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Бойцы Опен Сорс</title>
-        <description>
-          
-          &lt;p&gt;Я бы очень хотел комитить в Опен Сорс, но катастрафически не хватает времени. 100+ комитов в Рейлс
-5 лет назад был последний вклад :-/ Кстати я до сих пор вхожу в топ-100 контрибьюторов и до сих
-пор этим фактом можно было бы украсить резюме, если бы оно мне понадобилось.&lt;/p&gt;
-
-&lt;p&gt;Не помню писал или нет, но я сделал скрипт, который вдул все исходники Рейлс в электронную книгу.
-Читал их везде, просто файл за файлом, и потом фиксил разные мелочи, правил документацию и тд. Ничего
-существенного, однако как красиво! Топ-100, м-м-м.&lt;/p&gt;
-
-        </description>
-        <pubDate>Fri, 28 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/28/oo/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/28/oo/index.html</guid>
       </item>
     
   </channel>
