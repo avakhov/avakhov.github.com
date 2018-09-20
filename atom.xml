@@ -7,6 +7,24 @@
     <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Inbox Всё</title>
+        <description>
+          
+          &lt;p&gt;Недавно прошла новость, что Гугл закрывает Инбокс, альтернативный клиент для почты. Выглядит очень странно, так как, казалось, что они наоборот
+когда-нибудь выпилят гмейл, инбокс был явно прогрессивнее. Я решил нанести алчной корпорации превентивный удар и перейти на гмейл сам.&lt;/p&gt;
+
+&lt;p&gt;Ну что-ж, жить можно, самая главная фича с откладыванием писем есть, без нее очень муторно дережать инбокс пустым.
+Я бы ждал 2019 года, однако инбоксом все равно не мог пользоваться на 100%. На телефоне приложение падает на письмах из джиры, а в дескопе
+не удобно посылать письма с картинками. Приходилось держать все приложения и все ссылки для личной и рабочей почт.
+Теперь вроде как полегче, будем наблюдать.&lt;/p&gt;
+
+        </description>
+        <pubDate>Fri, 21 Sep 2018 00:00:00 +0300</pubDate>
+        <link>http://vakhov.me/blog/2018/09/21/inbox-gmail/index.html</link>
+        <guid isPermaLink="true">http://vakhov.me/blog/2018/09/21/inbox-gmail/index.html</guid>
+      </item>
+    
+      <item>
         <title>Мастер Класс в Казани</title>
         <description>
           
@@ -197,20 +215,6 @@ yo&lt;/p&gt;
         <pubDate>Tue, 01 Aug 2017 00:00:00 +0300</pubDate>
         <link>http://vakhov.me/blog/2017/08/01/regla/index.html</link>
         <guid isPermaLink="true">http://vakhov.me/blog/2017/08/01/regla/index.html</guid>
-      </item>
-    
-      <item>
-        <title>Точность</title>
-        <description>
-          
-          &lt;p&gt;Много лет я борюсь с дурацкой привычкой быть точным в речи. Когда доказываешь теорему в математике, нужно быть точным в каждой запятой, пишешь программу - быть точным в каждой команде.&lt;/p&gt;
-
-&lt;p&gt;Но когда говоришь: &amp;quot;я был в театре в прошлом месяце, нет полгода прошло, нет пять месяцев без недели&amp;quot; - это тупо. &amp;quot;2 года назад&amp;quot; - это фигура речи, даже если даже если событие было год или 10 лет назад. &lt;/p&gt;
-
-        </description>
-        <pubDate>Mon, 31 Jul 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/07/31/precies/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/07/31/precies/index.html</guid>
       </item>
     
   </channel>

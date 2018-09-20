@@ -64,6 +64,37 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/12/02/5disk/index.html">5 дисков</a></h1>
+      
+      <div class="date">December  2, 2016</div>
+
+      <div class="img"><img src="/assets/2/5disk/main.jpg" /></div>
+      <div class="entry">
+        <p>Недавно во время переноса проекта в другой регион похоронил 5 дисков и устроил себе пару приятных ночных часов по накатыванию
+серверов с нуля и восстановлению из бэкапов. Сделал это с помощью своего любимого терраформа, утилиты, как я уже много раз говорил,
+крайне шустрой и опасной. Гарантирую, что вручную вы так быстро раскурочить живой проект никогда не сможете, обязательно нужно воспользоваться
+для этого правильными инструментами.</p>
+
+<p>Так вот, плохой, плохой Хашикорп дал вредный совет как подключать опенстек-диски. Вот он, пожалуйста, <a href="https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html">compute_instance_v2</a>, раздел <code>Boot From an Existing Volume</code>, зловредная опция -
+<code>delete_on_termination = true</code>. Запомните ее. Если удалить сервера (которые на самом деле пустышки,
+которые можно спокойно сноcить и восстанавлить, главное прописывать IP
+жестко), созданные, как рекомендуется в документации c <code>delete_on_termination = true</code>, то диску будет тоже секир башка.</p>
+
+<p>Опасность этой опции мы выяснили еще во время тестировании, закрепили, что ее ни в коем случае не надо использовать, но видимо она проникла
+в несколько старых серверов и сработала как надо - диски исчезли в момент. Ну чтож, зато бэкапы проверили.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/12/02/5disk/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/12/02/5disk/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=5+%D0%B4%D0%B8%D1%81%D0%BA%D0%BE%D0%B2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F02%2F5disk%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/01/python/index.html">Питон и емакс</a></h1>
       
       <div class="date">December  1, 2016</div>
@@ -407,67 +438,6 @@ bash - да, zsh - нет.</p>
         
 
         <div class="fb-share-button" data-href="/blog/2016/11/21/terraform_plus_selectel/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D1%8F%D0%B5%D0%BC+%C2%AB%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%BC+%D0%BF%D1%80%D0%B8%D0%B2%D0%B0%D1%82%D0%BD%D1%8B%D0%BC+%D0%BE%D0%B1%D0%BB%D0%B0%D0%BA%D0%BE%D0%BC%C2%BB+%D1%81+%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E+Terraform&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F21%2Fterraform_plus_selectel%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/18/timeman/index.html">Тайм менеджмент</a></h1>
-      
-      <div class="date">November 18, 2016</div>
-
-      <div class="img"><img src="/assets/2/timeman/main.jpg" /></div>
-      <div class="entry">
-        <p>Пришло время говорить о самой важной вещи - личной продуктивности. Как и у любого уважаемого блоггера у меня
-есть свои секретики (кручусь-с как говорится <img class='emoji' title=':stuck_out_tongue_winking_eye:' alt=':stuck_out_tongue_winking_eye:' src='https://assets.github.com/images/icons/emoji/unicode/1f61c.png' height='20' width='20' align='absmiddle' />). Что изучал:</p>
-
-<ul>
-<li>GTD, Архангельский</li>
-</ul>
-
-<p>Обе книги - классика. Интересно, занимательного, но очень сложно. Честно говоря я вроде и не рискнул хоть что-то попробовать. Очень, очень сложно. А, есть еще жесткая жесть - система Любищева.</p>
-
-<ul>
-<li><a href="https://www.ozon.ru/context/detail/id/3373340/">Тайм-менеджмент для системных администраторов</a></li>
-</ul>
-
-<p>Книжка классная, мне
-понравилась. Из нее прижилось, что нужно записывать, все что обещал пока шел по офису.
-Очень здорово, что там показан тайм менеджмент не вообще в широком смысле,
-а в конкретном случае для работы, когда часто отвлекают, а надо
-еще и проекты поделать.</p>
-
-<ul>
-<li><a href="https://pragprog.com/book/snfocus/pomodoro-technique-illustrated">Pomodoro Technique Illustrated</a></li>
-</ul>
-
-<p>Честно купил электронную книгу и прочитал. Сама система никак не прижилась, хотя регулярные перерывы я, конечно, стараюсь
-делать. Запомнил оттуда бинарный тудулист. Это тудулист в котором одна задача (или ноль). Вспоминаю
-эту идею в минуты когда не знаю, что делать прямо сейчас.</p>
-
-<ul>
-<li>Максим Дорофеев - <a href="http://mnogosdelal.ru/slidecasts/dovedenie-del-do-kontsa/">Доводить дела до конца</a></li>
-</ul>
-
-<p>Честно говоря все видосы я не досмотрел до конца, хотя хотел <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />, но мне очень понравился докладчик и три принципа
-(формулировки, списки,
-регулярные обзоры) я использую. Действительно удобно держать список крупных задач, но не разбивать их на 100 мелких сразу же,
-а отколоть одну задачку, потому вторую и так потихоньку двигаться.</p>
-
-<p>В качестве софтовой поддержки своей системы эффективности уже два года использую <a href="https://todoist.com">тудуист</a> и нещадно
-троллю Тимура. Когда я спросил какую тудушницу скачать, он сказал, что конечно вундерлист,
-но есть еще тудуист, там функционал плохой. Я выбрал
-тудуист и всегда говорю, что Тимур посоветовал.</p>
-
-<p>Но вообще эффективно получается работать, когда нравится то, что делаешь, и неэффективно когда не нравится.</p>
-
-        
-        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/18/timeman/index.html#disqus_thread">0 Comments</a></div></small>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/11/18/timeman/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A2%D0%B0%D0%B9%D0%BC+%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%BC%D0%B5%D0%BD%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F18%2Ftimeman%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
