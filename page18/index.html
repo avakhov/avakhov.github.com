@@ -64,6 +64,34 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/11/21/terraform_plus_selectel/index.html">Управляем «Виртуальным приватным облаком» с помощью Terraform</a></h1>
+      
+      <div class="date">November 21, 2016</div>
+
+      <div class="img"><img src="/assets/2/terraform_plus_selectel/main.jpg" /></div>
+      <div class="entry">
+        <p>По предложению сотрудников Селектела написал <a href="https://blog.selectel.ru/gostevoj-post-upravlyaem-virtualnym-privatnym-oblakom-s-pomoshhyu-terraform/">гостевой пост про терраформ</a>. Уф, непросто это было, не помню когда в последний раз что-то подобное по объему писал.
+Потратил около 15-20 часов и еще время, которые потратили сотрудники на правку и вычитку. Спасибо 
+<a href="https://blog.selectel.ru/author/yemelianov/">Андрею Емельянову</a>, за помощь в
+оформлении статьи как по целостности и стилю, так и по грамотности.</p>
+
+<p>Терраформ, как вы уже заметили, сейчас мой фаворит, но как и с любым другим инструментом 5% времени нужно потратить на его
+изучение и 95% - на внедрение в повседневные процессы компании. У нас, я считаю, мы уже внедрили, даже провели внутреннюю мини-конферецию
+по использованию. Есть еще серия хитростей, как можно облегчить использование, которые я не успел раскрыть в статье, буду потихоньку
+рассказывать.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/21/terraform_plus_selectel/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/11/21/terraform_plus_selectel/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A3%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D1%8F%D0%B5%D0%BC+%C2%AB%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%BC+%D0%BF%D1%80%D0%B8%D0%B2%D0%B0%D1%82%D0%BD%D1%8B%D0%BC+%D0%BE%D0%B1%D0%BB%D0%B0%D0%BA%D0%BE%D0%BC%C2%BB+%D1%81+%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E+Terraform&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F21%2Fterraform_plus_selectel%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/11/18/timeman/index.html">Тайм менеджмент</a></h1>
       
       <div class="date">November 18, 2016</div>
@@ -413,69 +441,6 @@ dropdb <span class="nv">$db</span>
         
 
         <div class="fb-share-button" data-href="/blog/2016/11/08/cpp/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A2%D1%80%D0%B0%D0%B2%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD+C%2B%2B&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F08%2Fcpp%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/11/07/shatal2/index.html">Устои шатал - 2</a></h1>
-      
-      <div class="date">November  7, 2016</div>
-
-      <div class="img"><img src="/assets/2/shatal2/main.jpg" /></div>
-      <div class="entry">
-        <p>Сегодня еще пошатаем. Как мы все помним, тестирование - это просто один из фильтров качества
-Так вот есть еще одна моральная категория - это аджайл, скрам и все такое.</p>
-
-<p>В чем проблема аджайл? Так же как и идеальное тестирование - его в живую никто не видел. Вот есть там
-инженеры за тридевять земель, у которых самые
-канонические процессы, а нам надо молиться и благоговеть. Мне кажется это немного неправильно. Сейчас все команды в том или ином
-смысле аджайл, говорить, что одни гибкие, а другие не очень, это как защищать шариковые ручки, перед гусиными перьями. Вроде бы
-и не зачем. Абсолютно все команды планируют и обсуждают с разной степенью успешности,
-работают по каким-то естественным временным интервалам, катят новые версии пореже или почаще. Гибкие - все. Но конечно по разному. Это
-да. Задачи разные, люди разные, история разная. Не правильно требовать одинаковости (кстати чем ярые защитники методологий часто и
-грешат, они хотят, чтобы все было как-то слишком одинаково).</p>
-
-<p>Если честно я очень слаб в терминалогии, хотя читал много статей, книг и даже
-какую-то толстенную книгу по скраму, страниц на 800.
-Аджайл, это принцип, набор добрых советов, методология? Хм. Не знаю. Могу путать, извините заранее. Например
-в айкидо, в котором я к сожалению добрался всего до 4 кю и сошел с трассы, на каждом новом этапе количество техник увеличивается и
-составляет несколько сотен к первому дану. Потом все обратно сводится к двум базовым движениям. И далее вообще к одному у великих мастеров.</p>
-
-<p>Так и в программировании. Пик знаний всяких хитрых C++-приемов у меня был на третий-пятый годы работы, потом начал забывать. Я просто научился
-программировать, ориентироваться в контексте. Это как езда на велосипеде -
-можно перестать думать про контроль кучи факторов и просто
-наслаждаться поездкой. На одном собеседовании меня спросили, можно ли конструктор без агрументов вызвать из
-конструктора с аргументами. Я ответил (если выразить мой ответ цветасто),
-что C++ - многогранен, аки дьявол и наверняка можно, раз вы спрашиваете, но к сожалению
-мне этот аспект языка не знаком. И практического смысла в вашем вопросе не вижу. Мой ответ наверное приняли, так как оффер прислали <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.</p>
-
-<p>Сейчас, допустим, я точно не знаю чем отличается <code>{}</code> от <code>do end</code>,
-или что более канонично <code>proc</code> или <code>labmda</code>.
-Просто видел много кода
-и мне кажется довольно разумно употребляю то или иное. Где-то на грани ощущений чувствую, что разница есть, нагуглю если
-прижмет, и твердо уверен, что если в продакшен-коде знание этой разницы существенно для понимания программы, то автор кода - не прав.</p>
-
-<p>К процессам у меня такое же отношение.
-Совершенно обязательно нужно узнать разнообразие подходов, поработать в разных трекерах и экселе,
-попроводить ежедневные митинги, повести доску с магнитиками, поиграть в покер. И потом выбирать из этого всего то,
-что подходит к каждой
-конкретной ситуации.</p>
-
-<p>У меня почему-то в голове темы &quot;тестируй или погибнешь&quot;, &quot;скрам или сдохни&quot;, &quot;ооп без жалости и границ&quot; - это все разные обличия 
-одного и того же молодецкого максимализма, который с годами (а для IT у меня достаточно солидный возраст - 32 годика уже) перерастает
-в какие-то более спокойные формы. Перефразируя слова, которые приписывают Черчилю, скажу,
-что если после 5 лет работы, вы не знаете все тонкости языка, на котором работаете и не проповедуете аджайл
-радикального характера, у вас
-нет сердца, но если после 10 лет вы это все благополучно не забыли, сердца у вас все равно нет <img class='emoji' title=':stuck_out_tongue_winking_eye:' alt=':stuck_out_tongue_winking_eye:' src='https://assets.github.com/images/icons/emoji/unicode/1f61c.png' height='20' width='20' align='absmiddle' />.</p>
-
-        
-        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/11/07/shatal2/index.html#disqus_thread">0 Comments</a></div></small>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/11/07/shatal2/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%A3%D1%81%D1%82%D0%BE%D0%B8+%D1%88%D0%B0%D1%82%D0%B0%D0%BB+-+2&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F11%2F07%2Fshatal2%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

@@ -64,6 +64,45 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/09/27/comments/index.html">Когда пора комментировать</a></h1>
+      
+      <div class="date">September 27, 2016</div>
+
+      <div class="img"><img src="/assets/2/comments/main.jpg" /></div>
+      <div class="entry">
+        <p>Когда я работал C++-разработчиком в <a href=http://www.cqg.com>CQG</a> у нас было забавное правило, которым пользуюсь до сих пор.
+В новом коде было необходимо документировать только классы и функции (а их нужно было документировать всегда, для большой кодовой
+базы это необходимо), но сам код практически не документировался. Потому-что новый код всегда чистенький, гладенький и в целом
+понятный. Но когда идет вставка кода в уже существующий метод, хорошим тоном было описать кто и зачем этот фрагмент
+вставил.</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">some</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ... много кода </span>
+
+  <span class="c1">// av: fix of #342987. Иногда внешний сервис возвращает 1, но при этом ...</span>
+  <span class="k">if</span> <span class="p">(...)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+
+  <span class="c1">// ... еще много кода</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Формально эту информацию можно достать с помощью <code>git blame</code> (ну не <code>git</code> на самом деле, гита тогда еще не было),
+однако тогда приходится делать много лишних кликов, прыгать по истории и вникать во все комиты, в которых менялся данный файл.
+Фактически же такие комменарии очень
+сильно помогают разобраться в конкретном файле. И чем больше рубцов, тем более легаси код.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/27/comments/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/09/27/comments/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%B3%D0%B4%D0%B0+%D0%BF%D0%BE%D1%80%D0%B0+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F27%2Fcomments%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/09/26/sinatra/index.html">С Синатрой мне не по пути</a></h1>
       
       <div class="date">September 26, 2016</div>
@@ -416,56 +455,6 @@ zfgrep <span class="s1">&#39;Completed 302&#39;</span> *.gz
         
 
         <div class="fb-share-button" data-href="/blog/2016/09/14/slim-coff/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Slim+%26+Coffee&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F14%2Fslim-coff%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/09/13/blogo-engine/index.html">Блогомашина</a></h1>
-      
-      <div class="date">September 13, 2016</div>
-
-      
-      <div class="entry">
-        <p>Как говаривал Будда есть две сложные вещи: начать что-то делать и продолжить это делать регулярно. Так и
-с блогом, мне нравится его писать, нравится результат, но как сделать так чтобы не забросить?</p>
-
-<p>Расскажу как мотивирую себя писать дальше. Вообще я решил писать блог ровно год, по посту каждый
-будний день, а потом подумать, что делать дальше (делаем ставки, продержусь или нет <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />).
-У меня нет силы воли
-в смысле &quot;буду вставать в шесть утра, обливаться холодной водой, кросс, потом два поста в блог&quot;. Нет.
-Скорее накануне такой здоровой новой жизни я приму пивка, будет повод 
-обязательно какой-нибудь хороший,
-и проснусь часиков в одиннадцать. Вместо силы воли - я стараюсь создать правильные условия, которые
-помогают двигаться в желаемом направлении.</p>
-
-<p>Каждый день, после работы, делаю несколько простых вещей:</p>
-
-<ul>
-<li>смотрю комментарии и отвечаю если есть</li>
-<li>вычитываю посты в очереди</li>
-<li>пишу два новых поста</li>
-</ul>
-
-<p>В тудуисте у меня есть проект с идеями для блога, который я постоянно пополняю. Потом спец-скриптом
-беру случайную идею и либо пишу пост по ней, либо выкидываю из списка. Так как идеи - штуки
-ценные, то стараюсь все-таки писать. Каждый новый пост генерируется с параметром <code>read = 3</code>, что
-означает, что его нужно вычитать минимум три раза. При каждой вычитке я уменьшаю цифру на единицу, пока
-она не станет равной 0. Раз в неделю для всех постов в очереди отрисовываю картинки, сканирую их и
-раскрашиваю. Все. То есть такой самый настоящий конвейер.</p>
-
-<p>Генри Форд - красавчик! Кстати <a href="http://www.lookatme.ru/mag/live/wrong-beliefs/209093-ignorance-ford-assembly">умные люди в интернете говорят</a>,
-что &quot;Форд не изобретал конвейер, а впервые организовал поточное производство&quot;. Не совсем понимаю
-в чем разница <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />, но eсли бы не блог - стал бы
-я это вообще гуглить?</p>
-
-        
-        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/09/13/blogo-engine/index.html#disqus_thread">0 Comments</a></div></small>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/09/13/blogo-engine/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%91%D0%BB%D0%BE%D0%B3%D0%BE%D0%BC%D0%B0%D1%88%D0%B8%D0%BD%D0%B0&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F09%2F13%2Fblogo-engine%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

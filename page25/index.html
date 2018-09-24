@@ -64,6 +64,42 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2016/08/16/back-tick/index.html">Коварный backtick или как определить размер используемой памяти</a></h1>
+      
+      <div class="date">August 16, 2016</div>
+
+      <div class="img"><img src="/assets/2/back-tick/main.jpg" /></div>
+      <div class="entry">
+        <p>В одном жирненьком руби-воркере мы логировали размер памяти, которую расходует процесс, с
+помощью команды <code>&#96;ps -o rss -p #{$$}&#96;</code>. Такой способ легко найти в интернете и он обычно работает.</p>
+
+<p>Однако сам <code>Kernel#`</code> сделан так, что он форкает руби процесс,
+соответственно на доли секунды резервируя еще столько же памяти, сколько
+процесс занимает уже. Наш воркер в ходе работы раздувался до 2.5-3GB и начал падать на 4GB оперативной памяти.</p>
+
+<p>Я подсмотрел как сделано в ньюрелике (файл <code>new_relic/agent/samplers/memory_sampler.rb</code>):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">proc_status_file</span> <span class="o">=</span> <span class="s2">&quot;/proc/</span><span class="si">#{</span><span class="vg">$$</span><span class="si">}</span><span class="s2">/status&quot;</span>
+<span class="n">proc_status</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">proc_status_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">read_nonblock</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span> <span class="p">}</span>
+<span class="n">proc_status</span> <span class="o">=~</span> <span class="sr">/RSS:\s*(\d+) kB/i</span>
+<span class="n">rss</span> <span class="o">=</span> <span class="vg">$1</span><span class="o">.</span><span class="n">to_f</span> 
+</code></pre></div>
+<p>На линуксе вместо запуска <code>ps</code> лучше использовать информацию из раздела <code>/proc</code>.
+Такой способ не требует
+избыточной памяти и работает у нас
+по сей день.</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/08/16/back-tick/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2016/08/16/back-tick/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%BE%D0%B2%D0%B0%D1%80%D0%BD%D1%8B%D0%B9+backtick+%D0%B8%D0%BB%D0%B8+%D0%BA%D0%B0%D0%BA+%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C+%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80+%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D1%83%D0%B5%D0%BC%D0%BE%D0%B9+%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F08%2F16%2Fback-tick%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/08/15/deploy/index.html">Когда все слишком хорошо</a></h1>
       
       <div class="date">August 15, 2016</div>
@@ -771,78 +807,6 @@ computed-свойста, вычисляемые реактивно, обзерв
         
 
         <div class="fb-share-button" data-href="/blog/2015/01/23/ember-1-intro/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Ember.js+-+1.+%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F23%2Fember-1-intro%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2015/01/15/hub/index.html">Hub и Git</a></h1>
-      
-      <div class="date">January 15, 2015</div>
-
-      <div class="img"><img src="/assets/hub.jpg" /></div>
-      <div class="entry">
-        <p>Привет! Легкая посленовогодняя разминка для лица:</p>
-
-<p><img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':open_mouth:' alt=':open_mouth:' src='https://assets.github.com/images/icons/emoji/unicode/1f62e.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':flushed:' alt=':flushed:' src='https://assets.github.com/images/icons/emoji/unicode/1f633.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':stuck_out_tongue_closed_eyes:' alt=':stuck_out_tongue_closed_eyes:' src='https://assets.github.com/images/icons/emoji/unicode/1f61d.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':expressionless:' alt=':expressionless:' src='https://assets.github.com/images/icons/emoji/unicode/1f611.png' height='20' width='20' align='absmiddle' />
-<img class='emoji' title=':yum:' alt=':yum:' src='https://assets.github.com/images/icons/emoji/unicode/1f60b.png' height='20' width='20' align='absmiddle' /> Yo!
-Теперь хорошо, можно работать дальше.</p>
-
-<p>25 декабря прошлого года я описал свой процесс отправки пул реквестов <a href="/blog/2014/12/25/contribute/index.html"><i class="fa fa-external-link"></i></a>
-и буквально на следующий день наткнулся на утилиту hub <a href="https://hub.github.com/"><i class="fa fa-external-link"></i></a> - makes git better with GitHub. С ее помощью (и кстати и без ее помощи) можно сделать процесс
-контрибьюторства совсем приятным.</p>
-
-<h3>Более правильный процесс</h3>
-
-<p>1 - Клонируем оригинальный репозитарий (лучше через протокол <code>git://</code> - Гитхаб не разрешает пушить через него и поэтому
-вы случайно не отправите код, даже если у вас есть права на запись в репозитарий <code>awesome/awesome</code>)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git clone git://github.com/awesome/awesome.git
-</code></pre></div>
-<p>2 - Подцепляем наш форк через дополнительный ремоут (вот здесь пригодиться <code>hub</code>)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">hub fork
-</code></pre></div>
-<p>3 - Пушим ветки в ориджин <code>username</code></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">git checkout -b new-feature
-...
-git push avakhov new-feature -u
-</code></pre></div>
-<p>То есть вместо клонирования форка забираем оригинальный репозитарий, подцепляя все что нужно
-через ремоуты. Так работать гораздо проще и естественнее, удивительно, что я об этом не знал.</p>
-
-<h3>На работе мы отправляем пул реквесты через ветки, без форков</h3>
-
-<p>В это случае полезны три алиаса, которыми я пользуюсь регулярно:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># ~/.gitconfig
-[user]
-  name = Alexey Vakhov
-  email = vakhov@gmail.com
-[alias]
-  o = !hub browse # раньше здесь был замысловатый код,
-                  # пока я не знал про hub
-  pushup = !git push origin `git symbolic-ref HEAD --short` -u
-  cleanup = !git checkout master &amp;&amp; git pull --rebase &amp;&amp; \
-    git remote prune origin &amp;&amp; git branch --merged | \
-    grep -v &quot;\\*&quot; | xargs -n 1 git branch -d
-</code></pre></div>
-<p><code>git o</code> - открыть страницу репозитария.</p>
-
-<p><code>git pushup</code> - отправить текущую, свежесозданную ветку в <code>origin</code>.</p>
-
-<p><code>git cleanup</code> - почистить локальный репозитарий от разных старых, уже смерженных в мастер веток.</p>
-
-        
-        <small><div style="float:right;font-size:85%;"><a href="/blog/2015/01/15/hub/index.html#disqus_thread">0 Comments</a></div></small>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2015/01/15/hub/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=Hub+%D0%B8+Git&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2015%2F01%2F15%2Fhub%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>

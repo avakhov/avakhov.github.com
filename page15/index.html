@@ -64,6 +64,39 @@
   
     <article class="post">    
       
+      <h1 class="main"><a href="/blog/2017/01/13/friday/index.html">Магия цифр</a></h1>
+      
+      <div class="date">January 13, 2017</div>
+
+      
+      <div class="entry">
+        <p>Люблю Новый год. В этот период счётчики обнуляются, итоги фиксируются, планы строятся.
+Есть сильные личности, которые могут начинать новую жизнь в любой день и любой миг.
+У Лебедева был пост на эту тему, лень искать, что нужно решить просто жить по новому и
+проснуться новым человеком, такой лайфхак. Так же Лебедев и другие топовые блоггеры
+любят жаловаться на длинные праздники, что никто не работает и страна наша из-за этого
+остаётся в мраке и разрухе. </p>
+
+<p>Я - слабая личность и совсем не топовый блоггер и вообще не блоггер, у меня работа есть <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />.
+Поэтому я люблю эту новогоднюю движуху, замирание активности в последние дни,
+потом каникулы, когда можно что-то поделать для себя и разгрести какие-то дела,
+и выход обратно в процесс. К тому же сама природа помогает. Вот пол января прожили,
+февраль туда сюда, день длиннее и запахнет весной, красота. Я после новогодних праздников всегда оживаю. </p>
+
+<p>Так вот отдохнул, поел, попил и готов к новому сезону работы и блоггинга. Всем привет!</p>
+
+        
+        <small><div style="float:right;font-size:85%;"><a href="/blog/2017/01/13/friday/index.html#disqus_thread">0 Comments</a></div></small>
+        
+        
+
+        <div class="fb-share-button" data-href="/blog/2017/01/13/friday/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9C%D0%B0%D0%B3%D0%B8%D1%8F+%D1%86%D0%B8%D1%84%D1%80&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2017%2F01%2F13%2Ffriday%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
+        
+      </div>
+    </article>
+  
+    <article class="post">    
+      
       <h1 class="main"><a href="/blog/2016/12/30/2017/index.html">2016 + 1</a></h1>
       
       <div class="date">December 30, 2016</div>
@@ -321,39 +354,6 @@
         
 
         <div class="fb-share-button" data-href="/blog/2016/12/20/shiva/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%98%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F20%2Fshiva%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
-        
-      </div>
-    </article>
-  
-    <article class="post">    
-      
-      <h1 class="main"><a href="/blog/2016/12/19/static_prom/index.html">Кастомные метрики прометея</a></h1>
-      
-      <div class="date">December 19, 2016</div>
-
-      
-      <div class="entry">
-        <p>Красота концепций прометея такая, что режет глаза. В <a href="https://github.com/prometheus/node_exporter#textfile-collector">документации</a> написано, что для
- использования кастомных метрик в экпортере, просто положите их в файл:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo </span>my_batch_job_completion_time <span class="k">$(</span>date +%s<span class="k">)</span> &gt; /path/to/directory/my_batch_job.prom.<span class="nv">$$</span>
-mv /path/to/directory/my_batch_job.prom.<span class="nv">$$</span> /path/to/directory/my_batch_job.prom
-</code></pre></div>
-<p>&quot;WTF?&quot; - подумал я и протер глаза. &quot;Как они из собирают? Неужели они трекают изменения файлов? Как они это делают кроссплатформенно?&quot; - глаза
-я протирал несколько дней. Пока вдруг не понял! Там же настраивается опрос метрик из центра, поэтому файлик будет спокойненько себе
-лежать, пока ноду не опросят в очередной раз! Трюк с <code>$$</code> нужен просто для атомарности файла.</p>
-
-<p>Конечно, таким образом не получится измерять
-очень часто меняющийся параметр, но это и не надо для системы мониторинга. Восторг, три котика 
-<img class='emoji' title=':heart_eyes_cat:' alt=':heart_eyes_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63b.png' height='20' width='20' align='absmiddle' /> 
-<img class='emoji' title=':heart_eyes_cat:' alt=':heart_eyes_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63b.png' height='20' width='20' align='absmiddle' /> 
-<img class='emoji' title=':heart_eyes_cat:' alt=':heart_eyes_cat:' src='https://assets.github.com/images/icons/emoji/unicode/1f63b.png' height='20' width='20' align='absmiddle' />!</p>
-
-        
-        <small><div style="float:right;font-size:85%;"><a href="/blog/2016/12/19/static_prom/index.html#disqus_thread">0 Comments</a></div></small>
-        
-        
-
-        <div class="fb-share-button" data-href="/blog/2016/12/19/static_prom/index.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php">Поделиться</a></div><a href="https://twitter.com/intent/tweet?text=%D0%9A%D0%B0%D1%81%D1%82%D0%BE%D0%BC%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8+%D0%BF%D1%80%D0%BE%D0%BC%D0%B5%D1%82%D0%B5%D1%8F&url=http%3A%2F%2Fvakhov.me%2Fblog%2F2016%2F12%2F19%2Fstatic_prom%2Findex.html" class="twitter-share-button">Tweet</a><style>.twitter-share-button{position:relative !important;left:10px;top:6px}</style>
         
       </div>
     </article>
