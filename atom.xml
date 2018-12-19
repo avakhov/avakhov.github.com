@@ -3,8 +3,8 @@
   <channel>
     <title>Alexey Vakhov</title>
     <description>Блог, милый блог.</description>
-    <link>http://vakhov.me</link>
-    <atom:link href="http://vakhov.me/atom.xml" rel="self" type="application/rss+xml" />
+    <link>avakhov.github.io</link>
+    <atom:link href="avakhov.github.io/atom.xml" rel="self" type="application/rss+xml" />
     
       <item>
         <title>Мой Восторг от IT</title>
@@ -44,8 +44,8 @@
 
         </description>
         <pubDate>Mon, 24 Sep 2018 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2018/09/24/gold-era/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2018/09/24/gold-era/index.html</guid>
+        <link>avakhov.github.io/blog/2018/09/24/gold-era/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2018/09/24/gold-era/index.html</guid>
       </item>
     
       <item>
@@ -62,8 +62,8 @@
 
         </description>
         <pubDate>Fri, 21 Sep 2018 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2018/09/21/inbox-gmail/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2018/09/21/inbox-gmail/index.html</guid>
+        <link>avakhov.github.io/blog/2018/09/21/inbox-gmail/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2018/09/21/inbox-gmail/index.html</guid>
       </item>
     
       <item>
@@ -131,8 +131,8 @@
 
         </description>
         <pubDate>Sun, 16 Sep 2018 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2018/09/16/mc-kazan/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2018/09/16/mc-kazan/index.html</guid>
+        <link>avakhov.github.io/blog/2018/09/16/mc-kazan/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2018/09/16/mc-kazan/index.html</guid>
       </item>
     
       <item>
@@ -144,8 +144,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Thu, 10 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/10/done/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/10/done/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/10/done/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/10/done/index.html</guid>
       </item>
     
       <item>
@@ -161,8 +161,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Wed, 09 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/09/july/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/09/july/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/09/july/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/09/july/index.html</guid>
       </item>
     
       <item>
@@ -173,8 +173,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Tue, 08 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/08/react/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/08/react/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/08/react/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/08/react/index.html</guid>
       </item>
     
       <item>
@@ -193,8 +193,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Mon, 07 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/07/sport/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/07/sport/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/07/sport/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/07/sport/index.html</guid>
       </item>
     
       <item>
@@ -215,8 +215,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Fri, 04 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/04/office/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/04/office/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/04/office/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/04/office/index.html</guid>
       </item>
     
       <item>
@@ -229,8 +229,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Thu, 03 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/03/shachid/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/03/shachid/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/03/shachid/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/03/shachid/index.html</guid>
       </item>
     
       <item>
@@ -243,8 +243,8 @@ yo&lt;/p&gt;
 
         </description>
         <pubDate>Wed, 02 Aug 2017 00:00:00 +0300</pubDate>
-        <link>http://vakhov.me/blog/2017/08/02/regexp/index.html</link>
-        <guid isPermaLink="true">http://vakhov.me/blog/2017/08/02/regexp/index.html</guid>
+        <link>avakhov.github.io/blog/2017/08/02/regexp/index.html</link>
+        <guid isPermaLink="true">avakhov.github.io/blog/2017/08/02/regexp/index.html</guid>
       </item>
     
   </channel>
